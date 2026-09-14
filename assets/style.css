@@ -6,7 +6,7 @@
 
 /* ============================================================
    «САЙТ ДЛЯ АМДЦ» — персональное предложение.
-   Дизайн-система «Обсидиан и бронза».
+   Дизайн-система «Порфир и сусальное золото».
 
    ── Что это за страница ──────────────────────────────────
    Её задача не рассказать о клинике, а продать одному
@@ -18,10 +18,17 @@
    ── Цвет ─────────────────────────────────────────────────
    Четыре фона, которые чередуются полосами:
 
-     оникс      #0A0C0E   почти чёрный, холодный  — утверждения
-     сапфир     #0B1226   чернильный индиго       — данные, цифры
-     изумруд    #05231D   глубокий зелёный        — формы захвата
+     порфир     #100B16   почти чёрный, тёплый    — утверждения
+     аметист    #1C1129   густой баклажан         — данные, цифры
+     изумруд    #0A2A22   глубокий зелёный        — формы захвата
      алебастр   #EFEAE0   тёплая бумага           — доказательства
+
+   Тёмное намеренно не нейтральное. Холодный чёрный читается
+   техникой и дешевеет на любом экране с тёплой матрицей;
+   чёрный с каплей фиолетового читается дорогим — на этом
+   стоит весь премиальный сегмент. Полосы отличаются не
+   оттенком, а глубиной: порфир почти чёрный, аметист светлее
+   и насыщеннее, между ними всегда бумага.
 
    Изумруд закреплён за формами: три раза за страницу полоса
    зеленеет — и человек понимает, что здесь от него чего-то
@@ -31,6 +38,12 @@
    линии, цифры, кнопка. Больше ничего золотого на странице
    нет: если позолотить второе место, кнопка перестанет быть
    единственным ярким пятном.
+
+   Там, где бронза набрана крупно — акцент в заголовке,
+   якорная цифра, первая строка первого экрана, — она залита
+   сверху вниз, от блика #FDF3D8 к тени #8E6B2C. Плоский
+   жёлтый читается жёлтым текстом; заливка с перепадом —
+   сусальным золотом.
 
    Оценочные цвета: нефрит — работает, карнеол — сломано,
    янтарь — наполовину. Они живут тинтом и волоском, крупной
@@ -50,17 +63,19 @@
 :root{
 
   /* ---------- ФОНЫ: четыре полосы ------------------------ */
-  --onyx:#0A0C0E;          /* оникс: базовая тёмная полоса    */
-  --onyx-2:#0D1013;        /* панель на ониксе                */
-  --onyx-3:#06080A;        /* провал, подвал, шапка           */
+  --onyx:#100B16;          /* порфир: базовая тёмная полоса   */
+  --onyx-2:#17101F;        /* панель на порфире               */
+  --onyx-3:#0A0610;        /* провал, подвал, шапка           */
 
-  --indigo:#0B1226;        /* сапфировые чернила              */
-  --indigo-2:#0F1830;      /* панель на сапфире               */
-  --indigo-3:#070C1B;      /* глубина                         */
+  --indigo:#1C1129;        /* аметист: полоса данных          */
+  --indigo-2:#241636;      /* панель на аметисте              */
+  --indigo-3:#140B1E;      /* глубина                         */
 
-  --emerald:#05231D;       /* глубокий изумруд: формы         */
-  --emerald-2:#082C24;     /* панель на изумруде              */
-  --emerald-3:#031713;     /* глубина                         */
+  --emerald:#0A2A22;       /* глубокий изумруд: формы         */
+  --emerald-2:#0E362B;     /* панель на изумруде              */
+  --emerald-3:#061C17;     /* глубина                         */
+
+  --plum:#751681;          /* фиолетовый подсвет тёмных полос */
 
   --paper:#EFEAE0;         /* алебастр: светлая полоса        */
   --paper-2:#E6DFD1;       /* низ градиента светлой полосы    */
@@ -70,7 +85,7 @@
   /* ---------- МЕТАЛЛ: единственный акцент ---------------- */
   --au:#C8A45F;            /* бронза                          */
   --au-hi:#EBD6A6;         /* блик на бронзе                  */
-  --au-lo:#8E7440;         /* тень на бронзе                  */
+  --au-lo:#4C3315;         /* тень на бронзе, до коричневого  */
   --au-ink:#6B5527;        /* бронза по бумаге, для текста    */
   --au-wash:rgba(200,164,95,.10);
   --au-line:rgba(200,164,95,.26);
@@ -91,10 +106,10 @@
   --amber-ink:#8A5E17;
 
   /* ---------- ЧЕРНИЛА ПО ТЁМНОМУ ------------------------- */
-  --t1:#F4F1E9;            /* тёплый белый: заголовки         */
-  --t2:#AEB4B8;            /* основной текст                  */
-  --t3:#868E96;            /* подписи, мелочь                 */
-  --t4:#767F88;            /* самое тихое                     */
+  --t1:#F6F1E8;            /* тёплый белый: заголовки         */
+  --t2:#B9B0BC;            /* основной текст                  */
+  --t3:#948A99;            /* подписи, мелочь                 */
+  --t4:#847A8A;            /* самое тихое                     */
 
   /* ---------- ЧЕРНИЛА ПО БУМАГЕ -------------------------- */
   --ink:#12161A;
@@ -116,9 +131,9 @@
   --pad:clamp(3.4rem,2rem + 4.2vw,5.1rem);   /* обычная полоса  */
   --pad-s:clamp(2.6rem,1.7rem + 3vw,3.9rem); /* тесная: служебные */
   --pad-l:clamp(4rem,2.4rem + 5vw,6.4rem);   /* просторная: формы */
-  --r:4px;
-  --r-md:8px;
-  --r-lg:14px;
+  --r:6px;
+  --r-md:12px;
+  --r-lg:22px;
   --hdr:80px;
 
   /* ---------- ШРИФТОВАЯ ШКАЛА ---------------------------- */
@@ -229,32 +244,32 @@ html{scrollbar-width:thin;scrollbar-color:var(--au-lo) transparent}
 /* ---- оникс --------------------------------------------- */
 .b-onyx{
   background:
-    linear-gradient(180deg,#0C0F12 0%,var(--onyx) 42%,#080A0C 100%);
+    linear-gradient(180deg,#160F1E 0%,var(--onyx) 44%,var(--onyx-3) 100%);
   color:var(--t2);
 }
 .b-onyx::before{
   background:
-    radial-gradient(58rem 32rem at 78% -6%,rgba(200,164,95,.10),transparent 62%),
-    radial-gradient(46rem 30rem at 6% 104%,rgba(38,72,128,.16),transparent 64%);
+    radial-gradient(58rem 30rem at 76% -8%,rgba(221,192,134,.13),transparent 62%),
+    radial-gradient(46rem 30rem at 4% 104%,rgba(117,22,129,.20),transparent 64%);
 }
 
 /* ---- сапфир -------------------------------------------- */
 .b-indigo{
   background:
-    linear-gradient(180deg,#0E1730 0%,var(--indigo) 46%,var(--indigo-3) 100%);
-  color:#AFB8CB;
+    linear-gradient(180deg,#26173A 0%,var(--indigo) 46%,var(--indigo-3) 100%);
+  color:#BCAFC6;
 }
 .b-indigo::before{
   background:
-    radial-gradient(52rem 30rem at 84% 4%,rgba(86,132,214,.18),transparent 62%),
-    radial-gradient(40rem 26rem at 2% 98%,rgba(200,164,95,.09),transparent 64%);
+    radial-gradient(52rem 30rem at 84% -4%,rgba(146,60,168,.26),transparent 62%),
+    radial-gradient(40rem 26rem at 2% 98%,rgba(221,192,134,.11),transparent 64%);
 }
 
 /* ---- изумруд: полоса формы ----------------------------- */
 .b-emerald{
   background:
-    linear-gradient(180deg,#083026 0%,var(--emerald) 48%,var(--emerald-3) 100%);
-  color:#A7BDB5;
+    linear-gradient(180deg,#0F3B2E 0%,var(--emerald) 48%,var(--emerald-3) 100%);
+  color:#AEC3BA;
 }
 .b-emerald::before{
   background:
@@ -270,8 +285,8 @@ html{scrollbar-width:thin;scrollbar-color:var(--au-lo) transparent}
 }
 .b-paper::before{
   background:
-    radial-gradient(50rem 30rem at 88% -4%,rgba(200,164,95,.20),transparent 60%),
-    radial-gradient(40rem 26rem at 0% 100%,rgba(70,199,158,.10),transparent 62%);
+    radial-gradient(50rem 30rem at 88% -6%,rgba(200,164,95,.26),transparent 60%),
+    radial-gradient(40rem 26rem at 0% 100%,rgba(117,22,129,.07),transparent 62%);
 }
 
 /* ---- миллиметровка и зерно ----------------------------- */
@@ -383,14 +398,29 @@ h3{
 
 /* подсветка ключевых слов в заголовке: бронзовая подложка
    и волосок снизу — ровно то место, куда должен упасть взгляд */
+/* Акцент в заголовке набран сусальным золотом: заливка идёт
+   сверху вниз, от блика к тени, — так ведёт себя настоящая
+   фольга, и поэтому она читается металлом, а не жёлтым
+   текстом. На бумажной полосе фольга по светлому пропадает,
+   там акцент держит плашка. */
 h1 mark,h2 mark{
   background:none;color:inherit;
   position:relative;z-index:0;
 }
-h1 mark::after,h2 mark::after{
+.b-onyx h1 mark,.b-onyx h2 mark,
+.b-indigo h1 mark,.b-indigo h2 mark,
+.b-emerald h1 mark,.b-emerald h2 mark{
+  color:transparent;
+  background:linear-gradient(180deg,
+    #FDF3D8 0%,#EBD6A6 30%,#C8A45F 66%,#8E6B2C 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 2px 14px rgba(200,164,95,.28));
+}
+.b-paper h1 mark::after,.b-paper h2 mark::after{
   content:'';position:absolute;left:-.1em;right:-.1em;
   bottom:.04em;height:.4em;z-index:-1;
-  background:linear-gradient(90deg,rgba(200,164,95,.36),rgba(200,164,95,.10));
+  background:linear-gradient(90deg,rgba(200,164,95,.42),rgba(200,164,95,.10));
   border-bottom:1px solid var(--au-line);
   border-radius:1px;
 }
@@ -837,8 +867,10 @@ p:last-child{margin-bottom:0}
 .hero h1 .ln > i{display:block;font-style:normal}
 .hero h1 .big{
   color:transparent;
-  background:linear-gradient(94deg,var(--au-hi) 6%,var(--au) 52%,#A9884A 100%);
+  background:linear-gradient(180deg,
+    #FDF3D8 0%,#EBD6A6 28%,#C8A45F 64%,#8E6B2C 100%);
   -webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 3px 22px rgba(200,164,95,.3));
 }
 .hero h1 .big > i{
   font-variant-numeric:tabular-nums lining-nums;
@@ -2950,6 +2982,14 @@ html.js .hero.lit h1 .ln > i{
   font-variant-numeric:tabular-nums lining-nums;
   letter-spacing:-.015em;color:var(--au-hi);
 }
+/* якорные цифры — тем же сусальным золотом, что и акценты в
+   заголовках: на странице ровно один драгоценный материал */
+.b-onyx .anchors b,.b-indigo .anchors b,.b-emerald .anchors b{
+  color:transparent;
+  background:linear-gradient(180deg,#FDF3D8 0%,#EBD6A6 34%,#C8A45F 72%,#9B7534 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 .b-paper .anchors b{color:var(--au-ink)}
 .anchors span{
   font-size:.78rem;line-height:1.45;color:var(--t3);max-width:18ch;
@@ -3802,6 +3842,31 @@ h2.huge{
 .steps.rich .step.now::before{
   content:'';position:absolute;left:0;right:0;top:0;height:2px;
   background:linear-gradient(90deg,var(--au),transparent);
+}
+
+/* Стык полос. Встык, без линии, два цвета сходятся бритвой —
+   и видно край заливки, а не край раздела. Волосок бронзы
+   превращает срез в линовку документа. */
+.band + .band{border-top:1px solid rgba(200,164,95,.14)}
+footer{border-top:1px solid rgba(200,164,95,.14)}
+
+/* ============================================================
+   СВЕТ ПО ВЕРХНЕЙ КРОМКЕ
+
+   У всякой панели на тёмной полосе верхнее ребро подсвечено
+   волоском тёплого света. Один пиксель, который не заметишь
+   по отдельности, — но именно он отделяет «панель» от
+   «прямоугольника другого цвета».
+   ============================================================ */
+
+.b-onyx .tally-i,.b-indigo .tally-i,.b-emerald .tally-i,
+.b-onyx .gain,.b-indigo .gain,.b-emerald .gain,
+.b-onyx .steps.rich .step,.b-indigo .steps.rich .step,
+.b-emerald .steps.rich .step,
+.b-onyx .calc-in,.b-indigo .calc-in,
+.b-onyx .hz div,.b-indigo .hz div,
+.b-onyx .anchors,.b-indigo .anchors{
+  box-shadow:inset 0 1px 0 rgba(253,243,216,.055);
 }
 
 /* ============================================================
