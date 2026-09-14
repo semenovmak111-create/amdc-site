@@ -3839,53 +3839,91 @@ h2.huge{
   margin-top:clamp(1.6rem,2.6vw,2.4rem);
 }
 
+/* ---- полоса вкладок ------------------------------------
+   Неподвижная шапка колоды: все семь выгод названы сразу, и
+   видно, где ты находишься и сколько осталось. Активная
+   вкладка залита бронзой, между спокойными стоят волоски —
+   но не рядом с активной, иначе заливка выглядит подпёртой.
+   -------------------------------------------------------- */
+.tabs{
+  display:flex;align-items:stretch;
+  margin:0 auto clamp(1.1rem,2vw,1.7rem);
+  padding:5px;width:max-content;max-width:100%;
+  border:1px solid var(--rule);border-radius:100px;
+  background:rgba(244,241,233,.04);
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.b-paper .tabs{border-color:var(--rule-l);background:rgba(255,255,255,.6)}
+
+.tab{
+  position:relative;flex:none;
+  padding:.72rem 1.15rem;border:0;border-radius:100px;
+  font:600 var(--f-xs)/1.2 var(--sans);
+  letter-spacing:.005em;white-space:nowrap;
+  color:var(--t3);background:transparent;cursor:pointer;
+  transition:color .3s var(--ease),background .3s var(--ease);
+}
+.b-paper .tab{color:var(--ink-3)}
+.tab:hover{color:var(--t1)}
+.b-paper .tab:hover{color:var(--ink)}
+
+/* волосок-разделитель между двумя спокойными вкладками */
+.tab + .tab::before{
+  content:'';position:absolute;left:0;top:50%;
+  width:1px;height:1.15em;margin-top:-.575em;
+  background:var(--rule-3);
+}
+.b-paper .tab + .tab::before{background:var(--rule-l)}
+.tab[aria-selected="true"]::before,
+.tab[aria-selected="true"] + .tab::before{display:none}
+
+.tab[aria-selected="true"]{
+  color:#1E1405;
+  background:linear-gradient(180deg,#F6DCA8 0%,#DCAD52 60%,#B98833 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,250,228,.8),
+    0 8px 20px -10px rgba(206,158,72,.8);
+}
+
+/* ---- лента ---------------------------------------------- */
 .deck-view{
   overflow-x:auto;overflow-y:hidden;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
   scrollbar-width:none;-ms-overflow-style:none;
-  border-radius:var(--r-lg);
 }
 .deck-view::-webkit-scrollbar{display:none}
-.deck-view:focus-visible{outline:2px solid var(--au);outline-offset:4px}
+.deck-view:focus-visible{outline:2px solid var(--au);outline-offset:6px}
 @media (prefers-reduced-motion:reduce){.deck-view{scroll-behavior:auto}}
 
 .deck-track{display:flex}
 
+/* Рамки нет: экран должен читаться экраном, а не карточкой
+   на фоне полосы. Держит его не обводка, а воздух по бокам
+   и одна ось, на которой стоит всё содержимое. */
 .slide{
   flex:0 0 100%;
   scroll-snap-align:center;
   scroll-snap-stop:always;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;text-align:center;
-  gap:clamp(1rem,1.8vw,1.5rem);
-  min-height:clamp(22rem,52svh,32rem);
-  padding:clamp(1.8rem,3.4vw,3.2rem) clamp(1.2rem,4vw,4rem);
-  border:1px solid var(--rule);border-radius:var(--r-lg);
-  background:
-    radial-gradient(60% 80% at 50% 0%,rgba(70,199,158,.07),transparent 70%),
-    rgba(244,241,233,.028);
-}
-.b-paper .slide{
-  border-color:var(--rule-l);
-  background:
-    radial-gradient(60% 80% at 50% 0%,rgba(11,106,83,.06),transparent 70%),
-    linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4));
+  gap:clamp(.9rem,1.5vw,1.25rem);
+  min-height:clamp(21rem,46svh,28rem);
+  padding:clamp(1rem,2.2vw,2rem) clamp(2.6rem,5vw,5rem);
 }
 
-/* рисунок крупнее, чем в ведомости: на целый экран он теперь
-   не подпись к заголовку, а главный предмет */
 .slide .pic{
   position:relative;flex:none;
-  width:clamp(74px,8vw,104px);height:clamp(74px,8vw,104px);
-  color:var(--jade);
+  width:clamp(62px,6vw,84px);height:clamp(62px,6vw,84px);
+  color:var(--jade);margin-bottom:.2rem;
 }
 .b-paper .slide .pic{color:var(--jade-ink)}
 .slide .pic::after{
   content:'+';position:absolute;right:-2px;bottom:-2px;
-  width:28px;height:28px;border-radius:50%;
+  width:24px;height:24px;border-radius:50%;
   display:grid;place-items:center;
-  font:700 1.05rem/1 var(--mono);
+  font:700 .95rem/1 var(--mono);
   color:#03251C;background:var(--jade);
   box-shadow:0 0 0 4px var(--indigo),0 6px 14px -4px rgba(70,199,158,.8);
 }
@@ -3893,97 +3931,96 @@ h2.huge{
 .b-paper .slide .pic::after{box-shadow:0 0 0 4px var(--paper-3),0 6px 14px -4px rgba(70,199,158,.55)}
 
 .slide h3{
-  margin:0;max-width:20ch;
-  font-size:clamp(1.35rem,1.05rem + 1.1vw,2.05rem);
-  line-height:1.16;
+  margin:0;max-width:26ch;
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(1.5rem,1.1rem + 1.5vw,2.5rem);
+  line-height:1.1;letter-spacing:-.012em;
+  text-wrap:balance;
 }
 .slide p{
-  margin:0;max-width:52ch;
-  font-size:clamp(.97rem,.92rem + .2vw,1.1rem);
-  line-height:1.62;color:var(--t2);
+  margin:0;max-width:62ch;
+  font-size:clamp(.95rem,.91rem + .18vw,1.06rem);
+  line-height:1.66;color:var(--t2);
 }
 .b-paper .slide p{color:var(--ink-2)}
 .slide b{color:var(--t1)}
 .b-paper .slide b{color:var(--ink)}
-.slide .kick{
-  margin-top:.2rem;padding-top:.95rem;
+
+/* пример: тот же кегль, но тише и с отбивкой — видно, что это
+   не продолжение мысли, а её проверка на живом случае */
+.slide p.eg{
+  max-width:58ch;color:var(--t3);
+  padding-top:.9rem;
   border-top:1px solid var(--rule-2);
-  font:600 clamp(.82rem,.78rem + .15vw,.93rem)/1.5 var(--sans);
+}
+.b-paper .slide p.eg{color:var(--ink-3);border-top-color:var(--rule-l2)}
+
+.slide .kick{
+  margin-top:.15rem;
+  font:600 clamp(.84rem,.8rem + .15vw,.95rem)/1.5 var(--sans);
   color:var(--jade);max-width:46ch;
 }
-.b-paper .slide .kick{border-top-color:var(--rule-l2);color:var(--jade-ink)}
+.b-paper .slide .kick{color:var(--jade-ink)}
 
-/* ---- стрелки по краям ---------------------------------- */
+/* ---- шевроны у самых краёв ------------------------------
+   Прижаты не к колонке текста, а к краю окна: (100vw − ширина
+   колоды) / 2 — это боковое поле страницы, и стрелка садится
+   в него, отступив от края экрана всего ничего. Ни рамки, ни
+   подложки: линия, и та тонкая.
+   -------------------------------------------------------- */
 .deck-nav{
   position:absolute;top:50%;z-index:3;
   transform:translateY(-50%);
-  width:clamp(44px,3.4vw,54px);height:clamp(44px,3.4vw,54px);
+  width:clamp(34px,3vw,46px);height:clamp(52px,5vw,74px);
   display:grid;place-items:center;
-  border-radius:50%;cursor:pointer;
-  color:var(--t1);
-  border:1px solid var(--rule-3);
-  background:rgba(10,12,14,.72);
-  backdrop-filter:blur(8px);
-  box-shadow:0 12px 30px -16px rgba(0,0,0,.9);
-  transition:background .3s var(--ease),border-color .3s var(--ease),
-             transform .3s var(--ease-out),opacity .3s var(--ease);
+  padding:0;border:0;background:none;cursor:pointer;
+  color:var(--t3);
+  transition:color .3s var(--ease),transform .3s var(--ease-out);
 }
-.b-paper .deck-nav{
-  color:var(--ink);border-color:var(--rule-l3);
-  background:rgba(255,255,255,.82);
-  box-shadow:0 12px 30px -18px rgba(18,22,26,.7);
+.b-paper .deck-nav{color:var(--ink-3)}
+.deck-nav .i{
+  width:clamp(26px,2.4vw,36px);height:clamp(26px,2.4vw,36px);
+  stroke-width:1.6;
 }
-.deck-nav .i{width:20px;height:20px;stroke-width:2.2}
-.deck-nav.prev{left:clamp(-1.6rem,-1.2vw,0rem)}
-.deck-nav.next{right:clamp(-1.6rem,-1.2vw,0rem)}
-.deck-nav.prev .i{transform:rotate(180deg)}
-.deck-nav:hover{
-  border-color:var(--au);color:var(--au-hi);
-  background:rgba(10,12,14,.9);
-}
-.b-paper .deck-nav:hover{background:#fff;color:var(--au-ink)}
-.deck-nav:active{transform:translateY(-50%) scale(.94)}
+.deck-nav.prev{left:calc(14px - (100vw - 100%) / 2)}
+.deck-nav.next{right:calc(14px - (100vw - 100%) / 2)}
+.deck-nav.next .i{transform:rotate(180deg)}
+.deck-nav:hover{color:var(--au-hi)}
+.b-paper .deck-nav:hover{color:var(--au-ink)}
+.deck-nav.prev:hover{transform:translateY(-50%) translateX(-3px)}
+.deck-nav.next:hover{transform:translateY(-50%) translateX(3px)}
+.deck-nav:active{opacity:.6}
+.deck-nav:focus-visible{outline:2px solid var(--au);outline-offset:4px;border-radius:4px}
 
-/* ---- счёт и точки -------------------------------------- */
-.deck-bar{
-  display:flex;align-items:center;justify-content:center;
-  gap:clamp(.7rem,1.4vw,1.1rem);
-  margin-top:clamp(1rem,1.8vw,1.4rem);
-}
-.deck-dots{display:flex;align-items:center;gap:.5rem}
-.deck-dots button{
-  width:8px;height:8px;padding:0;border-radius:50%;cursor:pointer;
-  border:1px solid var(--rule-3);background:transparent;
-  transition:background .3s var(--ease),border-color .3s var(--ease),
-             transform .3s var(--ease-out);
-}
-.b-paper .deck-dots button{border-color:var(--rule-l3)}
-.deck-dots button[aria-current="true"]{
-  background:var(--au);border-color:var(--au);transform:scale(1.35);
-}
-.deck-num{
-  font:500 var(--f-rub)/1 var(--mono);
-  letter-spacing:.2em;color:var(--t4);
-  font-variant-numeric:tabular-nums;
-}
-.b-paper .deck-num{color:var(--ink-4)}
-.deck-num b{color:var(--au);font-weight:700}
-
-/* ---- телефон: стрелки уходят под колоду ----------------- */
+/* ---- телефон -------------------------------------------- */
 @media (max-width:860px){
-  .deck-nav{
-    position:static;transform:none;
-    width:46px;height:46px;flex:none;
+  .tabs{
+    width:auto;max-width:none;
+    margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1);
+    padding:5px var(--gut);
+    border:0;border-radius:0;background:none;
   }
-  .deck-nav:active{transform:scale(.94)}
-  .deck{display:grid;grid-template-columns:auto 1fr auto;
-        grid-template-areas:'view view view' 'prev bar next';
-        align-items:center;gap:0 .8rem}
-  .deck-view{grid-area:view}
-  .deck-nav.prev{grid-area:prev}
-  .deck-nav.next{grid-area:next}
-  .deck-bar{grid-area:bar;margin-top:clamp(.9rem,3vw,1.2rem)}
-  .slide{min-height:clamp(20rem,58svh,30rem);border-radius:var(--r-md)}
+  .tab{padding:.62rem .9rem}
+  .tab + .tab::before{display:none}
+  .tab:not([aria-selected="true"]){
+    border:1px solid var(--rule);
+  }
+  .b-paper .tab:not([aria-selected="true"]){border-color:var(--rule-l)}
+
+  /* стрелки садятся поверх экрана: боковых полей на телефоне
+     нет, выносить их некуда */
+  .deck-nav{
+    width:30px;height:46px;
+    color:var(--t2);
+  }
+  .deck-nav.prev{left:calc(2px - (100vw - 100%) / 2)}
+  .deck-nav.next{right:calc(2px - (100vw - 100%) / 2)}
+  .deck-nav .i{width:24px;height:24px;stroke-width:1.8}
+  .slide{
+    min-height:clamp(20rem,54svh,30rem);
+    padding:clamp(.8rem,3vw,1.4rem) clamp(1.9rem,7vw,2.6rem);
+  }
+}
 }
 
 @media print{
