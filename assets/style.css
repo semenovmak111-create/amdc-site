@@ -1,0 +1,3195 @@
+/* Шрифты подключены отдельным <link> в <head>, а не @import.
+   @import заставляет браузер сходить сначала за style.css,
+   потом за fonts.css и только потом за самими файлами —
+   три круга до того, как заголовок получит свою гарнитуру.
+   На телефоне в метро это полсекунды пустой страницы. */
+
+/* ============================================================
+   «САЙТ ДЛЯ АМДЦ» — персональное предложение.
+   Дизайн-система «Обсидиан и бронза».
+
+   ── Что это за страница ──────────────────────────────────
+   Её задача не рассказать о клинике, а продать одному
+   конкретному человеку работу по созданию сайта. Поэтому она
+   обязана с первого взгляда выглядеть как работа человека,
+   который берёт за неё дорого — иначе аргументы внутри уже
+   не важны. Дизайн здесь и есть главный аргумент.
+
+   ── Цвет ─────────────────────────────────────────────────
+   Четыре фона, которые чередуются полосами:
+
+     оникс      #0A0C0E   почти чёрный, холодный  — утверждения
+     сапфир     #0B1226   чернильный индиго       — данные, цифры
+     изумруд    #05231D   глубокий зелёный        — формы захвата
+     алебастр   #EFEAE0   тёплая бумага           — доказательства
+
+   Изумруд закреплён за формами: три раза за страницу полоса
+   зеленеет — и человек понимает, что здесь от него чего-то
+   ждут, ещё до того как прочёл заголовок.
+
+   Бронза #C8A45F — единственный металл. Рубрики, волосяные
+   линии, цифры, кнопка. Больше ничего золотого на странице
+   нет: если позолотить второе место, кнопка перестанет быть
+   единственным ярким пятном.
+
+   Оценочные цвета: нефрит — работает, карнеол — сломано,
+   янтарь — наполовину. Они живут тинтом и волоском, крупной
+   заливкой — никогда.
+
+   ── Свет ─────────────────────────────────────────────────
+   Каждая тёмная полоса собрана из четырёх слоёв: цветное
+   пятно сверху, провал в глубину снизу, миллиметровка и
+   зерно. Поодиночке не виден ни один, вместе дают объём.
+   Подсветка стоит там, где нужно задержать взгляд: под
+   кнопкой, под ключевой цифрой, под формой.
+
+   ── Правка ───────────────────────────────────────────────
+   Весь цвет — в :root. Ниже по файлу переменные, не хексы.
+   ============================================================ */
+
+:root{
+
+  /* ---------- ФОНЫ: четыре полосы ------------------------ */
+  --onyx:#0A0C0E;          /* оникс: базовая тёмная полоса    */
+  --onyx-2:#0D1013;        /* панель на ониксе                */
+  --onyx-3:#06080A;        /* провал, подвал, шапка           */
+
+  --indigo:#0B1226;        /* сапфировые чернила              */
+  --indigo-2:#0F1830;      /* панель на сапфире               */
+  --indigo-3:#070C1B;      /* глубина                         */
+
+  --emerald:#05231D;       /* глубокий изумруд: формы         */
+  --emerald-2:#082C24;     /* панель на изумруде              */
+  --emerald-3:#031713;     /* глубина                         */
+
+  --paper:#EFEAE0;         /* алебастр: светлая полоса        */
+  --paper-2:#E6DFD1;       /* низ градиента светлой полосы    */
+  --paper-3:#F7F3EA;       /* карточка на бумаге              */
+  --paper-4:#FCFAF4;       /* поле ввода                      */
+
+  /* ---------- МЕТАЛЛ: единственный акцент ---------------- */
+  --au:#C8A45F;            /* бронза                          */
+  --au-hi:#EBD6A6;         /* блик на бронзе                  */
+  --au-lo:#8E7440;         /* тень на бронзе                  */
+  --au-ink:#6B5527;        /* бронза по бумаге, для текста    */
+  --au-wash:rgba(200,164,95,.10);
+  --au-line:rgba(200,164,95,.26);
+  --au-faint:rgba(200,164,95,.13);
+
+  /* ---------- ОЦЕНКИ ------------------------------------- */
+  --jade:#46C79E;          /* работает                        */
+  --jade-hi:#8FE7CB;
+  --jade-ink:#0B6A53;      /* по бумаге                       */
+  --jade-wash:rgba(70,199,158,.11);
+
+  --carn:#D2604B;          /* сломано (карнеол)               */
+  --carn-hi:#F0A896;
+  --carn-ink:#9E3320;      /* по бумаге                       */
+  --carn-wash:rgba(210,96,75,.12);
+
+  --amber:#E0A857;         /* наполовину                      */
+  --amber-ink:#8A5E17;
+
+  /* ---------- ЧЕРНИЛА ПО ТЁМНОМУ ------------------------- */
+  --t1:#F4F1E9;            /* тёплый белый: заголовки         */
+  --t2:#AEB4B8;            /* основной текст                  */
+  --t3:#868E96;            /* подписи, мелочь                 */
+  --t4:#767F88;            /* самое тихое                     */
+
+  /* ---------- ЧЕРНИЛА ПО БУМАГЕ -------------------------- */
+  --ink:#12161A;
+  --ink-2:#454C54;
+  --ink-3:#5A626A;
+  --ink-4:#616971;
+
+  /* ---------- ВОЛОСЯНЫЕ ЛИНИИ ---------------------------- */
+  --rule:rgba(244,241,233,.11);
+  --rule-2:rgba(244,241,233,.06);
+  --rule-3:rgba(244,241,233,.19);
+  --rule-l:rgba(18,22,26,.13);
+  --rule-l2:rgba(18,22,26,.07);
+  --rule-l3:rgba(18,22,26,.22);
+
+  /* ---------- РАЗМЕРЫ ------------------------------------ */
+  --wrap:1220px;
+  --gut:clamp(1.15rem,3.4vw,3.25rem);
+  --pad:clamp(3.4rem,2rem + 4.2vw,5.1rem);   /* обычная полоса  */
+  --pad-s:clamp(2.6rem,1.7rem + 3vw,3.9rem); /* тесная: служебные */
+  --pad-l:clamp(4rem,2.4rem + 5vw,6.4rem);   /* просторная: формы */
+  --r:4px;
+  --r-md:8px;
+  --r-lg:14px;
+  --hdr:80px;
+
+  /* ---------- ШРИФТОВАЯ ШКАЛА ---------------------------- */
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+
+  --f-display:clamp(2.3rem,1.1rem + 4.1vw,4.35rem);
+  --f-h2:clamp(1.9rem,1.25rem + 2.3vw,3.05rem);
+  --f-h3:clamp(1.1rem,1.03rem + .3vw,1.32rem);
+  --f-lede:clamp(1.04rem,1rem + .26vw,1.15rem);
+  --f-body:1.0625rem;
+  --f-sm:.9375rem;
+  --f-xs:.8125rem;
+  --f-rub:.6875rem;
+
+  /* ---------- ДВИЖЕНИЕ ----------------------------------- */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-io:cubic-bezier(.65,0,.35,1);
+}
+
+/* ---------- ФАКТУРЫ ------------------------------------- */
+:root{
+  /* зерно: плёночный шум, 180×180, повторяется без стыка */
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   БАЗА
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--hdr) + 14px);
+}
+
+body{
+  margin:0;
+  background:var(--onyx);
+  color:var(--t2);
+  font:400 var(--f-body)/1.62 var(--sans);
+  font-feature-settings:'kern' 1,'liga' 1,'calt' 1;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+
+img,svg{max-width:100%}
+a{color:inherit}
+b,strong{font-weight:700}
+
+::selection{background:rgba(200,164,95,.28);color:var(--t1)}
+
+/* полоса прокрутки — тонкая, в цвет металла */
+html{scrollbar-width:thin;scrollbar-color:var(--au-lo) transparent}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:var(--onyx-3)}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,var(--au-lo),#5E4C2A);
+  border-radius:9px;border:2px solid var(--onyx-3);
+}
+
+/* фокус виден всегда и всегда бронзовый */
+:focus-visible{
+  outline:2px solid var(--au);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.i{width:1em;height:1em;fill:none;stroke:currentColor;
+   stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+   flex:none}
+
+/* ============================================================
+   ПОЛОСЫ. Четыре фона и их свет.
+
+   Каждая секция — .band плюс модификатор цвета. Внутри два
+   служебных слоя: ::before держит цветные пятна, ::after —
+   миллиметровку с зерном. Контент лежит выше обоих.
+   ============================================================ */
+
+.band{
+  position:relative;
+  isolation:isolate;
+  padding:var(--pad) 0;
+  overflow:hidden;
+}
+/* Три плотности. Раздел с формой получает воздух, служебный
+   перечень — не получает. Одинаковый ритм на шестнадцати
+   полосах усыпляет: к шестому развороту глаз перестаёт
+   отличать один блок от другого. */
+.band.roomy{padding:var(--pad-l) 0}
+.band.tight{padding:var(--pad-s) 0}
+.band > .wrap{position:relative;z-index:3}
+
+.band::before,
+.band::after{
+  content:'';position:absolute;inset:0;
+  pointer-events:none;
+}
+.band::before{z-index:1}
+.band::after{z-index:2}
+
+/* ---- оникс --------------------------------------------- */
+.b-onyx{
+  background:
+    linear-gradient(180deg,#0C0F12 0%,var(--onyx) 42%,#080A0C 100%);
+  color:var(--t2);
+}
+.b-onyx::before{
+  background:
+    radial-gradient(58rem 32rem at 78% -6%,rgba(200,164,95,.10),transparent 62%),
+    radial-gradient(46rem 30rem at 6% 104%,rgba(38,72,128,.16),transparent 64%);
+}
+
+/* ---- сапфир -------------------------------------------- */
+.b-indigo{
+  background:
+    linear-gradient(180deg,#0E1730 0%,var(--indigo) 46%,var(--indigo-3) 100%);
+  color:#AFB8CB;
+}
+.b-indigo::before{
+  background:
+    radial-gradient(52rem 30rem at 84% 4%,rgba(86,132,214,.18),transparent 62%),
+    radial-gradient(40rem 26rem at 2% 98%,rgba(200,164,95,.09),transparent 64%);
+}
+
+/* ---- изумруд: полоса формы ----------------------------- */
+.b-emerald{
+  background:
+    linear-gradient(180deg,#083026 0%,var(--emerald) 48%,var(--emerald-3) 100%);
+  color:#A7BDB5;
+}
+.b-emerald::before{
+  background:
+    radial-gradient(50rem 30rem at 18% 0%,rgba(70,199,158,.15),transparent 60%),
+    radial-gradient(44rem 30rem at 92% 96%,rgba(200,164,95,.12),transparent 62%);
+}
+
+/* ---- алебастр: светлая полоса -------------------------- */
+.b-paper{
+  background:
+    linear-gradient(180deg,#F5F1E8 0%,var(--paper) 40%,var(--paper-2) 100%);
+  color:var(--ink-2);
+}
+.b-paper::before{
+  background:
+    radial-gradient(50rem 30rem at 88% -4%,rgba(200,164,95,.20),transparent 60%),
+    radial-gradient(40rem 26rem at 0% 100%,rgba(70,199,158,.10),transparent 62%);
+}
+
+/* ---- миллиметровка и зерно ----------------------------- */
+/* Статичная фактура, без анимации: страница должна быть
+   тихой. Движение на ней разрешено ровно в трёх местах, и
+   фон в это число не входит. */
+.band::after{
+  background-image:
+    linear-gradient(var(--grid-c,rgba(244,241,233,.032)) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-c,rgba(244,241,233,.032)) 1px,transparent 1px);
+  background-size:64px 64px,64px 64px;
+  mask-image:linear-gradient(180deg,#000 0%,#000 50%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 50%,transparent 100%);
+}
+.b-paper::after{--grid-c:rgba(18,22,26,.05)}
+
+/* Зерно — одним слоем на всю страницу, четыре процента.
+   Плёнка, а не текстура: заметить её нельзя, но без неё
+   градиенты полосуются, а чёрный выглядит пластмассовым. */
+body::after{
+  content:'';position:fixed;inset:0;z-index:95;
+  pointer-events:none;
+  background:var(--grain);
+  background-size:180px 180px;
+  opacity:.042;
+}
+
+/* ---- курсорный свет: ТОЛЬКО первый экран --------------- */
+/* Мягкое бронзовое пятно идёт за курсором. Тринадцать
+   процентов непрозрачности: не видно, что оно есть, видно,
+   что поверхность живая. Координаты ставит скрипт.
+   Ниже по странице этого нет — приём работает один раз. */
+.glow{
+  position:absolute;z-index:1;inset:0;pointer-events:none;
+  opacity:0;transition:opacity .55s var(--ease);
+  background:radial-gradient(24rem 24rem at var(--mx,50%) var(--my,50%),
+             rgba(200,164,95,.13),transparent 68%);
+}
+.hero:hover > .glow{opacity:1}
+
+/* ---- шов между полосами -------------------------------- */
+/* Волосок бронзы там, где одна полоса переходит в другую:
+   как золочёный обрез у книжного блока. */
+.band + .band::before{box-shadow:inset 0 1px 0 var(--au-faint)}
+
+/* ============================================================
+   СЕТКА
+   ============================================================ */
+
+.wrap{
+  width:min(100% - var(--gut)*2,var(--wrap));
+  margin-inline:auto;
+}
+
+/* ============================================================
+   ТИПОГРАФИКА
+   ============================================================ */
+
+h1,h2,h3,h4{margin:0;color:var(--t1);font-weight:600}
+.b-paper h1,.b-paper h2,.b-paper h3,.b-paper h4{color:var(--ink)}
+
+/* ---- рубрика раздела ----------------------------------- */
+/* Номер, тире, название. Моноширинный, разрядка, бронза.
+   Линия уходит вправо до края колонки — так рубрика
+   становится шапкой раздела, а не подписью над заголовком. */
+.rub{
+  display:flex;align-items:center;gap:.8rem;
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--au);
+  margin-bottom:clamp(1.1rem,1.8vw,1.7rem);
+}
+.rub .n{
+  display:flex;align-items:center;gap:.8rem;
+  font-weight:700;color:var(--au-hi);
+  font-variant-numeric:tabular-nums;
+}
+.rub .n::after{
+  content:'';width:1.6rem;height:1px;
+  background:var(--au-line);
+}
+.rub::after{
+  content:'';flex:1 1 auto;height:1px;min-width:2rem;
+  background:linear-gradient(90deg,var(--au-line),transparent);
+}
+.b-paper .rub,.b-paper .rub .n{color:var(--au-ink)}
+
+/* ---- заголовки ----------------------------------------- */
+h2{
+  font-family:var(--serif);
+  font-size:var(--f-h2);
+  font-weight:500;
+  line-height:1.07;
+  letter-spacing:-.012em;
+  font-variant-numeric:lining-nums;
+  max-width:21ch;
+  text-wrap:balance;
+}
+h2.wide{max-width:26ch}
+h2.widest{max-width:32ch}
+
+h3{
+  font-family:var(--sans);
+  font-size:var(--f-h3);
+  font-weight:700;
+  line-height:1.3;
+  letter-spacing:-.006em;
+}
+
+/* подсветка ключевых слов в заголовке: бронзовая подложка
+   и волосок снизу — ровно то место, куда должен упасть взгляд */
+h1 mark,h2 mark{
+  background:none;color:inherit;
+  position:relative;z-index:0;
+}
+h1 mark::after,h2 mark::after{
+  content:'';position:absolute;left:-.1em;right:-.1em;
+  bottom:.04em;height:.4em;z-index:-1;
+  background:linear-gradient(90deg,rgba(200,164,95,.36),rgba(200,164,95,.10));
+  border-bottom:1px solid var(--au-line);
+  border-radius:1px;
+}
+h2 em{font-style:italic;color:var(--au-hi)}
+.b-paper h2 em{color:var(--au-ink)}
+
+/* ---- подводка ------------------------------------------ */
+.lede{
+  font-size:var(--f-lede);
+  line-height:1.6;
+  color:var(--t2);
+  max-width:54ch;
+  margin:1.15rem 0 0;
+}
+.b-paper .lede{color:var(--ink-2)}
+.lede b{color:var(--t1);font-weight:700}
+.b-paper .lede b{color:var(--ink)}
+.lede mark{
+  background:var(--au-wash);color:var(--t1);
+  padding:.06em .3em;border-radius:2px;
+  box-shadow:inset 0 -1px 0 var(--au-line);
+}
+.b-paper .lede mark{color:var(--ink)}
+
+p{margin:0 0 1rem}
+p:last-child{margin-bottom:0}
+
+.note{
+  font-size:var(--f-sm);line-height:1.62;color:var(--t3);
+  max-width:76ch;margin-top:1.8rem;
+  padding-left:1.15rem;border-left:1px solid var(--rule);
+}
+.b-paper .note{color:var(--ink-3);border-left-color:var(--rule-l)}
+
+/* ============================================================
+   КНОПКИ
+
+   Бронза заливкой встречается на странице ровно в одном
+   качестве — в кнопке. Поэтому кнопка собрана как металл:
+   блик сверху, тень снизу, тёплое свечение под ней. Это
+   единственное место, где позволено светиться.
+   ============================================================ */
+
+.btn{
+  --lift:0px;
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;gap:.62rem;
+  padding:1.05rem 1.75rem;
+  border:1px solid rgba(255,242,212,.5);
+  border-radius:var(--r-md);
+  font:700 var(--f-sm)/1 var(--sans);
+  letter-spacing:.004em;
+  color:#140F05;
+  background:
+    linear-gradient(180deg,var(--au-hi) 0%,var(--au) 48%,#B58F4B 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,250,236,.6),
+    inset 0 -1px 0 rgba(78,57,19,.35),
+    0 16px 38px -18px rgba(200,164,95,.65),
+    0 4px 12px -5px rgba(0,0,0,.55);
+  text-decoration:none;cursor:pointer;overflow:hidden;
+  transform:translateY(var(--lift));
+  transition:transform .35s var(--ease-out),box-shadow .35s var(--ease);
+}
+.btn .i{width:1.05em;height:1.05em;stroke-width:2.2}
+.btn:hover{
+  --lift:-2px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,250,236,.75),
+    inset 0 -1px 0 rgba(78,57,19,.35),
+    0 24px 48px -18px rgba(200,164,95,.8),
+    0 6px 16px -5px rgba(0,0,0,.55);
+}
+.btn:active{--lift:1px}
+
+/* блик, который проходит по металлу при наведении */
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,
+    transparent 34%,rgba(255,255,255,.55) 50%,transparent 66%);
+  transform:translateX(-120%);
+  transition:transform .85s var(--ease-out);
+}
+.btn:hover::after{transform:translateX(120%)}
+
+.btn.sm{padding:.72rem 1.1rem;font-size:var(--f-xs);border-radius:var(--r);white-space:nowrap}
+.btn.wide{width:100%}
+.btn.lg{padding:1.2rem 2.1rem;font-size:1rem}
+
+/* ---- контурная кнопка: там, где рядом уже есть главная -- */
+.btn.ghost{
+  background:rgba(244,241,233,.04);
+  color:var(--t1);
+  border:1px solid var(--rule-3);
+  box-shadow:none;
+  backdrop-filter:blur(6px);
+}
+.btn.ghost::after{display:none}
+.btn.ghost:hover{
+  background:rgba(244,241,233,.08);
+  border-color:var(--au-line);
+  box-shadow:0 10px 26px -18px rgba(0,0,0,.9);
+}
+.b-paper .btn.ghost{
+  background:rgba(18,22,26,.03);color:var(--ink);
+  border-color:var(--rule-l3);
+}
+
+/* ---- вторая дверь: WhatsApp ---------------------------- */
+.btn.wa{
+  background:rgba(70,199,158,.07);
+  color:var(--jade-hi);
+  border:1px solid rgba(70,199,158,.3);
+  box-shadow:none;
+}
+.btn.wa::after{display:none}
+.btn.wa:hover{
+  background:rgba(70,199,158,.13);
+  border-color:rgba(70,199,158,.5);
+  box-shadow:0 14px 34px -22px rgba(70,199,158,.8);
+}
+
+/* ---- ссылка-стрелка ------------------------------------ */
+.biglink{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font:600 1.05rem/1 var(--sans);
+  color:var(--au);text-decoration:none;
+  padding-bottom:.5rem;
+  border-bottom:1px solid var(--au-line);
+  transition:gap .3s var(--ease),color .3s;
+}
+.biglink:hover{gap:.95rem;color:var(--au-hi)}
+.b-paper .biglink{color:var(--au-ink)}
+.b-paper .biglink:hover{color:#4E3D18}
+
+/* ============================================================
+   ШАПКА
+   ============================================================ */
+
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:0;z-index:100;
+  background:linear-gradient(90deg,var(--au-lo),var(--au),var(--au-hi));
+  box-shadow:0 0 14px rgba(200,164,95,.6);
+  transition:width .12s linear;
+}
+
+.top{
+  position:fixed;top:0;left:0;right:0;z-index:90;
+  height:var(--hdr);
+  display:flex;align-items:stretch;
+  background:linear-gradient(180deg,rgba(6,8,10,.72),rgba(6,8,10,.16));
+  backdrop-filter:blur(3px);
+  transition:height .4s var(--ease),background .4s var(--ease),
+             backdrop-filter .4s,box-shadow .4s;
+}
+/* зерно: шапка не плёнка поверх страницы, а та же фактура */
+.top::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:var(--grain);background-size:180px;
+  opacity:.04;mix-blend-mode:overlay;
+}
+/* нижний обрез — бронзовая линия, гаснущая к полям */
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
+  pointer-events:none;
+  background:linear-gradient(90deg,
+    transparent,rgba(200,164,95,.26) 12%,
+    rgba(200,164,95,.42) 50%,rgba(200,164,95,.26) 88%,transparent);
+  opacity:.55;transition:opacity .4s;
+}
+.top.stuck{
+  --hdr:68px;
+  background:rgba(7,9,12,.9);
+  backdrop-filter:blur(16px) saturate(1.25);
+  box-shadow:0 22px 44px -34px #000;
+}
+.top.stuck::after{opacity:1}
+
+.topmain{flex:1 1 auto;display:flex;align-items:center}
+.topmain .wrap{
+  position:relative;height:100%;
+  display:flex;align-items:center;gap:1.15rem;
+}
+/* приводные кресты по краям полосы набора */
+.topmain .wrap::before,
+.topmain .wrap::after{
+  content:'';position:absolute;bottom:-5px;width:9px;height:9px;
+  pointer-events:none;opacity:0;transition:opacity .45s var(--ease);
+  background:
+    linear-gradient(var(--au-line),var(--au-line)) center/9px 1px no-repeat,
+    linear-gradient(var(--au-line),var(--au-line)) center/1px 9px no-repeat;
+}
+.topmain .wrap::before{left:-19px}
+.topmain .wrap::after{right:-19px}
+.top.stuck .topmain .wrap::before,
+.top.stuck .topmain .wrap::after{opacity:1}
+
+/* ---- знак и имя ---------------------------------------- */
+.brand{
+  display:flex;align-items:center;gap:.85rem;
+  text-decoration:none;margin-right:auto;
+}
+.brand .mark{
+  position:relative;
+  width:40px;height:40px;flex:none;
+  border:1px solid var(--au-line);
+  border-radius:var(--r);
+  background:
+    linear-gradient(150deg,rgba(200,164,95,.28),rgba(200,164,95,.04) 52%,rgba(244,241,233,.03));
+  box-shadow:
+    inset 0 1px 0 rgba(255,250,236,.18),
+    inset 0 -10px 18px -12px rgba(0,0,0,.7);
+  display:grid;place-items:center;
+  transition:border-color .35s,box-shadow .35s,transform .5s var(--ease-out);
+}
+.brand .mark::before{
+  content:'';position:absolute;inset:3px;
+  border:1px solid rgba(200,164,95,.2);border-radius:2px;
+}
+.mk-cross{position:relative;display:block;width:16px;height:16px}
+.mk-cross::before,
+.mk-cross::after{
+  content:'';position:absolute;background:var(--au);
+  box-shadow:0 0 12px -2px rgba(200,164,95,.85);
+}
+.mk-cross::before{left:0;right:0;top:7.25px;height:1.6px}
+.mk-cross::after{top:0;bottom:0;left:7.25px;width:1.6px}
+.brand:hover .mark{
+  border-color:var(--au);transform:translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,250,236,.26),
+    0 0 24px -6px rgba(200,164,95,.55);
+}
+.btext{display:flex;align-items:center;gap:.6rem}
+.bname{
+  font:800 .98rem/1.1 var(--sans);
+  letter-spacing:-.022em;color:var(--t1);white-space:nowrap;
+}
+/* «под ключ» — не подпись мелочью, а бронзовая марка рядом */
+.bkey{
+  flex:none;
+  padding:.34rem .55rem .3rem;
+  border:1px solid var(--au-line);
+  border-radius:3px;
+  background:var(--au-wash);
+  font:700 .56rem/1 var(--mono);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--au-hi);white-space:nowrap;
+}
+
+/* ---- оглавление капсулой -------------------------------- */
+.menu{
+  display:flex;align-items:center;
+  padding:.26rem;
+  border:1px solid var(--rule);
+  border-radius:100px;
+  background:rgba(244,241,233,.035);
+  box-shadow:inset 0 1px 0 rgba(244,241,233,.05);
+}
+.menu a{
+  position:relative;
+  padding:.56rem .78rem .58rem;
+  border-radius:100px;
+  font:700 .8125rem/1 var(--sans);letter-spacing:-.012em;
+  color:var(--t2);text-decoration:none;white-space:nowrap;
+  transition:color .28s,background .28s;
+}
+/* волосяной разделитель между разделами */
+.menu a + a::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:1px;height:15px;background:var(--rule-2);
+  transition:opacity .28s;
+}
+.menu a:hover{color:var(--t1);background:rgba(244,241,233,.06)}
+.menu a:hover::before,.menu a:hover + a::before{opacity:0}
+.menu a.here{
+  color:var(--au-hi);
+  background:var(--au-wash);
+  box-shadow:inset 0 0 0 1px var(--au-line);
+}
+.menu a.here::before,.menu a.here + a::before{opacity:0}
+
+/* ---- связь --------------------------------------------- */
+.topr{display:flex;align-items:center;gap:1.05rem}
+.toptel{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font:600 var(--f-xs)/1 var(--mono);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;
+  color:var(--t1);text-decoration:none;white-space:nowrap;
+}
+.toptel .i{
+  width:.95em;height:.95em;color:var(--au);stroke-width:1.8;
+  transition:transform .4s var(--ease-out);
+}
+.toptel .tel-n{
+  padding-bottom:.26rem;
+  border-bottom:1px solid var(--au-faint);
+  transition:border-color .3s;
+}
+.toptel:hover .tel-n{border-bottom-color:var(--au)}
+.toptel:hover .i{transform:rotate(-14deg) scale(1.06)}
+
+@media (prefers-reduced-motion:reduce){
+  .live{animation:none}
+}
+
+/* ============================================================
+   РЕЛЬСА РАЗДЕЛОВ
+
+   Засечка на каждый блок, на левом поле. Видно, где ты в
+   документе; подпись всплывает при наведении. Ниже 1420 px
+   поля для неё нет — исчезает.
+   ============================================================ */
+
+.rail{
+  position:fixed;left:22px;top:50%;transform:translateY(-50%);
+  z-index:70;display:none;flex-direction:column;gap:9px;
+}
+@media (min-width:1560px){.rail{display:flex}}
+
+.rail a{
+  display:flex;align-items:center;gap:.7rem;
+  text-decoration:none;position:relative;
+}
+.rail a > i{
+  display:block;width:12px;height:1px;flex:none;
+  background:var(--rule-3);
+  transition:width .4s var(--ease-out),background .4s,box-shadow .4s;
+}
+.rail a.big > i{width:20px}
+.rail a:hover > i{width:26px;background:var(--au)}
+.rail a.here > i{
+  width:30px;background:var(--au-hi);
+  box-shadow:0 0 12px rgba(200,164,95,.8);
+}
+.rail a > span{
+  font:500 .58rem/1 var(--mono);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--t3);
+  white-space:nowrap;
+  opacity:0;transform:translateX(-6px);
+  transition:opacity .35s,transform .35s var(--ease-out);
+}
+.rail a > span::before{
+  content:attr(data-n);color:var(--au);margin-right:.5rem;
+}
+.rail:hover a > span{opacity:1;transform:none}
+.rail a.here > span{color:var(--t1)}
+.rail.on-paper a > i{background:var(--rule-l3)}
+.rail.on-paper a > span{color:var(--ink-3)}
+.rail.on-paper a.here > span{color:var(--ink)}
+.rail.on-paper a.here > i{background:var(--au-ink);box-shadow:none}
+
+/* ============================================================
+   ЛИПКАЯ КНОПКА НА ТЕЛЕФОНЕ
+   ============================================================ */
+
+.sticky{
+  position:fixed;left:0;right:0;bottom:0;z-index:85;
+  display:none;gap:.6rem;
+  padding:.7rem var(--gut) calc(.7rem + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,rgba(6,8,10,.5),rgba(6,8,10,.95));
+  backdrop-filter:blur(14px);
+  border-top:1px solid var(--au-faint);
+  transform:translateY(110%);
+  transition:transform .5s var(--ease-out);
+}
+.sticky.on{transform:none}
+.sticky .btn{flex:1 1 auto;padding:.95rem 1rem;font-size:var(--f-xs)}
+.sticky .btn.ghost{flex:0 0 52px;padding:0}
+.sticky .btn.ghost .i{width:1.25rem;height:1.25rem}
+@media (max-width:860px){.sticky{display:flex}}
+
+/* ============================================================
+   1. ПЕРВЫЙ ЭКРАН
+
+   Порядок на экране решает всё: до линии сгиба должны
+   попасть адресат, заголовок, подводка и кнопка. Буллиты и
+   макет уходят ниже осознанно — они подтверждают решение,
+   а не открывают его.
+   ============================================================ */
+
+.hero{
+  padding-top:calc(var(--hdr) + clamp(1.5rem,3.2vw,2.8rem));
+  padding-bottom:clamp(2.6rem,4vw,4.6rem);
+  min-height:min(100svh,980px);
+  display:flex;align-items:center;
+}
+.hero > .wrap{width:min(100% - var(--gut)*2,var(--wrap))}
+
+/* ---- колонтитул ---------------------------------------- */
+/* Письмо конкретному человеку, а не лендинг: номер
+   предложения, город, дата. Как шапка делового документа. */
+.docline{
+  display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;
+  font:400 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--t4);
+  padding-bottom:.9rem;
+  border-bottom:1px solid var(--rule-2);
+  margin-bottom:clamp(1.2rem,2.2vw,2rem);
+}
+.docline .k{color:var(--au);font-weight:600}
+.docline .v{color:var(--t3);font-variant-numeric:tabular-nums}
+.docline .sep{width:3px;height:3px;border-radius:50%;background:var(--t4)}
+.docline .r{
+  margin-left:auto;
+  padding:.4rem .72rem;
+  border:1px solid var(--au-faint);border-radius:2px;
+  color:var(--au);background:var(--au-wash);
+}
+
+/* ---- адресат ------------------------------------------- */
+.addressee{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.52rem .95rem .52rem .78rem;
+  border:1px solid var(--rule);border-radius:100px;
+  background:rgba(244,241,233,.035);
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--t2);
+  margin-bottom:clamp(.85rem,1.6vw,1.3rem);
+}
+.addressee i{
+  width:6px;height:6px;border-radius:50%;flex:none;
+  background:var(--jade);
+  box-shadow:0 0 0 3px rgba(70,199,158,.16);
+}
+
+/* ---- заголовок ----------------------------------------- */
+.hero h1{
+  font-family:var(--serif);
+  font-size:var(--f-display);
+  font-weight:500;
+  line-height:1.02;
+  letter-spacing:-.018em;
+  font-variant-numeric:lining-nums;
+  color:var(--t1);
+  margin:0 0 clamp(1.1rem,2vw,1.7rem);
+  max-width:min(100%,68rem);
+}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln > i{display:block;font-style:normal}
+.hero h1 .big{
+  color:transparent;
+  background:linear-gradient(94deg,var(--au-hi) 6%,var(--au) 52%,#A9884A 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
+.hero h1 .big > i{
+  font-variant-numeric:tabular-nums lining-nums;
+  font-weight:600;
+}
+
+/* раскрыв заголовка: строки выезжают из-под обреза, один раз,
+   лесенкой по 90 мс. Дальше страница стоит спокойно. */
+html.js .hero h1 .ln > i{
+  transform:translateY(105%);
+  opacity:0;
+}
+html.js .hero.lit h1 .ln > i{
+  transform:none;opacity:1;
+  transition:transform .95s var(--ease-out) var(--d,0s),
+             opacity .8s ease var(--d,0s);
+}
+
+/* ---- сетка первого экрана ------------------------------ */
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.09fr) minmax(0,.91fr);
+  gap:clamp(1.8rem,3.6vw,3.8rem);
+  align-items:start;
+}
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:2.4rem}
+}
+
+.hero .lede{margin-top:0;max-width:46ch;line-height:1.6}
+
+/* ---- зона кнопки --------------------------------------- */
+/* Подсветка под кнопкой — единственное место на первом
+   экране, где фон светится намеренно. */
+.ctarow{position:relative;margin-top:clamp(1.3rem,2.2vw,1.8rem)}
+.ctarow::before{
+  content:'';position:absolute;z-index:-1;
+  left:-14%;right:14%;top:-45%;bottom:-45%;
+  background:radial-gradient(50% 50% at 32% 50%,rgba(200,164,95,.17),transparent 70%);
+  pointer-events:none;
+}
+.btns{display:flex;flex-wrap:wrap;gap:.8rem}
+.undercta{
+  margin-top:1rem;
+  font-size:var(--f-xs);line-height:1.6;color:var(--t3);
+  max-width:42ch;
+}
+
+/* ---- буллиты доверия ----------------------------------- */
+.bul{list-style:none;margin:clamp(1.2rem,2vw,1.75rem) 0 0;padding:0;
+     display:grid;gap:.9rem}
+.bul li{display:flex;gap:.8rem;align-items:flex-start;
+        font-size:var(--f-sm);line-height:1.58;color:var(--t2)}
+.bul li b{color:var(--t1)}
+.b-paper .bul li{color:var(--ink-2)}
+.b-paper .bul li b{color:var(--ink)}
+.bul .ck{
+  flex:none;width:20px;height:20px;margin-top:.12rem;
+  display:grid;place-items:center;border-radius:50%;
+  background:var(--jade-wash);
+  border:1px solid rgba(70,199,158,.3);
+  color:var(--jade);
+}
+.bul .ck .i{width:11px;height:11px;stroke-width:2.6}
+
+/* ---- гравированная печать ------------------------------ */
+/* Единственный по-настоящему подвижный объект на странице:
+   оттиск с текстом по окружности, один оборот за 54 секунды.
+   Стоит в углу первого экрана и больше нигде не повторяется. */
+.seal{
+  position:absolute;top:8.4rem;right:0;z-index:4;
+  width:152px;height:152px;
+  pointer-events:none;
+  opacity:.92;
+}
+.seal .ring{
+  animation:seal-spin 54s linear infinite;
+  transform-box:view-box;
+  transform-origin:60px 60px;
+}
+.seal text{
+  font:500 7.6px var(--mono);
+  fill:var(--au);
+  text-transform:uppercase;
+}
+.seal .edge{fill:none;stroke:rgba(200,164,95,.42);stroke-width:.8}
+.seal .edge-in{fill:none;stroke:rgba(200,164,95,.22);stroke-width:.6}
+.seal .cross{stroke:var(--au);stroke-width:1.3;stroke-linecap:round}
+.seal .core{
+  font:600 8px var(--mono);fill:var(--au-hi);
+  letter-spacing:1.4px;text-anchor:middle;
+}
+@keyframes seal-spin{to{transform:rotate(360deg)}}
+@media (max-width:1180px){.seal{display:none}}
+
+/* ---- макет будущего сайта ------------------------------ */
+.hero-r{position:relative}
+
+.shot{position:relative}
+.win{
+  position:relative;
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  background:var(--paper-3);
+  border:1px solid rgba(244,241,233,.12);
+  box-shadow:
+    0 60px 90px -50px rgba(0,0,0,.92),
+    0 24px 48px -30px rgba(0,0,0,.7),
+    0 0 0 1px rgba(200,164,95,.08);
+}
+.win .bar{
+  display:flex;align-items:center;gap:.42rem;
+  padding:.62rem .85rem;
+  background:linear-gradient(180deg,#E9E2D4,#DED6C5);
+  border-bottom:1px solid rgba(18,22,26,.1);
+}
+.win .bar > i{
+  width:8px;height:8px;border-radius:50%;flex:none;
+  background:rgba(18,22,26,.16);
+}
+.win .bar .url{
+  margin-left:.7rem;padding:.22rem .7rem;
+  background:rgba(255,255,255,.72);border-radius:100px;
+  font:400 .58rem/1.5 var(--mono);color:#6A727C;
+  border:1px solid rgba(18,22,26,.07);
+  white-space:nowrap;
+}
+
+/* ---- первые экраны соседей ----------------------------- */
+/* Четыре настоящих снимка вместо четырёх описаний: спорить
+   с текстом можно, с окном браузера — нет. Рамка та же, что
+   у макета на первом экране, чтобы страница читалась как
+   один документ. */
+.sites{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(1.1rem,2.2vw,1.9rem);
+  margin-top:clamp(1.5rem,2.6vw,2.15rem);
+}
+/* Трое в ряд: двое ближайших соседей и он сам. Четвёртый
+   участник к выводу ничего не добавлял, а стоил разворота
+   высотой в экран. */
+.sites.three{grid-template-columns:repeat(3,1fr)}
+@media (max-width:900px){.sites.three{grid-template-columns:1fr 1fr}}
+.site{margin:0}
+.site .win{
+  border-color:rgba(18,22,26,.13);
+  box-shadow:
+    0 34px 54px -38px rgba(18,22,26,.6),
+    0 10px 22px -16px rgba(18,22,26,.35);
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease);
+}
+.site:hover .win{
+  transform:translateY(-3px);
+  box-shadow:
+    0 44px 66px -38px rgba(18,22,26,.62),
+    0 14px 26px -16px rgba(18,22,26,.4);
+}
+.site img{
+  display:block;width:100%;height:auto;
+  border-top:1px solid rgba(18,22,26,.06);
+}
+.site figcaption{padding:1.05rem .25rem 0}
+.st-h{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1rem;margin-bottom:.3rem;
+}
+.st-h b{
+  font:500 clamp(1.08rem,1rem + .4vw,1.3rem)/1.2 var(--serif);
+  color:var(--ink);letter-spacing:-.005em;
+}
+.st-r{
+  flex:none;
+  font:500 var(--f-xs)/1 var(--mono);
+  font-variant-numeric:tabular-nums;color:var(--ink-3);
+}
+.st-d{
+  font:400 .625rem/1.3 var(--mono);
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--au-ink);margin-bottom:.55rem;
+}
+.site p{margin:0;font-size:var(--f-sm);line-height:1.6;color:var(--ink-2)}
+
+/* ваш сайт в этом же ряду — та же рамка, другой цвет метки */
+.site.me .win{
+  border-color:rgba(158,51,32,.3);
+  box-shadow:
+    0 34px 54px -38px rgba(18,22,26,.6),
+    0 0 0 1px rgba(158,51,32,.12);
+}
+.site.me .st-d{color:var(--carn-ink)}
+.site.me .st-h b{color:var(--carn-ink)}
+
+@media (max-width:820px){
+  .sites{grid-template-columns:1fr}
+}
+
+/* штамп поверх макета: «черновик», «в работе» */
+.stamp{
+  position:absolute;z-index:4;
+  padding:.4rem .82rem;
+  font:600 var(--f-rub)/1 var(--mono);
+  letter-spacing:.18em;text-transform:uppercase;
+  white-space:nowrap;
+  border-radius:2px;
+  transform:rotate(-2.5deg);
+}
+.stamp.onstamp{top:-.85rem;right:1.3rem}
+.stamp.amber{
+  color:#2A1C05;
+  background:linear-gradient(180deg,#F0D08F,#DCAE55);
+  border:1px solid #C79A44;
+  box-shadow:0 10px 22px -12px rgba(0,0,0,.8);
+}
+.stamp.ok{
+  color:#04241B;
+  background:linear-gradient(180deg,#8FE7CB,#4CC9A2);
+  border:1px solid #35AE89;
+  box-shadow:0 10px 22px -12px rgba(0,0,0,.8);
+}
+.stamp.gold{
+  color:#140F05;
+  background:linear-gradient(180deg,var(--au-hi),var(--au));
+  border:1px solid #B6934E;
+  box-shadow:0 10px 22px -12px rgba(0,0,0,.8);
+}
+
+/* ---- начинка макета ------------------------------------ */
+.mk-nav{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.6rem .9rem;background:#fff;
+  border-bottom:1px solid rgba(18,22,26,.08);
+}
+.mk-logo{display:flex;align-items:center;gap:.4rem;margin-right:auto}
+.mk-logo > i{
+  width:13px;height:13px;border-radius:3px;flex:none;
+  background:#0B1226;
+}
+.mk-logo > span{font:700 .66rem/1 var(--sans);color:#12161A;letter-spacing:.02em}
+.mk-menu{display:flex;gap:.44rem}
+.mk-menu > i{height:3px;border-radius:2px;background:rgba(18,22,26,.16)}
+.mk-btn{
+  padding:.3rem .6rem;border-radius:3px;
+  background:linear-gradient(180deg,var(--au-hi),var(--au));
+  font:700 .58rem/1 var(--sans);color:#140F05;
+}
+.mk-hero{
+  padding:.95rem;
+  background:linear-gradient(160deg,#101A33,#0B1226);
+  position:relative;
+}
+.mk-eye{
+  font:500 .52rem/1 var(--mono);letter-spacing:.14em;
+  text-transform:uppercase;color:#9FB4D8;margin-bottom:.42rem;
+}
+.mk-h{
+  font:600 .88rem/1.24 var(--serif);color:#F4F1E9;
+  font-size:.96rem;margin-bottom:.34rem;
+}
+.mk-sub{font:400 .58rem/1.45 var(--sans);color:#AEBACE;position:relative}
+.mk-cta{display:flex;align-items:center;gap:.6rem;margin-top:.72rem}
+.mk-cta .b{
+  position:relative;
+  padding:.42rem .7rem;border-radius:3px;
+  background:linear-gradient(180deg,var(--au-hi),var(--au));
+  font:700 .6rem/1 var(--sans);color:#140F05;
+}
+.mk-cta .t{font:500 .6rem/1 var(--mono);color:#C6D2E6}
+.mk-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;
+  padding:.7rem;background:var(--paper-3);
+}
+.mk-card{
+  position:relative;
+  padding:.55rem;border-radius:4px;background:#fff;
+  border:1px solid rgba(18,22,26,.08);
+}
+.mk-card .n{font:600 .58rem/1.3 var(--sans);color:#12161A}
+.mk-card .p{
+  font:600 .58rem/1.3 var(--mono);color:var(--au-ink);margin-top:.2rem;
+  font-variant-numeric:tabular-nums;
+}
+.mk-card .l{
+  display:block;height:3px;border-radius:2px;margin-top:.44rem;
+  background:rgba(18,22,26,.1);
+}
+
+/* пины 1–2–3: что именно в макете решает задачу */
+.pin{
+  position:absolute;
+  width:17px;height:17px;border-radius:50%;
+  display:grid;place-items:center;
+  font:700 .55rem/1 var(--mono);font-style:normal;
+  color:#140F05;
+  background:linear-gradient(180deg,var(--au-hi),var(--au));
+  border:1px solid rgba(255,244,218,.7);
+  box-shadow:0 0 0 3px rgba(200,164,95,.2),0 4px 10px -3px rgba(0,0,0,.6);
+}
+.mk-card .pin{top:-7px;left:-7px}
+.mk-cta .b .pin{top:-8px;right:-8px}
+.mk-sub .pin{top:-2px;right:-2px}
+
+.pins{
+  display:flex;flex-wrap:wrap;gap:.5rem 1.15rem;
+  margin-top:1.1rem;
+}
+.pins span{
+  display:flex;align-items:center;gap:.44rem;
+  font-size:var(--f-xs);color:var(--t3);
+}
+.pins b{
+  width:16px;height:16px;border-radius:50%;flex:none;
+  display:grid;place-items:center;
+  font:700 .55rem/1 var(--mono);color:var(--au-hi);
+  border:1px solid var(--au-line);background:var(--au-wash);
+}
+
+.capt{
+  margin-top:.85rem;
+  font:italic 400 var(--f-sm)/1.55 var(--serif);
+  font-size:1rem;
+  color:var(--t3);
+}
+.b-paper .capt{color:var(--ink-3)}
+
+/* ---- что будет в прототипе ----------------------------- */
+.inside{
+  margin-top:1.4rem;
+  padding:1.15rem 1.3rem;
+  border:1px solid var(--rule);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(244,241,233,.045),rgba(244,241,233,.015));
+}
+.inside .t{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--au);margin-bottom:.85rem;
+}
+.inside ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.inside li{
+  display:flex;align-items:baseline;gap:.85rem;
+  font-size:var(--f-sm);color:var(--t2);
+}
+.inside .k{
+  flex:none;min-width:2.1rem;
+  font:600 1.02rem/1 var(--mono);
+  font-variant-numeric:tabular-nums;
+  color:var(--t1);
+}
+
+/* ---- три числа под первым экраном ---------------------- */
+.trust{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(1rem,2.4vw,2.6rem);
+  margin-top:clamp(1.4rem,2.4vw,2rem);
+  padding-top:clamp(1.15rem,2vw,1.65rem);
+  border-top:1px solid var(--rule-2);
+}
+.trust .t{
+  display:flex;flex-direction:column;gap:.42rem;
+  font-size:var(--f-xs);line-height:1.5;color:var(--t3);
+}
+.trust .t b{
+  font:500 clamp(1.5rem,1.1rem + 1.3vw,2.1rem)/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;
+  color:var(--t1);letter-spacing:-.01em;
+}
+@media (max-width:640px){
+  .trust{grid-template-columns:1fr;gap:1rem}
+  .trust .t{
+    flex-direction:row;align-items:baseline;gap:.8rem;
+    padding-bottom:.8rem;border-bottom:1px solid var(--rule-2);
+  }
+  .trust .t:last-child{border-bottom:0;padding-bottom:0}
+  .trust .t b{min-width:5.4rem}
+}
+
+/* ============================================================
+   ВРЕЗКА
+
+   Одна строка, которая закрывает раздел. Набрана серифом,
+   отбита волоском слева. Это голос автора, а не содержание
+   блока, — поэтому и гарнитура другая.
+   ============================================================ */
+
+.strip{
+  position:relative;
+  margin-top:clamp(1.4rem,2.3vw,1.95rem);
+  padding:1.2rem 1.5rem 1.2rem 1.75rem;
+  border-left:2px solid var(--au);
+  border-radius:0 var(--r) var(--r) 0;
+  background:linear-gradient(90deg,var(--au-wash),transparent 70%);
+  font:400 clamp(1.08rem,1rem + .45vw,1.34rem)/1.5 var(--serif);
+  color:var(--t1);
+  max-width:78ch;
+}
+.b-paper .strip{color:var(--ink)}
+.strip.good{border-left-color:var(--jade);
+  background:linear-gradient(90deg,var(--jade-wash),transparent 70%)}
+.strip.warn{border-left-color:var(--carn);
+  background:linear-gradient(90deg,var(--carn-wash),transparent 70%)}
+
+/* ============================================================
+   2 и 15. ДВА ИСХОДА — хронометраж в две колонки
+   ============================================================ */
+
+.tickets{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(1rem,2.2vw,1.9rem);
+  margin-top:clamp(1.45rem,2.4vw,2.05rem);
+}
+@media (max-width:860px){.tickets{grid-template-columns:1fr}}
+
+.ticket{
+  position:relative;
+  padding:1.3rem 1.4rem 1.4rem;
+  border:1px solid var(--rule);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(244,241,233,.05),rgba(244,241,233,.015));
+  overflow:hidden;
+}
+.ticket::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:2px;
+}
+.ticket.good::before{background:linear-gradient(90deg,var(--jade),transparent)}
+.ticket.bad::before{background:linear-gradient(90deg,var(--carn),transparent)}
+.ticket.good{box-shadow:inset 0 0 60px -40px var(--jade)}
+.ticket.bad{box-shadow:inset 0 0 60px -40px var(--carn)}
+
+.ticket .lab{
+  display:flex;align-items:center;gap:.55rem;
+  font:600 var(--f-rub)/1 var(--mono);
+  letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:1.15rem;
+}
+.ticket .lab::before{
+  content:'';width:7px;height:7px;border-radius:50%;flex:none;
+}
+.ticket.good .lab{color:var(--jade-hi)}
+.ticket.good .lab::before{background:var(--jade);box-shadow:0 0 0 3px rgba(70,199,158,.16)}
+.ticket.bad .lab{color:var(--carn-hi)}
+.ticket.bad .lab::before{background:var(--carn);box-shadow:0 0 0 3px rgba(210,96,75,.16)}
+
+.ticket ul{list-style:none;margin:0;padding:0}
+.ticket li{
+  display:grid;grid-template-columns:4.6rem 1fr;
+  gap:.9rem;align-items:baseline;
+  padding:.52rem 0;
+  border-top:1px solid var(--rule-2);
+  font-size:var(--f-sm);line-height:1.52;color:var(--t2);
+}
+.ticket li:first-child{border-top:0;padding-top:0}
+.ticket li:last-child{padding-bottom:0}
+.ticket li b{color:var(--t1)}
+.ticket .tm{
+  font:500 var(--f-xs)/1.5 var(--mono);
+  font-variant-numeric:tabular-nums;
+  color:var(--t4);letter-spacing:.02em;
+}
+.ticket.good li:last-child .tm{color:var(--jade)}
+.ticket.bad li:last-child .tm{color:var(--carn)}
+
+.b-paper .ticket{
+  border-color:var(--rule-l);
+  background:linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4));
+}
+.b-paper .ticket li{color:var(--ink-2);border-top-color:var(--rule-l2)}
+.b-paper .ticket li b{color:var(--ink)}
+.b-paper .ticket .tm{color:var(--ink-4)}
+.b-paper .ticket.good .lab{color:var(--jade-ink)}
+.b-paper .ticket.bad .lab{color:var(--carn-ink)}
+.b-paper .ticket.good li:last-child .tm{color:var(--jade-ink)}
+.b-paper .ticket.bad li:last-child .tm{color:var(--carn-ink)}
+
+/* ============================================================
+   3. АУДИТ. Код страницы и список находок
+   ============================================================ */
+
+.audit{
+  display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+  gap:clamp(1.2rem,2.6vw,2.6rem);
+  margin-top:clamp(1.45rem,2.4vw,2.05rem);
+  align-items:start;
+}
+@media (max-width:940px){.audit{grid-template-columns:1fr}}
+
+.code{
+  border:1px solid var(--rule);
+  border-radius:var(--r-md);
+  overflow:hidden;
+  background:#05070A;
+  box-shadow:0 40px 70px -50px #000,inset 0 1px 0 rgba(244,241,233,.05);
+}
+.code .bar{
+  display:flex;align-items:center;gap:.42rem;
+  padding:.6rem .85rem;
+  background:rgba(244,241,233,.035);
+  border-bottom:1px solid var(--rule-2);
+  font:400 .6rem/1 var(--mono);color:var(--t4);
+}
+.code .bar > i{
+  width:7px;height:7px;border-radius:50%;flex:none;
+  background:rgba(244,241,233,.14);
+}
+.code .bar > span{margin-left:.7rem;letter-spacing:.06em}
+.code pre{
+  margin:0;padding:1.15rem 1.25rem;
+  font:400 .78rem/1.72 var(--mono);
+  color:var(--t3);
+  overflow-x:auto;
+  tab-size:2;
+}
+.code .cm{color:var(--t4);font-style:italic}
+.code .tag{color:#6E8FB8}
+.code .bad{
+  color:var(--carn-hi);
+  background:rgba(210,96,75,.11);
+  box-shadow:inset 0 -1px 0 rgba(210,96,75,.4);
+  padding:0 .18em;
+}
+
+.aside{
+  margin-top:1rem;
+  padding:.9rem 1.1rem;
+  border:1px dashed var(--rule);
+  border-radius:var(--r);
+  font-size:var(--f-xs);line-height:1.6;color:var(--t3);
+}
+.b-paper .aside{border-color:var(--rule-l);color:var(--ink-3)}
+
+.findings{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.findings li{
+  display:flex;gap:.95rem;align-items:flex-start;
+  padding:.8rem 0;
+  border-bottom:1px solid var(--rule-2);
+  font-size:var(--f-sm);line-height:1.58;color:var(--t2);
+}
+.findings li:first-child{padding-top:0}
+.findings li:last-child{border-bottom:0}
+.findings li b{color:var(--t1)}
+.findings .x{
+  flex:none;width:22px;height:22px;margin-top:.06rem;
+  display:grid;place-items:center;border-radius:50%;
+  background:var(--carn-wash);
+  border:1px solid rgba(210,96,75,.3);
+  color:var(--carn);
+}
+.findings .x .i{width:11px;height:11px;stroke-width:2.6}
+
+/* ============================================================
+   4. АРИФМЕТИКА. Воронка, ведомость, итог
+   ============================================================ */
+
+/* ---- два исхода одних и тех же 420 просмотров ---------- */
+/* В одной воронке смешивались «что есть» и «что было бы» —
+   по картинке нельзя было понять, где какая цифра. Теперь
+   две колонки с общей шапкой: слева сегодняшний день,
+   справа — та же тысяча человек, но со страницей услуги. */
+.two-ways{margin-top:clamp(1.6rem,2.8vw,2.4rem)}
+
+.tw-top{
+  display:flex;align-items:center;gap:clamp(1rem,2.2vw,1.8rem);
+  padding:clamp(1.1rem,2vw,1.5rem) clamp(1.2rem,2.2vw,1.7rem);
+  border:1px solid var(--rule-l);
+  border-radius:var(--r-lg) var(--r-lg) 0 0;
+  border-bottom:0;
+  background:
+    radial-gradient(120% 200% at 50% 0%,rgba(200,164,95,.12),transparent 64%),
+    linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.35));
+}
+.tw-n{
+  flex:none;
+  font:500 clamp(2.4rem,1.7rem + 2.4vw,3.5rem)/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.02em;
+  color:var(--au-ink);
+}
+.tw-t b{
+  display:block;margin-bottom:.28rem;
+  font:500 clamp(1.08rem,1rem + .4vw,1.3rem)/1.3 var(--serif);
+  color:var(--ink);
+}
+.tw-t p{margin:0;font-size:var(--f-sm);line-height:1.6;color:var(--ink-2);max-width:74ch}
+
+.tw-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--rule-l);
+  border:1px solid var(--rule-l);
+  border-radius:0 0 var(--r-lg) var(--r-lg);
+  overflow:hidden;
+}
+.tw-col{
+  padding:clamp(1.15rem,2vw,1.6rem) clamp(1.2rem,2.2vw,1.7rem) clamp(1.2rem,2vw,1.6rem);
+  background:linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4));
+}
+.tw-col.bad{background:linear-gradient(180deg,rgba(210,96,75,.07),rgba(255,255,255,.34))}
+.tw-col.good{background:linear-gradient(180deg,rgba(70,199,158,.09),rgba(255,255,255,.34))}
+
+.tw-head{margin-bottom:1.15rem}
+.tw-k{
+  display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.45rem;
+  font:700 var(--f-rub)/1 var(--mono);
+  letter-spacing:.18em;text-transform:uppercase;
+}
+.tw-k::before{content:'';width:7px;height:7px;border-radius:50%;flex:none}
+.tw-col.bad .tw-k{color:var(--carn-ink)}
+.tw-col.bad .tw-k::before{background:var(--carn)}
+.tw-col.good .tw-k{color:var(--jade-ink)}
+.tw-col.good .tw-k::before{background:var(--jade)}
+.tw-head h3{margin:0;font-size:var(--f-h3);color:var(--ink)}
+
+.tw-rows{list-style:none;margin:0;padding:0;display:grid;gap:.95rem}
+.tw-rows li{display:grid;gap:.42rem}
+.tw-l{display:flex;align-items:baseline;gap:.6rem}
+.tw-l b{
+  font:500 clamp(1.5rem,1.2rem + 1vw,2rem)/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.015em;
+  color:var(--ink);min-width:3.4rem;
+}
+.tw-l span{font-size:var(--f-sm);line-height:1.4;color:var(--ink-2)}
+/* полоса — сама шкала: видно, как поток тает */
+.bar{
+  display:block;height:9px;border-radius:100px;width:0;
+  transition:width 1.2s var(--ease-out);
+}
+.tw-col.seen .bar{width:var(--w)}
+.tw-col.bad .bar{background:linear-gradient(90deg,#8E2F1F,#D2604B)}
+.tw-col.good .bar{background:linear-gradient(90deg,#0B6A53,#46C79E)}
+.tw-rows .acc b{font-size:clamp(1.8rem,1.3rem + 1.6vw,2.5rem)}
+.tw-col.bad .acc b{color:var(--carn-ink)}
+.tw-col.good .acc b{color:var(--jade-ink)}
+
+.tw-sum{
+  display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap;
+  margin-top:1.2rem;padding-top:1rem;
+  border-top:1px solid var(--rule-l2);
+}
+.tw-sum b{
+  font:500 clamp(1.7rem,1.3rem + 1.4vw,2.35rem)/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.02em;
+}
+.tw-col.bad .tw-sum b{color:var(--carn-ink)}
+.tw-col.good .tw-sum b{color:var(--jade-ink)}
+.tw-sum span{flex:1 1 12rem;font-size:var(--f-sm);line-height:1.5;color:var(--ink-2)}
+
+.tw-scale{
+  margin:.85rem 0 0;
+  font:400 .7rem/1.5 var(--mono);color:var(--ink-4);
+}
+
+@media (max-width:820px){
+  .tw-grid{grid-template-columns:1fr}
+  .tw-top{flex-direction:column;align-items:flex-start;gap:.6rem}
+}
+
+/* ---- ведомость ----------------------------------------- */
+.ledger{
+  width:100%;border-collapse:collapse;
+  margin-top:clamp(1.6rem,2.6vw,2.2rem);
+  font-size:var(--f-sm);
+}
+.ledger th{
+  padding:.7rem .85rem;
+  border-bottom:1px solid var(--rule-l3);
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--au-ink);text-align:left;
+}
+.ledger th.r,.ledger td.r{text-align:right}
+.ledger td{
+  padding:.8rem .85rem;
+  border-bottom:1px solid var(--rule-l2);
+  color:var(--ink-2);line-height:1.5;
+  vertical-align:top;
+}
+.ledger tr:last-child td{border-bottom:1px solid var(--rule-l3)}
+.ledger td small{
+  display:block;margin-top:.22rem;
+  font-size:.72rem;line-height:1.45;color:var(--ink-4);
+}
+.ledger .v{
+  font-family:var(--mono);font-weight:500;
+  font-variant-numeric:tabular-nums;
+  color:var(--ink);white-space:nowrap;
+}
+.ledger .cut{color:var(--carn-ink)}
+.ledger .mx{color:var(--ink-4)}
+.ledger .res{
+  color:var(--au-ink);font-weight:700;
+  background:var(--au-wash);
+}
+.ledger tbody tr{transition:background .25s}
+.ledger tbody tr:hover{background:rgba(200,164,95,.07)}
+
+/* ---- итог ---------------------------------------------- */
+.total{
+  display:flex;flex-wrap:wrap;align-items:center;
+  gap:clamp(1.2rem,3vw,3rem);
+  margin-top:clamp(1.4rem,2.3vw,1.9rem);
+  padding:clamp(1.3rem,2.2vw,1.85rem) clamp(1.4rem,2.4vw,2.1rem);
+  border:1px solid var(--rule-l);
+  border-radius:var(--r-md);
+  background:
+    radial-gradient(40rem 16rem at 8% 50%,rgba(200,164,95,.2),transparent 70%),
+    linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+}
+.total .big{
+  display:flex;flex-direction:column;gap:.28rem;
+  font:500 clamp(2.4rem,1.5rem + 3.4vw,4.2rem)/.95 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;
+  color:var(--carn-ink);letter-spacing:-.02em;
+  white-space:nowrap;
+}
+.total .big small{
+  font:400 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-3);
+}
+.total .txt{
+  font-size:var(--f-lede);line-height:1.6;color:var(--ink-2);
+  max-width:46ch;
+}
+.total .txt b{color:var(--ink)}
+
+/* ============================================================
+   5, 12, 16. ПОЛОСА ФОРМЫ
+   ============================================================ */
+
+.formgrid{
+  display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+  gap:clamp(1.6rem,3.4vw,3.6rem);
+  align-items:start;
+}
+@media (max-width:960px){.formgrid{grid-template-columns:1fr}}
+
+.form{
+  position:relative;
+  padding:clamp(1.5rem,2.6vw,2.2rem);
+  border:1px solid var(--au-faint);
+  border-radius:var(--r-lg);
+  background:
+    linear-gradient(180deg,rgba(244,241,233,.075),rgba(244,241,233,.028));
+  box-shadow:
+    inset 0 1px 0 rgba(244,241,233,.09),
+    0 50px 80px -60px #000,
+    0 0 90px -50px rgba(200,164,95,.55);
+  backdrop-filter:blur(3px);
+}
+/* волосок бронзы по верхнему ребру формы: подсветка того
+   места, ради которого собрана вся полоса */
+.form::before{
+  content:'';position:absolute;left:1.6rem;right:1.6rem;top:-1px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--au),transparent);
+}
+/* приводочные засечки по углам — как на типографском оттиске.
+   Четыре уголка по 12 px, нарисованы фоном, без лишних узлов
+   в разметке. */
+.form::after{
+  content:'';position:absolute;inset:10px;pointer-events:none;
+  background:
+    linear-gradient(var(--au-line) 0 0) 0    0    /1px 12px no-repeat,
+    linear-gradient(var(--au-line) 0 0) 0    0    /12px 1px no-repeat,
+    linear-gradient(var(--au-line) 0 0) 100% 0    /1px 12px no-repeat,
+    linear-gradient(var(--au-line) 0 0) 100% 0    /12px 1px no-repeat,
+    linear-gradient(var(--au-line) 0 0) 0    100% /1px 12px no-repeat,
+    linear-gradient(var(--au-line) 0 0) 0    100% /12px 1px no-repeat,
+    linear-gradient(var(--au-line) 0 0) 100% 100% /1px 12px no-repeat,
+    linear-gradient(var(--au-line) 0 0) 100% 100% /12px 1px no-repeat;
+}
+.form h3{
+  font-family:var(--serif);
+  font-size:clamp(1.4rem,1.1rem + .9vw,1.86rem);
+  font-weight:500;line-height:1.14;letter-spacing:-.01em;
+  color:var(--t1);
+}
+.form .sub{
+  margin-top:.62rem;
+  font-size:var(--f-sm);line-height:1.58;color:var(--t3);
+}
+
+.field{margin-top:1.05rem}
+.field > label{
+  display:block;margin-bottom:.48rem;
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--t3);
+}
+.field input[type=text],
+.field input[type=tel],
+.field textarea{
+  width:100%;
+  padding:.92rem 1rem;
+  border:1px solid var(--rule);
+  border-radius:var(--r);
+  background:rgba(6,8,10,.42);
+  color:var(--t1);
+  font:400 var(--f-sm)/1.5 var(--sans);
+  transition:border-color .3s,box-shadow .3s,background .3s;
+}
+.field textarea{min-height:5.4rem;resize:vertical;line-height:1.58}
+.field input::placeholder,.field textarea::placeholder{
+  color:var(--t4);
+}
+.field textarea::placeholder{font-size:.86em;line-height:1.65}
+.field input:focus,.field textarea:focus{
+  outline:none;
+  border-color:var(--au);
+  background:rgba(6,8,10,.6);
+  box-shadow:0 0 0 3px rgba(200,164,95,.16);
+}
+.field .hint{
+  margin-top:.42rem;
+  font-size:.74rem;line-height:1.5;color:var(--t3);
+}
+
+/* «когда вам позвонить» — клиент сам назначает время */
+.when-row{display:flex;flex-wrap:wrap;gap:.5rem}
+.when-row > label{
+  position:relative;cursor:pointer;
+}
+.when-row input{position:absolute;opacity:0;width:0;height:0}
+.when-row span{
+  display:block;
+  padding:.6rem .9rem;
+  border:1px solid var(--rule);
+  border-radius:100px;
+  font-size:var(--f-xs);color:var(--t2);
+  transition:all .28s var(--ease);
+}
+.when-row input:checked + span{
+  border-color:var(--au);
+  background:var(--au-wash);
+  color:var(--t1);
+  box-shadow:0 0 22px -12px rgba(200,164,95,.9);
+}
+.when-row input:focus-visible + span{outline:2px solid var(--au);outline-offset:2px}
+
+.form .btn{margin-top:1.4rem}
+
+.agree{
+  display:flex;gap:.6rem;align-items:flex-start;
+  margin-top:1rem;cursor:pointer;
+  font-size:.74rem;line-height:1.5;color:var(--t4);
+}
+.agree input{
+  margin:.16rem 0 0;flex:none;
+  accent-color:var(--au);width:14px;height:14px;
+}
+.agree a{color:var(--t3);text-decoration:underline;text-underline-offset:2px}
+
+/* под кнопкой сказано, что придёт, в каком виде и когда */
+.formfoot{
+  display:flex;flex-wrap:wrap;gap:.45rem 1.2rem;
+  margin-top:1.2rem;padding-top:1rem;
+  border-top:1px solid var(--rule-2);
+  font-size:.74rem;color:var(--t3);
+}
+.formfoot b{color:var(--t1)}
+.formfoot a{color:var(--au)}
+.formfoot .dot{display:flex;align-items:center;gap:.45rem}
+.formfoot .dot i{
+  width:6px;height:6px;border-radius:50%;flex:none;
+  background:var(--jade);box-shadow:0 0 0 3px rgba(70,199,158,.16);
+}
+
+/* ---- лист прототипа: артефакт нарисован, а не назван ---- */
+.doc{position:relative;margin-top:clamp(1.6rem,2.6vw,2.2rem);max-width:24rem}
+.doc .stamp.gold{position:absolute;top:-.7rem;left:-.6rem;z-index:5}
+.sheet{
+  position:relative;z-index:1;
+  padding:1.3rem 1.4rem 1.5rem;
+  border:1px solid var(--rule);
+  border-radius:var(--r);
+  background:linear-gradient(180deg,rgba(244,241,233,.07),rgba(244,241,233,.02));
+  box-shadow:0 30px 50px -44px #000;
+}
+.sheet .t{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;color:var(--au);
+}
+.sheet h4{
+  margin:.6rem 0 1rem;
+  font:500 1.4rem/1.15 var(--serif);color:var(--t1);
+}
+.sheet .ln{display:grid;gap:.44rem}
+.sheet .ln > i{
+  display:block;height:5px;border-radius:2px;
+  background:rgba(244,241,233,.11);
+}
+.sheet .ln > i.m{width:82%}
+.sheet .ln > i.s{width:46%}
+.sheet .ln > i.acc{
+  width:34%;height:11px;border-radius:3px;
+  background:linear-gradient(90deg,var(--au),var(--au-lo));
+}
+
+/* ============================================================
+   6. ШЕСТЬ ВЫГОД
+
+   Первая карточка занимает две колонки и набрана крупнее:
+   раскладка сама говорит, какая выгода главная.
+   ============================================================ */
+
+.gains{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(.9rem,1.8vw,1.4rem);
+  margin-top:clamp(1.45rem,2.4vw,2.05rem);
+}
+.gain{
+  position:relative;
+  padding:1.3rem 1.35rem 1.4rem;
+  border:1px solid var(--rule);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(244,241,233,.05),rgba(244,241,233,.015));
+  box-shadow:inset 0 1px 0 rgba(244,241,233,.05);
+  transition:border-color .4s var(--ease),background .4s,transform .4s var(--ease-out);
+}
+.gain:hover{
+  border-color:var(--au-line);
+  background:linear-gradient(180deg,rgba(244,241,233,.075),rgba(244,241,233,.02));
+  transform:translateY(-2px);
+}
+.gain.lead{grid-column:span 2}
+.gain.full{grid-column:span 3;display:flex;gap:1.4rem;align-items:flex-start}
+.gain.full .txt{flex:1}
+
+.gain .ic{
+  width:40px;height:40px;margin-bottom:1rem;
+  display:grid;place-items:center;
+  border:1px solid var(--au-faint);
+  border-radius:var(--r);
+  background:var(--au-wash);
+  color:var(--au);
+}
+.gain .ic .i{width:19px;height:19px;stroke-width:1.7}
+.gain.full .ic{margin-bottom:0}
+.gain h3{margin-bottom:.6rem}
+.gain.lead h3{font-size:clamp(1.25rem,1.1rem + .6vw,1.56rem)}
+.gain p{font-size:var(--f-sm);line-height:1.62;color:var(--t2);margin:0}
+.gain.lead p{font-size:var(--f-body)}
+
+/* честная неудобная строка рядом с обещанием */
+.gain .no{
+  display:block;margin-top:.95rem;padding-top:.85rem;
+  border-top:1px solid var(--rule-2);
+  font-size:.76rem;line-height:1.5;color:var(--carn-hi);
+}
+.gain .no::before{
+  content:'';display:inline-block;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--carn);margin-right:.5rem;vertical-align:middle;
+}
+.b-paper .gain{border-color:var(--rule-l);
+  background:linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4))}
+.b-paper .gain p{color:var(--ink-2)}
+.b-paper .gain .no{color:var(--carn-ink);border-top-color:var(--rule-l2)}
+
+@media (max-width:980px){
+  .gains{grid-template-columns:1fr 1fr}
+  .gain.lead,.gain.full{grid-column:span 2}
+}
+@media (max-width:640px){
+  .gains{grid-template-columns:1fr}
+  .gain.lead,.gain.full{grid-column:span 1}
+  .gain.full{flex-direction:column;gap:1rem}
+}
+
+/* ============================================================
+   РАЗВИЛКА: ОДИН ВЕЧЕР, ДВА ИСХОДА
+
+   Раньше здесь стояли два одинаковых списка, и читалось это
+   как две отдельные истории. Теперь виден вход — один и тот
+   же вечер и один и тот же запрос, — и место, где дорога
+   расходится. Дальше каждый шаг подписан минутой и значком
+   того, что человек видит на экране.
+   ============================================================ */
+
+.fork{margin-top:clamp(1.45rem,2.4vw,2.05rem)}
+
+.fk-start{
+  position:relative;
+  display:flex;align-items:flex-start;gap:clamp(1rem,2vw,1.6rem);
+  max-width:60rem;margin:0 auto;
+  padding:1.15rem 1.4rem 1.2rem;
+  border:1px solid var(--au-line);
+  border-radius:var(--r-md);
+  background:
+    radial-gradient(120% 200% at 50% 0%,rgba(200,164,95,.1),transparent 62%),
+    linear-gradient(180deg,rgba(244,241,233,.05),rgba(244,241,233,.015));
+}
+.fk-tm{
+  flex:none;
+  font:500 var(--f-xs)/1.5 var(--mono);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.04em;color:var(--au);
+  padding-top:.1rem;
+}
+.fk-txt b{
+  display:block;margin-bottom:.3rem;
+  font:500 clamp(1.06rem,1rem + .34vw,1.24rem)/1.3 var(--serif);
+  color:var(--t1);font-weight:500;
+}
+.fk-txt p{margin:0;font-size:var(--f-sm);line-height:1.6;color:var(--t2)}
+
+/* ---- сама развилка ------------------------------------- */
+.fk-split{display:block;width:100%;height:62px}
+.fk-split path{fill:none;stroke-width:1.5;stroke-linecap:round}
+.fk-split .fk-a{stroke:rgba(70,199,158,.55)}
+.fk-split .fk-b{stroke:rgba(210,96,75,.5)}
+
+/* ---- две дороги ---------------------------------------- */
+.ways{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(1rem,2.2vw,1.9rem);
+}
+.way{
+  position:relative;overflow:hidden;
+  padding:1.35rem 1.45rem 1.45rem;
+  border:1px solid var(--rule);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(244,241,233,.05),rgba(244,241,233,.015));
+}
+.way::before{content:'';position:absolute;left:0;right:0;top:0;height:2px}
+.way.good::before{background:linear-gradient(90deg,var(--jade),transparent)}
+.way.bad::before{background:linear-gradient(90deg,var(--carn),transparent)}
+.way.good{box-shadow:inset 0 0 70px -46px var(--jade)}
+.way.bad{box-shadow:inset 0 0 70px -46px var(--carn)}
+
+.w-head{margin-bottom:1.15rem}
+.w-k{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font:600 var(--f-rub)/1 var(--mono);
+  letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+.w-k::before{
+  content:'';width:7px;height:7px;border-radius:50%;flex:none;
+}
+.way.good .w-k{color:var(--jade-hi)}
+.way.good .w-k::before{background:var(--jade);box-shadow:0 0 0 3px rgba(70,199,158,.16)}
+.way.bad .w-k{color:var(--carn-hi)}
+.way.bad .w-k::before{background:var(--carn);box-shadow:0 0 0 3px rgba(210,96,75,.16)}
+.w-head h3{margin:0;font-size:var(--f-h3)}
+
+/* ---- шаги: время, значок, строка ------------------------ */
+/* Значки идут по вертикальной рельсе — дорога, а не список. */
+.w-steps{list-style:none;margin:0;padding:0;position:relative}
+.w-steps li{
+  position:relative;
+  display:grid;grid-template-columns:3.4rem 30px 1fr;
+  gap:.75rem;align-items:start;
+  padding:.62rem 0;
+  font-size:var(--f-sm);line-height:1.52;color:var(--t2);
+}
+.w-steps li b{color:var(--t1);font-weight:700}
+.w-steps .tm{
+  font:500 var(--f-xs)/1.7 var(--mono);
+  font-variant-numeric:tabular-nums;
+  color:var(--t4);letter-spacing:.02em;
+}
+.w-steps .ic{
+  position:relative;z-index:1;
+  width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;
+  border:1px solid var(--rule-3);
+  background:var(--onyx-2);
+}
+.w-steps .ic .i{width:14px;height:14px;stroke-width:2}
+/* рельса между значками */
+.w-steps li::before{
+  content:'';position:absolute;
+  left:calc(3.4rem + .75rem + 15px);top:calc(.62rem + 30px);
+  width:1px;height:calc(100% - 30px);
+  background:var(--rule);
+}
+.w-steps li:last-child::before{display:none}
+.way.good .ic{border-color:rgba(70,199,158,.4);color:var(--jade-hi)}
+.way.bad .ic{border-color:rgba(210,96,75,.38);color:var(--carn-hi)}
+.way.good .fin .ic{background:rgba(70,199,158,.16);border-color:var(--jade)}
+.way.bad .fin .ic{background:rgba(210,96,75,.14);border-color:var(--carn)}
+.way.good .fin .tm{color:var(--jade)}
+.way.bad .fin .tm{color:var(--carn)}
+
+/* ---- чем всё кончилось --------------------------------- */
+.w-out{
+  display:flex;align-items:baseline;gap:1rem;
+  margin-top:1.2rem;padding-top:1.1rem;
+  border-top:1px solid var(--rule-2);
+}
+.w-sum{
+  flex:none;
+  font:500 clamp(1.9rem,1.4rem + 1.5vw,2.6rem)/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.02em;
+}
+.way.good .w-sum{color:var(--jade)}
+.way.bad .w-sum{color:var(--carn)}
+.w-out p{margin:0;font-size:var(--f-sm);line-height:1.55;color:var(--t2)}
+
+@media (max-width:860px){
+  .ways{grid-template-columns:1fr}
+  .fk-split{display:none}
+  .fork .ways{margin-top:1.2rem}
+}
+
+/* ============================================================
+   7. ЧЕТЫРНАДЦАТЬ НАПРАВЛЕНИЙ
+   ============================================================ */
+
+/* ---- кольцо покрытия ----------------------------------- */
+/* Третья и последняя подвижная вещь: дуга дорисовывается
+   один раз, когда кольцо доезжает до экрана. */
+.ring{position:relative;margin:0;flex:none;width:clamp(148px,17vw,196px)}
+.ring svg{display:block;width:100%;transform:rotate(0deg)}
+.rg-bg{fill:none;stroke:rgba(244,241,233,.09);stroke-width:5}
+.rg-fg{
+  fill:none;stroke:url(#au-arc);stroke-width:5;stroke-linecap:round;
+  filter:drop-shadow(0 0 6px rgba(200,164,95,.5));
+  stroke-dashoffset:48.47;
+  transition:stroke-dashoffset 1.5s var(--ease-out);
+}
+.ring.seen .rg-fg{stroke-dashoffset:0}
+.ring line{stroke-width:2.2;stroke-linecap:round}
+.ring .t-yes{stroke:var(--jade)}
+.ring .t-part{stroke:var(--amber)}
+.ring .t-no{stroke:rgba(210,96,75,.42)}
+.ring figcaption{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.05rem;pointer-events:none;
+}
+.ring figcaption b{
+  font:500 clamp(2.2rem,1.6rem + 1.8vw,3rem)/1 var(--serif);
+  color:var(--t1);font-variant-numeric:lining-nums;
+}
+.ring figcaption i{
+  font:400 var(--f-rub)/1 var(--mono);font-style:normal;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3);
+}
+
+.ded{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin-top:1.1rem}
+.ded span{
+  display:flex;align-items:center;gap:.5rem;
+  font:500 var(--f-xs)/1 var(--mono);color:var(--t3);
+}
+.ded i{width:14px;height:2px;border-radius:2px;flex:none}
+.ded .t-yes{background:var(--jade)}
+.ded .t-part{background:var(--amber)}
+.ded .t-no{background:rgba(210,96,75,.55)}
+
+/* ---- четыре признака «сайт продаёт» -------------------- */
+/* Раньше блок собирал в кучу кольцо, четырнадцать чипов и
+   список буллетов — глазу негде было встать. Теперь две
+   части: сначала что такое «продаёт», потом сколько этого
+   у вас. */
+.sells{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(.8rem,1.4vw,1.1rem);
+  margin-top:clamp(1.5rem,2.5vw,2.1rem);
+}
+.sell{
+  position:relative;overflow:hidden;
+  padding:1.4rem 1.3rem 1.5rem;
+  border:1px solid var(--rule);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(244,241,233,.05),rgba(244,241,233,.012));
+  transition:transform .4s var(--ease-out),border-color .35s,box-shadow .4s;
+}
+/* бронзовая засечка сверху — карточка «подшита» к полосе */
+.sell::before{
+  content:'';position:absolute;left:0;top:0;width:2.2rem;height:2px;
+  background:linear-gradient(90deg,var(--au),transparent);
+}
+.sell:hover{
+  transform:translateY(-2px);
+  border-color:var(--au-line);
+  box-shadow:0 24px 42px -32px #000;
+}
+.sn{
+  display:block;margin-bottom:.9rem;
+  font:700 .625rem/1 var(--mono);letter-spacing:.2em;
+  color:var(--au);font-variant-numeric:tabular-nums;
+}
+.sell h3{margin:0 0 .5rem}
+.sell p{margin:0;font-size:var(--f-sm);line-height:1.6;color:var(--t2)}
+
+/* ---- сколько этого у вас -------------------------------- */
+.own{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:clamp(1.3rem,3vw,2.6rem);
+  margin-top:clamp(1.5rem,2.6vw,2.1rem);
+  padding:clamp(1.3rem,2.2vw,1.85rem) clamp(1.4rem,2.4vw,2.1rem);
+  border:1px solid var(--rule);
+  border-radius:var(--r-lg);
+  background:
+    radial-gradient(130% 170% at 6% 0%,rgba(200,164,95,.08),transparent 58%),
+    linear-gradient(180deg,rgba(244,241,233,.045),rgba(244,241,233,.012));
+}
+.own .ring{width:clamp(128px,12.5vw,158px)}
+.own-c{flex:1 1 26rem}
+.own-h{
+  font:500 clamp(1.16rem,1rem + .62vw,1.5rem)/1.32 var(--serif);
+  color:var(--t1);margin-bottom:.6rem;max-width:32ch;
+}
+.own-h b{color:var(--au-hi);font-weight:500}
+.own-c p{margin:0;font-size:var(--f-sm);line-height:1.62;color:var(--t2);max-width:62ch}
+.own .ded{margin-top:1.05rem}
+
+@media (max-width:1100px){
+  .sells{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:620px){
+  .sells{grid-template-columns:1fr}
+}
+
+/* ---- три факта ----------------------------------------- */
+.facts{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(.9rem,1.8vw,1.4rem);
+  margin-top:clamp(1.4rem,2.3vw,1.9rem);
+}
+@media (max-width:860px){.facts{grid-template-columns:1fr}}
+.fact{
+  padding:1.3rem 1.35rem;
+  border:1px solid var(--rule);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(244,241,233,.045),rgba(244,241,233,.014));
+  position:relative;overflow:hidden;
+}
+.fact::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px}
+.fact.ok::before{background:linear-gradient(180deg,var(--jade),transparent)}
+.fact.bad::before{background:linear-gradient(180deg,var(--carn),transparent)}
+.fact.warn::before{background:linear-gradient(180deg,var(--amber),transparent)}
+.fact .n{
+  font:500 clamp(2.6rem,1.9rem + 2.4vw,3.7rem)/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;
+  letter-spacing:-.02em;margin-bottom:.5rem;
+}
+.fact.ok .n{color:var(--jade)}
+.fact.bad .n{color:var(--carn)}
+.fact.warn .n{color:var(--amber)}
+.fact h3{margin-bottom:.55rem}
+.fact p{font-size:var(--f-sm);line-height:1.6;color:var(--t2);margin:0}
+
+/* ============================================================
+   8. ЧЕТЫРЕ ШАГА
+
+   Шаги связаны волосяной линией, которая идёт насквозь через
+   все четыре номера: маршрут, а не четыре карточки.
+   ============================================================ */
+
+.steps{
+  position:relative;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(.9rem,1.8vw,1.5rem);
+  margin-top:clamp(1.6rem,2.6vw,2.2rem);
+}
+.steps::before{
+  content:'';position:absolute;left:12px;right:12px;top:19px;height:0;
+  border-top:1px dashed rgba(200,164,95,.42);
+}
+.steps.three{grid-template-columns:repeat(3,1fr)}
+
+@media (max-width:940px){
+  .steps{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+.step{position:relative;padding-top:3.3rem}
+.step .badge{
+  position:absolute;top:0;left:0;
+  width:38px;height:38px;border-radius:50%;
+  display:grid;place-items:center;
+  font:600 .78rem/1 var(--mono);
+  font-variant-numeric:tabular-nums;
+  color:var(--au-ink);
+  background:var(--paper);
+  border:1px solid var(--au-line);
+  box-shadow:0 0 0 6px var(--paper);
+}
+.b-onyx .step .badge,.b-indigo .step .badge,.b-emerald .step .badge{
+  color:var(--au-hi);background:var(--onyx);
+  box-shadow:0 0 0 6px var(--onyx);
+}
+.step.now .badge{
+  color:#140F05;
+  background:linear-gradient(180deg,var(--au-hi),var(--au));
+  border-color:#B6934E;
+}
+.step .when{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--au-ink);margin-bottom:.6rem;
+}
+.b-onyx .step .when,.b-indigo .step .when,.b-emerald .step .when{color:var(--au)}
+.step h3{margin-bottom:.5rem}
+.step p{font-size:var(--f-sm);line-height:1.58;color:var(--ink-2);margin:0}
+.b-onyx .step p,.b-indigo .step p,.b-emerald .step p{color:var(--t2)}
+.step .got{
+  margin-top:.95rem;padding-top:.85rem;
+  border-top:1px solid var(--rule-l2);
+  font-size:.76rem;line-height:1.5;color:var(--jade-ink);
+}
+.b-onyx .step .got,.b-indigo .step .got,.b-emerald .step .got{
+  color:var(--jade);border-top-color:var(--rule-2);
+}
+
+/* ============================================================
+   9. СОСЕДИ ПО КВАРТАЛУ
+   ============================================================ */
+
+.vs-head{
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:clamp(1.4rem,3vw,3rem);align-items:center;
+}
+@media (max-width:900px){.vs-head{grid-template-columns:1fr}}
+
+/* ---- схема квартала ------------------------------------ */
+.quarter{position:relative;margin:0}
+.quarter svg{display:block;width:100%;overflow:visible}
+.q-rings circle{fill:none;stroke:var(--rule);stroke-dasharray:3 6}
+.b-paper .q-rings circle{stroke:var(--rule-l)}
+.q-ray line{stroke:var(--rule-2);stroke-width:1}
+.b-paper .q-ray line{stroke:var(--rule-l2)}
+.q-dot.q-them{fill:var(--carn);opacity:.85}
+.q-dot.q-me{
+  fill:var(--au);
+  stroke:rgba(200,164,95,.28);stroke-width:7;
+  paint-order:stroke;
+}
+.q-lab{
+  position:absolute;left:var(--x);top:var(--y);
+  display:flex;flex-direction:column;
+  font:500 .7rem/1.25 var(--sans);color:var(--ink);
+  white-space:nowrap;
+}
+.b-onyx .q-lab,.b-indigo .q-lab,.b-emerald .q-lab{color:var(--t1)}
+.q-lab i{
+  font:400 .58rem/1.3 var(--mono);font-style:normal;
+  letter-spacing:.08em;color:var(--ink-3);
+}
+.b-onyx .q-lab i,.b-indigo .q-lab i,.b-emerald .q-lab i{color:var(--t3)}
+.q-l-me{color:var(--au-ink)!important;font-weight:700}
+.quarter figcaption{
+  margin-top:.6rem;text-align:center;
+  font:400 .65rem/1 var(--mono);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4);
+}
+.b-onyx .quarter figcaption,.b-indigo .quarter figcaption{color:var(--t4)}
+
+/* ---- сравнение ----------------------------------------- */
+.vs{margin-top:clamp(1.45rem,2.4vw,2.05rem);border-top:1px solid var(--rule-l2)}
+.b-onyx .vs,.b-indigo .vs,.b-emerald .vs{border-top-color:var(--rule-2)}
+.vs .row{
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1.6fr) 7.5rem;
+  gap:clamp(.8rem,2vw,2rem);align-items:center;
+  padding:.95rem .2rem;
+  border-bottom:1px solid var(--rule-l2);
+  transition:background .3s;
+}
+.b-onyx .vs .row,.b-indigo .vs .row,.b-emerald .vs .row{border-bottom-color:var(--rule-2)}
+.vs .row:hover{background:rgba(200,164,95,.05)}
+@media (max-width:860px){
+  .vs .row{grid-template-columns:1fr;gap:.6rem}
+}
+.vs .who{
+  font:600 1.02rem/1.3 var(--sans);color:var(--ink);
+  display:flex;flex-direction:column;gap:.22rem;
+}
+.b-onyx .vs .who,.b-indigo .vs .who,.b-emerald .vs .who{color:var(--t1)}
+.vs .who small{
+  font:400 .68rem/1.4 var(--mono);color:var(--ink-4);letter-spacing:.01em;
+}
+.b-onyx .vs .who small,.b-indigo .vs .who small,.b-emerald .vs .who small{color:var(--t4)}
+.vs .what{font-size:var(--f-sm);line-height:1.56;color:var(--ink-2)}
+.b-onyx .vs .what,.b-indigo .vs .what,.b-emerald .vs .what{color:var(--t2)}
+.vs .what b{color:var(--carn-ink)}
+.b-onyx .vs .what b,.b-indigo .vs .what b,.b-emerald .vs .what b{color:var(--carn-hi)}
+.vs .rate{text-align:right}
+.vs .rate .n{
+  font:500 1.85rem/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;
+  color:var(--ink);
+}
+.b-onyx .vs .rate .n,.b-indigo .vs .rate .n,.b-emerald .vs .rate .n{color:var(--t1)}
+.vs .rate .o{
+  font:400 .64rem/1.4 var(--mono);color:var(--ink-4);
+  letter-spacing:.06em;margin-top:.14rem;
+}
+.b-onyx .vs .rate .o,.b-indigo .vs .rate .o,.b-emerald .vs .rate .o{color:var(--t4)}
+/* строка-«сломано»: тот же приём, что и .me, но карнеолом —
+   так помечается направление, которое работает вживую и не
+   существует на сайте */
+.vs .row.warn{
+  background:linear-gradient(90deg,var(--carn-wash),transparent 75%);
+  box-shadow:inset 2px 0 0 var(--carn);
+  padding-left:1.1rem;
+}
+.vs .row.warn .rate .n{color:var(--carn-ink)}
+.b-onyx .vs .row.warn .rate .n,.b-indigo .vs .row.warn .rate .n{color:var(--carn-hi)}
+
+.vs .row.me{
+  background:linear-gradient(90deg,var(--au-wash),transparent 75%);
+  box-shadow:inset 2px 0 0 var(--au);
+  padding-left:1.1rem;
+}
+.vs .row.me .rate .n{color:var(--au-ink)}
+.b-onyx .vs .row.me .rate .n,.b-indigo .vs .row.me .rate .n{color:var(--au-hi)}
+
+/* ============================================================
+   10. СТО ЧЕЛОВЕК
+
+   Полосы показывали проценты, а речь о людях. Сто фигурок:
+   каждая — человек, цвет — то, как он хочет записаться.
+   Сразу видно, что синих и красных вместе втрое больше, чем
+   зелёных, — и что нажать им некуда.
+   ============================================================ */
+
+.people{
+  display:grid;grid-template-columns:auto minmax(0,1fr);
+  gap:clamp(1.5rem,3.4vw,3.2rem);
+  align-items:start;
+  margin-top:clamp(1.5rem,2.6vw,2.15rem);
+}
+.ppl{
+  display:grid;grid-template-columns:repeat(10,1fr);
+  gap:.3rem;
+  width:clamp(268px,29vw,360px);
+  padding:clamp(.9rem,1.6vw,1.25rem);
+  border:1px solid var(--rule);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(244,241,233,.05),rgba(244,241,233,.015));
+}
+.pp{display:block;line-height:0}
+.pp .i{
+  width:100%;height:auto;aspect-ratio:1;
+  stroke-width:2.1;
+}
+.p-agg .i{color:var(--carn)}
+.p-site .i{color:var(--amber)}
+.p-tel .i{color:var(--jade)}
+.p-oth .i{color:rgba(244,241,233,.22)}
+
+/* ---- расшифровка --------------------------------------- */
+.ppl-leg{display:grid;gap:.85rem;align-content:start}
+.lg{
+  display:grid;grid-template-columns:3.2rem minmax(0,1fr);
+  gap:.9rem;align-items:baseline;
+  padding-bottom:.8rem;
+  border-bottom:1px solid var(--rule-2);
+}
+.lg-n{
+  font:500 clamp(1.5rem,1.2rem + .9vw,1.95rem)/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;
+  letter-spacing:-.015em;text-align:right;
+}
+.lg.agg .lg-n{color:var(--carn-hi)}
+.lg.site .lg-n{color:var(--amber)}
+.lg.tel .lg-n{color:var(--jade-hi)}
+.lg.oth .lg-n{color:var(--t4)}
+.lg-t b{
+  display:block;margin-bottom:.18rem;
+  font:700 var(--f-sm)/1.3 var(--sans);color:var(--t1);
+}
+.lg-t p{margin:0;font-size:.82rem;line-height:1.5;color:var(--t3)}
+.lg-sum{
+  margin-top:.15rem;
+  font:400 clamp(1.06rem,1rem + .42vw,1.3rem)/1.45 var(--serif);
+  color:var(--t1);
+}
+.lg-sum b{color:var(--au-hi);font-weight:500}
+
+@media (max-width:900px){
+  .people{grid-template-columns:1fr}
+  .ppl{width:min(320px,100%)}
+}
+
+/* ============================================================
+   11. ПРИМЕР РАБОТЫ
+   ============================================================ */
+
+.case{
+  display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:clamp(1.6rem,3.4vw,3.6rem);align-items:center;
+}
+@media (max-width:960px){.case{grid-template-columns:1fr}}
+.case .biglink{margin-top:1.5rem}
+.kpi{
+  display:flex;flex-wrap:wrap;gap:clamp(1rem,2.4vw,2.4rem);
+  margin-top:1.6rem;padding-top:1.3rem;
+  border-top:1px solid var(--rule-l2);
+}
+.b-onyx .kpi,.b-indigo .kpi,.b-emerald .kpi{border-top-color:var(--rule-2)}
+.kpi .k{display:flex;flex-direction:column;gap:.2rem}
+.kpi b{
+  font:500 1.9rem/1 var(--serif);
+  font-variant-numeric:lining-nums;color:var(--ink);
+}
+.b-onyx .kpi b,.b-indigo .kpi b,.b-emerald .kpi b{color:var(--t1)}
+.kpi span{font-size:.76rem;color:var(--ink-3);line-height:1.4}
+.b-onyx .kpi span,.b-indigo .kpi span,.b-emerald .kpi span{color:var(--t3)}
+
+/* ============================================================
+   13. ВОПРОСЫ. Спойлеры вместо слайдера
+   ============================================================ */
+
+.faq{
+  margin-top:clamp(1.45rem,2.4vw,2.05rem);
+  border-top:1px solid var(--rule-l2);
+  counter-reset:q;
+}
+.b-onyx .faq,.b-indigo .faq,.b-emerald .faq{border-top-color:var(--rule-2)}
+.faq details{
+  border-bottom:1px solid var(--rule-l2);
+  counter-increment:q;
+}
+.b-onyx .faq details,.b-indigo .faq details,.b-emerald .faq details{
+  border-bottom-color:var(--rule-2);
+}
+.faq summary{
+  display:flex;align-items:flex-start;gap:1.1rem;
+  padding:.92rem .2rem;cursor:pointer;list-style:none;
+  font:600 clamp(1rem,.96rem + .3vw,1.16rem)/1.42 var(--sans);
+  color:var(--ink);
+  transition:color .25s;
+}
+.b-onyx .faq summary,.b-indigo .faq summary,.b-emerald .faq summary{color:var(--t1)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{
+  content:'0' counter(q);
+  flex:none;width:2.1rem;
+  font:500 .74rem/1.9 var(--mono);
+  font-variant-numeric:tabular-nums;
+  color:var(--au-ink);
+}
+.b-onyx .faq summary::before,.b-indigo .faq summary::before,
+.b-emerald .faq summary::before{color:var(--au)}
+.faq summary::after{
+  content:'';flex:none;margin-left:auto;
+  width:11px;height:11px;margin-top:.42rem;
+  border-right:1.5px solid var(--au);
+  border-bottom:1.5px solid var(--au);
+  transform:rotate(45deg);
+  transition:transform .35s var(--ease);
+}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq summary:hover{color:var(--au-ink)}
+.b-onyx .faq summary:hover,.b-indigo .faq summary:hover,
+.b-emerald .faq summary:hover{color:var(--au-hi)}
+.faq .ans{
+  padding:0 3.2rem 1.4rem;
+  font-size:var(--f-sm);line-height:1.68;color:var(--ink-2);
+  max-width:80ch;
+}
+.b-onyx .faq .ans,.b-indigo .faq .ans,.b-emerald .faq .ans{color:var(--t2)}
+.faq .ans b{color:var(--ink)}
+.b-onyx .faq .ans b,.b-indigo .faq .ans b,.b-emerald .faq .ans b{color:var(--t1)}
+.faq .ans a{color:var(--au-ink);text-decoration:underline;text-underline-offset:2px}
+.b-onyx .faq .ans a,.b-indigo .faq .ans a,.b-emerald .faq .ans a{color:var(--au)}
+@media (max-width:560px){.faq .ans{padding-left:0;padding-right:0}}
+
+/* ============================================================
+   14. СОСТАВ РАБОТЫ
+   ============================================================ */
+
+.incl{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(1.2rem,2.6vw,2.6rem);
+  margin-top:clamp(1.45rem,2.4vw,2.05rem);
+}
+@media (max-width:860px){.incl{grid-template-columns:1fr}}
+.incl .col h3{
+  padding-bottom:.75rem;margin-bottom:1rem;
+  border-bottom:1px solid var(--au-faint);
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(1.3rem,1.1rem + .6vw,1.6rem);
+}
+.incl ul{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.incl li{
+  display:flex;gap:.7rem;align-items:flex-start;
+  font-size:var(--f-sm);line-height:1.54;color:var(--t2);
+}
+.incl li .i{
+  width:13px;height:13px;margin-top:.3rem;flex:none;
+  color:var(--jade);stroke-width:2.6;
+}
+.b-paper .incl li{color:var(--ink-2)}
+
+.guards{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(.9rem,1.8vw,1.4rem);
+  margin-top:clamp(1.6rem,2.6vw,2.2rem);
+}
+@media (max-width:860px){.guards{grid-template-columns:1fr}}
+/* те же карточки, но другим числом в ряд: четыре — под краткое
+   «что получаете / за какой срок / почему сейчас / чем рискуете»,
+   две — под развёрнутые доводы об окупаемости */
+.guards.four{grid-template-columns:repeat(4,1fr)}
+.guards.two{grid-template-columns:repeat(2,1fr)}
+@media (max-width:1100px){.guards.four{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){
+  .guards.four,.guards.two{grid-template-columns:1fr}
+}
+.guard{
+  padding:1.2rem 1.3rem;
+  border:1px solid var(--au-faint);
+  border-radius:var(--r-md);
+  background:
+    radial-gradient(20rem 10rem at 100% 0%,rgba(200,164,95,.09),transparent 70%),
+    linear-gradient(180deg,rgba(244,241,233,.04),rgba(244,241,233,.012));
+}
+.guard h3{
+  margin-bottom:.55rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+.guard h3::before{
+  content:'';width:7px;height:7px;flex:none;
+  background:var(--au);transform:rotate(45deg);
+}
+.guard p{font-size:var(--f-sm);line-height:1.58;color:var(--t2);margin:0}
+.b-paper .guard p{color:var(--ink-2)}
+/* ============================================================
+   ПЕРЕЧЕНЬ С НОМЕРАМИ
+
+   Один компонент на два разворота: путь пациента к креслу и
+   пять пунктов выбора подрядчика. В обоих случаях важен
+   порядок, а не карточки: номер стоит на поле, строки
+   разделены волоском, читается сверху вниз одним движением.
+   ============================================================ */
+
+.crit{
+  list-style:none;margin:clamp(1.45rem,2.4vw,2.05rem) 0 0;padding:0;
+  border-top:1px solid var(--rule-2);
+}
+.b-paper .crit{border-top-color:var(--rule-l2)}
+.crit > li{
+  display:grid;
+  grid-template-columns:2.6rem minmax(0,1fr);
+  gap:clamp(.9rem,2vw,1.6rem);
+  padding:clamp(1rem,1.6vw,1.3rem) 0;
+  border-bottom:1px solid var(--rule-2);
+}
+.b-paper .crit > li{border-bottom-color:var(--rule-l2)}
+.crit .n{
+  font:500 var(--f-xs)/1.9 var(--mono);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.1em;color:var(--au);
+  padding-top:.12rem;
+}
+.b-paper .crit .n{color:var(--au-ink)}
+.crit h3{margin:0 0 .42rem}
+.crit p{
+  margin:0;font-size:var(--f-sm);line-height:1.6;color:var(--t2);
+  max-width:74ch;
+}
+.b-paper .crit p{color:var(--ink-2)}
+.crit p + p{margin-top:.5rem}
+.crit b{color:var(--t1)}
+.b-paper .crit b{color:var(--ink)}
+
+/* Строка-приговор: чем пункт заканчивается, если ответа на
+   него нет. Карнеол волоском слева, без заливки. */
+.crit .so{
+  display:block;margin-top:.6rem;padding-left:.85rem;
+  border-left:2px solid var(--carn);
+  font-size:.82rem;line-height:1.55;color:var(--carn-hi);
+}
+.b-paper .crit .so{color:var(--carn-ink)}
+.crit li.ok .so{border-left-color:var(--jade);color:var(--jade-hi)}
+.b-paper .crit li.ok .so{color:var(--jade-ink)}
+
+@media (max-width:560px){
+  .crit > li{grid-template-columns:1fr;gap:.4rem}
+  .crit .n{padding-top:0}
+}
+
+/* ============================================================
+   СЧЁТ ПО ЕГО ЦИФРАМ
+
+   Два поля и итог. Пока человек не тронул поля, это чужая
+   арифметика; как только тронул — своя, и спорить с ней уже
+   не с кем. Поэтому поля стоят выше итога и выглядят как
+   поля, а не как украшение.
+   ============================================================ */
+
+.calc{
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+  gap:clamp(1.4rem,3vw,3rem);
+  align-items:start;
+  margin-top:clamp(1.45rem,2.4vw,2.05rem);
+}
+@media (max-width:900px){.calc{grid-template-columns:1fr}}
+
+/* ---- пульт: два поля ----------------------------------- */
+.calc-in{
+  padding:clamp(1.2rem,2.2vw,1.6rem);
+  border:1px solid var(--au-line);
+  border-radius:var(--r-lg);
+  background:
+    radial-gradient(22rem 12rem at 100% 0%,rgba(200,164,95,.14),transparent 70%),
+    linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.45));
+  box-shadow:0 30px 60px -50px rgba(18,22,26,.7);
+}
+.b-onyx .calc-in,.b-indigo .calc-in{
+  background:
+    radial-gradient(22rem 12rem at 100% 0%,rgba(200,164,95,.1),transparent 70%),
+    linear-gradient(180deg,rgba(244,241,233,.06),rgba(244,241,233,.02));
+}
+.calc-in .t{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--au-ink);margin-bottom:1.1rem;
+}
+.b-onyx .calc-in .t,.b-indigo .calc-in .t{color:var(--au)}
+
+.cf{margin-bottom:1.1rem}
+.cf:last-of-type{margin-bottom:0}
+.cf > label{
+  display:block;margin-bottom:.45rem;
+  font:500 .78rem/1.4 var(--sans);color:var(--ink-2);
+}
+.b-onyx .cf > label,.b-indigo .cf > label{color:var(--t2)}
+.cf .box{position:relative;display:flex;align-items:center}
+.cf input{
+  width:100%;
+  padding:.85rem 3.4rem .85rem 1rem;
+  border:1px solid var(--rule-l);
+  border-radius:var(--r);
+  background:var(--paper-4);
+  color:var(--ink);
+  font:500 1.18rem/1.3 var(--mono);
+  font-variant-numeric:tabular-nums lining-nums;
+  letter-spacing:.01em;
+  transition:border-color .3s,box-shadow .3s;
+  -moz-appearance:textfield;
+}
+.cf input::-webkit-outer-spin-button,
+.cf input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.b-onyx .cf input,.b-indigo .cf input{
+  background:rgba(6,8,10,.42);color:var(--t1);border-color:var(--rule);
+}
+.cf input:focus{
+  outline:none;border-color:var(--au);
+  box-shadow:0 0 0 3px rgba(200,164,95,.18);
+}
+.cf .unit{
+  position:absolute;right:1rem;pointer-events:none;
+  font:400 .8rem/1 var(--mono);color:var(--ink-4);
+  letter-spacing:.06em;
+}
+.b-onyx .cf .unit,.b-indigo .cf .unit{color:var(--t4)}
+.cf .hint{
+  margin-top:.4rem;font-size:.74rem;line-height:1.5;color:var(--ink-3);
+}
+.b-onyx .cf .hint,.b-indigo .cf .hint{color:var(--t3)}
+
+/* ---- ведомость: как из первой цифры получается последняя - */
+.calc-out{min-width:0}
+.cline{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:1rem;align-items:baseline;
+  padding:.72rem 0;
+  border-bottom:1px solid var(--rule-l2);
+}
+.b-onyx .cline,.b-indigo .cline{border-bottom-color:var(--rule-2)}
+.cline .l{font-size:var(--f-sm);line-height:1.5;color:var(--ink-2)}
+.b-onyx .cline .l,.b-indigo .cline .l{color:var(--t2)}
+.cline .l i{
+  display:block;font-style:normal;
+  font:400 .7rem/1.5 var(--mono);color:var(--ink-4);letter-spacing:.02em;
+}
+.b-onyx .cline .l i,.b-indigo .cline .l i{color:var(--t4)}
+.cline .v{
+  font:500 1.5rem/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;
+  letter-spacing:-.01em;color:var(--ink);white-space:nowrap;
+}
+.b-onyx .cline .v,.b-indigo .cline .v{color:var(--t1)}
+.cline.loss .v{color:var(--carn-ink)}
+.b-onyx .cline.loss .v,.b-indigo .cline.loss .v{color:var(--carn-hi)}
+
+/* итог: единственное место, где цифра набрана вдвое крупнее
+   остальных и подсвечена бронзой */
+.cline.sum{
+  margin-top:.5rem;padding:1.1rem 1.2rem;
+  border:1px solid var(--au-line);border-radius:var(--r-md);
+  background:linear-gradient(90deg,var(--au-wash),transparent 80%);
+}
+.cline.sum .l{font-weight:700;color:var(--ink)}
+.b-onyx .cline.sum .l,.b-indigo .cline.sum .l{color:var(--t1)}
+.cline.sum .v{
+  font-size:clamp(2rem,1.5rem + 1.9vw,2.95rem);
+  color:var(--au-ink);
+}
+.b-onyx .cline.sum .v,.b-indigo .cline.sum .v{color:var(--au-hi)}
+
+/* три горизонта под итогом: месяц, квартал, год. Ближний
+   стоит первым — он убедительнее дальнего. */
+.hz{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:.7rem;margin-top:1rem;
+}
+@media (max-width:520px){.hz{grid-template-columns:1fr}}
+.hz div{
+  padding:.85rem .95rem;
+  border:1px solid var(--rule-l2);border-radius:var(--r);
+  background:rgba(255,255,255,.4);
+}
+.b-onyx .hz div,.b-indigo .hz div{
+  border-color:var(--rule-2);background:rgba(244,241,233,.035);
+}
+.hz b{
+  display:block;
+  font:500 1.34rem/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;
+  color:var(--carn-ink);margin-bottom:.28rem;
+}
+.b-onyx .hz b,.b-indigo .hz b{color:var(--carn-hi)}
+.hz span{font:400 .72rem/1.45 var(--mono);color:var(--ink-4);letter-spacing:.04em}
+.b-onyx .hz span,.b-indigo .hz span{color:var(--t4)}
+
+/* ============================================================
+   ОБВИНИТЕЛЬНЫЙ АУДИТ
+
+   Слева — претензия к подрядчику, набранная серифом: это
+   чужая прямая речь, и она обязана выглядеть как речь, а не
+   как заголовок раздела. Справа — ответ. Претензия,
+   произнесённая первым, перестаёт быть претензией, поэтому
+   её кегль здесь не меньше ответа, а больше.
+   ============================================================ */
+
+.aud{
+  list-style:none;margin:clamp(1.45rem,2.4vw,2.05rem) 0 0;padding:0;
+  border-top:1px solid var(--rule-2);
+}
+.b-paper .aud{border-top-color:var(--rule-l2)}
+.aud > li{
+  display:grid;
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  gap:clamp(1rem,2.4vw,2.4rem);
+  padding:clamp(1.1rem,1.9vw,1.5rem) 0;
+  border-bottom:1px solid var(--rule-2);
+}
+.b-paper .aud > li{border-bottom-color:var(--rule-l2)}
+@media (max-width:800px){
+  .aud > li{grid-template-columns:1fr;gap:.75rem}
+}
+.aud .say{
+  position:relative;padding-left:1.1rem;
+  border-left:2px solid var(--carn);
+  font:400 clamp(1.06rem,1rem + .45vw,1.3rem)/1.42 var(--serif);
+  color:var(--t1);
+}
+.b-paper .aud .say{color:var(--ink)}
+.aud .say i{
+  display:block;margin-bottom:.32rem;font-style:normal;
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;color:var(--carn-hi);
+}
+.b-paper .aud .say i{color:var(--carn-ink)}
+.aud .ans{font-size:var(--f-sm);line-height:1.64;color:var(--t2)}
+.b-paper .aud .ans{color:var(--ink-2)}
+.aud .ans b{color:var(--t1)}
+.b-paper .aud .ans b{color:var(--ink)}
+.aud .ans p + p{margin-top:.6rem}
+
+/* проверяемая деталь: то, чем ответ подтверждается, не
+   поверив на слово */
+.aud .chk{
+  display:flex;align-items:flex-start;gap:.5rem;
+  margin-top:.75rem;
+  font:400 .76rem/1.5 var(--mono);color:var(--jade-hi);
+  letter-spacing:.01em;
+}
+.b-paper .aud .chk{color:var(--jade-ink)}
+.aud .chk .i{width:13px;height:13px;margin-top:.22rem;flex:none;stroke-width:2.6}
+
+/* ============================================================
+   КАРТОЧКА-ОТКАЗ
+
+   Тот же .guard, но карнеолом: «кому я не подхожу». Отдельный
+   цвет нужен затем, чтобы эти три карточки не прочлись как
+   продолжение обещаний.
+   ============================================================ */
+
+.guard.no{
+  border-color:rgba(210,96,75,.26);
+  background:
+    radial-gradient(20rem 10rem at 100% 0%,rgba(210,96,75,.09),transparent 70%),
+    linear-gradient(180deg,rgba(244,241,233,.035),rgba(244,241,233,.01));
+}
+.guard.no h3::before{background:var(--carn)}
+.b-paper .guard.no{
+  background:
+    radial-gradient(20rem 10rem at 100% 0%,rgba(210,96,75,.1),transparent 70%),
+    linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4));
+}
+
+/* ============================================================
+   ВИЛКА РЫНКА
+
+   Цена без системы координат читается как «дорого» при любой
+   цифре. Поэтому вилку называет продавец, и вместе с ней —
+   то, чего в дешёвом конце не бывает. Компонент повторяет
+   ведомость соседей: имя, что за этим, цифра справа.
+   ============================================================ */
+
+.tier .row{grid-template-columns:minmax(0,.82fr) minmax(0,1.5fr) 9.5rem}
+@media (max-width:860px){.tier .row{grid-template-columns:1fr}}
+.tier .rate .n{font-size:1.42rem;white-space:nowrap}
+.tier .what b{color:var(--ink)}
+.b-onyx .tier .what b,.b-indigo .tier .what b{color:var(--t1)}
+
+/* из чего складывается цена: три доли */
+.parts{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(.8rem,1.8vw,1.3rem);
+  margin-top:clamp(1.3rem,2.2vw,1.8rem);
+}
+@media (max-width:700px){.parts{grid-template-columns:1fr}}
+.part{
+  padding:1.05rem 1.15rem;
+  border:1px solid var(--rule-l2);border-radius:var(--r-md);
+  background:rgba(255,255,255,.42);
+}
+.b-onyx .part,.b-indigo .part{
+  border-color:var(--rule-2);background:rgba(244,241,233,.035);
+}
+.part .bar{
+  height:3px;border-radius:2px;margin-bottom:.85rem;
+  background:linear-gradient(90deg,var(--au),var(--au-lo));
+}
+.part .pc{
+  font:500 1.72rem/1 var(--serif);
+  font-variant-numeric:lining-nums;
+  color:var(--au-ink);margin-bottom:.4rem;
+}
+.b-onyx .part .pc,.b-indigo .part .pc{color:var(--au-hi)}
+.part b{display:block;font:700 var(--f-sm)/1.35 var(--sans);color:var(--ink);margin-bottom:.3rem}
+.b-onyx .part b,.b-indigo .part b{color:var(--t1)}
+.part p{margin:0;font-size:.8rem;line-height:1.5;color:var(--ink-3)}
+.b-onyx .part p,.b-indigo .part p{color:var(--t3)}
+
+
+/* ============================================================
+   ПОДВАЛ
+   ============================================================ */
+
+footer{
+  position:relative;
+  padding:clamp(2.8rem,4vw,4.2rem) 0 2rem;
+  background:linear-gradient(180deg,var(--onyx-3),#040507);
+  border-top:1px solid var(--au-faint);
+  color:var(--t3);
+  overflow:hidden;
+}
+footer::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(40rem 20rem at 50% 0%,rgba(200,164,95,.07),transparent 70%);
+  pointer-events:none;
+}
+footer .wrap{position:relative;z-index:2}
+footer .cols{
+  display:flex;flex-wrap:wrap;gap:clamp(1.6rem,4vw,4rem);
+  padding-bottom:2.2rem;border-bottom:1px solid var(--rule-2);
+}
+footer h4{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--au);margin-bottom:.95rem;
+}
+footer p{font-size:var(--f-sm);line-height:1.6;color:var(--t3);margin:0}
+.contacts{display:grid;gap:.65rem}
+.contacts a{
+  display:flex;align-items:center;gap:.65rem;
+  font-size:var(--f-sm);color:var(--t2);text-decoration:none;
+  transition:color .3s;
+}
+.contacts a:hover{color:var(--au-hi)}
+.contacts .i{width:15px;height:15px;color:var(--au);stroke-width:1.8}
+
+/* колофон: чем набрано и как собрано. Мелочь, но она говорит,
+   что страницу собирал человек, а не шаблон. */
+.colophon{
+  display:flex;flex-wrap:wrap;gap:.6rem 2.2rem;
+  padding:1.4rem 0;
+  border-bottom:1px solid var(--rule-2);
+  font:400 .66rem/1.5 var(--mono);color:var(--t4);
+  letter-spacing:.04em;
+}
+.colophon b{
+  display:block;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--au-lo);margin-bottom:.24rem;
+}
+
+/* контурный вордмарк: имя клиники, набранное воздухом */
+.fmark{
+  margin:1.5rem 0 1.1rem;
+  font:500 clamp(3.2rem,9.5vw,7.6rem)/1 var(--serif);
+  letter-spacing:.02em;
+  text-align:center;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(200,164,95,.19);
+  user-select:none;
+}
+.fbot{
+  display:flex;flex-wrap:wrap;gap:.6rem 2rem;justify-content:space-between;
+  padding-top:1.4rem;border-top:1px solid var(--rule-2);
+  font-size:.72rem;color:var(--t4);
+}
+
+/* ============================================================
+   ПОЯВЛЕНИЕ БЛОКОВ
+
+   Четырнадцать пикселей и шесть десятых секунды. Лесенка не
+   длиннее четырёх шагов: дальше это уже не ритм, а ожидание.
+   ============================================================ */
+
+html.js [data-rise]{
+  opacity:0;transform:translateY(14px);
+}
+html.js [data-rise].seen{
+  opacity:1;transform:none;
+  transition:opacity .6s ease var(--d,0s),
+             transform .6s var(--ease-out) var(--d,0s);
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  html.js [data-rise]{opacity:1 !important;transform:none !important}
+  html.js .hero h1 .ln > i{transform:none !important;opacity:1 !important}
+  .seal .ring{animation:none}
+  .fnl-body{clip-path:none}
+  .rg-fg{stroke-dashoffset:0}
+}
+
+/* ============================================================
+   МЕЛОЧИ
+   ============================================================ */
+
+.nb{white-space:nowrap}
+
+/* Две подписи на одной кнопке: на широком экране полная,
+   на телефоне короткая. Иначе кнопка в шапке ломается
+   на две строки и съедает всю высоту шапки. */
+.w-sm{display:none}
+@media (max-width:620px){
+  .w-lg{display:none}
+  .w-sm{display:inline}
+}
+
+/* ============================================================
+   СЕТКА ПЕРВОГО ЭКРАНА: ОБЛАСТИ
+
+   Три области вместо двух колонок. Нужно затем, чтобы на
+   телефоне порядок стал другим: подводка и кнопка, потом
+   макет как доказательство, и только потом буллиты. Кнопка
+   обязана попасть в первый экран — остальное подождёт.
+   ============================================================ */
+
+.hero-grid{
+  grid-template-areas:
+    "l r"
+    "b r";
+}
+.hero-l{grid-area:l;min-width:0}
+.hero-r{grid-area:r;min-width:0}
+.hero-grid > .bul{grid-area:b;align-self:start}
+
+@media (max-width:1000px){
+  .hero-grid{
+    grid-template-columns:1fr;
+    grid-template-areas:"l" "r" "b";
+  }
+}
+
+/* ============================================================
+   АДАПТИВ
+   ============================================================ */
+
+/* ---- ноутбук: меню тает раньше, чем ломается сетка ------ */
+@media (max-width:1200px){
+  .menu a{padding-left:.7rem;padding-right:.7rem}
+}
+@media (max-width:1080px){
+  .menu a{font-size:.75rem;padding:.5rem .6rem}
+  .bname{font-size:.94rem}
+}
+@media (max-width:980px){
+  .menu{display:none}
+}
+@media (max-width:620px){
+  .toptel{display:none}
+  .brand .mark{width:30px;height:30px}
+  .bname{font-size:.82rem;white-space:nowrap}
+  .bsub{font-size:.54rem;letter-spacing:.16em}
+  .top .wrap{gap:.8rem}
+  .btn.sm{padding:.66rem .95rem}
+}
+@media (max-width:380px){
+  .bsub{display:none}
+}
+
+/* ---- КОРОТКИЙ ЭКРАН ------------------------------------ */
+/* Ноутбук 1366×768 — самая частая машина у собственника
+   клиники. Экран там не узкий, а низкий: ширины хватает, а
+   высоты нет. Ловим это не по ширине, а по высоте вьюпорта
+   и ужимаем только первый экран — чтобы кнопка осталась
+   над линией сгиба. Остальная страница не меняется. */
+@media (min-width:1001px) and (max-height:780px){
+  .hero{
+    padding-top:calc(var(--hdr) + 1.2rem);
+    padding-bottom:2.4rem;
+    min-height:0;
+  }
+  .hero h1{font-size:clamp(2.3rem,1.1rem + 3.1vw,3.5rem);margin-bottom:.9rem}
+  .docline{padding-bottom:.7rem;margin-bottom:1rem}
+  .addressee{margin-bottom:.75rem}
+  .hero .lede{font-size:1rem;line-height:1.55}
+  .ctarow{margin-top:1.05rem}
+  .seal{top:6.6rem;width:126px;height:126px}
+}
+
+/* ---- планшет ------------------------------------------- */
+@media (max-width:900px){
+  :root{--hdr:64px}
+  .hero{min-height:0;padding-bottom:clamp(2.6rem,6vw,4rem)}
+  h2{max-width:none}
+  .docline .r{
+    margin-left:0;order:9;
+  }
+}
+
+/* ---- телефон ------------------------------------------- */
+@media (max-width:620px){
+  :root{
+    --f-display:clamp(2.05rem,1.2rem + 3.6vw,2.7rem);
+    --f-h2:clamp(1.62rem,1.15rem + 2vw,2.2rem);
+  }
+  .hero{padding-top:calc(var(--hdr) + .8rem)}
+  .hero h1{max-width:none;line-height:1.06}
+  .hero .lede{font-size:1rem;line-height:1.6}
+  .btns{flex-direction:column;align-items:stretch}
+  .btn{width:100%;padding:1rem 1.2rem}
+  .docline{
+    gap:.42rem;font-size:.58rem;letter-spacing:.12em;
+    padding-bottom:.7rem;margin-bottom:.85rem;
+  }
+  .docline .sep{width:2px;height:2px}
+  .docline .r{display:none}
+  .addressee{margin-bottom:.8rem;padding:.46rem .82rem .46rem .68rem}
+  .hero h1{margin-bottom:.95rem}
+  .hero .lede{font-size:.97rem;line-height:1.55}
+  .ctarow{margin-top:1.1rem}
+  .undercta{font-size:.76rem}
+
+  /* липкая кнопка не должна закрывать конец страницы */
+  body{padding-bottom:4.6rem}
+  footer{padding-bottom:1.4rem}
+
+  .code pre{font-size:.68rem;line-height:1.7;padding:.9rem}
+  .strip{padding:1rem 1.1rem 1rem 1.25rem;font-size:1.04rem}
+  .total{padding:1.3rem}
+  .total .big{font-size:2.6rem}
+  .form{padding:1.3rem 1.15rem}
+  .field input,.field textarea{font-size:1rem} /* iOS не зумит от 16px */
+  .faq summary{font-size:1rem;gap:.8rem}
+  .faq summary::before{width:1.7rem}
+  .faq .ans{padding-left:0}
+  .seal{display:none}
+}
+
+/* ---- совсем узкие экраны: кнопка обязана попасть в экран - */
+@media (max-width:400px){
+  .hero .lede{font-size:.94rem;line-height:1.52}
+  .ctarow{margin-top:.95rem}
+  .hero h1{margin-bottom:.8rem}
+  .addressee{margin-bottom:.7rem}
+}
+
+/* ---- ведомость на телефоне: карточки вместо столбцов ---- */
+@media (max-width:720px){
+  .ledger,.ledger tbody,.ledger tr,.ledger td{display:block;width:100%}
+  .ledger thead{display:none}
+  .ledger tr{
+    padding:1rem 0;border-bottom:1px solid var(--rule-l2);
+  }
+  .ledger td{
+    border:0;padding:.28rem 0;
+    display:flex;justify-content:space-between;gap:1rem;align-items:baseline;
+  }
+  .ledger td:first-child{
+    font-weight:600;color:var(--ink);display:block;margin-bottom:.4rem;
+  }
+  .ledger td[data-l]::before{
+    content:attr(data-l);
+    font:500 var(--f-rub)/1.6 var(--mono);
+    letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);
+  }
+  .ledger .res{padding:.4rem .6rem;border-radius:var(--r)}
+}
+
+/* ============================================================
+   ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ
+
+   Отдельная страница, но та же система: оникс, бронза,
+   номер раздела вынесен на поле. Юридический текст читают
+   редко — но если он выглядит как отписка, сомнения в
+   подрядчике только растут.
+   ============================================================ */
+
+.docbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(7,9,12,.88);
+  backdrop-filter:blur(14px) saturate(1.2);
+  border-bottom:1px solid var(--au-faint);
+}
+.docbar .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+  padding:1rem 0;
+}
+.docbar .back{
+  font:600 var(--f-sm)/1 var(--sans);
+  color:var(--t1);text-decoration:none;
+  display:inline-flex;align-items:center;gap:.5rem;
+  transition:color .3s;
+}
+.docbar .back:hover{color:var(--au-hi)}
+.docbar .who{
+  font:400 var(--f-rub)/1 var(--mono);
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--t3);
+}
+
+.docpage{
+  position:relative;
+  display:block;
+  padding:clamp(2.6rem,5vw,4.6rem) 0 clamp(3rem,6vw,5.4rem);
+  background:
+    radial-gradient(54rem 30rem at 82% 0%,rgba(200,164,95,.09),transparent 62%),
+    linear-gradient(180deg,#0C0F12 0%,var(--onyx) 44%,#080A0C 100%);
+  min-height:100vh;
+}
+.docpage .wrap{max-width:62rem}
+
+.docpage h1{
+  font-family:var(--serif);
+  font-size:clamp(1.9rem,1.3rem + 2vw,2.9rem);
+  font-weight:500;line-height:1.08;letter-spacing:-.012em;
+  color:var(--t1);
+  max-width:24ch;
+}
+.docpage .date{
+  margin-top:1.25rem;
+  font:400 var(--f-rub)/1 var(--mono);
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--au);
+}
+
+.todo{
+  margin-top:1.8rem;
+  padding:1.1rem 1.3rem;
+  border:1px dashed rgba(224,168,87,.45);
+  border-radius:var(--r);
+  background:rgba(224,168,87,.07);
+  font-size:var(--f-sm);line-height:1.6;color:#EBCB95;
+}
+.todo b{color:#F6E3BC}
+
+.legal{
+  display:grid;
+  grid-template-columns:4.2rem minmax(0,1fr);
+  gap:0 1.4rem;
+  padding:1.7rem 0;
+  border-top:1px solid var(--rule-2);
+  margin-top:1.9rem;
+}
+.legal + .legal{margin-top:0}
+.legal .n{
+  font:600 var(--f-rub)/1.9 var(--mono);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.16em;
+  color:var(--au);
+}
+.legal h2{
+  font-size:clamp(1.22rem,1.1rem + .6vw,1.56rem);
+  line-height:1.24;margin-bottom:.75rem;
+  max-width:none;
+}
+.legal p{
+  font-size:var(--f-sm);line-height:1.68;color:var(--t2);
+  margin:0 0 .8rem;max-width:74ch;
+}
+.legal p:last-child{margin-bottom:0}
+.legal ul{margin:.2rem 0 .9rem;padding-left:1.1rem}
+.legal li{
+  font-size:var(--f-sm);line-height:1.62;color:var(--t2);
+  margin-bottom:.4rem;
+}
+.legal li::marker{color:var(--au-lo)}
+.legal a{color:var(--au);text-decoration:underline;text-underline-offset:2px}
+
+@media (max-width:620px){
+  .legal{grid-template-columns:1fr;gap:.5rem;padding:1.3rem 0;margin-top:1.4rem}
+  .legal .n{line-height:1}
+  .docbar .who{display:none}
+}
+
+/* ============================================================
+   ПЕЧАТЬ
+
+   Предложение должны уметь распечатать и положить на стол.
+   Тёмные полосы на бумаге не печатаются — всё уходит в
+   чёрное по белому, без фоновых заливок и без интерфейса.
+   ============================================================ */
+
+@media print{
+  @page{margin:14mm}
+  html{scroll-behavior:auto}
+  body{background:#fff;color:#000;font-size:10.5pt}
+  .top,.sticky,.progress,.rail,.seal,.glow{display:none !important}
+  .band{padding:1.1rem 0;break-inside:avoid}
+  .band::before,.band::after,footer::before{display:none !important}
+  .band,footer{background:#fff !important;color:#000 !important;border:0}
+  h1,h2,h3,h4,.strip,.lede,.note,p,li,td,th{color:#000 !important}
+  .rub,.rub .n{color:#555 !important}
+  .btn,.biglink{
+    background:#fff !important;color:#000 !important;
+    border:1.2pt solid #000 !important;box-shadow:none !important;
+  }
+  .btn::after{display:none}
+  .win,.form,.sheet,.ticket,.gain,.fact,.guard,.code,.total,.inside{
+    box-shadow:none !important;border:.6pt solid #999 !important;
+    background:#fff !important;
+  }
+  .hero{min-height:0;padding-top:0}
+  html.js [data-rise]{opacity:1 !important;transform:none !important}
+  html.js .hero h1 .ln > i{transform:none !important;opacity:1 !important}
+  .fnl-body{clip-path:none !important}
+  .rg-fg{stroke-dashoffset:0 !important}
+  a[href^="http"]::after{
+    content:" (" attr(href) ")";
+    font-size:8pt;color:#666;
+  }
+  .fmark{-webkit-text-stroke:.4pt #bbb}
+}

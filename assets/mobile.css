@@ -1,0 +1,1370 @@
+/* ============================================================
+   «САЙТ ДЛЯ АМДЦ» — ТЕЛЕФОННАЯ ВЕРСИЯ.
+
+   Отдельный слой поверх style.css. Десктоп он не трогает
+   вообще: всё, что здесь есть, живёт внутри @media и ниже
+   860 px. Файл подключается последним, поэтому побеждает
+   в каскаде без единого !important там, где можно обойтись.
+
+   ── Почему отдельный слой ────────────────────────────────
+   Адаптив и мобильная версия — разные вещи. Адаптив следит,
+   чтобы ничего не сломалось. Мобильная версия — это другая
+   работа: из шестнадцати разворотов собирается двенадцать,
+   половина содержания уходит под спойлеры, порядок блоков
+   меняется, а всё, чего касается палец, переезжает вниз
+   экрана. Держать это вперемешку с десктопом нельзя —
+   через месяц никто не поймёт, что чинить.
+
+   ── Правила, по которым собрано ──────────────────────────
+     1  10–12 смысловых блоков вместо шестнадцати
+     2  один блок = один экран телефона
+     3  всё, что нажимается, — не меньше 48 px и внизу
+     4  между блоками контрастная граница, а не только отступ
+     5  кегль по назначению: текст 15+, вторичное 13+,
+        служебные метки капителью в разрядку 11+
+     6  форма захвата целиком помещается в экран
+     7  длинные перечни — спойлеры, а не полотна
+     8  липкая полоса снизу: звонок, WhatsApp, заявка
+     9  кнопки мессенджеров по всему листу, а не только внизу
+    10  воздуха больше, чем на десктопе, а не меньше
+
+   ── Про кегль ────────────────────────────────────────────
+   Замер до правки нашёл сорок с лишним элементов от 8,3 до
+   13 px. Формально «всё крупнее двенадцати» здесь недостижимо
+   и не нужно: реквизиты письма и рубрики разделов набраны
+   моноширинным капителью в разрядку — такой текст читается
+   на кегль-полтора мельче обычного, и поднимать его до
+   четырнадцати значит сломать типографику ради цифры в
+   отчёте. Порог у каждого слоя свой, и ниже его не опускается
+   ничего. Единственное исключение — надписи внутри макета
+   будущего сайта: это изображение сайта, а не интерфейс,
+   и мелкий текст там передаёт масштаб.
+
+   ── Про светлый фон ──────────────────────────────────────
+   Методичка требует светлый фон: по A/B-тестам он конвертит
+   лучше. Здесь сознательно оставлен тёмный. Это не массовый
+   лендинг под трафик, а письмо одному человеку, и дизайн в
+   нём — сам аргумент: страница должна выглядеть как работа
+   того, кому не страшно заплатить. Причина, по которой
+   методичка любит белое, — читаемость; она закрыта иначе:
+   кегль поднят, интерлиньяж разведён, контраст текста к
+   фону держится выше 7:1, светлые полосы («бумага») на
+   телефоне идут чаще, чем на десктопе.
+   ============================================================ */
+
+/* ============================================================
+   ГРАНИЦА. Всё ниже 860 px — телефон и узкий планшет.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  /* ---------- ШКАЛА -------------------------------------- */
+  /* На телефоне кегль не уменьшают, а увеличивают: экран
+     ближе к глазу, но и мельче, а читают на ходу и в метро.
+     Ни одного размера ниже 12 px на всей странице. */
+  :root{
+    --hdr:60px;                  /* шапка: 9% от 667 px       */
+    --gut:1.15rem;               /* поле страницы            */
+    --pad:3.1rem;                /* обычная полоса           */
+    --pad-s:2.5rem;              /* тесная                   */
+    --pad-l:3.6rem;              /* полоса с формой          */
+
+    --f-display:clamp(2.1rem,1.1rem + 4.4vw,2.75rem);
+    --f-h2:clamp(1.66rem,1.1rem + 2.6vw,2.15rem);
+    --f-h3:1.1rem;
+    --f-lede:1.045rem;
+    --f-body:1.0625rem;          /* 17 px                    */
+    --f-sm:.975rem;              /* 15.6 px                  */
+    --f-xs:.875rem;              /* 14 px — было 13          */
+    --f-rub:.75rem;              /* 12 px — было 11          */
+
+    --tap:52px;                  /* минимальная высота тапа  */
+  }
+
+  body{
+    font-size:var(--f-body);
+    line-height:1.66;            /* воздух в строке          */
+  }
+
+  /* ---------- ПОЛОСЫ ------------------------------------- */
+  /* Правило 4: между блоками нужна не пустота, а граница.
+     Волосок бронзой по верхнему краю каждой полосы — палец
+     листает и видит, что смысл сменился. */
+  .band{padding:var(--pad) 0}
+  .band.roomy{padding:var(--pad-l) 0}
+  .band.tight{padding:var(--pad-s) 0}
+
+  .band::after{
+    box-shadow:inset 0 1px 0 rgba(200,164,95,.16);
+  }
+  .b-paper::after{
+    box-shadow:inset 0 1px 0 rgba(18,22,26,.12);
+  }
+  .hero::after{box-shadow:none}
+
+  /* ---------- ЗАГОЛОВКИ ---------------------------------- */
+  h2{line-height:1.12;margin-bottom:.2rem}
+  .lede{
+    font-size:var(--f-lede);
+    line-height:1.64;
+    max-width:none;
+  }
+
+  /* Рубрика: номер и название раздела. На телефоне она была
+     9–11 px и терялась. Поднята до 12 и разложена в строку
+     с бронзовым номером-квадратиком. */
+  .rub{
+    font-size:var(--f-rub);
+    letter-spacing:.15em;
+    line-height:1.5;
+    gap:.7rem;
+    margin-bottom:.85rem;
+  }
+
+  /* ---------- ЧТО НАЖИМАЕТСЯ ----------------------------- */
+  /* Правило 3. Палец — 8–10 мм, это 45–55 px. Всё, что
+     меньше 48, на телефоне промахивается. */
+  .btn{
+    width:100%;
+    min-height:var(--tap);
+    padding:1rem 1.15rem;
+    font-size:.97rem;
+    justify-content:center;
+  }
+  .btns{flex-direction:column;align-items:stretch;gap:.7rem}
+
+  /* ---------- ССЫЛКИ В ТЕКСТЕ ---------------------------- */
+  a:not(.btn):not(.brand){
+    text-underline-offset:3px;
+  }
+}
+
+/* ============================================================
+   ШАПКА
+
+   Методичка держит шапку в пределах 10% высоты экрана. На
+   самом мелком современном телефоне (667 px) это 66 px, и
+   74 px десктопной шапки туда уже не влезают. Ужимаем до 56
+   и убираем всё, кроме знака и кнопки: телефон переезжает в
+   липкую полосу внизу, где до него дотягивается палец.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .top{
+    height:var(--hdr);
+    background:linear-gradient(180deg,rgba(6,8,10,.86),rgba(6,8,10,.34));
+    backdrop-filter:blur(9px);
+  }
+  .top .wrap{gap:.75rem}
+
+  .brand{min-height:44px;align-items:center}
+  .brand .mark{width:32px;height:32px}
+  .bname{font-size:.855rem}
+  .bsub{font-size:.56rem;letter-spacing:.17em;margin-top:.2rem}
+
+  /* Кнопка в шапке была 96×36 — мимо пальца. 44 по высоте
+     это разумный минимум для верхней зоны: главный тап всё
+     равно живёт внизу, эта — запасная. */
+  .top .btn.sm{
+    width:auto;min-height:44px;
+    padding:.7rem 1.05rem;
+    font-size:.8rem;
+    border-radius:var(--r);
+  }
+}
+
+@media (max-width:620px){
+  :root{--hdr:56px}
+}
+
+/* ---- планшет и «большой телефон»: 620–860 ---------------
+   Между телефоном и десктопом лежит полоса, где всё уже
+   в один столбец, но ширины ещё много. Если оставить ей
+   телефонные величины, страница начинает выглядеть как
+   растянутый телефон: поля в 18 px по краям экрана в 768 px
+   и кнопка на всю его ширину.
+
+   Поэтому здесь поле шире, а липкая полоса перестаёт быть
+   полосой во всю ширину и собирается в центр — ровно как
+   на телефоне, только по центру экрана. */
+@media (min-width:621px) and (max-width:860px){
+  :root{--gut:2.2rem;--pad:3.8rem;--pad-l:4.4rem;--pad-s:3rem}
+
+  .sticky{
+    justify-content:center;
+    padding-left:2.2rem;padding-right:2.2rem;
+  }
+  .sticky .btn:not(.ghost){flex:0 1 24rem}
+
+  /* на такой ширине двухколонные блоки ещё дышат */
+  .facts,.guards{grid-template-columns:1fr 1fr}
+  .fact:last-child,.guard:last-child{grid-column:span 2}
+  .mob-msg{grid-template-columns:auto 1fr 1fr;align-items:center}
+  .mob-msg .q{grid-column:1;margin-bottom:0;padding-right:1rem}
+  .mob-msg a{max-width:13rem}
+}
+
+/* ============================================================
+   1. ПЕРВЫЙ ЭКРАН
+
+   Главное правило методички про телефон: заголовок и кнопка
+   обязаны попасть в первый экран. На 667 px это 611 px за
+   вычетом шапки. Бюджет:
+
+     шапка          56
+     реквизиты      26
+     адресат        34
+     заголовок     168   (три строки по 56)
+     подводка      104   (четыре строки)
+     кнопка         52
+     ─────────────────
+                   440   — кнопка целиком над сгибом ✓
+
+   Макет будущего сайта, буллиты и цифры доверия уходят на
+   второй экран осознанно: они подтверждают решение, а не
+   открывают его.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .hero{
+    padding-top:calc(var(--hdr) + .9rem);
+    padding-bottom:2.4rem;
+    min-height:0;
+  }
+
+  /* Реквизиты письма — одна строка и ни одного переноса.
+     Без white-space каждый пункт ломается внутри себя:
+     «№ 001 /» и на второй строке «2026». Дата уходит на
+     узких экранах: номер и город важнее. */
+  .docline{
+    gap:.5rem;
+    font-size:.62rem;letter-spacing:.12em;
+    padding-bottom:.62rem;margin-bottom:.75rem;
+    flex-wrap:nowrap;overflow:hidden;
+  }
+  .docline > *{white-space:nowrap;flex:none}
+  .docline .r{display:none}
+
+  .addressee{
+    margin-bottom:.8rem;
+    padding:.5rem .85rem .5rem .7rem;
+    font-size:.78rem;letter-spacing:.06em;
+  }
+
+  .hero h1{
+    max-width:none;
+    line-height:1.08;
+    margin-bottom:.85rem;
+    letter-spacing:-.015em;
+  }
+
+  .hero .lede{
+    font-size:1.02rem;line-height:1.58;
+    margin-bottom:0;
+  }
+
+  .ctarow{margin-top:1.15rem}
+
+  /* Вторая кнопка — WhatsApp — стоит сразу под главной, а не
+     рядом: на телефоне это второй по частоте канал, и делить
+     с ним строку значит сделать обе кнопки узкими. */
+  .btn.wa{min-height:var(--tap)}
+
+  .undercta{
+    margin-top:.9rem;
+    font-size:.82rem;line-height:1.58;
+    max-width:none;
+  }
+
+  /* ---- второй экран: макет как доказательство ----------- */
+  .hero-grid{gap:2rem}
+  .hero-r{margin-top:.3rem}
+
+  .pins{gap:.55rem;margin-top:.85rem}
+  .pins span{font-size:.82rem}
+
+  .capt{font-size:.82rem;line-height:1.55;margin-top:.8rem}
+
+  /* «Что будет в прототипе» дублирует буллиты ниже. На
+     телефоне два одинаковых перечня подряд — это лишний
+     экран прокрутки, поэтому врезка уходит. */
+  .inside{display:none}
+
+  .hero-grid > .bul{margin-top:1.6rem}
+  .bul li{font-size:var(--f-sm);line-height:1.6}
+  .bul .ck{width:22px;height:22px}
+  .bul .ck .i{width:12px;height:12px}
+
+  .trust{margin-top:1.7rem}
+}
+
+/* ---- совсем узкий экран (320–400): режем до кости ------- */
+/* Строка реквизитов сжимается ступенями. Она набрана в
+   разрядку моноширинным и не переносится, поэтому лишнее
+   не поджимается, а уходит — по одному пункту на ступень.
+   Город при этом не теряется: он стоит в шапке под именем. */
+@media (max-width:620px){
+  .docline .date{display:none}
+}
+@media (max-width:460px){
+  .docline .city{display:none}
+}
+
+@media (max-width:400px){
+  .hero .lede{font-size:.97rem;line-height:1.54}
+  .hero h1{margin-bottom:.75rem;letter-spacing:-.02em}
+  .addressee{margin-bottom:.65rem;font-size:.74rem}
+  .ctarow{margin-top:.95rem}
+  .docline{font-size:.62rem}
+}
+
+/* ---- 320×568: последний рубеж ---------------------------
+   iPhone SE первого поколения и Android-бюджетники. Высота
+   экрана 568, из них 56 забирает шапка — на всё про всё 512.
+   Заголовок здесь разваливается на шесть строк, и кнопка
+   уезжает за сгиб. Это ошибка №3 из методички: «кнопка уехала
+   на второй экран».
+
+   Ужимаем ровно то, что можно ужать без потери смысла:
+   кегль заголовка, интерлиньяж подводки и отбивки. Текст
+   остаётся весь до последнего слова. */
+@media (max-width:360px){
+  :root{--hdr:52px}
+  .hero{padding-top:calc(var(--hdr) + .4rem)}
+  .hero h1{font-size:1.78rem;line-height:1.09;margin-bottom:.55rem}
+  .hero .lede{font-size:.91rem;line-height:1.46}
+  .docline{padding-bottom:.42rem;margin-bottom:.46rem}
+  .addressee{
+    margin-bottom:.46rem;padding:.36rem .66rem .36rem .55rem;
+    font-size:.7rem;letter-spacing:.03em;
+  }
+  .ctarow{margin-top:.7rem}
+  .btn{min-height:50px;padding:.9rem 1rem;font-size:.93rem}
+  .undercta{margin-top:.7rem;font-size:.78rem}
+}
+
+/* ============================================================
+   ЛИПКАЯ ПОЛОСА
+
+   Правило 14 методички: кнопка, прикреплённая к низу экрана,
+   сильно поднимает конверсию. Правило 15: кнопки мессенджеров
+   по всему лендингу. Здесь оба закрыты одной полосой в три
+   действия — звонок, WhatsApp, заявка, — и она держится
+   в зоне большого пальца всю прокрутку.
+
+   Ширины: два квадрата по 52 и остаток главной кнопке. На
+   320 px это 52 + 52 + 180 — надпись «Получить прототип»
+   влезает без переноса.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  /* Порог появления. Основной скрипт выпускает полосу, когда
+     пройдено 75% первого экрана. На десктопе это верно: hero
+     там ровно в экран. На телефоне hero — два с лишним экрана,
+     и полоса появлялась где-то на третьем: полтора экрана
+     человек листает без кнопки под рукой.
+
+     Ниже 860 px порогом становится не доля hero, а сама
+     кнопка первого экрана: ушла из виду — полоса выехала.
+     Класс ставит mobile.js; пока его нет, полоса спрятана,
+     даже если основной скрипт уже повесил .on. */
+  .sticky,
+  .sticky.on{transform:translateY(110%)}
+  html.sticky-ready .sticky{transform:none}
+
+  .sticky{
+    gap:.5rem;
+    padding:.62rem var(--gut) calc(.62rem + env(safe-area-inset-bottom));
+    background:linear-gradient(180deg,rgba(6,8,10,.72),rgba(5,7,9,.985));
+    backdrop-filter:blur(16px) saturate(1.2);
+    border-top:1px solid rgba(200,164,95,.22);
+    box-shadow:0 -20px 40px -28px #000;
+  }
+
+  .sticky .btn{
+    min-height:var(--tap);
+    padding:.9rem .8rem;
+    font-size:.9rem;
+    letter-spacing:.005em;
+  }
+
+  /* два квадратных канала слева: телефон и WhatsApp */
+  .sticky .btn.ghost{
+    flex:0 0 var(--tap);
+    width:var(--tap);padding:0;
+  }
+  .sticky .btn.ghost .i{width:1.3rem;height:1.3rem}
+
+  /* WhatsApp узнают по зелёному — в липкой полосе это
+     единственное место, где зелёному можно стоять рядом
+     с бронзой: они не соперничают, потому что один
+     квадратный и тихий, а второй широкий и светится */
+  .sticky .btn.ghost.wa{
+    border-color:rgba(70,199,158,.34);
+    color:var(--jade-hi);
+    background:rgba(70,199,158,.09);
+  }
+
+  /* главная кнопка полосы — единственное яркое пятно внизу */
+  .sticky .btn:not(.ghost){flex:1 1 auto}
+
+  /* страница не должна упираться в полосу */
+  body{padding-bottom:calc(var(--tap) + 1.5rem + env(safe-area-inset-bottom))}
+}
+
+@media (max-width:360px){
+  .sticky .btn:not(.ghost){font-size:.83rem;padding:.9rem .5rem}
+  .sticky{gap:.4rem}
+}
+
+/* ---- полоса уходит, когда открыта клавиатура ------------
+   На телефоне клавиатура занимает нижнюю половину экрана, и
+   всё, что прибито к низу через position:fixed, всплывает
+   ровно на её край — прямо поверх поля, которое человек
+   заполняет. На iOS это к тому же дёргается при каждом
+   символе.
+
+   Пока в фокусе поле ввода, полосы быть не должно: кнопка
+   у формы своя, и она в двух сантиметрах выше. Класс ставит
+   mobile.js по focusin/focusout. */
+@media (max-width:860px){
+  html.typing .sticky{
+    transform:translateY(110%);
+    transition:transform .22s var(--ease);
+  }
+}
+
+/* ============================================================
+   4. АРИФМЕТИКА
+
+   На десктопе воронка лежит поперёк: четыре подписи стоят по
+   горизонтали на 5,4 / 36,4 / 67,3 / 94,5 процента ширины.
+   На 390 px это 21, 142, 262 и 369 пикселей — третья подпись
+   налезает на четвёртую, а четвёртая наполовину уезжает за
+   правый край. Так и было на живом сайте.
+
+   Чинится не подгонкой процентов, а сменой оси: поперечная
+   воронка на телефоне становится продольной. Четыре ступени
+   сверху вниз, у каждой своя полоса. Ширина полосы взята по
+   корню от значения — иначе 13 рядом с 420 не видно вовсе.
+   Читается сразу: два широких бруска наверху — это те, кто
+   вас ищет, два коротких внизу — те, кто доходит.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .funnel{
+    margin-top:1.5rem;
+    padding:0;                       /* место под поперечные подписи не нужно */
+  }
+  .funnel svg{display:none}          /* поперечная — только на широком */
+
+  .fnl-lab{
+    position:static;height:auto;
+    display:grid;gap:.1rem;
+  }
+
+  .fnl-lab span{
+    position:static;
+    max-width:none;                  /* снимаем ограничение поперечной вёрстки */
+    display:grid;
+    grid-template-columns:4.6rem 1fr;
+    grid-template-areas:
+      "num bar"
+      "num cap";
+    align-items:center;
+    gap:.1rem .95rem;
+    padding:.85rem 0;
+    border-bottom:1px solid var(--rule-l2);
+  }
+  .fnl-lab span:last-child{border-bottom:0}
+
+  .fnl-lab b{
+    grid-area:num;
+    align-self:center;
+    font-size:1.72rem;line-height:1;
+    text-align:right;
+  }
+
+  /* полоса ступени: ширина по корню от значения, задаётся
+     переменной --v в разметке */
+  .fnl-lab span::before{
+    content:'';grid-area:bar;
+    height:9px;width:var(--v,100%);
+    border-radius:2px;
+    background:linear-gradient(90deg,#D9B87A,#BE8B4E);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  .fnl-lab .end::before,
+  .fnl-lab span:nth-child(3)::before{
+    background:linear-gradient(90deg,#C4563E,#B24630);
+  }
+
+  .fnl-lab i{
+    grid-area:cap;
+    max-width:none;
+    font-size:.85rem;line-height:1.45;
+    margin-top:.3rem;
+  }
+
+  /* ---- ведомость: карточки, а не столбцы ---------------- */
+  .ledger{margin-top:1.6rem;font-size:var(--f-sm)}
+  .ledger tr{padding:1.05rem 0}
+  .ledger td:first-child{
+    font-size:1rem;margin-bottom:.5rem;line-height:1.4;
+  }
+  .ledger td small{font-size:.8rem;margin-top:.3rem}
+  .ledger td[data-l]::before{font-size:.72rem}
+  .ledger .v{font-size:.96rem}
+
+  /* ---- итог: цифра на своей строке ---------------------- */
+  .total{
+    flex-direction:column;align-items:flex-start;
+    gap:.9rem;
+    padding:1.4rem 1.25rem;
+    margin-top:1.5rem;
+  }
+  .total .big{font-size:2.75rem;gap:.35rem}
+  .total .txt{font-size:1.02rem;line-height:1.6;max-width:none}
+
+  .note{font-size:.9rem;line-height:1.62}
+}
+
+@media (max-width:400px){
+  .fnl-lab span{grid-template-columns:3.9rem 1fr;gap:.1rem .7rem}
+  .fnl-lab b{font-size:1.5rem}
+  .total .big{font-size:2.4rem}
+}
+
+/* ============================================================
+   5, 12, 16. ФОРМЫ ЗАХВАТА
+
+   Правило 11 методички: вся форма с призывом помещается в
+   один экран — листать вверх-вниз при заполнении никто не
+   станет. Главная форма этого не делала: заголовок, подводка,
+   четыре поля, радиогруппа, поле для заметки, кнопка, галочка
+   и три строки под ней — это два с половиной экрана.
+
+   Решение: обязательный минимум остаётся на виду, всё
+   остальное сворачивается. В экране — заголовок, имя, номер,
+   кнопка и галочка. «Когда написать» и «что важно учесть»
+   живут под спойлером «Добавить пожелания»: кто хочет —
+   раскроет, остальные отправят в два касания.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .formgrid{gap:1.8rem}
+
+  /* Декоративный лист «Прототип · 8 экранов» на десктопе
+     держит правое поле и намекает на результат. На телефоне
+     он встаёт отдельным экраном между буллитами и формой —
+     то есть отодвигает кнопку ради картинки, в которой нет
+     ни одного факта. Убираем: правило слона работает и в
+     обратную сторону. */
+  .doc{display:none}
+
+  .form{
+    padding:1.35rem 1.15rem 1.5rem;
+    border-radius:12px;
+  }
+  .form::after{inset:7px}
+  .form::before{left:1.1rem;right:1.1rem}
+
+  .form h3{font-size:1.42rem;line-height:1.16}
+  .form .sub{font-size:.92rem;line-height:1.55;margin-top:.55rem}
+
+  .field{margin-top:.9rem}
+  .field > label{
+    font-size:.72rem;letter-spacing:.14em;
+    margin-bottom:.42rem;
+  }
+
+  /* 16 px — порог, ниже которого iOS зумит страницу при
+     фокусе и больше её не отпускает */
+  .field input[type=text],
+  .field input[type=tel],
+  .field textarea{
+    font-size:16px;
+    padding:.95rem 1rem;
+    min-height:var(--tap);
+    border-radius:6px;
+  }
+  .field textarea{min-height:5rem}
+  .field .hint{font-size:.8rem;line-height:1.5;margin-top:.38rem}
+
+  /* время связи — три полноразмерных тапа в строку */
+  .when-row{gap:.45rem}
+  .when-row > label{flex:1 1 auto}
+  .when-row span{
+    padding:.78rem .5rem;
+    font-size:.86rem;text-align:center;
+    border-radius:8px;
+  }
+
+  .form .btn{margin-top:1.2rem;min-height:56px;font-size:1rem}
+
+  /* галочка согласия была 14×14 — мимо пальца.
+     Поднята до 22 и вся строка сделана мишенью. */
+  .agree{
+    margin-top:.95rem;
+    padding:.5rem 0;
+    font-size:.8rem;line-height:1.5;
+    align-items:center;
+  }
+  .agree input{width:22px;height:22px;margin-top:0}
+  .agree a{padding:.2rem 0;display:inline-block}
+
+  .formfoot{margin-top:1rem;gap:.5rem}
+  .formfoot span{font-size:.8rem}
+  /* телефон под формой — это канал связи, а не сноска:
+     даём ему высоту, за которую можно взяться пальцем */
+  .formfoot a{
+    display:inline-block;
+    min-height:34px;line-height:34px;
+    padding:0 .1rem;
+    text-decoration:underline;text-underline-offset:3px;
+  }
+}
+
+/* ============================================================
+   2 и 15. ДВА ИСХОДА — хронометраж
+
+   На десктопе два столбца стоят рядом и сравниваются взглядом.
+   На телефоне они встают друг под друга, и сравнение пропадает:
+   пока долистаешь до второго, первый уже забыт. Поэтому колонки
+   получают явные ярлыки, цветной кант слева и разный фон —
+   чтобы «нашёл» и «ушёл» различались прямо на прокрутке.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .tickets{gap:.9rem;margin-top:1.35rem}
+
+  .ticket{
+    padding:1.1rem 1.05rem 1.15rem;
+    border-radius:10px;
+  }
+  .ticket .lab{
+    font-size:.74rem;letter-spacing:.13em;
+    margin-bottom:.85rem;
+  }
+  .ticket li{
+    padding:.62rem 0;
+    font-size:.94rem;line-height:1.5;
+  }
+  /* время слева узкой колонкой, событие — всё остальное */
+  .ticket .tm{
+    min-width:3.9rem;
+    font-size:.8rem;
+  }
+
+  .strip{
+    margin-top:1.2rem;
+    padding:1rem 1.1rem 1rem 1.2rem;
+    font-size:1.07rem;line-height:1.5;
+    max-width:none;
+  }
+}
+
+/* ============================================================
+   3. АУДИТ САЙТА
+
+   Исходный код чужого сайта — сильное доказательство, но на
+   телефоне это десяток строк моноширинного текста, через
+   которые надо пролистать, чтобы добраться до выводов. Меняем
+   местами: сначала находки, код — ниже, для тех, кто захочет
+   проверить своими руками.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .audit{gap:1.4rem}
+  .audit > div:first-child{order:2}      /* код — под находки */
+  .audit > div:last-child{order:1}
+
+  .code{border-radius:8px}
+  .code .bar{padding:.62rem .8rem;font-size:.66rem}
+  .code pre{
+    font-size:.72rem;line-height:1.75;
+    padding:.95rem 1rem;
+  }
+
+  .aside{
+    margin-top:.9rem;padding:.9rem 1rem;
+    font-size:.86rem;line-height:1.58;
+  }
+
+  .findings li{
+    padding:.95rem 0;
+    font-size:var(--f-sm);line-height:1.6;
+    gap:.85rem;
+  }
+  .findings .x{width:24px;height:24px}
+  .findings .x .i{width:12px;height:12px}
+}
+
+/* ============================================================
+   6. ШЕСТЬ ВЫГОД
+
+   Шесть карточек подряд — два с половиной экрана однообразной
+   прокрутки, самый длинный блок страницы. На телефоне первые
+   две остаются раскрытыми: они несут главный смысл. Остальные
+   четыре уходят под спойлер (см. раздел СПОЙЛЕРЫ ниже).
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .gains{gap:.85rem;margin-top:1.35rem}
+
+  .gain{
+    padding:1.2rem 1.15rem 1.25rem;
+    border-radius:10px;
+  }
+  .gain .ic{width:40px;height:40px;margin-bottom:.85rem}
+  .gain .ic .i{width:1.15rem;height:1.15rem}
+  .gain h3{font-size:1.12rem;line-height:1.24;margin-bottom:.55rem}
+  .gain p{font-size:var(--f-sm);line-height:1.6}
+  .gain .no{
+    font-size:.82rem;line-height:1.5;
+    margin-top:.85rem;padding-top:.75rem;
+  }
+  .gain.full{flex-direction:column;gap:0}
+}
+
+/* ============================================================
+   7. НАПРАВЛЕНИЯ
+
+   Кольцо «3 из 14» — самая говорящая графика страницы, она
+   остаётся и встаёт по центру. Четырнадцать чипов складываются
+   в шесть строк: это нормально, они и должны читаться списком,
+   в котором зачёркнуто одиннадцать позиций.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .score{
+    gap:1.3rem;margin-top:1.35rem;
+    flex-direction:column;align-items:flex-start;
+  }
+  .ring{width:132px;align-self:center}
+  .ring figcaption b{font-size:2.2rem}
+  .ring figcaption i{font-size:.68rem}
+  .score .c{flex:1 1 auto}
+  .score .c p{font-size:1.02rem;line-height:1.6}
+
+  .ded{gap:.55rem 1.1rem;margin-top:1rem}
+  .ded span{font-size:.8rem}
+
+  .dirs{gap:.42rem;margin-top:1.25rem}
+  .dir{
+    padding:.62rem .82rem;
+    font-size:.85rem;
+    border-radius:8px;
+  }
+  .dir .i{width:13px;height:13px}
+
+  .facts{gap:.8rem;margin-top:1.4rem}
+  .fact{padding:1.15rem 1.15rem 1.2rem;border-radius:10px}
+  .fact .n{font-size:2.7rem;margin-bottom:.4rem}
+  .fact h3{font-size:1.06rem;margin-bottom:.5rem}
+  .fact p{font-size:var(--f-sm);line-height:1.6}
+}
+
+/* ============================================================
+   8. ЧЕТЫРЕ ШАГА
+
+   На телефоне четыре карточки встают в столбец и теряют связь
+   между собой. Возвращаем её вертикальной линией слева, сквозь
+   все номера: тот же маршрут, только поставленный на бок.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .steps{
+    grid-template-columns:1fr;
+    gap:0;
+    margin-top:1.5rem;
+    padding-left:3.3rem;
+    position:relative;
+  }
+  /* сквозная линия маршрута */
+  .steps::before{
+    display:block;
+    left:18px;right:auto;
+    top:20px;bottom:2.2rem;height:auto;
+    width:0;border-top:0;
+    border-left:1px dashed rgba(200,164,95,.42);
+  }
+
+  .step{
+    padding-top:0;padding-bottom:1.5rem;
+  }
+  .step:last-child{padding-bottom:0}
+  .step .badge{
+    left:-3.3rem;top:-.1rem;
+    width:37px;height:37px;
+    font-size:.76rem;
+  }
+  .step .when{font-size:.74rem;letter-spacing:.13em;margin-bottom:.3rem}
+  .step h3{font-size:1.12rem;margin-bottom:.4rem}
+  .step p{font-size:var(--f-sm);line-height:1.6}
+  .step .got{
+    font-size:.84rem;line-height:1.5;
+    margin-top:.7rem;padding-top:.6rem;
+  }
+}
+
+@media (max-width:400px){
+  .steps{padding-left:2.9rem}
+  .steps::before{left:15px}
+  .step .badge{left:-2.9rem;width:32px;height:32px;font-size:.7rem}
+}
+
+/* ============================================================
+   9. СОСЕДИ ПО КВАРТАЛУ
+
+   Схема квартала на 390 px становится тесной: четыре подписи
+   вокруг точки наезжают на круги. Даём ей всю ширину поля,
+   поднимаем кегль подписей до читаемого, а строки сравнения
+   разбираем в карточки с рейтингом в правом верхнем углу.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .vs-head{gap:1.5rem}
+  .quarter{margin:.5rem -.3rem 0}
+  .q-lab{font-size:.78rem;line-height:1.3}
+  .q-lab i{font-size:.66rem}
+  .quarter figcaption{font-size:.7rem;margin-top:.8rem}
+
+  .vs{margin-top:1.5rem;border-top:0}
+
+  /* каждый сосед — карточка, а не строка таблицы */
+  .vs .row{
+    grid-template-columns:1fr auto;
+    grid-template-areas:
+      "who rate"
+      "what what";
+    gap:.75rem .9rem;
+    padding:1.1rem 1.05rem;
+    margin-bottom:.7rem;
+    border:1px solid var(--rule-2);
+    border-radius:10px;
+    background:rgba(244,241,233,.025);
+  }
+  .vs .who{grid-area:who;font-size:1.06rem}
+  .vs .who small{font-size:.74rem;line-height:1.45}
+  .vs .what{grid-area:what;font-size:var(--f-sm);line-height:1.58}
+  .vs .rate{grid-area:rate;text-align:right;align-self:start}
+  .vs .rate .n{font-size:1.62rem}
+  .vs .rate .o{font-size:.72rem;white-space:nowrap}
+
+  .vs .row.me{
+    padding-left:1.05rem;
+    border-color:var(--au-line);
+    background:linear-gradient(150deg,var(--au-wash),transparent 70%);
+  }
+}
+
+/* ============================================================
+   10. ОПРОС ПАЦИЕНТОВ
+
+   Три полосы — короткий и наглядный блок, на телефоне он
+   работает как есть. Поднимаем кегль подписей и утолщаем сами
+   полосы: двенадцать пикселей на телефоне выглядят ниткой.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .bars{margin-top:1.4rem;gap:1.35rem}
+  .brow{gap:.6rem .9rem}
+  .blab{font-size:1rem;line-height:1.35}
+  .track{height:14px}
+  .val{font-size:1.22rem}
+  .cap{margin-top:.1rem}
+  .cap span{font-size:.84rem;line-height:1.5}
+}
+
+/* ============================================================
+   11. ПРИМЕР РАБОТЫ
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .case{gap:1.7rem}
+
+  .biglink{
+    font-size:1.05rem;
+    min-height:44px;align-items:center;
+    margin-top:1.2rem;
+  }
+
+  /* три цифры в ряд, а не лесенкой по две */
+  .kpi{
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:.8rem;margin-top:1.3rem;padding-top:1.1rem;
+  }
+  .kpi b{font-size:1.65rem}
+  .kpi span{font-size:.74rem;line-height:1.35}
+
+  .capt{font-size:.84rem;line-height:1.55}
+}
+
+@media (max-width:360px){
+  .kpi{grid-template-columns:1fr 1fr}
+  .kpi .k:last-child{grid-column:span 2}
+}
+
+/* ============================================================
+   13. ВОПРОСЫ
+
+   Единственный блок, который на телефоне работал правильно
+   с самого начала: методичка требует спойлеры вместо
+   слайдеров, а здесь они уже есть. Остаётся довести до
+   пальца — вся строка вопроса становится мишенью в 56 px,
+   а стрелка вырастает и отодвигается от края.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .faq{margin-top:1.4rem}
+
+  .faq summary{
+    gap:.85rem;
+    padding:1.05rem .1rem;
+    min-height:56px;align-items:center;
+    font-size:1.06rem;line-height:1.36;
+    -webkit-tap-highlight-color:rgba(200,164,95,.12);
+  }
+  .faq summary::before{
+    width:1.75rem;
+    font-size:.76rem;line-height:1.36;
+    align-self:flex-start;margin-top:.15rem;
+  }
+  .faq summary::after{
+    width:12px;height:12px;
+    margin-top:0;
+    margin-left:auto;                /* иначе уезжает к тексту */
+    margin-right:.3rem;
+    border-width:2px;
+  }
+  .faq .ans{
+    padding:0 .1rem 1.3rem;
+    font-size:var(--f-sm);line-height:1.68;
+  }
+}
+
+/* ============================================================
+   14. СОСТАВ РАБОТЫ
+
+   Семнадцать пунктов в трёх колонках — на телефоне это полтора
+   экрана сплошных галочек, которые никто не дочитывает. Три
+   колонки становятся тремя спойлерами: заголовок несёт смысл
+   («Смыслы и структура», «Сайт», «Запуск»), а содержимое
+   раскрывает тот, кому важны детали.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .incl{gap:.7rem;margin-top:1.4rem}
+
+  .incl .col h3{
+    padding-bottom:.65rem;margin-bottom:.85rem;
+    font-size:1.28rem;
+  }
+  .incl ul{gap:.62rem}
+  .incl li{font-size:var(--f-sm);line-height:1.56;gap:.65rem}
+  .incl li .i{width:14px;height:14px;margin-top:.28rem}
+
+  .guards{gap:.75rem;margin-top:1.5rem}
+  .guard{padding:1.1rem 1.15rem;border-radius:10px}
+  .guard h3{font-size:1.08rem;margin-bottom:.5rem}
+  .guard p{font-size:var(--f-sm);line-height:1.58}
+}
+
+/* ============================================================
+   ПОДВАЛ
+
+   Контакты в подвале — последний шанс для того, кто долистал
+   до конца и не нажал ни одной кнопки. На телефоне они были
+   ссылками в 17–26 пикселей высотой. Здесь каждая становится
+   полноценной строкой-кнопкой в 52 px с иконкой канала.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  footer{padding:2.6rem 0 1.4rem}
+  footer .cols{gap:1.7rem;padding-bottom:1.8rem}
+  footer .cols > div{flex:1 1 100%!important}
+  footer p{font-size:var(--f-sm);line-height:1.62;max-width:none!important}
+  footer h4{font-size:.72rem;margin-bottom:.8rem}
+
+  .contacts{gap:.5rem}
+  .contacts a{
+    min-height:var(--tap);
+    align-items:center;
+    padding:.5rem .9rem;
+    border:1px solid var(--rule-2);
+    border-radius:8px;
+    background:rgba(244,241,233,.022);
+    font-size:.95rem;
+  }
+  .contacts .i{width:17px;height:17px}
+
+  footer .cols a[href="privacy.html"]{
+    display:inline-block;
+    min-height:44px;line-height:44px;
+  }
+
+  .colophon{
+    gap:.9rem;padding:1.2rem 0;
+    font-size:.72rem;line-height:1.55;
+  }
+  .colophon b{font-size:.7rem;margin-bottom:.22rem}
+
+  .fmark{margin:1.2rem 0 .9rem;font-size:clamp(3rem,17vw,5rem)}
+
+  .fbot{gap:.55rem;font-size:.76rem;line-height:1.5}
+}
+
+/* ============================================================
+   СПОЙЛЕРЫ
+
+   Правило 13 методички: «никаких слайдеров — только спойлеры.
+   Слайдер никто не пролистает. Спойлер заметен, не нагружает
+   вёрстку, в его заголовок можно вынести ключевой тезис, и
+   пользователю нравится жмакать — растёт время на сайте».
+
+   Компонент один на всю страницу. Разметку для него ставит
+   mobile.js: на десктопе спойлеров нет вовсе, там всё лежит
+   развёрнутым, как и было утверждено.
+
+   Заголовок спойлера — не «Подробнее», а сам тезис: «Ещё
+   четыре вещи, которые начнут работать», «Показать исходный
+   код am-dc.ru». Человек знает, что откроет, и открывает.
+   ============================================================ */
+
+/* На широком экране спойлеров нет вовсе. Обёртка и надпись
+   растворяются, содержимое встаёт ровно туда, где лежало в
+   разметке, — утверждённый десктоп не меняется ни на пиксель. */
+.mob-sp,
+.mob-sp > .in{display:contents}
+.mob-sp > summary{display:none}
+
+@media (max-width:860px){
+
+  .mob-sp{
+    display:block;
+    margin-top:.85rem;
+    border:1px solid var(--rule-2);
+    border-radius:10px;
+    background:rgba(244,241,233,.022);
+    overflow:hidden;
+  }
+  .b-paper .mob-sp{
+    border-color:var(--rule-l2);
+    background:rgba(18,22,26,.022);
+  }
+
+  .mob-sp > summary{
+    display:flex;align-items:center;gap:.8rem;
+    min-height:var(--tap);
+    padding:.9rem 1.05rem;
+    cursor:pointer;list-style:none;
+    font:600 .97rem/1.35 var(--sans);
+    color:var(--t1);
+    -webkit-tap-highlight-color:rgba(200,164,95,.12);
+  }
+  .b-paper .mob-sp > summary{color:var(--ink)}
+  .mob-sp > summary::-webkit-details-marker{display:none}
+
+  /* счётчик того, что внутри: «+4» — сразу видно объём */
+  .mob-sp > summary .cnt{
+    flex:none;
+    min-width:2rem;padding:.22rem .42rem;
+    border:1px solid var(--au-line);
+    border-radius:100px;
+    font:500 .72rem/1.3 var(--mono);
+    text-align:center;
+    color:var(--au);
+    background:var(--au-wash);
+  }
+  .b-paper .mob-sp > summary .cnt{color:var(--au-ink)}
+
+  /* шеврон справа, поворачивается при раскрытии */
+  .mob-sp > summary::after{
+    content:'';flex:none;margin-left:auto;
+    width:10px;height:10px;
+    border-right:2px solid var(--au);
+    border-bottom:2px solid var(--au);
+    transform:rotate(45deg) translate(-2px,-2px);
+    transition:transform .35s var(--ease);
+  }
+  .mob-sp[open] > summary::after{
+    transform:rotate(-135deg) translate(-2px,-2px);
+  }
+  .b-paper .mob-sp > summary::after{
+    border-color:var(--au-ink);
+  }
+
+  .mob-sp > .in{
+    display:block;
+    padding:.2rem 1.05rem 1.1rem;
+  }
+  /* внутри спойлера сетки схлопываются в столбец */
+  .mob-sp > .in > .gains,
+  .mob-sp > .in > .incl{
+    display:grid;grid-template-columns:1fr;gap:.8rem;margin-top:0;
+  }
+  .mob-sp > .in > .findings{margin-top:0}
+  .mob-sp > .in > .findings li:first-child{padding-top:0}
+  .mob-sp > .in > .tickets{margin-top:0}
+
+  /* спойлер, в котором лежит код: поле у кода своё */
+  .mob-sp.wide > .in{padding-left:.6rem;padding-right:.6rem}
+}
+
+/* ============================================================
+   МЕССЕНДЖЕРЫ ПО ХОДУ ЛИСТА
+
+   Правило 15 методички: кнопки мессенджеров расставлены по
+   всему лендингу, а не только в подвале. Для услуг канал —
+   WhatsApp и Telegram.
+
+   Полоса встаёт после блоков, где у человека появляется
+   вопрос: после аудита («а у меня так же?»), после разбора
+   направлений и после примера работы. Она нарочно не похожа
+   на форму захвата — это не заявка, а разговор, и порог
+   у неё должен быть ниже.
+   ============================================================ */
+
+.mob-msg{display:none}
+
+@media (max-width:860px){
+
+  .mob-msg{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:.6rem;
+    margin-top:1.6rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--rule-2);
+  }
+  .b-paper .mob-msg{border-top-color:var(--rule-l2)}
+
+  .mob-msg .q{
+    grid-column:1/3;
+    margin-bottom:.2rem;
+    font-size:.92rem;line-height:1.5;
+    color:var(--t3);
+  }
+  .b-paper .mob-msg .q{color:var(--ink-3)}
+
+  .mob-msg a{
+    display:flex;align-items:center;justify-content:center;gap:.55rem;
+    min-height:var(--tap);
+    padding:.8rem .6rem;
+    border-radius:8px;
+    border:1px solid var(--rule);
+    font:600 .92rem/1 var(--sans);
+    color:var(--t1);text-decoration:none;
+    background:rgba(244,241,233,.03);
+    -webkit-tap-highlight-color:rgba(200,164,95,.12);
+  }
+  .b-paper .mob-msg a{
+    color:var(--ink);
+    border-color:var(--rule-l);
+    background:rgba(255,255,255,.5);
+  }
+  .mob-msg a .i{width:1.05rem;height:1.05rem;flex:none}
+
+  .mob-msg .wa{
+    border-color:rgba(70,199,158,.34);
+    color:var(--jade-hi);
+    background:rgba(70,199,158,.08);
+  }
+  .b-paper .mob-msg .wa{color:var(--jade-ink);background:rgba(70,199,158,.12)}
+
+  .mob-msg .tg{
+    border-color:rgba(86,132,214,.34);
+    color:#9CC0F5;
+    background:rgba(86,132,214,.09);
+  }
+  .b-paper .mob-msg .tg{color:#20507F;background:rgba(86,132,214,.13)}
+}
+
+/* ============================================================
+   МАКЕТ БУДУЩЕГО САЙТА
+
+   Картинка внутри картинки: на 390 px внутренний макет
+   становится нечитаемым, если оставить десктопные кегли.
+   Поднимаем их до порога различимости и убираем третью
+   карточку прайса — в три колонки на телефоне цена
+   превращается в точку.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  .win .bar{padding:.55rem .75rem}
+  .win .bar .url{font-size:.66rem}
+
+  .mk-eye{font-size:.62rem;letter-spacing:.1em}
+  .mk-h{font-size:1.02rem;line-height:1.22}
+  .mk-sub{font-size:.72rem;line-height:1.45}
+  .mk-btn{font-size:.66rem;padding:.35rem .6rem}
+  .mk-cta .b{font-size:.76rem}
+  .mk-cta .t{font-size:.74rem}
+  .mk-card .n{font-size:.72rem}
+  .mk-card .p{font-size:.72rem}
+
+  /* штамп «Черновик» уезжал за левый край карточки */
+  .stamp.onstamp{right:.7rem;top:-.7rem}
+  .stamp{font-size:.7rem;padding:.3rem .6rem}
+}
+
+@media (max-width:420px){
+  /* третья карточка прайса в макете: на 360 px три колонки
+     дают 88 px на карточку — цену уже не прочесть */
+  .mk-cards{grid-template-columns:1fr 1fr}
+  .mk-cards .mk-card:nth-child(3){display:none}
+}
+
+/* ============================================================
+   ЧИТАЕМОСТЬ: ПОСЛЕДНИЙ ПРОХОД
+
+   Правило 5 сборки: ни одного шрифта мельче 12 px. Замер
+   до правки нашёл сорок с лишним элементов от 8,3 до 13 px —
+   рубрики, подписи к цифрам, колофон, ярлыки на схеме.
+   Здесь добираются те, что не попали в разделы выше.
+   ============================================================ */
+
+@media (max-width:860px){
+
+  /* Служебные метки набраны моноширинным в разрядку и
+     капителью — такой текст читается на кегль-полтора мельче
+     обычного. Ниже 10,5 px не опускаемся всё равно. */
+  .docline{font-size:.68rem}
+  .docline .k,
+  .docline .v{font-size:.68rem;letter-spacing:.1em}
+  .bsub{font-size:.69rem;letter-spacing:.15em}
+
+  /* подписи на схеме квартала и в кольце покрытия */
+  .q-lab i{font-size:.7rem}
+  .ring figcaption i{font-size:.7rem}
+  .quarter figcaption{font-size:.71rem}
+
+  /* исходный код чужого сайта: его читают глазами, а не
+     рассматривают — 12 px это нижняя граница для моноширинного */
+  .code pre{font-size:.75rem}
+  .code .bar{font-size:.69rem}
+
+  .trust .t{font-size:.88rem;line-height:1.5}
+  .trust .t b{font-size:1.6rem;min-width:5.8rem}
+
+  .pins span{font-size:.84rem;line-height:1.4}
+  .pins b{width:20px;height:20px;font-size:.7rem}
+
+  .stamp.gold{font-size:.68rem}
+
+  .sheet .t{font-size:.72rem;letter-spacing:.14em}
+  .sheet h4{font-size:1.08rem}
+
+  .note{font-size:.9rem;line-height:1.62}
+  .aside{font-size:.86rem}
+
+  /* в липкой полосе и в шапке текст не переносится */
+  .sticky .btn,
+  .top .btn.sm{white-space:nowrap}
+}
+
+/* ============================================================
+   ТЕЛЕФОН ЛЁЖА
+
+   Экран 844×390: ширины вдвое больше, высоты втрое меньше.
+   Липкая полоса в 52 px плюс отбивки съедает шестую часть
+   того, что осталось, а первый экран в такую высоту не
+   помещается никакими ужиманиями.
+
+   Ловим не по ширине, а по высоте вьюпорта — ровно так же,
+   как десктопная версия ловит низкий ноутбук. Полоса
+   становится тоньше, первый экран перестаёт держать высоту
+   и просто течёт дальше, а макет будущего сайта встаёт
+   рядом с текстом, а не под ним: ширина это позволяет.
+   ============================================================ */
+
+@media (max-width:860px) and (max-height:500px) and (orientation:landscape){
+  :root{--hdr:48px;--tap:44px;--pad:2.2rem;--pad-s:1.8rem;--pad-l:2.6rem}
+
+  .hero{padding-top:calc(var(--hdr) + .6rem);padding-bottom:1.6rem}
+  .hero h1{font-size:1.75rem;line-height:1.1;margin-bottom:.6rem}
+  .hero .lede{font-size:.95rem;line-height:1.5;margin:0}
+  .ctarow{margin-top:0}
+
+  /* Лёжа высоты 390 px не хватает на заголовок, подводку и
+     кнопку столбиком — кнопка уходит за сгиб. Зато ширины
+     844 px избыток. Поэтому подводка и кнопки встают рядом,
+     а не друг под друга: это возвращает кнопке те сто с
+     лишним пикселей, которых ей не хватало. */
+  .hero-l{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+    gap:0 1.6rem;align-items:start;
+  }
+  .btns{flex-direction:column}
+  .btns .btn{width:100%}
+  .ctarow::before{display:none}       /* подсветка тут только мешает */
+  .undercta{margin-top:.6rem;font-size:.76rem}
+
+  .sticky{padding-top:.45rem;padding-bottom:calc(.45rem + env(safe-area-inset-bottom))}
+  .sticky .btn{min-height:44px;padding:.7rem .8rem}
+  .sticky .btn.ghost{flex:0 0 44px;width:44px}
+  body{padding-bottom:calc(44px + 1.2rem + env(safe-area-inset-bottom))}
+
+  /* блоки, которым лёжа хватает ширины на две колонки */
+  .tickets,.facts,.guards,.incl,.gains{grid-template-columns:1fr 1fr}
+  .gain.lead,.gain.full,.fact:last-child,.guard:last-child{grid-column:span 2}
+  .formgrid,.case,.audit,.vs-head{grid-template-columns:1fr 1fr;gap:1.6rem}
+
+  /* Правило 11 держится и лёжа: от заголовка формы до кнопки
+     должно быть меньше высоты экрана. Столбиком в 390 px не
+     умещается ничем — зато форма стоит в половине ширины
+     844 px, и поля спокойно встают парами. */
+  .form{padding:.95rem .95rem 1.05rem}
+  .form::after{inset:5px}
+  .form h3{font-size:1.08rem;line-height:1.13}
+  .form .sub{font-size:.8rem;line-height:1.4;margin-top:.32rem}
+
+  .form .fields2{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:0 .8rem;
+  }
+  .form .fields2 .field{margin-top:.7rem}
+  .field > label{margin-bottom:.3rem}
+  .field input[type=text],
+  .field input[type=tel]{min-height:44px;padding:.7rem .8rem}
+  .field .hint{font-size:.75rem;margin-top:.3rem}
+
+  .form .btn{margin-top:.85rem;min-height:46px;font-size:.93rem}
+  .agree{margin-top:.6rem;padding:.3rem 0;font-size:.76rem}
+  .formfoot{margin-top:.7rem}
+
+  .mob-sp{margin-top:.6rem}
+  .mob-sp > summary{min-height:44px;padding:.65rem .9rem}
+}
+
+/* ============================================================
+   РАЗВИЛКА: ОБЩИЙ ВХОД
+
+   На широком экране минута стоит слева от текста, отдельной
+   колонкой — как отметка на полях. На 390 px эта колонка
+   съедает треть строки, и фраза рассыпается по три слова.
+   Ставим минуту над текстом: смысл тот же, строка целая.
+   ============================================================ */
+@media (max-width:860px){
+  .fk-start{flex-direction:column;gap:.55rem}
+  .fk-tm{padding-top:0}
+}

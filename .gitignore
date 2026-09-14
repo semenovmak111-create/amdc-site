@@ -1,0 +1,14 @@
+# служебные файлы проверки вёрстки: копия страницы с добитыми
+# переходами и обёртки с iframe. Создаются скриптом съёмки,
+# живут минуты и в репозиторий не едут — однажды уже уехали.
+_shot.html
+_wrap.html
+_dwrap.html
+_meas.html
+_meas.js
+shot*.png
+_sec_*.html
+_probe.html
+_h_*.html
+_stamp.html
+_orig*.html
