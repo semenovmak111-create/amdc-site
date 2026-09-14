@@ -2785,6 +2785,46 @@ html.js .hero.lit h1 .ln > i{
 
 
 /* ============================================================
+   ПУСТОЕ ОКНО
+
+   Третьим в ряду соседей стоит не снимок, а его отсутствие:
+   та же рамка браузера, но пунктиром и без содержимого.
+   Пустое место в ряду из трёх читается быстрее любого абзаца
+   про то, что страницы нет.
+   ============================================================ */
+
+.site.none .win{
+  border:1px dashed rgba(210,96,75,.42);
+  box-shadow:none;
+  background:
+    linear-gradient(180deg,rgba(210,96,75,.07),transparent 70%),
+    rgba(6,8,10,.25);
+}
+.b-paper .site.none .win{background:
+  linear-gradient(180deg,rgba(210,96,75,.07),transparent 70%),rgba(255,255,255,.35)}
+.site.none:hover .win{transform:none}
+.site.none .bar{opacity:.5}
+.site.none .bar .url{text-decoration:line-through}
+
+.site.none .empty{
+  aspect-ratio:1120/875;
+  display:grid;place-content:center;justify-items:center;
+  gap:.7rem;padding:1.6rem;text-align:center;
+}
+.site.none .empty .i{
+  width:30px;height:30px;color:var(--carn);stroke-width:1.5;opacity:.85;
+}
+.site.none .empty b{
+  font:500 clamp(1.1rem,1rem + .5vw,1.34rem)/1.25 var(--serif);
+  color:var(--carn-hi);
+}
+.b-paper .site.none .empty b{color:var(--carn-ink)}
+.site.none .empty span{
+  font-size:.82rem;line-height:1.55;color:var(--t3);max-width:24ch;
+}
+.b-paper .site.none .empty span{color:var(--ink-3)}
+
+/* ============================================================
    ТРИ ФОРМАТА
 
    Цена без выбора читается как ультиматум. Три карточки дают
