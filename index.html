@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260915b">
-<link rel="stylesheet" href="assets/style.css?v=20260915b">
+<link rel="stylesheet" href="assets/fonts.css?v=20260915c">
+<link rel="stylesheet" href="assets/style.css?v=20260915c">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260915b">
+<link rel="stylesheet" href="assets/mobile.css?v=20260915c">
 </head>
 <body>
 
@@ -354,68 +354,82 @@
 </section>
 
 <!-- ============ 2. ЧТО ПОЯВЛЯЕТСЯ ============ -->
-<section class="band b-indigo" id="gain" data-sec="s02" data-title="Что даёт">
+<!-- Семь выгод разложены не списком, а колодой: одна выгода —
+     один экран. Список читают по диагонали и не читают вовсе;
+     через колоду человек проходит по одной мысли за раз и сам
+     отмеряет темп. -->
+<section class="band b-indigo mid" id="gain" data-sec="s02" data-title="Что даёт">
   <div class="wrap">
     <div class="rub"><span class="n">02</span>Что вы получаете</div>
     <h2 class="huge">Получите свой боевой конверсионный сайт <mark>уже через 10 дней</mark></h2>
     <p class="lede">Семь вещей, которых сегодня у клиники нет ни в одном справочнике — и которые начинают работать в первую же неделю после запуска.</p>
 
-    <div class="tally plus">
-      <div class="tally-i">
+    <div class="deck" data-deck aria-roledescription="карусель" aria-label="Выгоды">
+      <button class="deck-nav prev" type="button" aria-label="Предыдущая выгода">
+        <svg class="i" aria-hidden="true"><use href="#i-arr"/></svg>
+      </button>
+
+      <div class="deck-view" tabindex="0" aria-label="Выгоды, листается стрелками">
+        <div class="deck-track">
+      <article class="slide" role="group" aria-roledescription="выгода"
+               aria-label="1 из 7">
         <div class="pic"><svg class="ill"><use href="#il-filter"/></svg></div>
-        <div class="tx">
-          <h3>Звонят только те, кто готов платить</h3>
-          <p>Цена стоит на странице. Кому дорого — отсеивается до звонка, сам и молча. Регистратура перестаёт тратить время на «а сколько у вас стоит».</p>
-          <div class="kick">Меньше звонков, больше записей.</div>
-        </div>
-      </div>
-      <div class="tally-i">
+        <h3>Звонят только те, кто готов платить</h3>
+        <p>Цена стоит на странице. Кому дорого — отсеивается до звонка, сам и молча. Регистратура перестаёт тратить время на «а сколько у вас стоит».</p>
+        <div class="kick">Меньше звонков, больше записей.</div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="выгода"
+               aria-label="2 из 7">
         <div class="pic"><svg class="ill"><use href="#il-sleep"/></svg></div>
-        <div class="tx">
-          <h3>Сайт приносит деньги, пока вы спите</h3>
-          <p>Врача рядом с домом ищут вечером и в выходные, когда регистратура закрыта. Заявка падает в 23:40, вы открываете её утром и перезваниваете.</p>
-          <div class="kick">Ночь и воскресенье перестают быть простоем.</div>
-        </div>
-      </div>
-      <div class="tally-i">
+        <h3>Сайт приносит деньги, пока вы спите</h3>
+        <p>Врача рядом с домом ищут вечером и в выходные, когда регистратура закрыта. Заявка падает в 23:40, вы открываете её утром и перезваниваете.</p>
+        <div class="kick">Ночь и воскресенье перестают быть простоем.</div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="выгода"
+               aria-label="3 из 7">
         <div class="pic"><svg class="ill"><use href="#il-research"/></svg></div>
-        <div class="tx">
-          <h3>Четырнадцать входов вместо одного</h3>
-          <p>У каждого направления своя страница со своим заголовком под свой запрос. «Уролог у Площади Мужества», «лечение кариеса Орбели» — на каждый ищущий отвечает отдельная страница, а не общая визитка.</p>
-          <div class="kick">Клиника перестаёт быть одной строчкой и становится четырнадцатью.</div>
-        </div>
-      </div>
-      <div class="tally-i">
+        <h3>Четырнадцать входов вместо одного</h3>
+        <p>У каждого направления своя страница со своим заголовком под свой запрос. «Уролог у Площади Мужества», «лечение кариеса Орбели» — на каждый ищущий отвечает отдельная страница, а не общая визитка.</p>
+        <div class="kick">Клиника перестаёт быть одной строчкой и становится четырнадцатью.</div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="выгода"
+               aria-label="4 из 7">
         <div class="pic"><svg class="ill"><use href="#il-doctor"/></svg></div>
-        <div class="tx">
-          <h3>Клиент выбирает врача до того, как позвонил</h3>
-          <p>Фотография, стаж, специализация, часы приёма. Человек приходит не «в клинику», а к конкретному Ивану Петровичу — и доходит до кресла чаще, потому что решение принято заранее.</p>
-          <div class="kick">Записываются к человеку, а не в кабинет.</div>
-        </div>
-      </div>
-      <div class="tally-i">
+        <h3>Клиент выбирает врача до того, как позвонил</h3>
+        <p>Фотография, стаж, специализация, часы приёма. Человек приходит не «в клинику», а к конкретному Ивану Петровичу — и доходит до кресла чаще, потому что решение принято заранее.</p>
+        <div class="kick">Записываются к человеку, а не в кабинет.</div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="выгода"
+               aria-label="5 из 7">
         <div class="pic"><svg class="ill"><use href="#il-stars"/></svg></div>
-        <div class="tx">
-          <h3>Все ваши преимущества собраны в одном месте, а не разбросаны по карточкам</h3>
-          <p>Двадцать четыре года работы, лицензия, четырнадцать направлений, свои врачи, оборудование и отзывы — на одной странице и в том порядке, в каком нужно вам. В карточке справочника этого не разложить: там на всех одна форма и три строки.</p>
-          <div class="kick">Опыт наконец видно целиком, а не по кусочкам.</div>
-        </div>
-      </div>
-      <div class="tally-i">
+        <h3>Все ваши преимущества собраны в одном месте, а не разбросаны по карточкам</h3>
+        <p>Двадцать четыре года работы, лицензия, четырнадцать направлений, свои врачи, оборудование и отзывы — на одной странице и в том порядке, в каком нужно вам. В карточке справочника этого не разложить: там на всех одна форма и три строки.</p>
+        <div class="kick">Опыт наконец видно целиком, а не по кусочкам.</div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="выгода"
+               aria-label="6 из 7">
         <div class="pic"><svg class="ill"><use href="#il-compare"/></svg></div>
-        <div class="tx">
-          <h3>Вы перестаёте зависеть от чужой площадки</h3>
-          <p>Свой адрес в интернете нельзя опустить в выдаче, задвинуть за платного конкурента или закрыть по чужому решению. Правила на нём устанавливаете вы.</p>
-          <div class="kick">Единственный актив, который принадлежит клинике.</div>
+        <h3>Вы перестаёте зависеть от чужой площадки</h3>
+        <p>Свой адрес в интернете нельзя опустить в выдаче, задвинуть за платного конкурента или закрыть по чужому решению. Правила на нём устанавливаете вы.</p>
+        <div class="kick">Единственный актив, который принадлежит клинике.</div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="выгода"
+               aria-label="7 из 7">
+        <div class="pic"><svg class="ill"><use href="#il-mega"/></svg></div>
+        <h3>Появляется куда вести рекламу</h3>
+        <p>Директ, карты, визитки, вывеска на доме — всё ведёт на страницу с ценой и кнопкой, а не на телефон регистратуры. Поток можно включить в тот день, когда он понадобится, и выключить, когда расписание заполнится. А Метрика покажет, сколько человек дошло до страницы услуги и сколько нажало «Записаться».</p>
+        <div class="kick">Сайт не лечит и не заменяет врачей. Он доводит до кресла того, кто вас уже нашёл.</div>
+      </article>
         </div>
       </div>
-      <div class="tally-i wide">
-        <div class="pic"><svg class="ill"><use href="#il-mega"/></svg></div>
-        <div class="tx">
-          <h3>Появляется куда вести рекламу</h3>
-          <p>Директ, карты, визитки, вывеска на доме — всё ведёт на страницу с ценой и кнопкой, а не на телефон регистратуры. Поток можно включить в тот день, когда он понадобится, и выключить, когда расписание заполнится. А Метрика покажет, сколько человек дошло до страницы услуги и сколько нажало «Записаться».</p>
-          <div class="kick">Сайт не лечит и не заменяет врачей. Он доводит до кресла того, кто вас уже нашёл.</div>
-        </div>
+
+      <button class="deck-nav next" type="button" aria-label="Следующая выгода">
+        <svg class="i" aria-hidden="true"><use href="#i-arr"/></svg>
+      </button>
+
+      <div class="deck-bar">
+        <div class="deck-dots" role="tablist" aria-label="Выбрать выгоду"></div>
+        <div class="deck-num" aria-hidden="true"><b>01</b> / 07</div>
       </div>
     </div>
   </div>
@@ -1103,7 +1117,104 @@
     calc();
   })();
 
-  /* ---- 6. Рельса разделов -------------------------------- */
+  /* ---- 6. Колода выгод ------------------------------------
+     Листание живёт в CSS: у ленты scroll-snap, и свайп, колесо
+     и стрелки с клавиатуры работают без единой строки здесь.
+     Скрипту остаются только три вещи, которых разметкой не
+     сделать: подтолкнуть прокрутку по кнопке, нарисовать точки
+     и сказать, какая карточка сейчас открыта.
+     ------------------------------------------------------ */
+  (function(){
+    var deck = document.querySelector('[data-deck]');
+    if (!deck) return;
+
+    var view   = deck.querySelector('.deck-view');
+    var slides = [].slice.call(deck.querySelectorAll('.slide'));
+    var dots   = deck.querySelector('.deck-dots');
+    var num    = deck.querySelector('.deck-num b');
+    var prev   = deck.querySelector('.deck-nav.prev');
+    var next   = deck.querySelector('.deck-nav.next');
+    if (!view || slides.length < 2) return;
+
+    var cur = 0;
+
+    slides.forEach(function(sl,i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role','tab');
+      b.setAttribute('aria-label','Выгода ' + (i+1));
+      b.addEventListener('click', function(){ go(i); });
+      dots.appendChild(b);
+    });
+    var pips = [].slice.call(dots.children);
+
+    function at(){
+      var w = view.clientWidth || 1;
+      return Math.max(0, Math.min(slides.length - 1,
+                                  Math.round(view.scrollLeft / w)));
+    }
+
+    /* Позиция ставится напрямую, а не через scrollTo: плавность
+       и без того задана в таблице стилей (scroll-behavior), и
+       там же снимается для тех, кто просил меньше движения.
+       Через scrollTo пришлось бы держать то же правило в двух
+       местах, а расходятся такие пары всегда.
+
+       Перескок с последней на первую идёт рывком: иначе лента
+       метёт мимо пяти карточек, и это читается сбоем, а не
+       переходом по кругу. */
+    function slip(px){
+      view.style.scrollBehavior = 'auto';
+      view.scrollLeft = px;
+      view.style.scrollBehavior = '';
+    }
+
+    function go(i){
+      var last = slides.length - 1;
+      var jump = i > last || i < 0;
+      if (i > last) i = 0;
+      if (i < 0)    i = last;
+      var px = i * view.clientWidth;
+      if (jump) slip(px); else view.scrollLeft = px;
+      mark(i);
+    }
+
+    function mark(i){
+      cur = i;
+      pips.forEach(function(b,n){
+        b.setAttribute('aria-current', n === i ? 'true' : 'false');
+      });
+      slides.forEach(function(sl,n){
+        sl.setAttribute('aria-hidden', n === i ? 'false' : 'true');
+      });
+      if (num) num.textContent = ('0' + (i+1)).slice(-2);
+    }
+
+    prev.addEventListener('click', function(){ go(cur - 1); });
+    next.addEventListener('click', function(){ go(cur + 1); });
+
+    var sTick = false;
+    view.addEventListener('scroll', function(){
+      if (sTick) return;
+      sTick = true;
+      requestAnimationFrame(function(){
+        var i = at();
+        if (i !== cur) mark(i);
+        sTick = false;
+      });
+    }, {passive:true});
+
+    /* Ширина карточки равна ширине окна просмотра. После
+       поворота телефона прокрутка остаётся на старых
+       пикселях — возвращаем её на ту же карточку. */
+    addEventListener('resize', function(){
+      slip(cur * view.clientWidth);
+    });
+
+    mark(0);
+  })();
+
+  /* ---- 7. Рельса разделов -------------------------------- */
   var rail = document.querySelector('.rail');
   var secs = [].slice.call(document.querySelectorAll('section[data-sec]'));
   if (rail && secs.length){
@@ -1139,7 +1250,7 @@
     markRail();
   }
 
-  /* ---- 7. Заявка уходит готовым сообщением в WhatsApp ----- */
+  /* ---- 8. Заявка уходит готовым сообщением в WhatsApp ----- */
   document.querySelectorAll('form[data-lead]').forEach(function(f){
     f.addEventListener('submit', function(e){
       e.preventDefault();
@@ -1177,7 +1288,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260915b"></script>
+<script src="assets/mobile.js?v=20260915c"></script>
 
 </body>
 </html>

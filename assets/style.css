@@ -3804,6 +3804,188 @@ h2.huge{
   background:linear-gradient(90deg,var(--au),transparent);
 }
 
+/* ============================================================
+   ШАПКА ПО ЦЕНТРУ
+
+   Полоса, у которой заголовок стоит по центру, а не по левому
+   полю. Рубрика собрана флексом с волосяной линией справа —
+   при центровке линия нужна с обеих сторон, иначе надпись
+   висит не по оси, а чуть левее.
+   ============================================================ */
+
+.band.mid > .wrap > .rub{justify-content:center}
+.band.mid > .wrap > .rub::before{
+  content:'';flex:1 1 auto;height:1px;min-width:2rem;
+  background:linear-gradient(270deg,var(--au-line),transparent);
+}
+.band.mid > .wrap > h2,
+.band.mid > .wrap > .lede{
+  margin-left:auto;margin-right:auto;text-align:center;
+}
+
+/* ============================================================
+   КОЛОДА: ОДНА ВЫГОДА — ОДИН ЭКРАН
+
+   Листается штатной прокруткой с привязкой (scroll-snap), а не
+   сдвигом через transform. Поэтому свайп на телефоне, колесо с
+   шифтом и стрелки с клавиатуры работают сами, без единой
+   строки кода, а стрелки по краям только подталкивают эту же
+   прокрутку. Если скрипт не выполнится, колода останется
+   листаемой лентой — ни одна выгода не пропадёт.
+   ============================================================ */
+
+.deck{
+  position:relative;
+  margin-top:clamp(1.6rem,2.6vw,2.4rem);
+}
+
+.deck-view{
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;-ms-overflow-style:none;
+  border-radius:var(--r-lg);
+}
+.deck-view::-webkit-scrollbar{display:none}
+.deck-view:focus-visible{outline:2px solid var(--au);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){.deck-view{scroll-behavior:auto}}
+
+.deck-track{display:flex}
+
+.slide{
+  flex:0 0 100%;
+  scroll-snap-align:center;
+  scroll-snap-stop:always;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  gap:clamp(1rem,1.8vw,1.5rem);
+  min-height:clamp(22rem,52svh,32rem);
+  padding:clamp(1.8rem,3.4vw,3.2rem) clamp(1.2rem,4vw,4rem);
+  border:1px solid var(--rule);border-radius:var(--r-lg);
+  background:
+    radial-gradient(60% 80% at 50% 0%,rgba(70,199,158,.07),transparent 70%),
+    rgba(244,241,233,.028);
+}
+.b-paper .slide{
+  border-color:var(--rule-l);
+  background:
+    radial-gradient(60% 80% at 50% 0%,rgba(11,106,83,.06),transparent 70%),
+    linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4));
+}
+
+/* рисунок крупнее, чем в ведомости: на целый экран он теперь
+   не подпись к заголовку, а главный предмет */
+.slide .pic{
+  position:relative;flex:none;
+  width:clamp(74px,8vw,104px);height:clamp(74px,8vw,104px);
+  color:var(--jade);
+}
+.b-paper .slide .pic{color:var(--jade-ink)}
+.slide .pic::after{
+  content:'+';position:absolute;right:-2px;bottom:-2px;
+  width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;
+  font:700 1.05rem/1 var(--mono);
+  color:#03251C;background:var(--jade);
+  box-shadow:0 0 0 4px var(--indigo),0 6px 14px -4px rgba(70,199,158,.8);
+}
+.b-onyx .slide .pic::after{box-shadow:0 0 0 4px var(--onyx),0 6px 14px -4px rgba(70,199,158,.8)}
+.b-paper .slide .pic::after{box-shadow:0 0 0 4px var(--paper-3),0 6px 14px -4px rgba(70,199,158,.55)}
+
+.slide h3{
+  margin:0;max-width:20ch;
+  font-size:clamp(1.35rem,1.05rem + 1.1vw,2.05rem);
+  line-height:1.16;
+}
+.slide p{
+  margin:0;max-width:52ch;
+  font-size:clamp(.97rem,.92rem + .2vw,1.1rem);
+  line-height:1.62;color:var(--t2);
+}
+.b-paper .slide p{color:var(--ink-2)}
+.slide b{color:var(--t1)}
+.b-paper .slide b{color:var(--ink)}
+.slide .kick{
+  margin-top:.2rem;padding-top:.95rem;
+  border-top:1px solid var(--rule-2);
+  font:600 clamp(.82rem,.78rem + .15vw,.93rem)/1.5 var(--sans);
+  color:var(--jade);max-width:46ch;
+}
+.b-paper .slide .kick{border-top-color:var(--rule-l2);color:var(--jade-ink)}
+
+/* ---- стрелки по краям ---------------------------------- */
+.deck-nav{
+  position:absolute;top:50%;z-index:3;
+  transform:translateY(-50%);
+  width:clamp(44px,3.4vw,54px);height:clamp(44px,3.4vw,54px);
+  display:grid;place-items:center;
+  border-radius:50%;cursor:pointer;
+  color:var(--t1);
+  border:1px solid var(--rule-3);
+  background:rgba(10,12,14,.72);
+  backdrop-filter:blur(8px);
+  box-shadow:0 12px 30px -16px rgba(0,0,0,.9);
+  transition:background .3s var(--ease),border-color .3s var(--ease),
+             transform .3s var(--ease-out),opacity .3s var(--ease);
+}
+.b-paper .deck-nav{
+  color:var(--ink);border-color:var(--rule-l3);
+  background:rgba(255,255,255,.82);
+  box-shadow:0 12px 30px -18px rgba(18,22,26,.7);
+}
+.deck-nav .i{width:20px;height:20px;stroke-width:2.2}
+.deck-nav.prev{left:clamp(-1.6rem,-1.2vw,0rem)}
+.deck-nav.next{right:clamp(-1.6rem,-1.2vw,0rem)}
+.deck-nav.prev .i{transform:rotate(180deg)}
+.deck-nav:hover{
+  border-color:var(--au);color:var(--au-hi);
+  background:rgba(10,12,14,.9);
+}
+.b-paper .deck-nav:hover{background:#fff;color:var(--au-ink)}
+.deck-nav:active{transform:translateY(-50%) scale(.94)}
+
+/* ---- счёт и точки -------------------------------------- */
+.deck-bar{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(.7rem,1.4vw,1.1rem);
+  margin-top:clamp(1rem,1.8vw,1.4rem);
+}
+.deck-dots{display:flex;align-items:center;gap:.5rem}
+.deck-dots button{
+  width:8px;height:8px;padding:0;border-radius:50%;cursor:pointer;
+  border:1px solid var(--rule-3);background:transparent;
+  transition:background .3s var(--ease),border-color .3s var(--ease),
+             transform .3s var(--ease-out);
+}
+.b-paper .deck-dots button{border-color:var(--rule-l3)}
+.deck-dots button[aria-current="true"]{
+  background:var(--au);border-color:var(--au);transform:scale(1.35);
+}
+.deck-num{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;color:var(--t4);
+  font-variant-numeric:tabular-nums;
+}
+.b-paper .deck-num{color:var(--ink-4)}
+.deck-num b{color:var(--au);font-weight:700}
+
+/* ---- телефон: стрелки уходят под колоду ----------------- */
+@media (max-width:860px){
+  .deck-nav{
+    position:static;transform:none;
+    width:46px;height:46px;flex:none;
+  }
+  .deck-nav:active{transform:scale(.94)}
+  .deck{display:grid;grid-template-columns:auto 1fr auto;
+        grid-template-areas:'view view view' 'prev bar next';
+        align-items:center;gap:0 .8rem}
+  .deck-view{grid-area:view}
+  .deck-nav.prev{grid-area:prev}
+  .deck-nav.next{grid-area:next}
+  .deck-bar{grid-area:bar;margin-top:clamp(.9rem,3vw,1.2rem)}
+  .slide{min-height:clamp(20rem,58svh,30rem);border-radius:var(--r-md)}
+}
+
 @media print{
   @page{margin:14mm}
   html{scroll-behavior:auto}
