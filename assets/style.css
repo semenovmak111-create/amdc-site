@@ -3621,6 +3621,65 @@ h2.huge{
 }
 .payoff .pn b{color:var(--au-hi)}
 
+/* ---- перекидные цифры ведомости -------------------------
+   Цифра не подменяется, а сменяется: старая уходит вниз,
+   новая выпадает из-за неё сверху. Так меняются табло на
+   вокзальных часах — движение говорит «пересчитал» вернее,
+   чем любая подсветка.
+
+   Обрезка сделана clip-path, а не overflow: hidden. У блока
+   со скрытым переполнением базовая линия синтезируется по
+   нижнему краю, и число в ведомости съехало бы относительно
+   своей подписи. clip-path режет картинку, не трогая
+   раскладку.
+   ------------------------------------------------------ */
+.flip{position:relative;clip-path:inset(0)}
+/* font:inherit — не украшение, а страховка: строка внутри
+   табло это <span>, и правила вроде .hz span подхватывают её
+   вместо подписи, подменяя гарнитуру цифры на подписи. */
+.flip .fv{
+  display:block;font:inherit;color:inherit;letter-spacing:inherit;
+  line-height:1.24;
+}
+.cline .v.flip{text-align:right}
+
+/* Движение задано кадрами, а не переходом: переход надо
+   сначала поставить в исходное состояние, дождаться кадра и
+   только потом отпустить — лишний повод для рассинхрона.
+   Анимация стартует сразу, как только повесили класс. */
+@keyframes fv-in{
+  from{transform:translateY(-115%);opacity:0}
+  to  {transform:translateY(0);opacity:1}
+}
+@keyframes fv-out{
+  from{transform:translateY(0);opacity:1}
+  to  {transform:translateY(115%);opacity:0}
+}
+.flip .fv.in{animation:fv-in .44s var(--ease-out) both}
+/* уходящая цифра вынута из потока, чтобы коробка не прыгала */
+.flip .fv.out{
+  position:absolute;left:0;right:0;top:0;pointer-events:none;
+  animation:fv-out .44s var(--ease-out) both;
+}
+
+/* Дрожь всего расчёта на каждый пересчёт. Амплитуда меньше
+   двух пикселей: механическое табло не трясётся, оно
+   вздрагивает. */
+@keyframes calc-quiver{
+  0%  {transform:translate3d(0,0,0)}
+  18% {transform:translate3d(.9px,-.8px,0)}
+  36% {transform:translate3d(-.8px,.7px,0)}
+  54% {transform:translate3d(.6px,.5px,0)}
+  72% {transform:translate3d(-.4px,-.3px,0)}
+  100%{transform:translate3d(0,0,0)}
+}
+.calc.quiver{animation:calc-quiver .4s var(--ease-io)}
+@media (prefers-reduced-motion:reduce){
+  .calc.quiver{animation:none}
+  .flip .fv.in,.flip .fv.out{animation:none}
+  .flip .fv.out{display:none}
+}
+
 /* три горизонта под табло считают прибавку, а не убыль —
    значит, и цвет у них не карнеол */
 .hz.good b{color:var(--jade-ink)}

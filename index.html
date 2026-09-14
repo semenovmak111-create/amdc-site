@@ -382,31 +382,31 @@
       <div class="calc-out">
         <div class="cline">
           <div class="l">Открыли вашу карточку</div>
-          <div class="v" data-c="views">420</div>
+          <div class="v flip" data-c="views">420</div>
         </div>
         <div class="cline loss">
           <div class="l">Ушли, не позвонив<i>72,6% — данные Яндекса по Петербургу</i></div>
-          <div class="v" data-c="left">305</div>
+          <div class="v flip" data-c="left">305</div>
         </div>
         <div class="cline">
           <div class="l">Записались бы на странице услуги<i>6% — нижняя граница для страницы с ценой и кнопкой</i></div>
-          <div class="v" data-c="leads">18</div>
+          <div class="v flip" data-c="leads">18</div>
         </div>
         <div class="cline">
           <div class="l">Дошли бы до приёма<i>70% — остальные переносят или не приходят</i></div>
-          <div class="v" data-c="visits">13</div>
+          <div class="v flip" data-c="visits">13</div>
         </div>
 
         <div class="payoff">
           <div class="pk">Сайт принесёт в первый месяц</div>
-          <div class="pv" data-c="money">+65 000 ₽</div>
-          <div class="pn">и столько же каждый следующий — <b data-c="m12">780 000 ₽</b> за год</div>
+          <div class="pv" data-c="money">+65 000 ₽</div>
+          <div class="pn">и столько же каждый следующий — <b data-c="m12">780 000 ₽</b> за год</div>
         </div>
 
         <div class="hz good">
-          <div><b data-c="m1">+65 000 ₽</b><span>первый месяц</span></div>
-          <div><b data-c="m3">+195 000 ₽</b><span>за квартал</span></div>
-          <div><b data-c="m12b">+780 000 ₽</b><span>за год</span></div>
+          <div><b class="flip" data-c="m1">+65 000 ₽</b><span>первый месяц</span></div>
+          <div><b class="flip" data-c="m3">+195 000 ₽</b><span>за квартал</span></div>
+          <div><b class="flip" data-c="m12b">+780 000 ₽</b><span>за год</span></div>
         </div>
       </div>
     </div>
@@ -1000,12 +1000,74 @@
     var COME   = 0.70;   /* доходимость до приёма              */
 
     var pay  = document.querySelector('.payoff');
-    var hitT = null;
+    var box  = document.querySelector('.calc');
+    var hitT = null, qAt = 0;
 
     function out(k){ return document.querySelector('[data-c="' + k + '"]'); }
     function num(n){ return Math.round(n).toLocaleString('ru-RU'); }
     function rub(n){ return num(n) + ' ₽'; }
-    function put(k,v){ var el = out(k); if (el) el.textContent = v; }
+
+    /* Каждая перекидная цифра живёт внутри своей строки .fv:
+       коробка остаётся на месте, а меняется только то, что
+       внутри неё едет. */
+    [].slice.call(document.querySelectorAll('.calc [data-c].flip'))
+      .forEach(function(el){
+        var s = document.createElement('span');
+        s.className = 'fv';
+        s.textContent = el.textContent;
+        el.textContent = '';
+        el.appendChild(s);
+      });
+
+    /* Смена цифры: старая вниз, новая сверху из-за неё. */
+    function roll(el, text){
+      var cur = el.querySelector('.fv');
+      if (!cur){ el.textContent = text; return; }
+      if (cur.textContent === text) return;
+      if (soft){ cur.textContent = text; return; }
+
+      cur.classList.add('out');
+
+      var next = document.createElement('span');
+      next.className = 'fv in';
+      next.textContent = text;
+      el.appendChild(next);
+
+      /* Пока тянут ползунок, смена может прийти раньше, чем
+         доиграла прошлая. Уходящих строк тогда набирается
+         несколько — снимаем все, кроме последней пришедшей. */
+      [].slice.call(el.querySelectorAll('.fv.out')).forEach(function(o){
+        if (o !== cur) o.parentNode.removeChild(o);
+      });
+
+      setTimeout(function(){
+        if (cur.parentNode) cur.parentNode.removeChild(cur);
+        next.classList.remove('in');
+      }, 460);
+    }
+
+    function put(k,v){
+      var el = out(k);
+      if (!el) return;
+      if (el.classList.contains('flip')) roll(el, v);
+      else el.textContent = v;
+    }
+
+    /* Дрожь на весь расчёт. Не чаще раза в 110 мс: пока
+       тянут ползунок, input прилетает каждый кадр, и без
+       порога вздрагивание превратилось бы в тряску. */
+    function quiver(){
+      if (!box || soft) return;
+      var now = Date.now();
+      if (now - qAt < 110) return;
+      qAt = now;
+      box.classList.remove('quiver');
+      void box.offsetWidth;
+      box.classList.add('quiver');
+    }
+    if (box) box.addEventListener('animationend', function(e){
+      if (e.animationName === 'calc-quiver') box.classList.remove('quiver');
+    });
 
     /* ползунок красится до бегунка: видно, где стоишь */
     function paint(r){
@@ -1050,7 +1112,7 @@
       r.addEventListener('input', function(){
         paint(r);
         if (f){ f.value = r.value; }
-        calc(); hit();
+        calc(); hit(); quiver();
       });
       if (f) f.addEventListener('input', function(){
         var v = parseInt(f.value, 10) || 0;
@@ -1059,8 +1121,8 @@
       });
     });
 
-    fV.addEventListener('input', function(){ calc(); hit(); });
-    fC.addEventListener('input', function(){ calc(); hit(); });
+    fV.addEventListener('input', function(){ calc(); hit(); quiver(); });
+    fC.addEventListener('input', function(){ calc(); hit(); quiver(); });
     calc();
   })();
 
