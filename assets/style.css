@@ -803,28 +803,6 @@ p:last-child{margin-bottom:0}
   color:var(--au);background:var(--au-wash);
 }
 
-/* ---- время чтения -------------------------------------
-   Стоит в той же строке документа, у правого поля: человек
-   видит объём раньше, чем начнёт читать. Циферблат, слово
-   и число — ничего больше.
-   ------------------------------------------------------ */
-.rtime{
-  margin-left:auto;
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.36rem .7rem .36rem .58rem;
-  border:1px solid var(--au-faint);border-radius:100px;
-  background:var(--au-wash);
-  white-space:nowrap;
-}
-.rtime .i{
-  width:13px;height:13px;flex:none;
-  stroke:var(--au);stroke-width:1.7;fill:none;
-}
-.rtime .rt-k{color:var(--t4)}
-.rtime b{
-  font-weight:600;color:var(--au-hi);
-  font-variant-numeric:tabular-nums;
-}
 
 /* ---- адресат ------------------------------------------- */
 .addressee{
@@ -3356,6 +3334,452 @@ html.js [data-rise].seen{
    Тёмные полосы на бумаге не печатаются — всё уходит в
    чёрное по белому, без фоновых заливок и без интерфейса.
    ============================================================ */
+
+/* ============================================================
+   ГЛАВНАЯ КНОПКА ПЕРВОГО ЭКРАНА
+
+   Единственная кнопка на странице, которая ведёт не в форму,
+   а в расчёт: человек идёт смотреть свои деньги, а не
+   оставлять номер. Поэтому она крупнее остальных, собрана
+   капсулой с кругляшом справа и раз в семь секунд по ней
+   проходит блик — короткое движение в неподвижном экране
+   ловит взгляд вернее, чем любой размер.
+   ============================================================ */
+
+.cta-wrap{position:relative;display:inline-flex}
+
+.btn.cta{
+  border-radius:100px;
+  padding:.58rem .58rem .58rem 1.9rem;
+  gap:1.15rem;
+  font-size:clamp(.94rem,.86rem + .3vw,1.06rem);
+  border-color:rgba(255,246,222,.62);
+  background:
+    linear-gradient(180deg,#FFEDBE 0%,#E9C173 46%,#C9973F 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,252,242,.75),
+    inset 0 -1px 0 rgba(88,62,18,.32),
+    0 20px 46px -18px rgba(228,176,92,.75),
+    0 5px 14px -5px rgba(0,0,0,.55);
+}
+.btn.cta:hover{
+  box-shadow:
+    inset 0 1px 0 rgba(255,253,246,.9),
+    inset 0 -1px 0 rgba(88,62,18,.32),
+    0 28px 58px -18px rgba(240,192,108,.9),
+    0 7px 18px -5px rgba(0,0,0,.55);
+}
+/* кругляш справа: та же форма, что у капсулы, только пустая */
+.btn.cta .knob{
+  flex:none;
+  width:2.72em;height:2.72em;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(180deg,rgba(255,252,240,.62),rgba(255,247,226,.3));
+  border:1px solid rgba(255,252,240,.7);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 2px 6px -2px rgba(80,54,12,.4);
+  transition:transform .35s var(--ease-out);
+}
+.btn.cta .knob .i{width:1.06em;height:1.06em;stroke-width:2.4}
+.btn.cta:hover .knob{transform:translateX(3px)}
+
+/* блик раз в семь секунд. Отдельный слой: ::after уже занят
+   бликом по наведению, и смешивать их нельзя — они идут с
+   разной скоростью. */
+.btn.cta::before{
+  content:'';position:absolute;inset:-1px;z-index:0;
+  background:linear-gradient(104deg,
+    transparent 38%,rgba(255,255,255,.72) 50%,transparent 62%);
+  transform:translateX(-130%);
+  animation:cta-sheen 7s var(--ease-io) infinite;
+  pointer-events:none;
+}
+.btn.cta > *{position:relative;z-index:1}
+@keyframes cta-sheen{
+  0%{transform:translateX(-130%)}
+  11%{transform:translateX(130%)}
+  100%{transform:translateX(130%)}
+}
+@media (prefers-reduced-motion:reduce){.btn.cta::before{animation:none}}
+
+/* ---- стрелка-указатель --------------------------------- */
+/* Колонка начинается ровно с края кнопки, поэтому стрелка
+   вынесена абсолютом в левое поле страницы. Ниже 1360px
+   поля не хватает — стрелка уходит. */
+/* Ширина задана числом не для красоты: у абсолютного блока
+   с одним right ширина считается по содержимому, а общий
+   сброс img,svg{max-width:100%} меряет svg по этому самому
+   блоку. Круг замыкается, и стрелка схлопывается в ноль. */
+.cta-arrow{
+  position:absolute;right:100%;top:50%;margin-right:10px;
+  width:60px;height:26px;
+  transform:translateY(-50%);pointer-events:none;
+}
+.cta-arrow svg{
+  display:block;width:60px;height:26px;max-width:none;
+  overflow:visible;
+  filter:drop-shadow(0 4px 8px rgba(200,164,95,.34));
+  animation:cta-point 2.9s ease-in-out infinite;
+}
+.cta-arrow .a-body,.cta-arrow .a-head{fill:url(#ag-au)}
+@keyframes cta-point{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.cta-arrow svg{animation:none}}
+@media (max-width:1359px){.cta-arrow{display:none}}
+
+/* ============================================================
+   ВРЕМЯ ЧТЕНИЯ
+
+   Стоит под буллитами, отдельной строкой: человек уже
+   прочитал, ради чего страница, и последнее, что ему нужно
+   знать перед прокруткой, — сколько это займёт.
+   ============================================================ */
+
+.rtime{
+  display:inline-flex;align-items:center;gap:.6rem;
+  margin-top:clamp(1.3rem,2.2vw,1.8rem);
+  padding:.52rem 1.05rem .52rem .85rem;
+  border:1px solid var(--rule-3);border-radius:100px;
+  background:rgba(244,241,233,.045);
+  font:600 .875rem/1 var(--sans);
+  letter-spacing:.01em;
+  color:var(--t2);
+  white-space:nowrap;
+}
+.b-paper .rtime{border-color:var(--rule-l);background:rgba(18,22,26,.035);color:var(--ink-2)}
+.rtime .dot{
+  width:9px;height:9px;border-radius:50%;flex:none;
+  background:var(--jade);
+  box-shadow:0 0 0 3px rgba(70,199,158,.18),0 0 10px rgba(70,199,158,.75);
+  animation:rt-pulse 2.6s var(--ease-io) infinite;
+}
+@keyframes rt-pulse{
+  0%,100%{box-shadow:0 0 0 3px rgba(70,199,158,.18),0 0 10px rgba(70,199,158,.7)}
+  50%{box-shadow:0 0 0 5px rgba(70,199,158,.08),0 0 16px rgba(70,199,158,.95)}
+}
+@media (prefers-reduced-motion:reduce){.rtime .dot{animation:none}}
+.rtime b{color:var(--t1);font-weight:800}
+.b-paper .rtime b{color:var(--ink)}
+
+/* ============================================================
+   ИЛЛЮСТРАЦИИ
+
+   Двухтоновый рисунок в один цвет: заливка держит массу,
+   контур — смысл. Цвет наследуется от блока, поэтому один
+   и тот же набор работает и карнеолом, и нефритом, и бронзой.
+   ============================================================ */
+
+/* Заливка и контур заданы атрибутами прямо в <symbol>:
+   через <use> селекторы снаружи внутрь не проходят, доходят
+   только наследуемые свойства. Поэтому здесь — только они. */
+.ill{
+  display:block;width:100%;height:100%;
+  stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
+}
+
+/* ============================================================
+   ВЕДОМОСТЬ ПЛЮСОВ И МИНУСОВ
+
+   Два столбца во всю ширину полосы. Слева от каждой строки
+   рисунок, на нём — знак: минус там, где отнимается, плюс
+   там, где прибавляется. Рисунок читается раньше заголовка,
+   и блок понятен ещё до чтения.
+   ============================================================ */
+
+.tally{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(.9rem,1.8vw,1.5rem);
+  margin-top:clamp(1.6rem,2.6vw,2.3rem);
+}
+@media (max-width:820px){.tally{grid-template-columns:1fr}}
+
+.tally-i{
+  display:flex;gap:clamp(.95rem,1.6vw,1.35rem);align-items:flex-start;
+  padding:clamp(1.15rem,1.9vw,1.6rem);
+  border:1px solid var(--rule);border-radius:var(--r-lg);
+  background:rgba(244,241,233,.028);
+  transition:border-color .35s var(--ease),transform .35s var(--ease-out),
+             background .35s var(--ease);
+}
+.b-paper .tally-i{
+  border-color:var(--rule-l);
+  background:linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4));
+  box-shadow:0 26px 52px -48px rgba(18,22,26,.7);
+}
+.tally-i:hover{transform:translateY(-2px)}
+.tally.minus .tally-i:hover{border-color:rgba(210,96,75,.4)}
+.tally.plus  .tally-i:hover{border-color:rgba(70,199,158,.42)}
+.tally-i.wide{grid-column:1/-1}
+
+.tally-i .pic{
+  position:relative;flex:none;
+  width:clamp(50px,5vw,64px);height:clamp(50px,5vw,64px);
+}
+.tally.minus .pic{color:var(--carn)}
+.tally.plus  .pic{color:var(--jade)}
+.b-paper .tally.minus .pic{color:var(--carn-ink)}
+.b-paper .tally.plus  .pic{color:var(--jade-ink)}
+
+/* знак на рисунке */
+.tally-i .pic::after{
+  position:absolute;right:-4px;bottom:-4px;
+  width:22px;height:22px;border-radius:50%;
+  display:grid;place-items:center;
+  font:700 .95rem/1 var(--mono);
+}
+.tally.minus .pic::after{
+  content:'−';
+  color:#2A0C05;background:var(--carn);
+  box-shadow:0 0 0 3px var(--onyx),0 4px 10px -3px rgba(210,96,75,.8);
+}
+.tally.plus .pic::after{
+  content:'+';
+  color:#03251C;background:var(--jade);
+  box-shadow:0 0 0 3px var(--onyx),0 4px 10px -3px rgba(70,199,158,.8);
+}
+.b-indigo .tally .pic::after{box-shadow:0 0 0 3px var(--indigo)}
+.b-paper  .tally .pic::after{box-shadow:0 0 0 3px var(--paper-3)}
+
+.tally-i .tx{min-width:0;flex:1}
+.tally-i h3{margin:.1rem 0 .5rem}
+.tally-i p{font-size:var(--f-sm);line-height:1.62;color:var(--t2);margin:0}
+.b-paper .tally-i p{color:var(--ink-2)}
+.tally-i b{color:var(--t1)}
+.b-paper .tally-i b{color:var(--ink)}
+
+/* добивка: одна строка петитом под абзацем */
+.tally-i .kick{
+  margin-top:.8rem;padding-top:.7rem;
+  border-top:1px solid var(--rule-2);
+  font:600 .78rem/1.5 var(--sans);
+}
+.b-paper .tally-i .kick{border-top-color:var(--rule-l2)}
+.tally.minus .kick{color:var(--carn-hi)}
+.tally.plus  .kick{color:var(--jade)}
+.b-paper .tally.minus .kick{color:var(--carn-ink)}
+.b-paper .tally.plus  .kick{color:var(--jade-ink)}
+
+/* ---- крупный заголовок для блоков с ведомостью ---------- */
+h2.huge{
+  font-size:clamp(2.35rem,1.35rem + 3.6vw,4.3rem);
+  line-height:1.03;letter-spacing:-.022em;max-width:19ch;
+}
+
+/* ============================================================
+   ИТОГ РАСЧЁТА
+
+   Ведомость выше объясняет, откуда взялась цифра. Сама цифра
+   стоит отдельно, вдвое крупнее всего на полосе, и светится:
+   это единственное число на странице, ради которого человек
+   вообще трогал поля.
+   ============================================================ */
+
+/* Табло всегда тёмное, даже на бумажной полосе: золото
+   светится только по чёрному. Это единственное тёмное пятно
+   на светлом развороте — и взгляд идёт туда первым. */
+.payoff{
+  position:relative;margin-top:1.1rem;
+  padding:clamp(1.3rem,2.4vw,1.9rem) clamp(1.3rem,2.4vw,1.9rem) clamp(1.15rem,2vw,1.6rem);
+  border:1px solid rgba(200,164,95,.42);border-radius:var(--r-lg);
+  background:
+    radial-gradient(62% 130% at 50% 122%,rgba(200,164,95,.34),transparent 72%),
+    linear-gradient(180deg,var(--onyx-2),var(--onyx-3));
+  box-shadow:
+    inset 0 1px 0 rgba(235,214,166,.14),
+    0 34px 70px -40px rgba(200,164,95,.5),
+    0 20px 46px -34px rgba(0,0,0,.8);
+  overflow:hidden;text-align:center;
+}
+.payoff::before{
+  content:'';position:absolute;inset:-40% -10% auto;height:150%;
+  background:radial-gradient(45% 50% at 50% 50%,rgba(235,214,166,.22),transparent 70%);
+  pointer-events:none;
+  animation:pay-breathe 4.6s var(--ease-io) infinite;
+}
+@keyframes pay-breathe{0%,100%{opacity:.55}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.payoff::before{animation:none}}
+
+.payoff .pk{
+  position:relative;
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--au);margin-bottom:.75rem;
+}
+.b-paper .payoff .pk{color:var(--au)}
+.payoff .pv{
+  position:relative;
+  font:600 clamp(2.9rem,1.6rem + 5.2vw,5.6rem)/1 var(--serif);
+  font-variant-numeric:tabular-nums lining-nums;
+  letter-spacing:-.03em;
+  background:linear-gradient(180deg,#FFF3D2 0%,#EBD6A6 38%,#C8A45F 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--au-hi);
+  filter:drop-shadow(0 6px 26px rgba(200,164,95,.45));
+  white-space:nowrap;
+}
+.payoff .pn{
+  position:relative;margin-top:.7rem;
+  font-size:var(--f-sm);line-height:1.55;color:var(--t2);
+}
+.payoff .pn b{color:var(--au-hi)}
+
+/* три горизонта под табло считают прибавку, а не убыль —
+   значит, и цвет у них не карнеол */
+.hz.good b{color:var(--jade-ink)}
+.b-onyx .hz.good b,.b-indigo .hz.good b{color:var(--jade)}
+
+/* при вводе цифра коротко подмигивает — видно, что это не
+   картинка, а живой счёт */
+.payoff.hit .pv{animation:pay-hit .42s var(--ease-out)}
+@keyframes pay-hit{
+  0%{transform:scale(1)}
+  38%{transform:scale(1.045)}
+  100%{transform:scale(1)}
+}
+@media (prefers-reduced-motion:reduce){.payoff.hit .pv{animation:none}}
+
+/* ---- ползунок под полем ввода --------------------------- */
+/* Число можно набрать, но набирать никто не любит. Ползунок
+   превращает расчёт в то, что хочется потрогать, а трогать
+   его — единственный способ сделать цифру своей. */
+.cf .rng{
+  -webkit-appearance:none;appearance:none;
+  /* правило .cf input выше красит и это поле: гасим его рамку,
+     подложку и отбивки, иначе ползунок выходит ростом с поле */
+  padding:0;border:0;box-shadow:none;
+  width:100%;margin-top:.75rem;height:5px;border-radius:5px;
+  background:linear-gradient(90deg,var(--au) var(--p,40%),var(--rule-l) var(--p,40%));
+  cursor:pointer;
+}
+.b-onyx .cf .rng,.b-indigo .cf .rng{
+  background:linear-gradient(90deg,var(--au) var(--p,40%),rgba(244,241,233,.12) var(--p,40%));
+}
+.cf .rng::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:20px;height:20px;border-radius:50%;
+  background:linear-gradient(180deg,#FFEDBE,#C9973F);
+  border:1px solid rgba(255,246,222,.7);
+  box-shadow:0 2px 8px -2px rgba(80,54,12,.55),0 0 0 0 rgba(200,164,95,.35);
+  transition:box-shadow .3s,transform .2s var(--ease-out);
+}
+.cf .rng::-moz-range-thumb{
+  width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,246,222,.7);
+  background:linear-gradient(180deg,#FFEDBE,#C9973F);
+  box-shadow:0 2px 8px -2px rgba(80,54,12,.55);
+}
+.cf .rng:hover::-webkit-slider-thumb{transform:scale(1.1)}
+.cf .rng:focus{outline:none}
+.cf .rng:focus::-webkit-slider-thumb{box-shadow:0 2px 8px -2px rgba(80,54,12,.55),0 0 0 5px rgba(200,164,95,.22)}
+
+/* подпись «потяните» под пультом */
+.calc-in .pull{
+  margin-top:1.15rem;padding-top:.9rem;
+  border-top:1px solid var(--rule-l2);
+  display:flex;align-items:center;gap:.55rem;
+  font:500 .76rem/1.4 var(--sans);color:var(--au-ink);
+}
+.b-onyx .calc-in .pull,.b-indigo .calc-in .pull{
+  border-top-color:var(--rule-2);color:var(--au);
+}
+.calc-in .pull .i{width:14px;height:14px;stroke-width:2.2;flex:none}
+
+/* пульт стал главным объектом полосы — приподнимаем его */
+.calc-in{transition:box-shadow .4s var(--ease),border-color .4s var(--ease)}
+.calc-in:hover{
+  border-color:var(--au);
+  box-shadow:0 34px 68px -46px rgba(18,22,26,.8),0 0 0 4px var(--au-faint);
+}
+
+/* ============================================================
+   СИЛЬНЫЕ СТОРОНЫ ЧУЖОГО САЙТА
+
+   Под снимком соседа — перечень того, что на этом снимке
+   работает. Общие слова «у них есть сайт» ничего не
+   доказывают; доказывает список того, что человек может
+   сделать на их странице и не может на вашей.
+   ============================================================ */
+
+.st-adv{
+  list-style:none;margin:.9rem 0 0;padding:.85rem 0 0;
+  border-top:1px solid var(--rule-2);
+  display:grid;gap:.5rem;
+}
+.b-paper .st-adv{border-top-color:var(--rule-l2)}
+.st-adv li{
+  display:flex;gap:.55rem;align-items:flex-start;
+  font-size:.8rem;line-height:1.5;color:var(--t2);
+}
+.b-paper .st-adv li{color:var(--ink-2)}
+.st-adv li b{color:var(--t1);font-weight:700}
+.b-paper .st-adv li b{color:var(--ink)}
+.st-adv .i{
+  width:13px;height:13px;flex:none;margin-top:.22rem;
+  stroke-width:2.6;color:var(--jade);
+}
+.b-paper .st-adv .i{color:var(--jade-ink)}
+.st-adv.no .i{color:var(--carn)}
+.b-paper .st-adv.no .i{color:var(--carn-ink)}
+
+/* Подписи под снимками набраны для бумаги. На тёмной полосе
+   они сливались с фоном — здесь их чернила. */
+.b-onyx .st-h b,.b-indigo .st-h b,.b-emerald .st-h b{color:var(--t1)}
+.b-onyx .st-r,.b-indigo .st-r,.b-emerald .st-r{color:var(--t3)}
+.b-onyx .st-d,.b-indigo .st-d,.b-emerald .st-d{color:var(--au)}
+.b-onyx .site p,.b-indigo .site p,.b-emerald .site p{color:var(--t2)}
+
+/* пустая рамка вместо снимка: имя и адрес карнеолом */
+.site.none .st-h b,.site.none .st-d{color:var(--carn-ink)}
+.b-onyx .site.none .st-h b,.b-indigo .site.none .st-h b,
+.b-onyx .site.none .st-d,.b-indigo .site.none .st-d{color:var(--carn-hi)}
+
+/* ============================================================
+   ТЕХНОЛОГИЯ: ШАГ КАК КАРТОЧКА
+
+   Восемь шагов — это восемь обещаний, и каждое должно
+   выглядеть как отдельный предмет, а не как абзац в колонке.
+   Номер сидит в углу карточки, рисунок объясняет шаг раньше
+   заголовка, зелёная строка внизу отвечает на «а мне-то
+   что с этого».
+   ============================================================ */
+
+.steps.rich{gap:clamp(.8rem,1.5vw,1.15rem)}
+.steps.rich::before{display:none}
+.steps.rich .step{
+  padding:clamp(1.1rem,1.8vw,1.45rem);
+  border:1px solid var(--rule-l);border-radius:var(--r-lg);
+  background:linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4));
+  box-shadow:0 26px 52px -48px rgba(18,22,26,.7);
+  display:flex;flex-direction:column;
+  transition:transform .35s var(--ease-out),border-color .35s var(--ease),
+             box-shadow .35s var(--ease);
+}
+.b-onyx .steps.rich .step,.b-indigo .steps.rich .step,
+.b-emerald .steps.rich .step{
+  border-color:var(--rule);background:rgba(244,241,233,.028);box-shadow:none;
+}
+.steps.rich .step:hover{
+  transform:translateY(-3px);border-color:var(--au-line);
+  box-shadow:0 30px 60px -44px rgba(18,22,26,.8);
+}
+.steps.rich .step .badge{position:static;box-shadow:none;margin:0}
+.steps.rich .sh{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.7rem;margin-bottom:.95rem;
+}
+.steps.rich .pic{
+  width:clamp(38px,3.4vw,44px);height:clamp(38px,3.4vw,44px);
+  color:var(--au-ink);flex:none;
+}
+.b-onyx .steps.rich .pic,.b-indigo .steps.rich .pic,
+.b-emerald .steps.rich .pic{color:var(--au)}
+.steps.rich .step.now .pic{color:var(--au-ink)}
+.steps.rich .step .got{margin-top:auto}
+.steps.rich .step p{margin-bottom:.95rem}
+
+/* первые три шага бесплатные — отмечаем полосой сверху */
+.steps.rich .step.now{position:relative;overflow:hidden}
+.steps.rich .step.now::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,var(--au),transparent);
+}
 
 @media print{
   @page{margin:14mm}
