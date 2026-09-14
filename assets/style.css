@@ -803,6 +803,29 @@ p:last-child{margin-bottom:0}
   color:var(--au);background:var(--au-wash);
 }
 
+/* ---- время чтения -------------------------------------
+   Стоит в той же строке документа, у правого поля: человек
+   видит объём раньше, чем начнёт читать. Циферблат, слово
+   и число — ничего больше.
+   ------------------------------------------------------ */
+.rtime{
+  margin-left:auto;
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.36rem .7rem .36rem .58rem;
+  border:1px solid var(--au-faint);border-radius:100px;
+  background:var(--au-wash);
+  white-space:nowrap;
+}
+.rtime .i{
+  width:13px;height:13px;flex:none;
+  stroke:var(--au);stroke-width:1.7;fill:none;
+}
+.rtime .rt-k{color:var(--t4)}
+.rtime b{
+  font-weight:600;color:var(--au-hi);
+  font-variant-numeric:tabular-nums;
+}
+
 /* ---- адресат ------------------------------------------- */
 .addressee{
   display:inline-flex;align-items:center;gap:.6rem;

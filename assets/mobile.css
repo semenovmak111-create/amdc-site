@@ -247,6 +247,12 @@
   .docline > *{white-space:nowrap;flex:none}
   .docline .r{display:none}
 
+  /* Время чтения остаётся: это единственный пункт строки,
+     который человеку что-то решает. Ужимается padding'ом,
+     слово «Читать» уходит первым — число говорит само. */
+  .rtime{padding:.28rem .56rem .28rem .46rem;gap:.36rem}
+  .rtime .i{width:11px;height:11px}
+
   .addressee{
     margin-bottom:.8rem;
     padding:.5rem .85rem .5rem .7rem;
@@ -310,6 +316,7 @@
 }
 @media (max-width:460px){
   .docline .city{display:none}
+  .rtime .rt-k{display:none}
 }
 
 @media (max-width:400px){
