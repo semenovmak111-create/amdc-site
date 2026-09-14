@@ -3353,34 +3353,43 @@ html.js [data-rise].seen{
   padding:.58rem .58rem .58rem 1.9rem;
   gap:1.15rem;
   font-size:clamp(.94rem,.86rem + .3vw,1.06rem);
-  border-color:rgba(255,246,222,.62);
+  /* Цвет мягче металла: шампань с перламутровым бликом
+     сверху, без резкого перепада к тени. Кнопка должна
+     выглядеть приветливой, а не отчеканенной. */
+  border-color:rgba(255,250,236,.7);
+  color:#241A06;
   background:
-    linear-gradient(180deg,#FFEDBE 0%,#E9C173 46%,#C9973F 100%);
+    linear-gradient(180deg,#FFF6DE 0%,#F6DCA8 38%,#E4BE7B 72%,#D2A85F 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255,252,242,.75),
-    inset 0 -1px 0 rgba(88,62,18,.32),
-    0 20px 46px -18px rgba(228,176,92,.75),
-    0 5px 14px -5px rgba(0,0,0,.55);
+    inset 0 1.5px 0 rgba(255,255,252,.92),
+    inset 0 -1px 0 rgba(120,88,34,.22),
+    0 10px 22px -12px rgba(196,150,74,.55),
+    0 26px 60px -26px rgba(232,196,124,.65),
+    0 46px 90px -40px rgba(232,196,124,.4);
 }
 .btn.cta:hover{
   box-shadow:
-    inset 0 1px 0 rgba(255,253,246,.9),
-    inset 0 -1px 0 rgba(88,62,18,.32),
-    0 28px 58px -18px rgba(240,192,108,.9),
-    0 7px 18px -5px rgba(0,0,0,.55);
+    inset 0 1.5px 0 rgba(255,255,254,.98),
+    inset 0 -1px 0 rgba(120,88,34,.22),
+    0 12px 26px -12px rgba(210,164,86,.6),
+    0 32px 72px -26px rgba(246,220,168,.8),
+    0 60px 110px -40px rgba(246,220,168,.5);
 }
 /* кругляш справа: та же форма, что у капсулы, только пустая */
 .btn.cta .knob{
   flex:none;
   width:2.72em;height:2.72em;border-radius:50%;
   display:grid;place-items:center;
-  background:linear-gradient(180deg,rgba(255,252,240,.62),rgba(255,247,226,.3));
-  border:1px solid rgba(255,252,240,.7);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 2px 6px -2px rgba(80,54,12,.4);
-  transition:transform .35s var(--ease-out);
+  background:linear-gradient(180deg,rgba(255,253,247,.78),rgba(255,248,230,.44));
+  border:1px solid rgba(255,254,248,.8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 2px 7px -3px rgba(110,80,28,.32);
+  transition:transform .35s var(--ease-out),box-shadow .35s var(--ease);
 }
-.btn.cta .knob .i{width:1.06em;height:1.06em;stroke-width:2.4}
-.btn.cta:hover .knob{transform:translateX(3px)}
+.btn.cta .knob .i{width:1.02em;height:1.02em;stroke-width:2.6}
+.btn.cta:hover .knob{
+  transform:scale(1.06);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,1),0 3px 12px -4px rgba(110,80,28,.4);
+}
 
 /* блик раз в семь секунд. Отдельный слой: ::after уже занят
    бликом по наведению, и смешивать их нельзя — они идут с
