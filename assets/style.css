@@ -3965,47 +3965,51 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 .deck-track{display:flex}
 
 /* Рамки нет: экран должен читаться экраном, а не карточкой
-   на фоне полосы. Держит его не обводка, а воздух по бокам
-   и одна ось, на которой стоит всё содержимое. */
+   на фоне полосы. Слева довод, справа сцена — так человек
+   сперва читает мысль, потом видит её в готовом виде, а не
+   разглядывает картинку, не зная, к чему она. */
 .slide{
   flex:0 0 100%;
   scroll-snap-align:center;
   scroll-snap-stop:always;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
-  gap:clamp(.9rem,1.5vw,1.25rem);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);
+  align-items:center;
+  gap:clamp(1.6rem,3.2vw,3.6rem);
   min-height:clamp(21rem,46svh,28rem);
-  padding:clamp(1rem,2.2vw,2rem) clamp(2.6rem,5vw,5rem);
+  padding:clamp(1rem,2.2vw,2rem) clamp(2.6rem,4.6vw,4.4rem);
+  text-align:left;
+}
+.slide .tx{
+  min-width:0;display:flex;flex-direction:column;
+  gap:clamp(.7rem,1.1vw,1rem);
 }
 
+/* надзаголовок: значок выгоды и в чём её суть одной строкой */
+.slide .eye{
+  display:flex;align-items:center;gap:.6rem;
+  font:600 var(--f-xs)/1.35 var(--sans);
+  color:var(--au);letter-spacing:.005em;
+}
+.b-paper .slide .eye{color:var(--au-ink)}
 .slide .pic{
-  position:relative;flex:none;
-  width:clamp(62px,6vw,84px);height:clamp(62px,6vw,84px);
-  color:var(--jade);margin-bottom:.2rem;
+  position:relative;flex:none;width:30px;height:30px;
+  color:var(--jade);
 }
 .b-paper .slide .pic{color:var(--jade-ink)}
-.slide .pic::after{
-  content:'+';position:absolute;right:-2px;bottom:-2px;
-  width:24px;height:24px;border-radius:50%;
-  display:grid;place-items:center;
-  font:700 .95rem/1 var(--mono);
-  color:#03251C;background:var(--jade);
-  box-shadow:0 0 0 4px var(--indigo),0 6px 14px -4px rgba(70,199,158,.8);
-}
-.b-onyx .slide .pic::after{box-shadow:0 0 0 4px var(--onyx),0 6px 14px -4px rgba(70,199,158,.8)}
-.b-paper .slide .pic::after{box-shadow:0 0 0 4px var(--paper-3),0 6px 14px -4px rgba(70,199,158,.55)}
 
 .slide h3{
-  margin:0;max-width:26ch;
+  margin:0;max-width:20ch;
   font-family:var(--serif);font-weight:500;
-  font-size:clamp(1.5rem,1.1rem + 1.5vw,2.5rem);
-  line-height:1.1;letter-spacing:-.012em;
-  text-wrap:balance;
+  font-size:clamp(1.55rem,1.05rem + 1.7vw,2.6rem);
+  line-height:1.08;letter-spacing:-.014em;
+  text-wrap:balance;color:var(--t1);
 }
+.b-paper .slide h3{color:var(--ink)}
 .slide p{
-  margin:0;max-width:62ch;
-  font-size:clamp(.95rem,.91rem + .18vw,1.06rem);
-  line-height:1.66;color:var(--t2);
+  margin:0;max-width:52ch;
+  font-size:clamp(.92rem,.89rem + .15vw,1.01rem);
+  line-height:1.62;color:var(--t2);
 }
 .b-paper .slide p{color:var(--ink-2)}
 .slide b{color:var(--t1)}
@@ -4014,18 +4018,270 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 /* пример: тот же кегль, но тише и с отбивкой — видно, что это
    не продолжение мысли, а её проверка на живом случае */
 .slide p.eg{
-  max-width:58ch;color:var(--t3);
-  padding-top:.9rem;
+  max-width:50ch;color:var(--t3);
+  padding-top:.85rem;
   border-top:1px solid var(--rule-2);
 }
 .b-paper .slide p.eg{color:var(--ink-3);border-top-color:var(--rule-l2)}
 
 .slide .kick{
-  margin-top:.15rem;
   font:600 clamp(.84rem,.8rem + .15vw,.95rem)/1.5 var(--sans);
-  color:var(--jade);max-width:46ch;
+  color:var(--jade);max-width:44ch;
 }
 .b-paper .slide .kick{color:var(--jade-ink)}
+
+/* ============================================================
+   СЦЕНА СПРАВА ОТ ДОВОДА
+
+   Каждая выгода показана не значком «про пользу», а экраном,
+   который человек увидит после запуска: страница услуги,
+   телефон в 23:40, выдача поиска, карточка врача, кабинет
+   Метрики. Всё собрано разметкой — снимков несуществующего
+   сайта не бывает, а рисовать то, чего не будет, нельзя.
+
+   Внутренности сцен набраны по светлому: это чужой интерфейс
+   внутри нашей страницы, и он обязан выглядеть чужим.
+   ============================================================ */
+
+.scene{position:relative;min-width:0}
+.scene .win{transform:translateZ(0)}
+
+/* тело окна */
+.sc{
+  display:flex;flex-direction:column;
+  gap:.5rem;padding:.85rem;
+  background:linear-gradient(180deg,#F7F4EE,#EFEBE2);
+}
+.sc.tight{gap:.32rem;padding:.7rem}
+
+.sc-h{font:700 .68rem/1.3 var(--sans);color:#12161A;letter-spacing:.002em}
+.sc-t{font:400 .6rem/1.4 var(--sans);color:#6A727C}
+.sc-cap{
+  font:500 .54rem/1 var(--mono);letter-spacing:.14em;
+  text-transform:uppercase;color:#8A9098;margin-top:.15rem;
+}
+
+/* карточка услуги с ценой */
+.sc-card{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.7rem;padding:.7rem .8rem;border-radius:10px;
+  background:#fff;border:1px solid rgba(18,22,26,.08);
+  box-shadow:0 6px 16px -12px rgba(18,22,26,.5);
+}
+.sc-money{display:flex;align-items:center;gap:.6rem;flex:none}
+.sc-money b{font:700 .95rem/1 var(--mono);color:#12161A;white-space:nowrap}
+
+.sc-btn{
+  flex:none;padding:.4rem .7rem;border-radius:7px;white-space:nowrap;
+  font:700 .58rem/1 var(--sans);color:#241A06;
+  background:linear-gradient(180deg,#F6DCA8,#DCAD52);
+  box-shadow:inset 0 1px 0 rgba(255,250,228,.9),0 4px 10px -5px rgba(150,105,30,.7);
+}
+
+/* строка списка */
+.sc-row{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.44rem .6rem;border-radius:8px;
+  background:#fff;border:1px solid rgba(18,22,26,.07);
+  font:400 .62rem/1.35 var(--sans);color:#454C54;
+}
+.sc-row b{color:#12161A;font-weight:700}
+.sc-row.dim{background:rgba(18,22,26,.035);border-color:transparent;color:#8A9098}
+.sc-row.dim span{text-decoration:line-through;text-decoration-color:rgba(138,144,152,.6)}
+.sc-row.hot{
+  background:rgba(70,199,158,.10);border-color:rgba(11,106,83,.28);color:#12161A;
+}
+.sc-dot{
+  width:7px;height:7px;border-radius:50%;flex:none;
+  background:#0B6A53;box-shadow:0 0 0 3px rgba(70,199,158,.2);
+}
+.sc-x{position:relative;width:9px;height:9px;flex:none}
+.sc-x::before,.sc-x::after{
+  content:'';position:absolute;left:0;right:0;top:4px;height:1.4px;
+  background:#A9AEB5;border-radius:1px;
+}
+.sc-x::before{transform:rotate(45deg)}
+.sc-x::after{transform:rotate(-45deg)}
+
+/* ---- поиск ---------------------------------------------- */
+.sc-find{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.5rem .75rem;border-radius:100px;
+  background:#fff;border:1px solid rgba(18,22,26,.12);
+  font:400 .64rem/1 var(--sans);color:#12161A;
+}
+.sc-find .i{width:12px;height:12px;stroke-width:2;color:#8A9098;flex:none}
+.sc-res{
+  display:flex;flex-direction:column;gap:.15rem;
+  padding:.5rem .6rem;border-radius:8px;
+}
+.sc-res b{font:600 .66rem/1.3 var(--sans);color:#1A4FA0}
+.sc-dom{font:400 .54rem/1 var(--mono);color:#0B6A53;letter-spacing:.01em}
+.sc-snip{font:400 .58rem/1.45 var(--sans);color:#6A727C}
+.sc-res.hot{background:rgba(200,164,95,.13);box-shadow:inset 0 0 0 1px rgba(200,164,95,.35)}
+.sc-res.dim{opacity:.45}
+.sc-res.dim b{color:#6A727C}
+
+/* ---- карточка врача -------------------------------------- */
+.sc-doc{
+  display:flex;gap:.7rem;align-items:flex-start;
+  padding:.7rem;border-radius:10px;
+  background:#fff;border:1px solid rgba(18,22,26,.08);
+}
+.sc-ava{
+  flex:none;width:56px;height:56px;border-radius:10px;overflow:hidden;
+  box-shadow:0 6px 14px -8px rgba(18,22,26,.6);
+}
+.sc-ava svg{display:block;width:100%;height:100%}
+.sc-dt{min-width:0;display:flex;flex-direction:column;gap:.22rem}
+.sc-chips{display:flex;gap:.3rem;margin-top:.15rem}
+.sc-chips.wrap{flex-wrap:wrap}
+.sc-chip{
+  padding:.22rem .5rem;border-radius:100px;white-space:nowrap;
+  border:1px solid rgba(18,22,26,.11);background:#fff;
+  font:500 .52rem/1.35 var(--sans);color:#5A626A;
+}
+.sc-chip.on{
+  background:rgba(70,199,158,.13);border-color:rgba(11,106,83,.3);color:#0B6A53;font-weight:700;
+}
+.sc-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.6rem;padding-top:.15rem;
+}
+.sc-price{font:700 .66rem/1 var(--sans);color:#12161A}
+
+/* ---- «всё на одной странице» ----------------------------- */
+.sc-kpi{display:flex;gap:.45rem}
+.sc-kpi > div{
+  flex:1;min-width:0;padding:.55rem .6rem;border-radius:9px;
+  background:#fff;border:1px solid rgba(18,22,26,.07);
+}
+.sc-kpi b{
+  display:block;font:600 .92rem/1.1 var(--serif);color:#12161A;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.sc-kpi span{display:block;font:400 .5rem/1.35 var(--sans);color:#8A9098;margin-top:.12rem}
+.sc-kpi .up b{color:#0B6A53}
+
+.sc-two{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.sc-lic,.sc-rev{
+  padding:.6rem;border-radius:9px;
+  background:#fff;border:1px solid rgba(18,22,26,.07);
+}
+.sc-lic{display:flex;gap:.5rem;align-items:center}
+.sc-lic svg{width:30px;height:30px;flex:none}
+.sc-stars{font-size:.6rem;color:#DCAD52;letter-spacing:.08em}
+.sc-q{font:400 .58rem/1.45 var(--sans);color:#2C333A;margin:.18rem 0 .2rem}
+
+/* ---- чужой каталог и свой адрес -------------------------- */
+.scene.stack{padding-bottom:2.2rem}
+.scene.stack .back{opacity:.72;transform:scale(.93) translateY(-8px)}
+.scene.stack .front{
+  position:absolute;right:-2%;bottom:-4px;width:70%;
+  box-shadow:
+    0 50px 80px -40px rgba(0,0,0,.95),
+    0 0 0 1px rgba(200,164,95,.22);
+}
+.sc-line{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.3rem .5rem;border-radius:6px;
+  font:400 .6rem/1.3 var(--sans);color:#454C54;
+}
+.sc-line b{
+  flex:none;width:14px;font:600 .55rem/1 var(--mono);color:#8A9098;
+}
+.sc-line span{flex:1;min-width:0}
+.sc-ad{
+  flex:none;font:400 .46rem/1 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;color:#A9721F;
+  padding:.16rem .34rem;border-radius:3px;background:rgba(220,173,82,.18);
+}
+.sc-line.dim{background:rgba(158,51,32,.09);color:#9E3320}
+.sc-line.dim b{color:#9E3320}
+.sc-own{
+  padding:.6rem .7rem;border-radius:9px;
+  background:linear-gradient(180deg,rgba(200,164,95,.2),rgba(200,164,95,.06));
+  border:1px solid rgba(200,164,95,.4);
+}
+
+/* ---- кабинет Метрики ------------------------------------- */
+.sc-chart{
+  padding:.5rem .6rem .35rem;border-radius:9px;
+  background:#fff;border:1px solid rgba(18,22,26,.07);
+}
+.sc-chart svg{display:block;width:100%;height:64px}
+.sc-ax{
+  display:flex;justify-content:space-between;margin-top:.25rem;
+  font:400 .48rem/1 var(--mono);color:#A0A6AD;
+}
+.sc-sw{
+  position:relative;flex:none;width:20px;height:11px;border-radius:100px;
+  background:#0B6A53;
+}
+.sc-sw::after{
+  content:'';position:absolute;top:1.5px;right:1.5px;
+  width:8px;height:8px;border-radius:50%;background:#fff;
+}
+.sc-sw.off{background:rgba(18,22,26,.2)}
+.sc-sw.off::after{right:auto;left:1.5px}
+
+/* ---- телефон --------------------------------------------- */
+.phone{
+  position:relative;width:min(100%,258px);margin:0 auto;
+  padding:9px;border-radius:30px;
+  background:linear-gradient(160deg,#3A3040,#191320 42%,#0D0913);
+  box-shadow:
+    0 60px 90px -46px rgba(0,0,0,.95),
+    0 0 0 1px rgba(200,164,95,.14),
+    inset 0 1px 0 rgba(255,245,222,.12);
+}
+.ph-ear{
+  position:absolute;left:50%;top:15px;transform:translateX(-50%);
+  width:56px;height:5px;border-radius:100px;background:rgba(0,0,0,.6);z-index:2;
+}
+.ph-scr{
+  border-radius:22px;padding:2.2rem .6rem .7rem;
+  min-height:330px;display:flex;flex-direction:column;gap:.45rem;
+  background:
+    radial-gradient(120% 60% at 50% 0%,rgba(146,60,168,.5),transparent 60%),
+    linear-gradient(180deg,#1E1430,#140D20 60%,#0C0714);
+}
+.ph-top{
+  display:flex;flex-direction:column;align-items:center;
+  color:#F1EAF6;margin-bottom:.5rem;
+}
+.ph-top b{
+  font:300 2.6rem/1 var(--sans);font-variant-numeric:tabular-nums;
+  letter-spacing:-.025em;
+}
+.ph-top span{
+  margin-top:.25rem;
+  font:400 .58rem/1 var(--sans);color:rgba(241,234,246,.6);
+}
+.ph-note{
+  border-radius:14px;padding:.55rem .65rem;
+  background:rgba(246,241,248,.13);
+  border:1px solid rgba(246,241,248,.12);
+  backdrop-filter:blur(6px);
+  display:flex;flex-direction:column;gap:.12rem;
+}
+.ph-note.pale{opacity:.5}
+.ph-app{
+  display:flex;align-items:center;gap:.35rem;
+  font:500 .5rem/1 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;color:rgba(241,234,246,.6);
+}
+.ph-app i{
+  width:11px;height:11px;border-radius:3px;flex:none;
+  background:linear-gradient(180deg,#EBD6A6,#C8A45F);
+}
+.ph-app span{margin-left:auto;text-transform:none;letter-spacing:0}
+.ph-note b{font:700 .66rem/1.3 var(--sans);color:#F6F1E8}
+.ph-note > span{font:400 .58rem/1.45 var(--sans);color:rgba(241,234,246,.72)}
+.ph-foot{
+  margin-top:auto;text-align:center;
+  font:400 .52rem/1.4 var(--mono);color:rgba(241,234,246,.42);
+}
 
 /* ---- шевроны у самых краёв ------------------------------
    Прижаты не к колонке текста, а к краю окна: (100vw − ширина
@@ -4082,9 +4338,26 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   .deck-nav.next{right:calc(2px - (100vw - 100%) / 2)}
   .deck-nav .i{width:24px;height:24px;stroke-width:1.8}
   .slide{
-    min-height:clamp(20rem,54svh,30rem);
-    padding:clamp(.8rem,3vw,1.4rem) clamp(1.9rem,7vw,2.6rem);
+    grid-template-columns:1fr;
+    gap:1.3rem;
+    min-height:0;
+    padding:clamp(.8rem,3vw,1.4rem) clamp(1.9rem,7vw,2.6rem) 1.2rem;
   }
+  /* сцена уходит под довод: на 390 пикселях два столбца
+     превращаются в две узких колонки, и не читается ни один */
+  .slide .scene{order:2}
+  .slide .tx{order:1}
+  .slide h3{max-width:none}
+  .sc-two{grid-template-columns:1fr}
+  /* в карточке услуги название и цена на 390 пикселях в строку
+     не встают: название ломается в три строки и жмёт цену */
+  .sc-card{flex-direction:column;align-items:stretch;gap:.55rem}
+  .sc-money{justify-content:space-between}
+  .sc-kpi{flex-wrap:wrap}
+  .sc-kpi > div{flex:1 1 30%}
+  .scene.stack{padding-bottom:0}
+  .scene.stack .back{display:none}
+  .scene.stack .front{position:static;width:100%}
 }
 }
 
