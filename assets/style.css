@@ -40,10 +40,16 @@
    единственным ярким пятном.
 
    Там, где бронза набрана крупно — акцент в заголовке,
-   якорная цифра, первая строка первого экрана, — она залита
-   сверху вниз, от блика #FDF3D8 к тени #8E6B2C. Плоский
-   жёлтый читается жёлтым текстом; заливка с перепадом —
-   сусальным золотом.
+   якорная цифра, номер шага, кнопка, — она залита не ровно, а
+   полосами: тёмное, светлое, самый яркий блик, снова тёмное.
+   Плоский жёлтый читается жёлтым текстом; перепад сверху вниз
+   читается фольгой; полосами — полированным металлом, потому
+   что у настоящей пластины поверхность не плоская. Заливка
+   лежит в --au-plate и применяется ровно в четырёх местах.
+
+   По светлой полосе металл гаснет: на бумаге любая позолота
+   снова становится жёлтым. Там акцент в заголовке держит
+   второй цвет системы — пурпур #751681.
 
    Оценочные цвета: нефрит — работает, карнеол — сломано,
    янтарь — наполовину. Они живут тинтом и волоском, крупной
@@ -83,6 +89,31 @@
   --paper-4:#FCFAF4;       /* поле ввода                      */
 
   /* ---------- МЕТАЛЛ: единственный акцент ---------------- */
+  /* Полированная пластина. Плоская заливка «сверху блик, снизу
+     тень» читается жёлтым текстом: у настоящего металла свет
+     идёт полосами, потому что поверхность не плоская, а слегка
+     покороблена прокаткой. Отсюда пять стопов и два блика на
+     одном градиенте — тёмный, светлый, самый яркий, снова
+     тёмный, светлый. Угол 155° взят у наклона, под которым
+     обычно ставят свет на предметной съёмке.
+
+     Эту заливку носят ровно четыре вещи: акцент в заголовке,
+     кнопка, волосяные линейки и печать. Больше нигде. */
+  --au-plate:linear-gradient(155deg,
+    #8A672A 0%,#C8A45F 25%,#FDF3D8 47%,#96702F 68%,#DCC18C 100%);
+  /* тот же металл, но светлее: для мелочи, где тёмные полосы
+     градиента превратились бы в грязь */
+  --au-plate-lite:linear-gradient(155deg,
+    #B48D46 0%,#DCC18C 26%,#FFF8E8 48%,#BC9243 70%,#E9D6A9 100%);
+  /* тот же металл, потемнённый: по бумаге светлое золото
+     читается жёлтым, а потемнённое — тиснением */
+  --au-plate-ink:linear-gradient(155deg,
+    #5E4A22 0%,#A9863F 28%,#CDAA65 48%,#634E24 70%,#9A7534 100%);
+  /* полоска вдоль: для линеек и подчёркиваний */
+  --au-rule:linear-gradient(90deg,
+    rgba(200,164,95,0) 0%,#8A672A 8%,#E3C98F 28%,#FDF3D8 46%,
+    #9A7534 66%,#D8BE86 88%,rgba(200,164,95,0) 100%);
+
   --au:#C8A45F;            /* бронза                          */
   --au-hi:#EBD6A6;         /* блик на бронзе                  */
   --au-lo:#4C3315;         /* тень на бронзе, до коричневого  */
@@ -132,8 +163,8 @@
   --pad-s:clamp(2.6rem,1.7rem + 3vw,3.9rem); /* тесная: служебные */
   --pad-l:clamp(4rem,2.4rem + 5vw,6.4rem);   /* просторная: формы */
   --r:6px;
-  --r-md:12px;
-  --r-lg:22px;
+  --r-md:14px;
+  --r-lg:26px;
   --hdr:80px;
 
   /* ---------- ШРИФТОВАЯ ШКАЛА ---------------------------- */
@@ -158,6 +189,12 @@
 
 /* ---------- ФАКТУРЫ ------------------------------------- */
 :root{
+  /* Облачность: крупный мягкий шум. Зерно выше работает на
+     микроуровне — оно спасает градиенты от полос. Это работает
+     на макро: даёт светлой полосе неровность настоящей бумаги,
+     а тёмной — ощущение камня. Частота в двадцать раз ниже
+     зерна, поэтому пятна размером с ладонь, а не с пиксель. */
+  --cloud:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0075' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23c)'/%3E%3C/svg%3E");
   /* зерно: плёночный шум, 180×180, повторяется без стыка */
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -249,8 +286,9 @@ html{scrollbar-width:thin;scrollbar-color:var(--au-lo) transparent}
 }
 .b-onyx::before{
   background:
-    radial-gradient(58rem 30rem at 76% -8%,rgba(221,192,134,.13),transparent 62%),
-    radial-gradient(46rem 30rem at 4% 104%,rgba(117,22,129,.20),transparent 64%);
+    radial-gradient(58rem 32rem at 76% -8%,rgba(221,192,134,.17),transparent 62%),
+    radial-gradient(52rem 34rem at 2% 104%,rgba(117,22,129,.3),transparent 64%),
+    radial-gradient(130% 92% at 50% 50%,transparent 46%,rgba(4,2,7,.5) 100%);
 }
 
 /* ---- сапфир -------------------------------------------- */
@@ -261,8 +299,9 @@ html{scrollbar-width:thin;scrollbar-color:var(--au-lo) transparent}
 }
 .b-indigo::before{
   background:
-    radial-gradient(52rem 30rem at 84% -4%,rgba(146,60,168,.26),transparent 62%),
-    radial-gradient(40rem 26rem at 2% 98%,rgba(221,192,134,.11),transparent 64%);
+    radial-gradient(54rem 32rem at 84% -4%,rgba(154,64,178,.36),transparent 62%),
+    radial-gradient(42rem 28rem at 2% 98%,rgba(221,192,134,.14),transparent 64%),
+    radial-gradient(130% 92% at 50% 52%,transparent 44%,rgba(8,3,14,.52) 100%);
 }
 
 /* ---- изумруд: полоса формы ----------------------------- */
@@ -273,8 +312,9 @@ html{scrollbar-width:thin;scrollbar-color:var(--au-lo) transparent}
 }
 .b-emerald::before{
   background:
-    radial-gradient(50rem 30rem at 18% 0%,rgba(70,199,158,.15),transparent 60%),
-    radial-gradient(44rem 30rem at 92% 96%,rgba(200,164,95,.12),transparent 62%);
+    radial-gradient(50rem 32rem at 18% 0%,rgba(70,199,158,.19),transparent 60%),
+    radial-gradient(46rem 30rem at 92% 96%,rgba(200,164,95,.15),transparent 62%),
+    radial-gradient(130% 92% at 50% 52%,transparent 46%,rgba(2,12,9,.5) 100%);
 }
 
 /* ---- алебастр: светлая полоса -------------------------- */
@@ -285,8 +325,18 @@ html{scrollbar-width:thin;scrollbar-color:var(--au-lo) transparent}
 }
 .b-paper::before{
   background:
-    radial-gradient(50rem 30rem at 88% -6%,rgba(200,164,95,.26),transparent 60%),
-    radial-gradient(40rem 26rem at 0% 100%,rgba(117,22,129,.07),transparent 62%);
+    radial-gradient(50rem 30rem at 88% -6%,rgba(200,164,95,.3),transparent 60%),
+    radial-gradient(40rem 26rem at 0% 100%,rgba(117,22,129,.09),transparent 62%),
+    radial-gradient(120% 80% at 50% 50%,transparent 58%,rgba(120,96,52,.13) 100%);
+}
+/* Облачность поверх бумаги: рыхлость листа, а не ровная
+   заливка. Шесть процентов в режиме умножения — увидеть
+   пятна нельзя, а «пластиковость» светлой полосы уходит. */
+.b-paper > .wrap::before{
+  content:'';position:absolute;inset:-100vh 0;z-index:-1;
+  pointer-events:none;
+  background:var(--cloud) 0 0/600px 600px;
+  mix-blend-mode:multiply;opacity:.055;
 }
 
 /* ---- миллиметровка и зерно ----------------------------- */
@@ -411,17 +461,21 @@ h1 mark,h2 mark{
 .b-indigo h1 mark,.b-indigo h2 mark,
 .b-emerald h1 mark,.b-emerald h2 mark{
   color:transparent;
-  background:linear-gradient(180deg,
-    #FDF3D8 0%,#EBD6A6 30%,#C8A45F 66%,#8E6B2C 100%);
+  background:var(--au-plate);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 2px 14px rgba(200,164,95,.28));
+  filter:drop-shadow(0 2px 16px rgba(200,164,95,.3));
 }
+/* На бумаге металл гаснет — по светлому фону любая позолота
+   читается жёлтым. Там акцент держит второй цвет системы,
+   пурпур: он на светлом звучит так же дорого, как металл на
+   тёмном, и не спорит с кнопкой. */
+.b-paper h1 mark,.b-paper h2 mark{color:var(--plum);font-weight:700}
 .b-paper h1 mark::after,.b-paper h2 mark::after{
-  content:'';position:absolute;left:-.1em;right:-.1em;
-  bottom:.04em;height:.4em;z-index:-1;
-  background:linear-gradient(90deg,rgba(200,164,95,.42),rgba(200,164,95,.10));
-  border-bottom:1px solid var(--au-line);
+  content:'';position:absolute;left:-.04em;right:-.04em;
+  bottom:.02em;height:.09em;z-index:-1;
+  background:linear-gradient(90deg,
+    rgba(117,22,129,.55),rgba(117,22,129,.14));
   border-radius:1px;
 }
 h2 em{font-style:italic;color:var(--au-hi)}
@@ -473,14 +527,19 @@ p:last-child{margin-bottom:0}
   border-radius:var(--r-md);
   font:700 var(--f-sm)/1 var(--sans);
   letter-spacing:.004em;
-  color:#140F05;
-  background:
-    linear-gradient(180deg,var(--au-hi) 0%,var(--au) 48%,#B58F4B 100%);
+  color:#231705;
+  /* Свет идёт наискось, как на пластине: слева сверху блик,
+     справа снизу спад. Ровная вертикальная заливка читается
+     кнопкой из интерфейса, косая — кованой накладкой. */
+  background:linear-gradient(116deg,
+    #FFE9C6 0%,#E6C78C 20%,#CDA765 50%,#A57F3A 78%,#7F5E26 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255,250,236,.6),
-    inset 0 -1px 0 rgba(78,57,19,.35),
-    0 16px 38px -18px rgba(200,164,95,.65),
-    0 4px 12px -5px rgba(0,0,0,.55);
+    inset 0 1px 0 rgba(255,252,243,.9),
+    inset 0 0 0 1px rgba(255,237,199,.22),
+    inset 0 -2px 0 rgba(60,41,10,.4),
+    0 2px 0 rgba(66,45,14,.85),
+    0 18px 40px -16px rgba(200,164,95,.62),
+    0 6px 16px -6px rgba(0,0,0,.6);
   text-decoration:none;cursor:pointer;overflow:hidden;
   transform:translateY(var(--lift));
   transition:transform .35s var(--ease-out),box-shadow .35s var(--ease);
@@ -489,10 +548,12 @@ p:last-child{margin-bottom:0}
 .btn:hover{
   --lift:-2px;
   box-shadow:
-    inset 0 1px 0 rgba(255,250,236,.75),
-    inset 0 -1px 0 rgba(78,57,19,.35),
-    0 24px 48px -18px rgba(200,164,95,.8),
-    0 6px 16px -5px rgba(0,0,0,.55);
+    inset 0 1px 0 rgba(255,253,246,1),
+    inset 0 0 0 1px rgba(255,241,210,.3),
+    inset 0 -2px 0 rgba(60,41,10,.4),
+    0 3px 0 rgba(66,45,14,.85),
+    0 26px 50px -16px rgba(200,164,95,.82),
+    0 8px 20px -6px rgba(0,0,0,.6);
 }
 .btn:active{--lift:1px}
 
@@ -3816,16 +3877,42 @@ h2.huge{
 }
 .b-onyx .steps.rich .step,.b-indigo .steps.rich .step,
 .b-emerald .steps.rich .step{
-  border-color:var(--rule);background:rgba(244,241,233,.028);box-shadow:none;
+  border-color:var(--rule);box-shadow:none;
+  background:linear-gradient(165deg,
+    rgba(154,96,196,.09),rgba(244,241,233,.022) 55%,rgba(0,0,0,.1));
 }
 .steps.rich .step:hover{
   transform:translateY(-3px);border-color:var(--au-line);
   box-shadow:0 30px 60px -44px rgba(18,22,26,.8);
 }
-.steps.rich .step .badge{position:static;box-shadow:none;margin:0}
+/* Номер шага — не жетон, а крупная цифра металлом с точкой,
+   как номер главы. Она и ведёт по разделу: восемь карточек
+   читаются не сеткой, а последовательностью. */
+.steps.rich .step .badge{
+  position:static;box-shadow:none;margin:0;border:0;background:none;
+  width:auto;height:auto;padding:0;display:block;border-radius:0;
+  font:700 clamp(1.9rem,2.6vw,2.7rem)/.9 var(--serif);
+  font-variant-numeric:lining-nums;
+  letter-spacing:-.02em;
+  color:transparent;
+  background-color:transparent;
+  background-image:var(--au-plate-ink);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.b-onyx .steps.rich .step .badge,
+.b-indigo .steps.rich .step .badge,
+.b-emerald .steps.rich .step .badge{
+  background-color:transparent;background-image:var(--au-plate);
+}
+.steps.rich .step .badge::after{content:'.'}
+.steps.rich .step.now .badge{
+  background-color:transparent;background-image:var(--au-plate-ink);
+  border-color:transparent;
+}
 .steps.rich .sh{
   display:flex;align-items:center;justify-content:space-between;
-  gap:.7rem;margin-bottom:.95rem;
+  gap:.7rem;margin-bottom:.8rem;
 }
 .steps.rich .pic{
   width:clamp(38px,3.4vw,44px);height:clamp(38px,3.4vw,44px);
@@ -3838,11 +3925,37 @@ h2.huge{
 .steps.rich .step p{margin-bottom:.95rem}
 
 /* первые три шага бесплатные — отмечаем полосой сверху */
-.steps.rich .step.now{position:relative;overflow:hidden}
+.steps.rich .step.now{position:relative}
 .steps.rich .step.now::before{
-  content:'';position:absolute;left:0;right:0;top:0;height:2px;
-  background:linear-gradient(90deg,var(--au),transparent);
+  content:'';position:absolute;left:0;right:0;top:0;height:2.5px;
+  border-radius:var(--r-lg) var(--r-lg) 0 0;
+  background:var(--au-rule);
 }
+
+/* Заголовок шага — антиквой и прописными: так набирают номер
+   главы в книге, и восемь карточек перестают быть таблицей. */
+.steps.rich .step h3{
+  font:600 clamp(1.02rem,.96rem + .34vw,1.24rem)/1.22 var(--serif);
+  letter-spacing:.005em;
+  margin-bottom:.55rem;
+}
+
+/* Пунктирная дорожка между карточками: короткий отрезок в
+   промежутке, на высоте номера. У последней в ряду его нет —
+   дорожка обрывается у края и продолжается со следующего ряда. */
+.steps.rich .step::after{
+  content:'';position:absolute;z-index:2;
+  top:clamp(2.1rem,3vw,2.7rem);
+  left:100%;width:clamp(.8rem,1.5vw,1.15rem);height:0;
+  border-top:2px dashed rgba(200,164,95,.5);
+}
+.steps.rich .step:nth-child(4n)::after,
+.steps.rich .step:last-child::after{display:none}
+@media (max-width:940px){
+  .steps.rich .step:nth-child(4n)::after{display:block}
+  .steps.rich .step:nth-child(2n)::after{display:none}
+}
+@media (max-width:560px){.steps.rich .step::after{display:none}}
 
 /* Стык полос. Встык, без линии, два цвета сходятся бритвой —
    и видно край заливки, а не край раздела. Волосок бронзы
@@ -5361,4 +5474,122 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
     font-size:8pt;color:#666;
   }
   .fmark{-webkit-text-stroke:.4pt #bbb}
+}
+
+/* ============================================================
+   ПОЛИРОВАННЫЙ МЕТАЛЛ И ПОДЛОЖКА
+
+   Разбор референса, к которому страницу привели: тёмный
+   баклажан, антиква, пурпур и золото. Оттуда взяты четыре
+   приёма, и только они — без пальм, хищников и золотых
+   статуэток, которым в предложении медцентру делать нечего:
+
+     1. металл полосами, а не плоской заливкой (см. --au-plate);
+     2. медальон вместо галочки в перечнях;
+     3. волосяная линейка с металлическим переливом;
+     4. гигантская подложечная надпись на тёмных полосах.
+
+   Всё ниже — надстройка над готовыми компонентами, поэтому
+   лежит в конце файла: правишь компонент выше — правка сюда
+   и дотянется.
+   ============================================================ */
+
+/* ---- медальон вместо галочки ---------------------------
+   В перечне «что вы получаете» галочка стояла тонкой линией в
+   кружке. Линия на этом размере читается иконкой интерфейса.
+   Медальон — залитая металлом монета с тёмным знаком внутри —
+   читается печатью: то же место в строке, другой вес.
+
+   Знак внутри тёмный, а не белый: на золоте белое слепнет,
+   а тёмное выглядит вытравленным.
+
+   Значки в разделе «кому не надо» медальонами не становятся:
+   это три причины не покупать, и позолота превратила бы их
+   в перечень выгод.
+   -------------------------------------------------------- */
+.bul .ck,
+.st-adv:not(.no) li > .i{
+  background:var(--au-plate-lite);
+  border:1px solid rgba(120,90,38,.5);
+  color:#2A1D06;
+  box-shadow:
+    inset 0 1px 0 rgba(255,250,235,.7),
+    inset 0 -1px 0 rgba(70,48,14,.4),
+    0 2px 6px -2px rgba(0,0,0,.55);
+}
+.bul .ck{width:21px;height:21px}
+.bul .ck .i{stroke-width:3.2}
+
+/* В перечнях соседей значок стоит без подложки — там он
+   становится медальоном целиком, вместе с кружком. */
+.st-adv:not(.no) li > .i{
+  box-sizing:content-box;border-radius:50%;
+  width:10px;height:10px;padding:4px;
+  stroke-width:3.4;
+  margin-top:.16rem;
+}
+.b-paper .st-adv:not(.no) li > .i{color:#2A1D06}
+
+/* ---- волосяная линейка с переливом ---------------------
+   Там, где линия отделяет одну мысль от другой, она теперь не
+   ровного тона: по ней идёт тот же перелив, что по кнопке.
+   Заметить перелив нельзя, но линия перестаёт быть границей
+   таблицы и становится золочёным обрезом.
+   -------------------------------------------------------- */
+.rub::after{
+  height:1.5px;
+  background:var(--au-rule);
+  opacity:.75;
+}
+.rub .n::after{
+  height:1.5px;width:1.9rem;
+  background:var(--au-rule);
+}
+.steps.rich .step .got{
+  border-top:0;
+  position:relative;padding-top:.95rem;
+}
+.steps.rich .step .got::before{
+  content:'';position:absolute;left:0;top:0;width:3.2rem;height:1.5px;
+  background:var(--au-rule);
+}
+
+/* Врезка с выводом: полоса слева тоже металлом. Это последняя
+   строка раздела, и она должна дочитываться как подпись под
+   документом, а не как цитата в статье. */
+.strip{border-left-color:transparent;position:relative}
+.strip::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--au-plate);
+  border-radius:3px;
+}
+.strip.good::before{background:linear-gradient(180deg,var(--jade-hi),var(--jade))}
+.strip.warn::before{background:linear-gradient(180deg,var(--carn-hi),var(--carn))}
+
+/* ---- подложечная надпись -------------------------------
+   Название клиники, набранное в четыре роста заголовка и
+   утопленное в фон почти до неразличимости. Работает не как
+   украшение, а как масштабная линейка: рядом с ним обычный
+   заголовок начинает читаться крупным, а полоса — глубокой.
+
+   Стоит только на тёмных полосах и только там, где под ним
+   есть воздух. На светлой полосе такой приём сразу становится
+   грязью на бумаге.
+   -------------------------------------------------------- */
+.wm{
+  position:absolute;z-index:0;pointer-events:none;user-select:none;
+  font:700 clamp(9rem,26vw,24rem)/.8 var(--serif);
+  letter-spacing:-.04em;white-space:nowrap;
+  color:rgba(244,241,233,.022);
+}
+.wm.l{left:-.2em;bottom:-.22em}
+.wm.r{right:-.2em;top:-.16em}
+.b-indigo .wm{color:rgba(230,190,255,.032)}
+@media (max-width:760px){.wm{display:none}}
+
+/* ---- печать и штампы ----------------------------------- */
+.stamp.amber{
+  background:var(--au-plate-lite);
+  color:#2A1D06;border-color:rgba(120,90,38,.55);
+  box-shadow:inset 0 1px 0 rgba(255,250,235,.7),0 3px 10px -4px rgba(0,0,0,.6);
 }
