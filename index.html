@@ -1078,10 +1078,9 @@
      баклажан с золотом, заголовок и расчёт по центру, итог —
      не коробка, а цена на карточке под золотым волоском.
      Разбор в README, раздел «Третья полоса по образцу». -->
-<section class="band b-onyx mid mag" id="money" data-sec="s03" data-title="Ваши цифры" data-paper>
+<section class="band b-onyx mid mag" id="money" data-sec="s03" data-title="Ваши цифры">
   <div class="wrap">
-    <div class="rub"><span class="n">03</span>Ваши цифры</div>
-    <h2 class="widest">Посчитайте, сколько принесёт сайт <mark>уже в первый месяц</mark>!</h2>
+    <h2 class="huge">Посчитайте, сколько принесёт сайт <mark>уже в первый месяц</mark>!</h2>
     <p class="lede">Два поля ваши, три коэффициента взяты по нижней границе. Потяните ползунок — счёт пересчитается на ходу.</p>
 
     <div class="calc">
@@ -1967,13 +1966,7 @@
       var cur = 0;
       secs.forEach(function(sec,i){ if (sec.offsetTop <= line) cur = i; });
       links.forEach(function(a,i){ a.classList.toggle('here', i === cur); });
-      /* Полоса расчёта перекрашена в слоновую кость поверх ониксовых
-         правил и класс b-paper не носит — иначе светлая тема переписала
-         бы ей золото. Рейке о светлом фоне приходится говорить отдельно,
-         атрибутом data-paper: иначе её подписи остаются светлыми и над
-         бумагой пропадают. */
-      rail.classList.toggle('on-paper',
-        /b-paper/.test(secs[cur].className) || secs[cur].hasAttribute('data-paper'));
+      rail.classList.toggle('on-paper', /b-paper/.test(secs[cur].className));
       var hash = '#' + secs[cur].id;
       mlinks.forEach(function(a){
         a.classList.toggle('here', a.getAttribute('href') === hash);
