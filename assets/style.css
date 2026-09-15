@@ -4985,6 +4985,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   .crowd{--k:calc(min(100cqi,470px) / 470)}
 }
 .crowd{
+  position:relative;left:calc(26 * var(--k));
   width:calc(462 * var(--k));margin:0 auto;
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:calc(34 * var(--k)) calc(28 * var(--k));
@@ -4994,10 +4995,21 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   position:relative;display:block;
   width:calc(94 * var(--k));height:calc(94 * var(--k));
 }
+/* Линия тонкая: силуэт — это строчка в списке, а не плакат.
+   Толстый контур на двенадцати повторах превращается в забор.
+   Цвет — тёплый сиреневый пепел, а не серый: чистый серый на
+   баклажановой полосе выглядит грязью, потому что в нём нет
+   ни капли того же цвета, что в фоне.
+
+   Свет есть и у серых, слабый: без него контур лежит на
+   полосе наклейкой, с ним — светится сам, только тускло.
+   Разница между ними и вашим силуэтом тогда становится
+   разницей в яркости, а не в приёме. */
 .fig svg{
   display:block;width:100%;height:100%;
-  fill:none;stroke:rgba(208,196,220,.38);
-  stroke-width:3.1;stroke-linecap:round;stroke-linejoin:round;
+  fill:none;stroke:rgba(198,186,222,.46);
+  stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 calc(3.5 * var(--k)) rgba(176,158,216,.34));
 }
 /* Ваша строчка. Свет собран слоями: ореол под силуэтом, три
    расходящихся свечения по контуру и чуть более толстая линия.
@@ -5005,11 +5017,11 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    подсвеченный контур — иначе силуэт перестал бы быть таким
    же, как остальные одиннадцать. */
 .fig.you svg{
-  stroke:#6BE8BD;stroke-width:3.4;
+  stroke:#6BE8BD;stroke-width:2.5;
   filter:
-    drop-shadow(0 0 calc(2.6 * var(--k)) rgba(70,199,158,.95))
-    drop-shadow(0 0 calc(8 * var(--k)) rgba(70,199,158,.6))
-    drop-shadow(0 0 calc(19 * var(--k)) rgba(70,199,158,.34));
+    drop-shadow(0 0 calc(2.4 * var(--k)) rgba(70,199,158,.95))
+    drop-shadow(0 0 calc(7.5 * var(--k)) rgba(70,199,158,.6))
+    drop-shadow(0 0 calc(18 * var(--k)) rgba(70,199,158,.34));
 }
 .fig.you::before{
   content:'';position:absolute;z-index:-1;inset:-30%;
@@ -5017,120 +5029,68 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   background:radial-gradient(closest-side,
     rgba(70,199,158,.2) 0,rgba(70,199,158,.07) 48%,transparent 74%);
 }
+/* Сдвиг вправо — только там, где для него есть место. В узкой
+   колонке сетка и так занимает её целиком, и сдвиг вылез бы
+   за край. */
+@container (max-width:500px){
+  .crowd{left:0}
+}
 @media (max-width:520px){
-  .crowd{gap:calc(24 * var(--k)) calc(20 * var(--k))}
+  .crowd{left:0;gap:calc(24 * var(--k)) calc(20 * var(--k))}
 }
 
-/* ---- отметки: линза в светящейся оправе -----------------
-   Вывод разворота: сверху крестик у справочников, снизу
-   галочка у своего сайта. Собраны по одному чертежу и
-   отличаются только цветом — иначе читались бы двумя разными
+/* ---- отметки -------------------------------------------
+   Та же техника, что у логотипов справочников выше: неоновая
+   трубка контуром, внутри — лёгкий свет с неё. Отличается
+   только цветом: крестик горит красным, галочка — мятной
+   зеленью. Собраны по одному чертежу и отличаются друг от
+   друга ровно цветом, иначе читались бы двумя разными
    значками, а не парой.
 
-   Четыре слоя, и ни один не работает в одиночку:
+   Одна поправка против логотипов: отметки светят и наружу,
+   слабо. Логотипов три, и если бы светил каждый, разворот
+   превратился бы в гирлянду; отметок две, и они — вывод
+   разворота, им подсветка положена.
 
-     1. облако — широкое мягкое пятно цвета, из-за него
-        отметка светит на полосу, а не лежит на ней;
-     2. лучи — восемь тонких игл из центра. Это не украшение:
-        именно они превращают ровное пятно в источник света,
-        потому что так свет ведёт себя в объективе;
-     3. линза — тёмное стекло в оправе. Оправа набрана
-        коническим градиентом: яркость бежит по кольцу, как
-        по полированному металлу, и гаснет там, куда свет не
-        достаёт. Ровное кольцо читается обводкой, неровное —
-        оправой;
-     4. знак — белое ядро с четырьмя ореолами. Ядро у любого
-        неона белое: цвет виден только вокруг него. Стоит
-        залить знак цветом — и вместо света получится
-        нарисованная галочка.
-
-   Цвет задан тройкой --g и идёт во все четыре слоя разом.
+   Цвет задан тройкой --g, светлый оттенок трубки — --hi.
    -------------------------------------------------------- */
 .cmp-mark{
   position:relative;
-  width:calc(64 * var(--k));height:calc(64 * var(--k));
-  display:grid;place-items:center;
-  border:0;background:none;box-shadow:none;border-radius:0;
-}
-.cmp-mark.no{--g:255,74,96;--core:#FFF2F3}
-.cmp-mark.ok{--g:56,255,170;--core:#EBFFF7}
-
-/* 1. облако света */
-.cmp-mark::before{
-  content:'';position:absolute;z-index:0;pointer-events:none;
-  width:275%;height:275%;border-radius:50%;
-  background:radial-gradient(closest-side,
-    rgba(var(--g),.4) 0,rgba(var(--g),.15) 44%,transparent 72%);
-}
-/* 2. лучи */
-.cmp-mark .rays{
-  position:absolute;z-index:1;pointer-events:none;
-  width:250%;height:250%;
-  background:repeating-conic-gradient(from 11deg,
-    rgba(var(--g),.85) 0deg .55deg,
-    transparent .55deg 45deg);
-  -webkit-mask:radial-gradient(closest-side,
-    transparent 28%,#000 42%,rgba(0,0,0,.35) 72%,transparent 98%);
-          mask:radial-gradient(closest-side,
-    transparent 28%,#000 42%,rgba(0,0,0,.35) 72%,transparent 98%);
-  opacity:.55;
-}
-/* 3. линза */
-.cmp-mark .disc{
-  position:relative;z-index:2;
-  width:100%;height:100%;border-radius:50%;
-  display:grid;place-items:center;
-  /* снизу внутри — цветной отсвет от оправы, сверху — блик
-     комнаты, в середине провал в темноту */
-  background:
-    radial-gradient(86% 86% at 50% 118%,rgba(var(--g),.34) 0,transparent 62%),
-    radial-gradient(120% 120% at 50% -14%,rgba(255,255,255,.12) 0,transparent 46%),
-    radial-gradient(124% 124% at 50% 42%,#171021 0,#0B0711 58%,#050309 100%);
+  width:calc(62 * var(--k));height:calc(62 * var(--k));
+  border-radius:50%;display:grid;place-items:center;
+  border:calc(1.7 * var(--k)) solid rgba(var(--g),.92);
+  background:radial-gradient(112% 112% at 50% 50%,
+    rgba(var(--g),.015) 0,rgba(var(--g),.07) 58%,rgba(var(--g),.2) 100%);
   box-shadow:
-    0 0 calc(16 * var(--k)) rgba(var(--g),.6),
-    0 0 calc(34 * var(--k)) rgba(var(--g),.38),
-    0 0 calc(66 * var(--k)) rgba(var(--g),.2),
-    0 calc(6 * var(--k)) calc(16 * var(--k)) rgba(0,0,0,.55),
-    inset 0 0 calc(15 * var(--k)) rgba(var(--g),.3);
+    inset 0 0 calc(16 * var(--k)) rgba(var(--g),.34),
+    inset 0 0 calc(3 * var(--k)) rgba(var(--g),.5),
+    0 0 calc(9 * var(--k)) rgba(var(--g),.34),
+    0 0 calc(24 * var(--k)) rgba(var(--g),.18);
 }
-/* оправа: яркость бежит по кольцу */
-.cmp-mark .disc::before{
-  content:'';position:absolute;inset:0;border-radius:50%;
-  padding:calc(1.9 * var(--k));
-  background:conic-gradient(from 208deg,
-    rgba(var(--g),1) 0deg,
-    rgba(255,255,255,.95) 48deg,
-    rgba(var(--g),.62) 104deg,
-    rgba(var(--g),.18) 166deg,
-    rgba(var(--g),.8) 226deg,
-    rgba(255,255,255,.72) 284deg,
-    rgba(var(--g),.4) 328deg,
-    rgba(var(--g),1) 360deg);
+.cmp-mark.no{--g:255,74,96;--hi:#FFB0BB}
+.cmp-mark.ok{--g:56,255,170;--hi:#93FFD5}
+/* блик стекла: тонкая дуга по верхней кромке */
+.cmp-mark::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  border-radius:50%;padding:calc(1 * var(--k));
+  background:linear-gradient(160deg,
+    rgba(255,255,255,.6) 0,rgba(255,255,255,.1) 26%,
+    transparent 52%,rgba(var(--g),.45) 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
           mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
           mask-composite:exclude;
-  filter:drop-shadow(0 0 calc(3.5 * var(--k)) rgba(var(--g),.85));
 }
-/* блик на стекле: дуга по верхней кромке */
-.cmp-mark .disc::after{
-  content:'';position:absolute;left:15%;right:15%;top:7%;height:34%;
-  border-radius:50%;pointer-events:none;
-  background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0));
-  filter:blur(calc(1.6 * var(--k)));
-}
-/* 4. знак */
+/* Знак — такая же трубка, как контуры логотипов: светлый
+   оттенок цвета, а не белое ядро. Белое ядро — это неон в
+   темноте, а здесь знак должен читаться той же линией, что
+   рисунок в плитке рядом. */
 .cmp-mark svg{
-  position:relative;z-index:1;
   display:block;
   width:calc(27 * var(--k));height:calc(27 * var(--k));
-  fill:none;stroke:var(--core);stroke-width:3;
+  fill:none;stroke:var(--hi);stroke-width:3.2;
   stroke-linecap:round;stroke-linejoin:round;
-  filter:
-    drop-shadow(0 0 calc(1.2 * var(--k)) rgba(var(--g),1))
-    drop-shadow(0 0 calc(4.5 * var(--k)) rgba(var(--g),.95))
-    drop-shadow(0 0 calc(12 * var(--k)) rgba(var(--g),.7))
-    drop-shadow(0 0 calc(26 * var(--k)) rgba(var(--g),.42));
+  filter:drop-shadow(0 0 calc(2.2 * var(--k)) rgba(var(--g),.85));
 }
 
 /* ---- MacBook Pro 14″ M5 ------------------------------------
