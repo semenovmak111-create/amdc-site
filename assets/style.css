@@ -4699,21 +4699,40 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    возвращается вниз уже после того, как телефон погас,
    иначе на свайпе видно, как он проваливается.
    -------------------------------------------------------- */
-.slide .phone,
-.slide .cmp,
-.slide .crowd,
-.slide .ph-buzz{
+/* Состояние снято с [aria-hidden], а не просто со .slide:
+   до того, как отработает скрипт колоды, атрибута нет вовсе —
+   и разворот виден целиком. Иначе без скрипта весь раздел
+   остался бы пустым полем: под правило попал и текст.
+
+   Своей мере (--u) у каждого предмета своя величина: телефон
+   поднимается на полсотни точек, ноутбук — соразмерно
+   аппарату, рамки и текст — чуть меньше. Общая тут не
+   величина подъёма, а его повадка. */
+.slide[aria-hidden] .phone,
+.slide[aria-hidden] .cmp,
+.slide[aria-hidden] .crowd,
+.slide[aria-hidden] .ph-buzz,
+.slide[aria-hidden] .mkt,
+.slide[aria-hidden] .tx{
   opacity:0;
   transform:translateY(calc(96 * var(--u))) scale(.955);
   transition:
     opacity .22s linear,
     transform 0s linear .22s;
 }
-.slide .ph-buzz.l{transform:translateY(calc(96 * var(--u))) scale(.955) scaleX(-1)}
+.slide .cmp{--u:calc(.46 * var(--k))}
+.slide .mkt{--u:.32px}
+/* Текст поднимается мельче предмета справа и не жмётся:
+   девяносто шесть долей по трети точки — это тридцать
+   точек, ровно строка. */
+.slide .tx{--u:.32px}
+.slide[aria-hidden] .ph-buzz.l{transform:translateY(calc(96 * var(--u))) scale(.955) scaleX(-1)}
 .slide[aria-hidden="false"] .phone,
 .slide[aria-hidden="false"] .cmp,
 .slide[aria-hidden="false"] .crowd,
-.slide[aria-hidden="false"] .ph-buzz{
+.slide[aria-hidden="false"] .ph-buzz,
+.slide[aria-hidden="false"] .mkt,
+.slide[aria-hidden="false"] .tx{
   opacity:1;transform:none;
   transition:
     opacity .62s var(--ease) .06s,
@@ -4721,17 +4740,21 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 }
 .slide[aria-hidden="false"] .ph-buzz.l{transform:scaleX(-1)}
 @media (prefers-reduced-motion:reduce){
-  .slide .phone,
+  .slide[aria-hidden] .phone,
   .slide[aria-hidden="false"] .phone,
-  .slide .cmp,
+  .slide[aria-hidden] .cmp,
   .slide[aria-hidden="false"] .cmp,
-  .slide .crowd,
+  .slide[aria-hidden] .crowd,
   .slide[aria-hidden="false"] .crowd,
-  .slide .ph-buzz,
-  .slide[aria-hidden="false"] .ph-buzz{
+  .slide[aria-hidden] .ph-buzz,
+  .slide[aria-hidden="false"] .ph-buzz,
+  .slide[aria-hidden] .mkt,
+  .slide[aria-hidden="false"] .mkt,
+  .slide[aria-hidden] .tx,
+  .slide[aria-hidden="false"] .tx{
     opacity:1;transform:none;transition:none;
   }
-  .slide .ph-buzz.l,
+  .slide[aria-hidden] .ph-buzz.l,
   .slide[aria-hidden="false"] .ph-buzz.l{transform:scaleX(-1)}
   .ph-shake{animation:none}
   .ph-buzz path{animation:none;opacity:var(--pk)}
@@ -4772,7 +4795,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   20%     {transform:translate3d(calc( 0.3 * var(--u)),calc(-0.2 * var(--u)),0) rotate(.06deg)}
   23%,100%{transform:translate3d(0,0,0) rotate(0)}
 }
-.slide .ph-shake{animation-play-state:paused}
+.slide[aria-hidden] .ph-shake{animation-play-state:paused}
 .slide[aria-hidden="false"] .ph-shake{animation-play-state:running}
 
 /* Волны. Уходят из-под корпуса, поэтому внутренняя дуга
@@ -4799,7 +4822,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   36% {opacity:0}
   100%{opacity:0}
 }
-.slide .ph-buzz path{animation-play-state:paused}
+.slide[aria-hidden] .ph-buzz path{animation-play-state:paused}
 .slide[aria-hidden="false"] .ph-buzz path{animation-play-state:running}
 
 /* ---- экран входящего вызова ----------------------------- */
@@ -4895,10 +4918,19 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    ноутбука не для воздуха: в поля по краям садятся плитки
    справочников, и каждой нужна своя сторона.
    -------------------------------------------------------- */
-.cmp-stage{container-type:inline-size}
-.cmp{--k:calc(540px / 540)}
+/* Сцена выходит за колонку: слева отъедает часть промежутка,
+   справа — поле страницы. Ноутбук от этого становится в
+   полтора раза крупнее прежнего, не трогая раскрой разворота. */
+.cmp-stage{
+  container-type:inline-size;
+  margin-left:calc(-1 * clamp(2px,1.4vw,24px));
+  margin-right:calc(-1 * clamp(0px,1.4vw,24px));
+}
+/* Потолок меры поднят с 540 до 720: раньше он и держал
+   composition на 540 точках, как ни расширяй колонку. */
+.cmp{--k:calc(720px / 540)}
 @supports (container-type:inline-size){
-  .cmp{--k:calc(min(100cqi,540px) / 540)}
+  .cmp{--k:calc(min(100cqi,720px) / 540)}
 }
 
 .cmp{
@@ -4947,19 +4979,27 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    висела в этой пустоте. 2ГИС — слева от крышки, Яндекс —
    над ней, Google — справа; ни одна не наезжает на корпус. */
 .cmp-app.a1{
-  left:5%;top:21%;
+  left:7%;top:20%;
   --t0:-6deg;--t1:-2.5deg;--rise:calc(-11 * var(--k));
   --per:7.4s;--del:-1.1s;--scale:1;
 }
 .cmp-app.a2{
-  left:43%;top:-23%;
+  left:45%;top:-22%;
   --t0:4.5deg;--t1:7.5deg;--rise:calc(-14 * var(--k));
   --per:6.2s;--del:-3.4s;--scale:.88;
 }
 .cmp-app.a3{
-  right:-9%;top:41%;
+  right:-5%;top:41%;
   --t0:-3deg;--t1:-6.5deg;--rise:calc(-9 * var(--k));
   --per:8.1s;--del:-5.2s;--scale:1.08;
+}
+/* Четвёртая площадка встаёт слева под 2ГИС: справа и снизу
+   всё занято разъехавшимся основанием аппарата, а слева на
+   этой высоте поле пустое. */
+.cmp-app.a4{
+  left:1%;top:57%;
+  --t0:5deg;--t1:1.5deg;--rise:calc(-12 * var(--k));
+  --per:6.8s;--del:-2.3s;--scale:.94;
 }
 /* Наклон не появляется по ходу качания, а есть всегда: --t0 —
    то, как плитка висит, --t1 — куда её сносит. Иначе в покое
@@ -4994,11 +5034,13 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 /* Буквенные знаки: трубка — обводка, внутри тот же лёгкий
    свет, что заливает плитку. */
 .cmp-tile.gis,
+.cmp-tile.zoon,
 .cmp-tile.ya{
   color:rgba(180,123,234,.17);
   -webkit-text-stroke:calc(.9 * var(--k)) var(--neon-hi);
 }
 .cmp-tile.gis{font:800 calc(13 * var(--k))/1 var(--sans);letter-spacing:.01em}
+.cmp-tile.zoon{font:800 calc(14 * var(--k))/1 var(--sans);letter-spacing:-.01em}
 .cmp-tile.ya{font:700 calc(30 * var(--k))/1 var(--sans)}
 .cmp-tile svg{display:block;width:100%;height:100%}
 .cmp-tile .ln{
@@ -5124,10 +5166,16 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   /* Сетка сдвинута правее колонки: слева её держит длинный
      довод, а справа у разворота остаётся поле страницы —
      в него она и отодвинута. */
-  position:relative;left:clamp(6px,1vw,16px);
+  position:relative;left:clamp(4px,.6vw,10px);
+  /* Сетка выходит за колонку в обе стороны: слева отъедает
+     часть промежутка, справа — поле страницы. Рамка от этого
+     вырастает с 184 до 210 точек, а раскрой разворота
+     остаётся прежним и высота колоды не меняется. */
+  margin-left:calc(-1 * clamp(2px,1.5vw,24px));
+  margin-right:calc(-1 * clamp(6px,3.2vw,52px));
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:clamp(.34rem,.62vw,.6rem);
+  gap:clamp(.3rem,.55vw,.52rem);
   /* золото рамок: тот же чертёж, что у --au-plate, но светлее
      и насыщеннее — на тёмном развороте бумажный металл гаснет */
   --au-mkt:linear-gradient(155deg,
@@ -5135,11 +5183,14 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   --au-mkt-solid:#BE8C1E;
 }
 .mkt li{
-  aspect-ratio:1;
+  /* Не квадрат: строка текста поперёк рамки читается
+     спокойнее, чем в колодце, а сама рамка при той же высоте
+     сетки становится заметно шире. */
+  aspect-ratio:1.3;
   display:flex;flex-direction:column;
   padding:clamp(.5rem,.85vw,.82rem);
-  border:3px solid transparent;
-  border-radius:clamp(.8rem,1.25vw,1.15rem);
+  border:4px solid transparent;
+  border-radius:clamp(.8rem,1.2vw,1.1rem);
   /* Жемчужный белый, а не сливки: золото тем дороже, чем
      чище белое рядом. Тёплая капля оставлена — холодное
      белое рядом с бронзой отдаёт синевой, — но света в нём
@@ -5147,7 +5198,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
      идёт по свету: сверху почти чистый белый, к низу тёплая
      тень, как на плотном картоне под боковым светом. */
   background:
-    linear-gradient(162deg,#FFFDF8 0%,#FDF8ED 44%,#F6EFE0 100%) padding-box,
+    linear-gradient(162deg,#FAF3E2 0%,#F5ECD8 46%,#EDE1C7 100%) padding-box,
     var(--au-mkt) border-box;
   /* Ореол наружу, блик по верхней кромке внутрь и глубокая
      мягкая тень: на тёмном развороте от этого рамка
@@ -5155,8 +5206,8 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
      предметом — карточкой плотного картона с золотым
      обрезом. */
   box-shadow:
-    0 0 clamp(14px,1.5vw,22px) rgba(231,195,106,.5),
-    inset 0 1px 0 rgba(255,255,255,.9),
+    0 0 clamp(8px,.85vw,13px) rgba(231,195,106,.3),
+    inset 0 1px 0 rgba(255,255,255,.72),
     inset 0 0 clamp(14px,1.4vw,20px) rgba(176,126,30,.07),
     0 18px 34px -20px rgba(0,0,0,.6);
 }
@@ -5168,7 +5219,10 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    которое одинаково выглядит на любой ширине разворота. */
 .mkt-h{
   position:relative;
-  flex:0 0 27%;
+  /* Высота по рисунку, а не долей: рамка больше не квадрат,
+     и доля от её высоты перестала быть постоянной мерой. */
+  flex:none;
+  padding-bottom:clamp(.26rem,.5vw,.46rem);
   display:flex;align-items:center;
   gap:clamp(.34rem,.6vw,.55rem);
 }
@@ -5176,19 +5230,19 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    концами — упёртая в рамку, она читалась бы таблицей */
 .mkt-h::after{
   content:'';position:absolute;left:7%;right:7%;bottom:0;
-  height:2px;border-radius:2px;
+  height:2.5px;border-radius:2px;
   background:linear-gradient(90deg,
     rgba(176,126,30,0) 0%,#B0801F 14%,#E3BB5A 50%,#B0801F 86%,
     rgba(176,126,30,0) 100%);
 }
 .mkt-pic{
   flex:none;display:block;
-  width:clamp(24px,2.3vw,33px);height:clamp(24px,2.3vw,33px);
+  width:clamp(26px,2.5vw,36px);height:clamp(26px,2.5vw,36px);
   color:var(--au-mkt-solid);
 }
 .mkt-pic .ill{display:block;width:100%;height:100%;stroke-width:2}
 .mkt-n{
-  font:700 clamp(1rem,.7rem + .66vw,1.38rem)/1 var(--serif);
+  font:700 clamp(1.22rem,.86rem + .8vw,1.72rem)/1 var(--serif);
   font-variant-numeric:lining-nums;
   letter-spacing:-.01em;
   color:transparent;
@@ -5223,7 +5277,6 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    отступ под линейкой. */
 @media (max-width:1150px) and (min-width:861px){
   .mkt li{aspect-ratio:auto}
-  .mkt-h{flex:none;padding-bottom:.45rem}
 }
 /* На телефоне квадрат в треть ширины — это 105 точек, в
    которые не влезает ни заголовок, ни разбор. Сетка
@@ -5234,9 +5287,8 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   .mkt{grid-template-columns:1fr 1fr;gap:.5rem}
   .mkt li{aspect-ratio:auto;padding:.72rem .68rem .78rem}
   .mkt li:last-child{grid-column:span 2}
-  .mkt-h{flex:none;padding-bottom:.5rem}
-  .mkt-pic{width:26px;height:26px}
-  .mkt-n{font-size:.95rem}
+  .mkt-pic{width:29px;height:29px}
+  .mkt-n{font-size:1.18rem}
   .mkt li b{margin-top:.6rem;font-size:.92rem}
   .mkt li > span{font-size:.75rem;margin-bottom:0}
 }
@@ -5261,6 +5313,11 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    -------------------------------------------------------- */
 .mbp-stage{
   position:relative;
+  /* Ширина ровно по кадру аппарата, а не по холсту: доли, в
+     которых заданы места плиток, должны считаться от самого
+     ноутбука — иначе они уезжают тем дальше, чем шире
+     колонка. */
+  width:calc(540 * var(--k));margin:0 auto;
   /* Ноутбук стоит правее середины холста: слева под плиткой
      2ГИС поля нужно больше, чем справа под Google, — иначе
      левая плитка липнет к крышке, а правая висит в пустоте. */
@@ -5269,8 +5326,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 }
 .mbp{
   display:block;
-  width:calc(470 * var(--k));height:auto;
-  margin:0 auto;
+  width:100%;height:auto;
   /* Тень по силуэту, а не по прямоугольнику: у макета
      прозрачный фон, и drop-shadow обводит сам аппарат. */
   filter:
