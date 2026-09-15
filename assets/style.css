@@ -4993,9 +4993,9 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   --per:6.2s;--del:-3.4s;--scale:.88;
 }
 .cmp-app.a3{
-  right:-3%;top:41%;
+  right:-16%;top:41%;
   --t0:-3deg;--t1:-6.5deg;--rise:calc(-9 * var(--k));
-  --per:8.1s;--del:-5.2s;--scale:1.08;
+  --per:8.1s;--del:-5.2s;--scale:.98;
 }
 /* Четвёртая площадка — под аппаратом, на столе. Место под
    неё держит нижнее поле сцены: без него она вылезала бы за
@@ -5197,7 +5197,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
      идёт по свету: сверху почти чистый белый, к низу тёплая
      тень, как на плотном картоне под боковым светом. */
   background:
-    linear-gradient(162deg,#FAF3E2 0%,#F5ECD8 46%,#EDE1C7 100%) padding-box,
+    linear-gradient(162deg,#FFFFFF 0%,#FCFBF8 48%,#F4F2ED 100%) padding-box,
     var(--au-mkt) border-box;
   /* Ореол наружу, блик по верхней кромке внутрь и глубокая
      мягкая тень: на тёмном развороте от этого рамка
@@ -5207,7 +5207,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   box-shadow:
     0 0 clamp(8px,.85vw,13px) rgba(231,195,106,.3),
     inset 0 1px 0 rgba(255,255,255,.72),
-    inset 0 0 clamp(14px,1.4vw,20px) rgba(176,126,30,.07),
+    inset 0 0 clamp(14px,1.4vw,20px) rgba(122,110,92,.05),
     0 18px 34px -20px rgba(0,0,0,.6);
 }
 
@@ -5256,7 +5256,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   margin-top:auto;
   font:600 clamp(.72rem,.57rem + .3vw,.88rem)/1.2 var(--serif);
   letter-spacing:-.005em;
-  color:#241D12;
+  color:#20201E;
 }
 /* Только разбор, а не всякий span в рамке: рисунок и номер
    шага — тоже span'ы, и общий селектор перекрашивал их
@@ -5265,7 +5265,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   display:block;text-align:center;text-wrap:pretty;
   margin:clamp(.18rem,.35vw,.3rem) 0 auto;
   font:400 clamp(.58rem,.44rem + .2vw,.66rem)/1.4 var(--sans);
-  color:#6D6353;
+  color:#5F5D58;
 }
 /* Ниже 1020 точек колонка под сцену становится такой узкой,
    что в вертикальный прямоугольник перестаёт влезать разбор.
@@ -5313,13 +5313,18 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   /* Ширина ровно по кадру аппарата, а не по холсту: доли, в
      которых заданы места плиток, должны считаться от самого
      ноутбука — иначе они уезжают тем дальше, чем шире
-     колонка. */
-  width:calc(540 * var(--k));margin:0 auto;
+     колонка.
+
+     Кадр у́же холста и прижат влево: свободные сорок долей
+     уходят направо, под плитку Google. Правый край крышки
+     стоит на 98,6 % кадра, и разложить плитку так, чтобы она
+     не легла на корпус, можно только за этот край. */
+  width:calc(485 * var(--k));
   /* Ноутбук стоит правее середины холста: слева под плиткой
      2ГИС поля нужно больше, чем справа под Google, — иначе
      левая плитка липнет к крышке, а правая висит в пустоте. */
-  left:calc(12 * var(--k));
-  padding-bottom:calc(78 * var(--k));
+  left:calc(14 * var(--k));
+  padding-bottom:calc(88 * var(--k));
 }
 .mbp{
   display:block;
