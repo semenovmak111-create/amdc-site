@@ -4153,6 +4153,11 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   min-width:0;display:flex;flex-direction:column;
   gap:clamp(.7rem,1.1vw,1rem);
 }
+/* Развороту с девятью рамками сцены нужно шире обычного:
+   рамка со своим разбором на две строки в половине колонки
+   перестаёт читаться. Отбираем у текста — у этого довода он
+   и без того короче остальных. */
+.slide.wide-scene{grid-template-columns:minmax(0,.95fr) minmax(0,1.19fr)}
 
 /* надзаголовок: значок выгоды и в чём её суть одной строкой */
 .slide .eye{
@@ -4903,11 +4908,6 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
      только бока крышки и полоса над ней, снизу всё занимает
      разъехавшееся основание. */
   padding-top:calc(78 * var(--k));
-  /* Миллиметр корпуса ноутбука в точках чертежа: 312,6 мм
-     MacBook Pro 14″ ложатся в 356 точек из 540. Крышка занимает
-     две трети холста, а передний край основания — четыре пятых:
-     камера стоит близко, и низ разваливается шире верха. */
-  --mm:calc(1.14 * var(--k));
 }
 
 /* ---- неоновые карточки справочников ----------------------
@@ -5088,195 +5088,157 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   .crowd{left:0;gap:calc(24 * var(--k)) calc(20 * var(--k))}
 }
 
-/* ---- скелет разговора ----------------------------------
-   Семь блоков страницы списком, в том порядке, в каком они
-   идут у человека перед глазами. Не макет и не снимок: как
-   только тут появится дизайн, разворот начнёт спорить о
+/* ---- девять приёмов --------------------------------------
+   Девять рамок 3 × 3: шаг, приём, и на две строки — как
+   именно он сделан на этой странице. Не макет и не снимок:
+   как только тут появится дизайн, разворот начнёт спорить о
    красоте, а спорить он должен о порядке.
 
-   Номер слева моноширинный и бронзовый — он и есть довод:
-   номера может расставить только тот, кому страница
-   принадлежит. Последняя строка зелёная: чем бы разговор ни
-   начался, кончается он всегда одним.
+   Рамки набраны по светлому — слоновая кость и бронзовый
+   контур: внутри тёмного разворота это выписка из системы,
+   лист бумаги, и он обязан выглядеть листом.
+
+   Контур и номер шага залиты не «золотым цветом», а тем же
+   --au-plate-ink, которым набраны цифры в разделе «Как это
+   делается»: это градиент металла в пять стопов, и плоская
+   краска вместо него сразу выпадает из системы. Контур берёт
+   его через двойной фон — заливка по padding-box, металл по
+   border-box; номер — через background-clip:text. Способы
+   разные, металл один.
    -------------------------------------------------------- */
-.sys{
-  list-style:none;margin:0;padding:0;counter-reset:sys;
+.mkt{
+  list-style:none;margin:0;padding:0;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(.34rem,.62vw,.6rem);
 }
-.sys li{
-  display:grid;grid-template-columns:auto minmax(0,1fr);
-  column-gap:.62rem;
-  padding:.46rem 0;
-  border-top:1px solid rgba(18,22,26,.09);
+.mkt li{
+  aspect-ratio:1;
+  display:flex;flex-direction:column;
+  padding:clamp(.5rem,.85vw,.82rem);
+  border:1.6px solid transparent;
+  border-radius:clamp(.7rem,1.1vw,1rem);
+  /* слоновая кость: не белый лист, а тёплая бумага — рядом с
+     бронзой белое отдаёт синевой */
+  background:
+    linear-gradient(#FBF4E4,#F6EEDC) padding-box,
+    var(--au-plate-ink) border-box;
+  box-shadow:0 14px 26px -18px rgba(0,0,0,.55);
 }
-.sys li:first-child{border-top:0;padding-top:.1rem}
-.sys li::before{
-  counter-increment:sys;
-  content:counter(sys,decimal-leading-zero);
-  grid-row:span 2;
-  font:600 .62rem/1.5 var(--mono);
-  font-variant-numeric:tabular-nums;
-  color:var(--au-ink);opacity:.75;
+/* шапка: рисунок слева, номер шага справа от него */
+.mkt-h{
+  display:flex;align-items:center;
+  gap:clamp(.3rem,.55vw,.5rem);
+  margin-bottom:clamp(.3rem,.6vw,.55rem);
 }
-.sys b{font:700 .68rem/1.35 var(--sans);color:#12161A}
-.sys span{font:400 .6rem/1.4 var(--sans);color:#6A727C}
-/* последний шаг: он же единственное действие на странице */
-.sys li.end b{color:var(--jade-ink)}
-.sys li.end::before{color:var(--jade-ink);opacity:1}
-@media (max-width:560px){
-  .sys span{display:none}
-  .sys li{padding:.38rem 0}
+.mkt-pic{
+  flex:none;display:block;
+  width:clamp(17px,1.65vw,24px);height:clamp(17px,1.65vw,24px);
+  color:var(--au-ink);
+}
+.mkt-pic .ill{display:block;width:100%;height:100%}
+.mkt-n{
+  font:700 clamp(.66rem,.52rem + .28vw,.82rem)/1 var(--serif);
+  font-variant-numeric:lining-nums;
+  letter-spacing:-.01em;
+  color:transparent;
+  background-color:transparent;
+  background-image:var(--au-plate-ink);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+/* приём и его разбор — по центру рамки, под шапкой */
+.mkt li b{
+  display:block;text-align:center;text-wrap:balance;
+  margin-top:auto;
+  font:600 clamp(.72rem,.57rem + .3vw,.88rem)/1.2 var(--serif);
+  letter-spacing:-.005em;
+  color:#241D12;
+}
+.mkt li span{
+  display:block;text-align:center;text-wrap:pretty;
+  margin:clamp(.18rem,.35vw,.3rem) 0 auto;
+  font:400 clamp(.58rem,.44rem + .2vw,.66rem)/1.42 var(--sans);
+  color:#6D6353;
+}
+/* Между 861 и 1150 точками колонка под сцену ещё узкая, а
+   разворот уже двухколоночный: квадрат в этой полосе
+   получается меньше текста, который в него положен. Рамка
+   перестаёт быть квадратом и берёт высоту по содержанию —
+   ширина остаётся третью, и сетка 3 × 3 держится. */
+@media (max-width:1150px) and (min-width:861px){
+  .mkt li{aspect-ratio:auto}
 }
 
-/* ---- MacBook Pro 14″ M5 ------------------------------------
-   Не рисунок ноутбука, а его сборка по чертежу аппарата.
-   Единица здесь — миллиметр корпуса (--mm), и все числа ниже
-   взяты у настоящей машины: корпус 312,6 × 221,2 мм; плита
-   основания утоньшена с 15,5 до 11,5 мм — на снимке под таким
-   углом настоящая толщина читается тяжёлой,
-   крышка 4,5 мм толщиной, экран 302,5 × 196,5 мм, рамка
-   4,15 мм по бокам и 6 мм сверху, подбородок 11,7 мм, шаг
-   клавиши 19 мм, трекпад 129,4 × 81,3 мм. Пропорции и есть то,
-   по чему глаз узнаёт модель, — их нельзя «подогнать на глаз».
+/* На телефоне квадрат в треть ширины — это 105 точек, в
+   которые не влезает ни заголовок, ни разбор. Сетка
+   раскладывается в две колонки, рамка перестаёт быть
+   квадратом и берёт высоту по тексту; девятая, лишняя в
+   паре, занимает обе колонки. */
+@media (max-width:620px){
+  .mkt{grid-template-columns:1fr 1fr;gap:.5rem}
+  .mkt li{aspect-ratio:auto;padding:.72rem .68rem .78rem}
+  .mkt li:last-child{grid-column:span 2}
+  .mkt-pic{width:21px;height:21px}
+  .mkt-n{font-size:.8rem}
+  .mkt li b{margin-top:.6rem;font-size:.92rem}
+  .mkt li span{font-size:.75rem;margin-bottom:0}
+}
 
-   Четырнадцатидюймовая машина отличается от шестнадцатой не
-   только размером: у неё заметно у́же поля по бокам клавиатуры,
-   и решётки динамиков там всего в сантиметр. Если оставить
-   широкие поля шестнадцатой, выйдет «ноутбук вообще», а не
-   конкретный аппарат.
+/* ---- MacBook Pro 14″ --------------------------------------
+   Аппарат не нарисован, а взят кадром: официальная рамка
+   MacBook Pro 14″ Silver из Apple Developer Resources лежит в
+   assets/img/macbook-pro-14.webp. Рисовать ноутбук разметкой
+   бессмысленно там, где есть чертёж производителя: глаз
+   ловит не пропорции, а мелочь — фаску, радиус угла, ширину
+   подбородка, — и любая подгонка на глаз выдаёт рисунок.
 
-   Сцена собрана как настоящая: крышка стоит почти лицом к
-   камере, основание отвёрнуто от неё на 114°, камера поднята
-   на 16° над столом и сдвинута влево на 10°. Отсюда один
-   разворот всей сборки — rotateX(8°) rotateY(−21°): 8° = 114°
-   раскрытия минус 90° минус 16° подъёма камеры, 21° — отход
-   камеры влево. Перспектива задана расстоянием в 1,15 м — так
-   снимают предметку, и именно с этого расстояния основание
-   разваливается шире крышки.
+   Вырез экрана в файле прозрачный, поэтому снимок страницы
+   лежит ПОД рамкой, а не поверх неё: кромку стекла рисует
+   сам кадр. Координаты выреза сняты с файла и переведены в
+   проценты от его размера — 392 × 121 точки от левого
+   верхнего угла, 3024 × 1900 при холсте 3808 × 2299.
+   Пересняли кадр — пересчитать четыре числа ниже.
 
-   На двадцати одном градусе экран уже заметно сжат по
-   горизонтали, и это правильно: ровно так он и выглядит,
-   когда на ноутбук смотрят сбоку. Дальше поворачивать нельзя —
-   снимок на экране перестанет читаться.
-
-   Ближе к зрителю левый бок аппарата — он и построен третьей
-   плоскостью.
-
-   Цвет — Space Gray: светлый анодированный алюминий с
-   холодной каплей. Матовый, поэтому блики здесь широкие и
-   слабые, а по-настоящему ярка только фаска — полированный
-   срез в сотые доли миллиметра по кромкам. Именно она и
-   читается как металл.
+   Миллиметр корпуса (--mm) остаётся мерой и здесь: строка
+   меню, вырез камеры и глазок камеры заданы в миллиметрах
+   аппарата, как и раньше. 312,6 мм корпуса ложатся в 440
+   точек холста, отсюда 1,407.
    -------------------------------------------------------- */
 .mbp-stage{
   position:relative;
-  /* Сдвиг влево: на сильном развороте основание уходит вправо
-     вниз, и по холсту аппарат перестаёт стоять в середине.
-     Шестнадцать миллиметров возвращают его на место. */
-  left:calc(-16 * var(--mm));
-  padding-bottom:calc(98 * var(--mm));
-  /* Камера в метре от аппарата, а не в трёх с половиной. Это и
-     есть главное, чем снимок ноутбука отличается от чертежа:
-     вблизи передний край основания разваливается на четверть
-     шире крышки, и корпус читается плитой, стоящей на столе,
-     а не плоской картинкой. */
-  perspective:calc(1150 * var(--mm));
-  perspective-origin:50% 40%;
+  /* Ноутбук стоит правее середины холста: слева под плиткой
+     2ГИС поля нужно больше, чем справа под Google, — иначе
+     левая плитка липнет к крышке, а правая висит в пустоте. */
+  left:calc(22 * var(--k));
+  padding-bottom:calc(30 * var(--k));
 }
-/* Тень: два слоя. Ближний контакт под передним торцом — узкий
-   и тёмный, он и сажает аппарат на плоскость; дальний ореол —
-   широкий и мягкий, это рассеянный свет комнаты. */
-.mbp-stage::before,
-.mbp-stage::after{content:'';position:absolute;z-index:-1;border-radius:50%}
-.mbp-stage::before{
-  left:-3%;right:-3%;bottom:calc(-22 * var(--mm));height:calc(70 * var(--mm));
-  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.72),transparent 76%);
-  filter:blur(calc(13 * var(--mm)));
-}
-.mbp-stage::after{
-  left:7%;right:7%;bottom:calc(-4 * var(--mm));height:calc(24 * var(--mm));
-  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.98),transparent 70%);
-  filter:blur(calc(5 * var(--mm)));
-}
-
 .mbp{
   position:relative;
-  width:calc(312.6 * var(--mm));
-  height:calc(216 * var(--mm));
+  width:calc(440 * var(--k));
   margin:0 auto;
-  transform-style:preserve-3d;
-  transform:rotateX(8deg) rotateY(-21deg);
-  transform-origin:50% 100%;
+  --mm:calc(1.407 * var(--k));
+  /* Тень по силуэту, а не по прямоугольнику: у кадра
+     прозрачный фон, и drop-shadow обводит сам аппарат. */
+  filter:
+    drop-shadow(0 calc(10 * var(--k)) calc(12 * var(--k)) rgba(0,0,0,.45))
+    drop-shadow(0 calc(30 * var(--k)) calc(38 * var(--k)) rgba(0,0,0,.4));
+}
+.mbp-frame{
+  position:relative;z-index:2;
+  display:block;width:100%;height:auto;
 }
 
-/* ---- крышка ----------------------------------------------
-   Створка 4,5 мм: алюминий по периметру узкой каймой, дальше
-   чёрное стекло во всю площадь. Радиус скругления у корпуса
-   11 мм сверху и 3,2 мм у петли — снизу створка почти прямая,
-   потому что уходит в шарнир.
+/* ---- экран ------------------------------------------------
+   Вырез стекла в кадре. Снимок под ним, строка меню и вырез
+   камеры — поверх снимка, но всё ещё под рамкой.
    -------------------------------------------------------- */
-.mbp-lid{
-  position:absolute;inset:0;
-  padding:calc(.9 * var(--mm));
-  border-radius:calc(11 * var(--mm)) calc(11 * var(--mm))
-                calc(3.2 * var(--mm)) calc(3.2 * var(--mm));
-  background:
-    linear-gradient(176deg,
-      rgba(255,255,255,.08) 0,rgba(255,255,255,0) 22%,
-      rgba(0,0,0,.2) 76%,rgba(0,0,0,.36) 100%),
-    linear-gradient(97deg,
-      #C2C8CF 0,#8D939B .55%,#727880 2.2%,
-      #6B7179 46%,#767C85 84%,#666C74 98%,#9BA1A9 99.6%,#C8CED5 100%);
-  box-shadow:
-    0 calc(18 * var(--mm)) calc(34 * var(--mm)) calc(-16 * var(--mm)) rgba(0,0,0,.7),
-    0 calc(3 * var(--mm)) calc(7 * var(--mm)) calc(-2 * var(--mm)) rgba(0,0,0,.5);
-}
-/* Фаска: полированный срез по кромке створки. Яркость гуляет
-   по периметру — сверху почти гаснет, по бокам вспыхивает,
-   иначе кромка читается обводкой, а не металлом. */
-.mbp-lid::before{
-  content:'';position:absolute;inset:0;z-index:4;pointer-events:none;
-  border-radius:inherit;padding:calc(.4 * var(--mm));
-  background:linear-gradient(118deg,
-    rgba(255,255,255,.78) 0,rgba(255,255,255,.22) 9%,
-    rgba(255,255,255,.06) 26%,rgba(255,255,255,.38) 47%,
-    rgba(255,255,255,.07) 68%,rgba(255,255,255,.18) 88%,
-    rgba(255,255,255,.66) 100%);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-          mask-composite:exclude;
-}
-/* Верхний торец створки. Крышка отклонена назад, камера — над
-   столом, поэтому 4,5 мм торца видно сверху узкой полоской.
-   Отдельной плоскости на такую мелочь не нужно, полоса
-   неотличима. */
-.mbp-top{
-  position:absolute;left:calc(6 * var(--mm));right:calc(6 * var(--mm));
-  top:calc(-1 * var(--mm));height:calc(1.5 * var(--mm));z-index:2;
-  border-radius:calc(1.6 * var(--mm)) calc(1.6 * var(--mm)) 0 0;
-  background:linear-gradient(180deg,#9EA4AC 0,#767C84 46%,#5A6068 100%);
-}
-
-.mbp-glass{
-  position:relative;height:100%;
-  border-radius:calc(10.2 * var(--mm)) calc(10.2 * var(--mm))
-                calc(2.4 * var(--mm)) calc(2.4 * var(--mm));
-  /* Стекло: почти чёрное, но не в ноль. Сверху оно ловит свет
-     комнаты, снизу уходит в тень корпуса. */
-  background:linear-gradient(174deg,#15161A 0,#0A0B0D 26%,#08090B 74%,#101114 100%);
-  box-shadow:inset 0 0 0 calc(.5 * var(--mm)) rgba(255,255,255,.06);
-  padding:calc(6 * var(--mm)) calc(4.15 * var(--mm)) calc(11.7 * var(--mm));
-}
-/* Экран. Углы скруглены на 6,5 мм — матрица обрезана по форме
-   корпуса, а не вписана прямоугольником. Сверху оставлено
-   место под строку меню: она не лежит поверх снимка, а
-   двигает его вниз, как на настоящем экране. */
 .mbp-scr{
-  position:relative;overflow:hidden;height:100%;
+  position:absolute;z-index:1;
+  left:10.294%;top:5.263%;width:79.412%;height:82.645%;
+  overflow:hidden;
   padding-top:calc(6 * var(--mm));
-  border-radius:calc(6.5 * var(--mm));
   background:#0B0710;
-  box-shadow:inset 0 0 0 calc(.35 * var(--mm)) rgba(0,0,0,.85);
 }
 .mbp-scr img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
 /* Отражение в стекле: широкая мягкая полоса от окна слева
@@ -5323,7 +5285,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 .mbp-menu .apple svg{display:block;width:100%;height:100%;fill:rgba(255,255,255,.92)}
 .mbp-menu b{font-weight:700;letter-spacing:.01em}
 .mbp-menu em{font-style:normal;color:rgba(255,255,255,.78)}
-.mbp-menu .sp{flex:1 1 auto}
+.mbp-menu .sp{flex:1 1 auto;min-width:calc(62 * var(--mm))}
 /* значки состояния: батарея, вайфай, поиск, пункт управления */
 .mbp-menu u{
   display:block;flex:none;text-decoration:none;
@@ -5350,226 +5312,21 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   color:rgba(255,255,255,.88);
 }
 
-/* Вырез камеры: 60 × 9,2 мм, скруглён снизу. Это не «чёлка
-   поверх экрана», а вырезанный из матрицы кусок, поэтому он
-   того же цвета, что рамка вокруг, и строка меню обтекает
-   его, а не проходит под ним. */
+/* Вырез камеры: 60 × 9,2 мм, скруглён снизу. В кадре Apple
+   его нет — рамка отдаёт ровный прямоугольник стекла, — а у
+   аппарата он есть, и без него экран читается не маком.
+   Поэтому вырез свой: это не «чёлка поверх экрана», а
+   вырезанный из матрицы кусок, и строка меню обтекает его. */
 .mbp-notch{
-  position:absolute;left:50%;top:calc(.4 * var(--mm));transform:translateX(-50%);
-  width:calc(60 * var(--mm));height:calc(9.2 * var(--mm));z-index:3;
-  border-radius:0 0 calc(4.6 * var(--mm)) calc(4.6 * var(--mm));
+  position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:calc(60 * var(--mm));height:calc(8.4 * var(--mm));z-index:3;
+  border-radius:0 0 calc(4.2 * var(--mm)) calc(4.2 * var(--mm));
   background:#07080A;
 }
 .mbp-notch i{
-  position:absolute;left:50%;top:calc(3.4 * var(--mm));transform:translateX(-50%);
+  position:absolute;left:50%;top:calc(3 * var(--mm));transform:translateX(-50%);
   width:calc(2.6 * var(--mm));height:calc(2.6 * var(--mm));border-radius:50%;
   background:radial-gradient(60% 60% at 38% 34%,#3A4048 0,#16181C 62%,#0A0B0D 100%);
-}
-/* Строка меню разведена по краям выреза: слева меню, справа
-   часы, посередине пусто — ровно так делит её сам макос. */
-.mbp-menu{padding-right:calc(3.4 * var(--mm))}
-.mbp-menu .sp{min-width:calc(62 * var(--mm))}
-
-/* Подбородок: у аппарата на нём выгравировано «MacBook Pro» —
-   единственная надпись на всём корпусе спереди, и именно по
-   ней модель опознаётся с первого взгляда. Цвет светлее
-   корпуса ровно настолько, насколько светлее лазерная
-   гравировка на анодировании. */
-.mbp-word{
-  position:absolute;left:0;right:0;bottom:calc(3.6 * var(--mm));
-  text-align:center;
-  font:500 calc(4 * var(--mm))/1 var(--sans);
-  letter-spacing:calc(.14 * var(--mm));
-  word-spacing:calc(.8 * var(--mm));
-  color:rgba(214,220,229,.52);
-}
-
-/* ---- основание -------------------------------------------
-   Плоскость от петли к зрителю: 312,6 мм вширь, 221,2 мм
-   вглубь. Развод крышки 114°, отсюда rotateX(66deg). Свет
-   падает спереди сверху: у петли дека в тени крышки, к
-   переднему краю разгорается.
-   -------------------------------------------------------- */
-.mbp-base{
-  position:absolute;left:50%;top:100%;
-  width:calc(312.6 * var(--mm));height:calc(221.2 * var(--mm));
-  margin-left:calc(-156.3 * var(--mm));
-  transform-style:preserve-3d;
-  transform-origin:50% 0;
-  transform:rotateX(66deg);
-  border-radius:calc(2.4 * var(--mm)) calc(2.4 * var(--mm))
-                calc(6.5 * var(--mm)) calc(6.5 * var(--mm));
-  background:
-    /* широкий мягкий отсвет от потолочного света — ближе к
-       переднему краю, там алюминий и разгорается */
-    radial-gradient(76% 56% at 46% 74%,rgba(255,255,255,.032) 0,transparent 100%),
-    linear-gradient(90deg,
-      rgba(255,255,255,.045) 0,rgba(255,255,255,.01) 9%,
-      rgba(0,0,0,0) 40%,rgba(0,0,0,.09) 84%,rgba(0,0,0,.17) 100%),
-    linear-gradient(180deg,
-      #2B2F35 0,#33383E 4%,#3D424A 12%,#4B5159 30%,
-      #555B64 56%,#5C626B 82%,#606770 100%);
-  box-shadow:inset 0 0 0 calc(.5 * var(--mm)) rgba(255,255,255,.055);
-}
-/* Фаска по левой кромке деки: срез между верхней плоскостью
-   и щекой. Ближний к зрителю бок — левый, его и видно. */
-.mbp-base::after{
-  content:'';position:absolute;left:0;top:calc(6 * var(--mm));bottom:calc(9 * var(--mm));
-  width:calc(.5 * var(--mm));
-  background:linear-gradient(180deg,
-    rgba(255,255,255,.05) 0,rgba(255,255,255,.28) 34%,rgba(255,255,255,.36) 100%);
-}
-/* Петля: тёмный валик у самой крышки, в нём же тень от неё. */
-.mbp-hinge{
-  position:absolute;left:8.6%;right:8.6%;top:0;height:calc(5.2 * var(--mm));
-  border-radius:0 0 calc(3 * var(--mm)) calc(3 * var(--mm));
-  background:linear-gradient(180deg,#14171B 0,#1E2227 62%,#2C3137 100%);
-}
-/* Отсвет экрана на деке. Снимок на экране тёмно-фиолетовый —
-   значит и на алюминий у петли ложится фиолетовое, а не серое.
-   Мелочь, но без неё экран и корпус живут в разных сценах. */
-.mbp-cast{
-  position:absolute;left:0;right:0;top:0;height:40%;pointer-events:none;
-  background:linear-gradient(180deg,
-    rgba(150,112,208,.11) 0,rgba(120,92,176,.05) 30%,transparent 100%);
-}
-/* Решётки динамиков: у четырнадцатидюймовой машины это две
-   узкие полосы всего в сантиметр — поля по краям клавиатуры
-   здесь вдвое у́же, чем у шестнадцатой. Отверстия — повтор
-   радиального градиента с шагом 1,6 мм; на этом размере от
-   них остаётся ровная фактура. */
-.mbp-grille{
-  position:absolute;top:calc(13 * var(--mm));height:calc(106 * var(--mm));
-  width:calc(10.6 * var(--mm));border-radius:calc(1.6 * var(--mm));
-  background:radial-gradient(rgba(0,0,0,.5) 34%,transparent 38%)
-             0 0 / calc(1.6 * var(--mm)) calc(1.6 * var(--mm));
-  opacity:.72;
-}
-.mbp-grille.l{left:calc(2.6 * var(--mm))}
-.mbp-grille.r{right:calc(2.6 * var(--mm))}
-
-/* ---- клавиатура ------------------------------------------
-   78 клавиш, а не полосатая заливка. Поле клавиатуры —
-   14,5 шага по 19 мм, то есть 275,5 мм из 312,6 мм корпуса;
-   с бортиками колодца выходит 281 мм, отсюда поля по 15,8 мм.
-   Вглубь: ряд функций вполовину ниже (0,58) и пять полных
-   рядов — 106 мм из 221,2 мм.
-
-   Ширины нестандартных клавиш стоят в долях шага, как у
-   аппарата: esc и tab 1,5, delete 1,5, caps и return 1,75,
-   шифты 2,25, command 1,25, пробел 5. Сумма каждого ряда —
-   те же 14,5, иначе ряды разъедутся по краям.
-   -------------------------------------------------------- */
-.mbp-well{
-  position:absolute;left:calc(15.8 * var(--mm));right:calc(15.8 * var(--mm));
-  top:calc(13 * var(--mm));height:calc(106 * var(--mm));
-  display:grid;grid-template-rows:.58fr 1fr 1fr 1fr 1fr 1fr;
-  gap:calc(1.9 * var(--mm));
-  padding:calc(1.6 * var(--mm));
-  border-radius:calc(3 * var(--mm));
-  background:#0C0E11;
-  /* колодец утоплен: тёмная стенка внутри, светлый срез снаружи */
-  box-shadow:
-    inset 0 calc(1 * var(--mm)) calc(2.4 * var(--mm)) rgba(0,0,0,.9),
-    inset 0 0 0 calc(.4 * var(--mm)) rgba(0,0,0,.9),
-    0 calc(.5 * var(--mm)) 0 rgba(255,255,255,.14);
-}
-.mbp-row{display:grid;gap:calc(1.9 * var(--mm))}
-.mbp-row.r1{grid-template-columns:1.5fr repeat(12,1fr) 1fr}
-.mbp-row.r2{grid-template-columns:repeat(13,1fr) 1.5fr}
-.mbp-row.r3{grid-template-columns:1.5fr repeat(13,1fr)}
-.mbp-row.r4{grid-template-columns:1.75fr repeat(11,1fr) 1.75fr}
-.mbp-row.r5{grid-template-columns:2.25fr repeat(10,1fr) 2.25fr}
-.mbp-row.r6{grid-template-columns:1fr 1fr 1fr 1.25fr 5fr 1.25fr 1fr 1fr 1fr 1fr}
-/* Клавиша: чёрный колпачок со светлой верхней фаской и тенью
-   под нижней кромкой. Клавиши у обоих цветов корпуса чёрные —
-   в сером аппарате они не сереют. */
-.mbp-well i{
-  border-radius:calc(1.2 * var(--mm));
-  background:linear-gradient(180deg,#2A2D32 0,#1C1F23 42%,#131518 100%);
-  box-shadow:
-    inset 0 calc(.45 * var(--mm)) 0 rgba(255,255,255,.17),
-    inset 0 calc(-.4 * var(--mm)) 0 rgba(0,0,0,.7),
-    0 calc(.4 * var(--mm)) calc(.9 * var(--mm)) rgba(0,0,0,.6);
-}
-/* Стрелки: вверх и вниз — две половинки в одной клетке. */
-.mbp-row.r6 .ar{
-  background:none;box-shadow:none;
-  display:grid;grid-template-rows:1fr 1fr;gap:calc(.9 * var(--mm));
-}
-.mbp-row.r6 .ar::before,
-.mbp-row.r6 .ar::after{
-  content:'';border-radius:calc(1 * var(--mm));
-  background:linear-gradient(180deg,#2A2D32 0,#1C1F23 42%,#131518 100%);
-  box-shadow:inset 0 calc(.4 * var(--mm)) 0 rgba(255,255,255,.15);
-}
-
-/* Трекпад: 129,4 × 81,3 мм — стекло, а не алюминий. Чуть
-   темнее деки, с волосяной тёмной кромкой и мягким бликом от
-   верхнего края; ни кнопок, ни швов у него нет. */
-.mbp-pad{
-  position:absolute;left:50%;top:calc(129 * var(--mm));transform:translateX(-50%);
-  width:calc(129.4 * var(--mm));height:calc(81.3 * var(--mm));
-  border-radius:calc(4.2 * var(--mm));
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.05) 0,rgba(255,255,255,0) 22%),
-    linear-gradient(180deg,#42474F 0,#484E56 56%,#4C525B 100%);
-  box-shadow:
-    0 0 0 calc(.5 * var(--mm)) rgba(0,0,0,.72),
-    inset 0 calc(.9 * var(--mm)) calc(2.4 * var(--mm)) rgba(0,0,0,.42);
-}
-
-/* ---- передний торец --------------------------------------
-   11,5 мм, свешен с переднего края деки лицом к зрителю. Ось —
-   верхний край грани (top:100% и origin 50% 0).
-
-   Профиль у торца скруглённый, и заливка это показывает:
-   под самой фаской тень, в середине разгон, к низу опять
-   темнота. Ровная заливка тут же выдала бы плоский лист.
-   -------------------------------------------------------- */
-.mbp-front{
-  position:absolute;left:0;right:0;top:100%;
-  height:calc(11.5 * var(--mm));
-  transform-origin:50% 0;
-  transform:rotateX(-90deg);
-  border-radius:0 0 calc(3.4 * var(--mm)) calc(3.4 * var(--mm));
-  background:linear-gradient(180deg,
-    #3B4048 0,#31363D 18%,#272B31 46%,#1D2126 74%,#14171B 100%);
-  box-shadow:0 calc(9 * var(--mm)) calc(16 * var(--mm)) calc(-5 * var(--mm)) rgba(0,0,0,.85);
-}
-/* Фаска торца: полированный срез по верхней кромке. Она не
-   ровная нитка — свет идёт слева, поэтому слева вспыхивает, а
-   к правому краю гаснет. Ровная нитка во всю ширину — первое,
-   что выдаёт рисунок. */
-.mbp-front::before{
-  content:'';position:absolute;left:0;right:0;top:0;
-  height:calc(.55 * var(--mm));
-  background:linear-gradient(90deg,
-    rgba(255,255,255,.12) 0,rgba(255,255,255,.5) 7%,
-    rgba(255,255,255,.36) 34%,rgba(255,255,255,.2) 62%,
-    rgba(255,255,255,.1) 86%,rgba(255,255,255,.03) 100%);
-}
-/* Выемка под палец: неглубокий вырез посреди торца. */
-.mbp-front::after{
-  content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);
-  width:calc(104 * var(--mm));height:calc(2.6 * var(--mm));
-  border-radius:0 0 calc(4 * var(--mm)) calc(4 * var(--mm));
-  background:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,0));
-}
-
-/* Левая щека. Ближе к зрителю левый бок, и на близкой камере
-   это уже не волосок, а заметная грань. Без неё корпус
-   читается листом, а не плитой. Высота у неё та же, что у
-   переднего торца, — 11,5 мм: это одна и та же плита. Свет идёт слева сверху —
-   грань его и ловит, поэтому она светлее переднего торца. */
-.mbp-side{
-  position:absolute;left:0;top:0;
-  width:calc(221.2 * var(--mm));height:calc(11.5 * var(--mm));
-  transform-origin:0 0;
-  transform:rotateZ(90deg) rotateX(-90deg);
-  background:linear-gradient(180deg,
-    #4A5058 0,#3E444B 24%,#31363D 60%,#23272C 100%);
-  box-shadow:inset 0 calc(.45 * var(--mm)) 0 rgba(255,255,255,.22);
 }
 
 
@@ -5636,6 +5393,9 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
     min-height:0;
     padding:clamp(.8rem,3vw,1.4rem) clamp(1.9rem,7vw,2.6rem) 1.2rem;
   }
+  /* раскрой под девять рамок держится только на двух
+     колонках — в одной он ни к чему */
+  .slide.wide-scene{grid-template-columns:1fr}
   /* сцена уходит под довод: на 390 пикселях два столбца
      превращаются в две узких колонки, и не читается ни один */
   .slide .scene{order:2}

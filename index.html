@@ -576,65 +576,35 @@
                   <b>Google Карты</b>
                 </span>
 
+                <!-- Ноутбук не нарисован разметкой, а взят кадром:
+                     официальная рамка MacBook Pro 14″ Silver из
+                     Apple Developer Resources. Вырез экрана в файле
+                     прозрачный, снимок страницы лежит под рамкой —
+                     поэтому кромка стекла остаётся аппаратной, а не
+                     подогнанной на глаз. Разбор в style.css, раздел
+                     «MacBook Pro 14″». -->
                 <div class="mbp-stage">
-                 <div class="mbp">
-
-                  <!-- крышка: алюминиевая створка, в ней чёрное
-                       стекло, в стекле экран со строкой меню,
-                       вырезом камеры и подбородком с надписью. -->
-                  <div class="mbp-lid">
-                    <span class="mbp-top"></span>
-                    <div class="mbp-glass">
-                      <div class="mbp-scr">
-                        <!-- Строка меню macOS: яблоко, имя программы,
-                             ряд меню, справа значки состояния и часы.
-                             Именно по ней экран опознаётся маком. -->
-                        <span class="mbp-menu" aria-hidden="true">
-                          <i class="apple"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.53c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.71-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.18-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.34-3.54zM14.88 5.99c.61-.74 1.02-1.77.91-2.79-.88.04-1.94.59-2.57 1.32-.56.65-1.05 1.7-.92 2.7.98.08 1.98-.5 2.58-1.23z"/></svg></i>
-                          <b>Safari</b><em>Файл</em><em>Правка</em><em>Вид</em><em>История</em><em>Закладки</em><em>Окно</em><em>Справка</em>
-                          <span class="sp"></span>
-                          <u class="bt"></u><u class="wf"></u><u class="sr"></u><u class="cc"></u>
-                          <time>14:32</time>
-                        </span>
-                        <img src="assets/shots/pervyy-ekran.webp" width="1600" height="1000"
-                             decoding="async"
-                             alt="Первый экран сайта на экране ноутбука: предложение, заголовок, кнопка и макет страницы клиники — всё в одном месте.">
-                        <span class="mbp-gloss"></span>
-                      </div>
+                  <div class="mbp">
+                    <div class="mbp-scr">
+                      <!-- Строка меню macOS: яблоко, имя программы,
+                           ряд меню, справа значки состояния и часы.
+                           Именно по ней экран опознаётся маком. -->
+                      <span class="mbp-menu" aria-hidden="true">
+                        <i class="apple"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.53c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.71-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.18-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.34-3.54zM14.88 5.99c.61-.74 1.02-1.77.91-2.79-.88.04-1.94.59-2.57 1.32-.56.65-1.05 1.7-.92 2.7.98.08 1.98-.5 2.58-1.23z"/></svg></i>
+                        <b>Safari</b><em>Файл</em><em>Правка</em><em>Вид</em><em>История</em><em>Закладки</em><em>Окно</em><em>Справка</em>
+                        <span class="sp"></span>
+                        <u class="bt"></u><u class="wf"></u><u class="sr"></u><u class="cc"></u>
+                        <time>14:32</time>
+                      </span>
+                      <img src="assets/shots/pervyy-ekran.webp" width="1600" height="1000"
+                           decoding="async"
+                           alt="Первый экран сайта на экране ноутбука: предложение, заголовок, кнопка и макет страницы клиники — всё в одном месте.">
                       <span class="mbp-notch"><i></i></span>
-                      <span class="mbp-word">MacBook Pro</span>
+                      <span class="mbp-gloss"></span>
                     </div>
+                    <img class="mbp-frame" src="assets/img/macbook-pro-14.webp"
+                         width="1600" height="966" decoding="async" alt="" aria-hidden="true">
                   </div>
-
-                  <!-- основание: плита 312,6 × 221,2 × 15,5 мм.
-                       Дека повёрнута от петли к зрителю, передний
-                       торец свешен с её края, правая щека —
-                       третья грань. Клавиатура, решётки и трекпад
-                       лежат на деке и в перспективу попадают сами. -->
-                  <div class="mbp-base">
-                    <span class="mbp-hinge"></span>
-                    <span class="mbp-cast"></span>
-                    <span class="mbp-grille l"></span>
-                    <span class="mbp-grille r"></span>
-                    <!-- Клавиатура настоящая: шесть рядов, 78 клавиш,
-                         шаг 19 мм и все нестандартные ширины (esc,
-                         delete, tab, caps, return, shift, command,
-                         пробел, стрелки). Ряд функций вполовину
-                         ниже остальных — как у аппарата. -->
-                    <span class="mbp-well">
-                        <span class="mbp-row r1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="mbp-row r2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="mbp-row r3"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="mbp-row r4"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="mbp-row r5"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="mbp-row r6"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="ar"></i><i></i></span>
-                    </span>
-                    <span class="mbp-pad"></span>
-                    <span class="mbp-front"></span>
-                    <span class="mbp-side"></span>
-                  </div>
-
-                 </div>
                 </div>
               </div>
             </div>
@@ -871,7 +841,7 @@
             </div>
           </article>
           <!-- 5 ------------------------------------------------ -->
-          <article class="slide" role="group" aria-roledescription="выгода"
+          <article class="slide wide-scene" role="group" aria-roledescription="выгода"
                    data-tab="Маркетинговая система">
             <div class="tx">
               <div class="eye"><span class="pic"><svg class="ill"><use href="#il-research"/></svg></span>Порядок разговора выбираете вы</div>
@@ -881,28 +851,95 @@
               <div class="kick">Всё, что вы хотите сказать потенциальному клиенту, находится здесь.</div>
             </div>
 
-            <!-- Иллюстрация — не снимок страницы, а её скелет: семь
-                 блоков в том порядке, в каком они идут у человека
-                 перед глазами. Показывать тут готовый дизайн нельзя:
-                 довод не про красоту, а про то, что порядок собран
-                 вами. Последний блок подсвечен — разговор всегда
-                 заканчивается одним и тем же. Разбор в style.css,
-                 раздел «скелет разговора». -->
+            <!-- Иллюстрация — не снимок страницы, а перечень
+                 приёмов, из которых она собрана: девять рамок,
+                 девять решений, принятых за человека заранее.
+                 Показывать тут готовый дизайн нельзя: довод не про
+                 красоту, а про то, что порядок собран вами и каждый
+                 экран что-то делает.
+
+                 Рамки набраны по светлому — слоновая кость и
+                 бронзовый контур: это выписка из системы, лист
+                 бумаги внутри тёмного разворота, и он обязан
+                 выглядеть листом. Контур и номер шага залиты тем же
+                 металлом, что цифры в разделе «Как это делается», —
+                 одна деталь в двух местах читается одной системой.
+                 Разбор в style.css, раздел «девять приёмов». -->
             <div class="scene">
-              <div class="win">
-                <div class="bar"><i></i><i></i><i></i><span class="url">am-dc.ru</span></div>
-                <div class="sc">
-                  <ol class="sys">
-                    <li><b>Предложение и цена</b><span>С чего человек начинает читать</span></li>
-                    <li><b>Четырнадцать направлений</b><span>Он находит своё, а не общий список</span></li>
-                    <li><b>Врачи с фамилией и стажем</b><span>Выбирает человека, а не кабинет</span></li>
-                    <li><b>Лицензия и оборудование</b><span>Проверяет, что это всерьёз</span></li>
-                    <li><b>Отзывы за двадцать четыре года</b><span>Убеждается, что не он первый</span></li>
-                    <li><b>Маршрут от метро и часы</b><span>Понимает, что дойдёт</span></li>
-                    <li class="end"><b>Кнопка записи</b><span>Чем всё заканчивается</span></li>
-                  </ol>
-                </div>
-              </div>
+              <ol class="mkt">
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-decide"/></svg></span>
+                    <span class="mkt-n">Шаг 01</span>
+                  </div>
+                  <b>Вызвать доверие</b>
+                  <span>Лицензия, двадцать четыре года и фамилии врачей стоят выше цены. Человек сначала решает, можно ли вам верить, и только потом смотрит, сколько это стоит.</span>
+                </li>
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-mega"/></svg></span>
+                    <span class="mkt-n">Шаг 02</span>
+                  </div>
+                  <b>Дать нестрессовый CTA</b>
+                  <span>Первая кнопка не «оставьте заявку», а «посмотреть цены». Она ни к чему не обязывает — и её нажимают те, кто до формы ещё не дозрел.</span>
+                </li>
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-price"/></svg></span>
+                    <span class="mkt-n">Шаг 03</span>
+                  </div>
+                  <b>Снять вопрос цены</b>
+                  <span>Прайс открыт до звонка: от и до, за что именно. Спрятанная цена читается как «дороже, чем вы думаете», и человек идёт считать к соседям.</span>
+                </li>
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-doctor"/></svg></span>
+                    <span class="mkt-n">Шаг 04</span>
+                  </div>
+                  <b>Дать выбрать врача</b>
+                  <span>Фотография, стаж, часы приёма. Выбор сделан дома и спокойно — такую запись не отменяют по дороге.</span>
+                </li>
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-launch"/></svg></span>
+                    <span class="mkt-n">Шаг 05</span>
+                  </div>
+                  <b>Ответить на «дойду ли»</b>
+                  <span>Маршрут от метро, вход со двора, часы и парковка. Дорога — последнее возражение, и снимается оно картинкой, а не адресом строкой.</span>
+                </li>
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-stars"/></svg></span>
+                    <span class="mkt-n">Шаг 06</span>
+                  </div>
+                  <b>Подтвердить чужими словами</b>
+                  <span>Отзывы с датами стоят рядом с тем направлением, о котором речь. Человек убеждается, что он не первый, ровно там, где сомневается.</span>
+                </li>
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-map"/></svg></span>
+                    <span class="mkt-n">Шаг 07</span>
+                  </div>
+                  <b>Показать, что будет дальше</b>
+                  <span>Кто перезвонит, когда и о чём спросит — написано до нажатия кнопки. Неизвестность пугает сильнее цены.</span>
+                </li>
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-call"/></svg></span>
+                    <span class="mkt-n">Шаг 08</span>
+                  </div>
+                  <b>Оставить запасной путь</b>
+                  <span>WhatsApp, телеграм и телефон рядом с формой. Кто не пишет в форму — пишет в мессенджер, кто не пишет вовсе — звонит.</span>
+                </li>
+                <li>
+                  <div class="mkt-h">
+                    <span class="mkt-pic"><svg class="ill" aria-hidden="true"><use href="#il-research"/></svg></span>
+                    <span class="mkt-n">Шаг 09</span>
+                  </div>
+                  <b>Посчитать результат</b>
+                  <span>Каждое нажатие «Записаться» — цель в Метрике. Видно, сколько человек дошло до заявки и с какой страницы, а не «сайт вроде работает».</span>
+                </li>
+              </ol>
             </div>
           </article>
 
