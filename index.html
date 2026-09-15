@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916h">
-<link rel="stylesheet" href="assets/style.css?v=20260916h">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916i">
+<link rel="stylesheet" href="assets/style.css?v=20260916i">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916h">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916i">
 </head>
 <body>
 
@@ -519,9 +519,15 @@
 
             <!-- Довод нарисован буквально: сверху три чужие карточки
                  с крестиком, снизу свой сайт на ноутбуке с галочкой.
-                 Первый экран внутри ноутбука — тот же самый, что в
-                 шапке страницы, в семь десятых величины. Разбор
-                 в style.css, раздел «справочники против своего сайта». -->
+                 Логотипы переведены в один цвет и одну технику —
+                 неоновая трубка контуром, заливка светом с него.
+
+                 На экране ноутбука настоящий снимок первого экрана
+                 этой же страницы (assets/shots/pervyy-ekran.webp),
+                 а не перерисовка: пересняли — заменили файл.
+
+                 Разбор в style.css, раздел «справочники против
+                 своего сайта». -->
             <div class="scene cmp-stage">
               <div class="cmp">
 
@@ -536,16 +542,12 @@
                       <b>Яндекс Карты</b>
                     </span>
                     <span class="cmp-app">
-                      <span class="cmp-tile gm">
+                      <span class="cmp-tile">
                         <svg viewBox="0 0 104 104" aria-hidden="true">
-                          <rect width="104" height="104" fill="#F4F2EC"/>
-                          <rect x="60" y="0" width="44" height="34" fill="#CFE6CD"/>
-                          <rect x="0" y="74" width="34" height="30" fill="#CFE6CD"/>
-                          <path d="M-4 24Q26 40 34 74 38 92 46 108" fill="none" stroke="#A9D2F3" stroke-width="11"/>
-                          <path d="M-4 60 44 24 108 68" fill="none" stroke="#FFFFFF" stroke-width="10"/>
-                          <path d="M-4 60 44 24 108 68" fill="none" stroke="#F6C244" stroke-width="5"/>
-                          <path d="M52 27c-9.6 0-17.4 7.6-17.4 17 0 12.4 17.4 28.4 17.4 28.4S69.4 56.4 69.4 44c0-9.4-7.8-17-17.4-17z" fill="#E8453C"/>
-                          <circle cx="52" cy="43.6" r="6.3" fill="#fff"/>
+                          <path class="ln thin" d="M8 74 38 50"/>
+                          <path class="ln thin" d="M66 50 96 74"/>
+                          <path class="sh" d="M52 18c-11.6 0-21 9.1-21 20.3 0 15.1 21 34.7 21 34.7s21-19.6 21-34.7C73 27.1 63.6 18 52 18z"/>
+                          <circle class="sh" cx="52" cy="37.8" r="7.4"/>
                         </svg>
                       </span>
                       <b>Google Карты</b>
@@ -557,33 +559,13 @@
                 </div>
 
                 <div class="cmp-row">
-                  <div class="cmp-mac" role="img"
-                       aria-label="Ноутбук с первым экраном сайта клиники: лицензия, четырнадцать направлений, цены и кнопка записи на одной странице.">
+                  <div class="cmp-mac">
                     <div class="mac-lid">
-                      <div class="mac-scr" aria-hidden="true">
-                        <div class="mp">
-                          <div class="mp-bar"><i></i><i></i><i></i><span>am-dc.ru</span></div>
-                          <div class="mp-nav">
-                            <span class="mp-logo"><i></i>АМДЦ</span>
-                            <span class="mp-menu">
-                              <i style="width:calc(15 * var(--k))"></i>
-                              <i style="width:calc(11 * var(--k))"></i>
-                              <i style="width:calc(18 * var(--k))"></i>
-                              <i style="width:calc(12 * var(--k))"></i>
-                            </span>
-                            <span class="mp-btn">Записаться</span>
-                          </div>
-                          <div class="mp-hero">
-                            <div class="mp-eye">Медцентр с 2002 года · Выборгский район</div>
-                            <div class="mp-h">Приём без очереди у метро Площадь Мужества</div>
-                            <div class="mp-sub">Урология, гинекология, проктология, стоматология, косметология и лаборатория — 14 направлений в одном центре.</div>
-                            <div class="mp-cta"><span class="b">Записаться на приём</span><span class="t">+7 812 943-84-86</span></div>
-                          </div>
-                          <div class="mp-cards">
-                            <div><span class="n">Приём уролога</span><span class="p">от 300 ₽</span><i class="l" style="width:70%"></i></div>
-                            <div><span class="n">Лечение кариеса</span><span class="p">от 5 000 ₽</span><i class="l" style="width:55%"></i></div>
-                            <div><span class="n">Анализы</span><span class="p">от 220 ₽</span><i class="l" style="width:80%"></i></div>
-                          </div>
+                      <div class="mac-glass">
+                        <div class="mac-scr">
+                          <img src="assets/shots/pervyy-ekran.webp" width="1600" height="1000"
+                               decoding="async"
+                               alt="Первый экран сайта на экране ноутбука: предложение, заголовок, кнопка и макет страницы клиники — всё в одном месте.">
                         </div>
                       </div>
                     </div>
@@ -1161,7 +1143,7 @@
       <figure class="site">
         <div class="win">
           <div class="bar"><i></i><i></i><i></i><span class="url">clinic-amrita.ru</span></div>
-          <img src="assets/shots/amrita.webp" width="1120" height="875" loading="lazy" decoding="async"
+          <img src="assets/shots/amrita.webp" width="1120" height="875" decoding="async"
                alt="Первый экран сайта клиники «Амрита»: телефоны, кнопка «Записаться на приём», меню с врачами, отзывами, услугами и ценами">
         </div>
         <figcaption>
@@ -1180,7 +1162,7 @@
       <figure class="site">
         <div class="win">
           <div class="bar"><i></i><i></i><i></i><span class="url">moyzubnoy.ru</span></div>
-          <img src="assets/shots/zubnoy.webp" width="1120" height="875" loading="lazy" decoding="async"
+          <img src="assets/shots/zubnoy.webp" width="1120" height="875" decoding="async"
                alt="Страница стоматологии «Мой Зубной» на улице Орбели, 17: адрес, часы, телефон, маршрут от метро, врачи и отзывы, кнопки «Цены» и «Записаться»">
         </div>
         <figcaption>
@@ -1845,7 +1827,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916h"></script>
+<script src="assets/mobile.js?v=20260916i"></script>
 
 </body>
 </html>

@@ -4732,211 +4732,210 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   align-items:center;column-gap:calc(22 * var(--k));
 }
 
-.cmp-mark{
-  width:calc(58 * var(--k));height:calc(58 * var(--k));
-  border-radius:50%;display:grid;place-items:center;
-  box-shadow:
-    inset 0 calc(1.4 * var(--k)) 0 rgba(255,255,255,.45),
-    inset 0 calc(-2 * var(--k)) calc(4 * var(--k)) rgba(0,0,0,.22),
-    0 calc(10 * var(--k)) calc(22 * var(--k)) calc(-8 * var(--k)) rgba(0,0,0,.6);
-}
-.cmp-mark.no{
-  background:radial-gradient(118% 118% at 30% 20%,#E08774 0,#C9533C 48%,#8F3624 100%);
-}
-.cmp-mark.ok{
-  background:radial-gradient(118% 118% at 30% 20%,#8AE6C9 0,#33B892 48%,#136F57 100%);
-}
-.cmp-mark svg{
-  display:block;width:calc(27 * var(--k));height:calc(27 * var(--k));
-  fill:none;stroke:#fff;stroke-width:3.2;
-  stroke-linecap:round;stroke-linejoin:round;
-}
-
-/* ---- три чужие карточки --------------------------------- */
+/* ---- неоновые карточки справочников ----------------------
+   Логотипы переведены в один цвет и в одну технику: контур
+   неоновой трубкой, заливка — свет, падающий с этого контура
+   внутрь. Поэтому у плиток нет своего фона, только свечение:
+   у настоящей неоновой вывески светится трубка, а не щит.
+   -------------------------------------------------------- */
 .cmp-apps{
   display:flex;justify-content:center;gap:calc(19 * var(--k));
 }
 .cmp-app{
   display:flex;flex-direction:column;align-items:center;
-  gap:calc(9 * var(--k));
+  gap:calc(11 * var(--k));color:var(--neon);
 }
 .cmp-tile{
-  position:relative;overflow:hidden;
+  --neon:#FF2B45;
+  position:relative;
   width:calc(104 * var(--k));height:calc(104 * var(--k));
   border-radius:calc(24 * var(--k));
   display:grid;place-items:center;
+  border:calc(2 * var(--k)) solid var(--neon);
+  background:radial-gradient(112% 112% at 50% 50%,
+    rgba(255,43,69,.02) 0,rgba(255,43,69,.09) 62%,rgba(255,43,69,.2) 100%);
   box-shadow:
-    0 calc(16 * var(--k)) calc(28 * var(--k)) calc(-12 * var(--k)) rgba(0,0,0,.6),
-    inset 0 0 0 calc(1 * var(--k)) rgba(255,255,255,.14);
+    0 0 calc(9 * var(--k)) rgba(255,43,69,.9),
+    0 0 calc(26 * var(--k)) rgba(255,43,69,.5),
+    0 0 calc(56 * var(--k)) rgba(255,43,69,.22),
+    inset 0 0 calc(16 * var(--k)) rgba(255,43,69,.5),
+    inset 0 0 calc(3 * var(--k)) rgba(255,196,204,.75);
 }
-.cmp-tile svg{display:block;width:100%;height:100%}
-.cmp-tile.gis{
-  background:linear-gradient(170deg,#2FCC36,#149A1A);
-  color:#fff;font:800 calc(23 * var(--k))/1 var(--sans);letter-spacing:.01em;
-}
+/* Буквенные знаки: трубка — обводка, внутри тот же падающий
+   свет, что и у плитки. */
+.cmp-tile.gis,
 .cmp-tile.ya{
-  background:linear-gradient(170deg,#FFFFFF,#EFEFF2);
-  color:#FC3F1D;font:700 calc(54 * var(--k))/1 var(--sans);
+  color:rgba(255,43,69,.16);
+  -webkit-text-stroke:calc(1.5 * var(--k)) #FF4257;
+  text-shadow:
+    0 0 calc(5 * var(--k)) rgba(255,43,69,.95),
+    0 0 calc(15 * var(--k)) rgba(255,43,69,.6);
 }
+.cmp-tile.gis{font:800 calc(23 * var(--k))/1 var(--sans);letter-spacing:.01em}
+.cmp-tile.ya{font:700 calc(54 * var(--k))/1 var(--sans)}
+.cmp-tile svg{
+  display:block;width:100%;height:100%;
+  filter:drop-shadow(0 0 calc(4 * var(--k)) rgba(255,43,69,.9))
+         drop-shadow(0 0 calc(12 * var(--k)) rgba(255,43,69,.45));
+}
+.cmp-tile .ln{fill:none;stroke:#FF4257;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.cmp-tile .ln.thin{stroke-width:2.6;opacity:.55}
+.cmp-tile .sh{fill:rgba(255,43,69,.16);stroke:#FF4257;stroke-width:3.4;stroke-linejoin:round}
 .cmp-app b{
   font:500 calc(11 * var(--k))/1 var(--mono);
-  letter-spacing:.04em;color:var(--t3);
+  letter-spacing:.04em;color:rgba(255,116,134,.82);
+  text-shadow:0 0 calc(9 * var(--k)) rgba(255,43,69,.45);
 }
 
-/* ---- ноутбук -------------------------------------------- */
-/* Пропорции взяты у тринадцатидюймового: корпус 304 × 212 мм,
-   экран 286 × 179. Поэтому рамка по бокам узкая, а снизу
-   широкая — на глаз этот перепад и опознаётся как макбук. */
+/* ---- отметки: светятся и сияют --------------------------- */
+.cmp-mark{
+  position:relative;
+  width:calc(58 * var(--k));height:calc(58 * var(--k));
+  border-radius:50%;display:grid;place-items:center;
+}
+/* ореол вокруг отметки — отдельным слоем, чтобы он ложился
+   мягче, чем это умеет box-shadow */
+.cmp-mark::before{
+  content:'';position:absolute;z-index:-1;
+  inset:calc(-34 * var(--k));border-radius:50%;
+  background:radial-gradient(50% 50% at 50% 50%,
+    var(--halo) 0,transparent 70%);
+}
+.cmp-mark.no{
+  --halo:rgba(255,43,69,.42);
+  background:radial-gradient(110% 110% at 34% 26%,#FF93A3 0,#FF2B45 46%,#A80D26 100%);
+  box-shadow:
+    0 0 calc(14 * var(--k)) rgba(255,43,69,.95),
+    0 0 calc(40 * var(--k)) rgba(255,43,69,.55),
+    inset 0 calc(1.6 * var(--k)) 0 rgba(255,255,255,.55),
+    inset 0 calc(-2 * var(--k)) calc(5 * var(--k)) rgba(110,0,16,.45);
+}
+.cmp-mark.ok{
+  --halo:rgba(43,230,166,.4);
+  background:radial-gradient(110% 110% at 34% 26%,#B6FFE6 0,#2BE6A6 46%,#0A8763 100%);
+  box-shadow:
+    0 0 calc(14 * var(--k)) rgba(43,230,166,.9),
+    0 0 calc(40 * var(--k)) rgba(43,230,166,.5),
+    inset 0 calc(1.6 * var(--k)) 0 rgba(255,255,255,.6),
+    inset 0 calc(-2 * var(--k)) calc(5 * var(--k)) rgba(0,80,58,.45);
+}
+.cmp-mark svg{
+  display:block;width:calc(27 * var(--k));height:calc(27 * var(--k));
+  fill:none;stroke:#fff;stroke-width:3.2;
+  stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 calc(3 * var(--k)) rgba(255,255,255,.95));
+}
+
+/* ---- ноутбук ---------------------------------------------
+   Собран по тем же правилам, что и телефоны: размеры взяты у
+   аппарата и заданы в долях его ширины. MacBook Air 13″ —
+   корпус 304,1 × 212,4 мм, экран 286,4 × 179,0 мм. Отсюда
+   рамка 8,85 мм по бокам, 10 мм сверху и 23,4 мм снизу: на
+   глаз именно этот перепад и опознаётся как макбук.
+
+   Лицом к зрителю алюминия видно всего около двух миллиметров
+   — дальше идёт чёрное стекло дисплея. Раньше рамка была
+   алюминиевой целиком, и от этого вся вещь читалась рисунком.
+   -------------------------------------------------------- */
 .cmp-mac{
   position:relative;width:calc(390 * var(--k));margin:0 auto;
   transform:
-    perspective(calc(1900 * var(--k)))
-    rotateX(6deg) rotateY(-13deg) rotateZ(-1deg);
-  transform-origin:56% 60%;
+    perspective(calc(2100 * var(--k)))
+    rotateX(5deg) rotateY(-12deg) rotateZ(-.8deg);
+  transform-origin:54% 62%;
+}
+/* тень на стол */
+.cmp-mac::after{
+  content:'';position:absolute;z-index:-1;
+  left:2%;right:2%;bottom:calc(-20 * var(--k));height:calc(40 * var(--k));
+  border-radius:50%;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.85),transparent 70%);
 }
 .mac-lid{
   position:relative;
-  padding:calc(10 * var(--k)) calc(9.5 * var(--k)) calc(25 * var(--k));
-  border-radius:calc(16 * var(--k));
-  background:linear-gradient(148deg,#7A8087,#3E434A 20%,#2A2E34 58%,#4A4F57);
+  padding:calc(2.6 * var(--k));
+  border-radius:calc(15 * var(--k));
+  background:
+    linear-gradient(166deg,
+      rgba(255,255,255,.20) 0,rgba(255,255,255,0) 26%,
+      rgba(0,0,0,.26) 76%,rgba(0,0,0,.42) 100%),
+    linear-gradient(90deg,
+      #C2C8D0 0,#767D85 .22%,#464C53 .46%,#343940 .68%,
+      #2F343A 50%,
+      #343940 99.32%,#464C53 99.54%,#767D85 99.78%,#C2C8D0 100%);
   box-shadow:
-    0 calc(34 * var(--k)) calc(54 * var(--k)) calc(-24 * var(--k)) rgba(0,0,0,.9),
-    inset 0 0 0 calc(1 * var(--k)) rgba(255,255,255,.22);
+    0 calc(34 * var(--k)) calc(56 * var(--k)) calc(-26 * var(--k)) rgba(0,0,0,.9),
+    0 calc(4 * var(--k)) calc(10 * var(--k)) calc(-3 * var(--k)) rgba(0,0,0,.6);
 }
-/* глазок камеры в верхней рамке */
+/* полированная кромка: яркость гуляет по периметру */
 .mac-lid::before{
-  content:'';position:absolute;left:50%;top:calc(4.4 * var(--k));
+  content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  border-radius:inherit;padding:calc(.9 * var(--k));
+  background:linear-gradient(142deg,
+    rgba(255,255,255,.72) 0,rgba(255,255,255,.16) 14%,
+    rgba(255,255,255,.04) 30%,rgba(255,255,255,.36) 48%,
+    rgba(255,255,255,.05) 64%,rgba(255,255,255,.2) 82%,
+    rgba(255,255,255,.62) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask-composite:exclude;
+}
+/* чёрное стекло дисплея с рамками */
+.mac-glass{
+  position:relative;
+  padding:calc(10.2 * var(--k)) calc(8.75 * var(--k)) calc(27.4 * var(--k));
+  border-radius:calc(12.6 * var(--k));
+  background:linear-gradient(162deg,#111317,#050506 42%,#050506 76%,#0C0E11);
+  box-shadow:inset 0 0 0 calc(.6 * var(--k)) rgba(255,255,255,.05);
+}
+/* глазок камеры */
+.mac-glass::before{
+  content:'';position:absolute;left:50%;top:calc(4.6 * var(--k));
   transform:translateX(-50%);
   width:calc(3 * var(--k));height:calc(3 * var(--k));
-  border-radius:50%;background:rgba(160,170,185,.4);
+  border-radius:50%;background:rgba(150,162,178,.35);
 }
 .mac-scr{
   position:relative;overflow:hidden;
-  height:calc(232 * var(--k));
-  border-radius:calc(3 * var(--k));
-  background:#fff;
-  box-shadow:inset 0 0 calc(3 * var(--k)) rgba(0,0,0,.5);
+  height:calc(229.6 * var(--k));
+  border-radius:calc(1.6 * var(--k));
+  background:#0B0710;
 }
-/* Клавиатурная часть: к ней и сводится весь объём. Спереди она
-   шире крышки, потому что смотрим чуть сверху. */
+.mac-scr img{display:block;width:100%;height:100%;object-fit:cover}
+/* блик на стекле и затемнение к краям */
+.mac-scr::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(118deg,
+      rgba(255,255,255,.11) 0,rgba(255,255,255,.03) 17%,
+      transparent 34%,transparent 100%),
+    radial-gradient(120% 120% at 50% 50%,transparent 62%,rgba(0,0,0,.28) 100%);
+}
+/* Клавиатурная часть. Видно её почти с торца, поэтому
+   клавиатура — не клавиши, а тёмная полоса: с такого угла
+   на снимке от неё ровно это и остаётся. */
 .mac-base{
-  position:relative;height:calc(11.5 * var(--k));
-  width:calc(412 * var(--k));margin-left:calc(-11 * var(--k));
-  background:linear-gradient(180deg,#7C828A 0,#4C5158 34%,#33373D 76%,#5A606A 100%);
-  clip-path:polygon(2.4% 0,97.6% 0,100% 100%,0 100%);
-  border-radius:0 0 calc(7 * var(--k)) calc(7 * var(--k));
-  box-shadow:0 calc(20 * var(--k)) calc(34 * var(--k)) calc(-14 * var(--k)) rgba(0,0,0,.85);
+  position:relative;height:calc(20 * var(--k));
+  width:calc(406 * var(--k));margin-left:calc(-8 * var(--k));
+  clip-path:polygon(2.6% 0,97.4% 0,100% 100%,0 100%);
+  border-radius:0 0 calc(8 * var(--k)) calc(8 * var(--k));
+  background:linear-gradient(180deg,
+    #08090A 0,#141619 7%,
+    #23272C 16%,#1E2126 30%,
+    #4E545B 42%,#5E656D 56%,
+    #474D54 74%,#33383E 88%,
+    #8D949C 94%,#5A6068 98%,#2E3238 100%);
+  box-shadow:0 calc(22 * var(--k)) calc(36 * var(--k)) calc(-14 * var(--k)) rgba(0,0,0,.9);
 }
-/* выемка под палец: без неё низ читается просто планкой */
+/* выемка под палец на переднем торце */
 .mac-base::after{
-  content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);
-  width:calc(88 * var(--k));height:calc(4 * var(--k));
-  border-radius:0 0 calc(7 * var(--k)) calc(7 * var(--k));
-  background:rgba(0,0,0,.45);
-}
-/* тень на стол: без неё ноутбук висит в воздухе */
-.cmp-mac::after{
-  content:'';position:absolute;z-index:-1;
-  left:6%;right:6%;bottom:calc(-14 * var(--k));height:calc(26 * var(--k));
-  border-radius:50%;
-  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.6),transparent 72%);
+  content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:calc(92 * var(--k));height:calc(5.5 * var(--k));
+  border-radius:calc(9 * var(--k)) calc(9 * var(--k)) 0 0;
+  background:linear-gradient(180deg,rgba(0,0,0,.62),rgba(0,0,0,.28));
 }
 
-/* ---- первый экран сайта внутри ноутбука ------------------
-   Тот же самый, что в шапке страницы, только в семь десятых
-   величины: и текст, и отбивки, и кегли поделены на одно
-   число, поэтому строки ложатся ровно так же. -------------- */
-.mp{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  background:var(--paper-3);
-}
-.mp-bar{
-  display:flex;align-items:center;gap:calc(4.5 * var(--k));
-  padding:calc(6 * var(--k)) calc(9 * var(--k));
-  background:linear-gradient(180deg,#E9E2D4,#DED6C5);
-  border-bottom:1px solid rgba(18,22,26,.1);
-}
-.mp-bar > i{
-  width:calc(5.5 * var(--k));height:calc(5.5 * var(--k));
-  border-radius:50%;flex:none;background:rgba(18,22,26,.16);
-}
-.mp-bar > span{
-  margin-left:calc(7 * var(--k));
-  padding:calc(2 * var(--k)) calc(7 * var(--k));
-  background:rgba(255,255,255,.72);border-radius:calc(20 * var(--k));
-  border:1px solid rgba(18,22,26,.07);
-  font:400 calc(6.4 * var(--k))/1.5 var(--mono);color:#6A727C;
-}
-.mp-nav{
-  display:flex;align-items:center;gap:calc(7 * var(--k));
-  padding:calc(6.5 * var(--k)) calc(9.5 * var(--k));
-  background:#fff;border-bottom:1px solid rgba(18,22,26,.08);
-}
-.mp-logo{
-  display:flex;align-items:center;gap:calc(4 * var(--k));margin-right:auto;
-  font:700 calc(7.3 * var(--k))/1 var(--sans);color:#12161A;letter-spacing:.02em;
-}
-.mp-logo > i{
-  width:calc(9 * var(--k));height:calc(9 * var(--k));flex:none;
-  border-radius:calc(2 * var(--k));background:#0B1226;
-}
-.mp-menu{display:flex;gap:calc(4.6 * var(--k))}
-.mp-menu > i{
-  height:calc(2.2 * var(--k));border-radius:calc(2 * var(--k));
-  background:rgba(18,22,26,.16);
-}
-.mp-btn{
-  padding:calc(3.4 * var(--k)) calc(6.6 * var(--k));
-  border-radius:calc(2.2 * var(--k));
-  background:linear-gradient(180deg,var(--au-hi),var(--au));
-  font:700 calc(6.4 * var(--k))/1 var(--sans);color:#140F05;
-}
-.mp-hero{
-  padding:calc(10.5 * var(--k));
-  background:linear-gradient(160deg,#101A33,#0B1226);
-}
-.mp-eye{
-  font:500 calc(5.7 * var(--k))/1 var(--mono);letter-spacing:.14em;
-  text-transform:uppercase;color:#9FB4D8;margin-bottom:calc(4.6 * var(--k));
-}
-.mp-h{
-  font:600 calc(10.6 * var(--k))/1.24 var(--serif);color:#F4F1E9;
-  margin-bottom:calc(3.8 * var(--k));
-}
-.mp-sub{font:400 calc(6.4 * var(--k))/1.45 var(--sans);color:#AEBACE}
-.mp-cta{
-  display:flex;align-items:center;gap:calc(6.6 * var(--k));
-  margin-top:calc(8 * var(--k));
-}
-.mp-cta .b{
-  padding:calc(4.6 * var(--k)) calc(7.7 * var(--k));
-  border-radius:calc(2.2 * var(--k));
-  background:linear-gradient(180deg,var(--au-hi),var(--au));
-  font:700 calc(6.6 * var(--k))/1 var(--sans);color:#140F05;
-}
-.mp-cta .t{font:500 calc(6.6 * var(--k))/1 var(--mono);color:#C6D2E6}
-.mp-cards{
-  flex:1;align-content:start;
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:calc(5.5 * var(--k));
-  padding:calc(7.7 * var(--k));background:var(--paper-3);
-}
-.mp-cards > div{
-  padding:calc(6 * var(--k));border-radius:calc(3 * var(--k));
-  background:#fff;border:1px solid rgba(18,22,26,.08);
-}
-.mp-cards .n{
-  display:block;font:600 calc(6.4 * var(--k))/1.3 var(--sans);color:#12161A;
-}
-.mp-cards .p{
-  display:block;margin-top:calc(2 * var(--k));
-  font:600 calc(6.4 * var(--k))/1.3 var(--mono);color:var(--au-ink);
-  font-variant-numeric:tabular-nums;
-}
-.mp-cards .l{
-  display:block;height:calc(2.2 * var(--k));border-radius:calc(2 * var(--k));
-  margin-top:calc(4.6 * var(--k));background:rgba(18,22,26,.1);
-}
 
 /* ---- шевроны у самых краёв ------------------------------
    Прижаты не к колонке текста, а к краю окна: (100vw − ширина
