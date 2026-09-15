@@ -4729,101 +4729,114 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    встают друг под другом сами, без подгонки по месту. */
 .cmp-row{
   display:grid;grid-template-columns:minmax(0,1fr) auto;
-  align-items:center;column-gap:calc(22 * var(--k));
+  align-items:center;column-gap:calc(36 * var(--k));
 }
 
 /* ---- неоновые карточки справочников ----------------------
-   Логотипы переведены в один цвет и в одну технику: контур
-   неоновой трубкой, заливка — свет, падающий с этого контура
-   внутрь. Поэтому у плиток нет своего фона, только свечение:
-   у настоящей неоновой вывески светится трубка, а не щит.
+   Логотипы в один цвет и одну технику: контур — трубка,
+   заливка — лёгкий свет с неё внутрь. Наружу не светит
+   ничего: три горящих пятна рядом с ноутбуком перетягивали
+   на себя весь разворот, а спорить тут должен довод, а не
+   подсветка. Цвет взят от фона полосы, чтобы карточки
+   читались частью сцены, а не вывеской поверх неё.
    -------------------------------------------------------- */
 .cmp-apps{
   display:flex;justify-content:center;gap:calc(19 * var(--k));
 }
 .cmp-app{
   display:flex;flex-direction:column;align-items:center;
-  gap:calc(11 * var(--k));color:var(--neon);
+  gap:calc(11 * var(--k));
 }
 .cmp-tile{
-  --neon:#FF2B45;
+  --neon:#B47BEA;
+  --neon-hi:#D4B2FA;
   position:relative;
   width:calc(104 * var(--k));height:calc(104 * var(--k));
   border-radius:calc(24 * var(--k));
   display:grid;place-items:center;
-  border:calc(2 * var(--k)) solid var(--neon);
+  border:calc(1.6 * var(--k)) solid var(--neon);
   background:radial-gradient(112% 112% at 50% 50%,
-    rgba(255,43,69,.02) 0,rgba(255,43,69,.09) 62%,rgba(255,43,69,.2) 100%);
+    rgba(180,123,234,.015) 0,rgba(180,123,234,.06) 58%,rgba(180,123,234,.17) 100%);
   box-shadow:
-    0 0 calc(9 * var(--k)) rgba(255,43,69,.9),
-    0 0 calc(26 * var(--k)) rgba(255,43,69,.5),
-    0 0 calc(56 * var(--k)) rgba(255,43,69,.22),
-    inset 0 0 calc(16 * var(--k)) rgba(255,43,69,.5),
-    inset 0 0 calc(3 * var(--k)) rgba(255,196,204,.75);
+    inset 0 0 calc(15 * var(--k)) rgba(180,123,234,.3),
+    inset 0 0 calc(2.5 * var(--k)) rgba(212,178,250,.45);
 }
-/* Буквенные знаки: трубка — обводка, внутри тот же падающий
-   свет, что и у плитки. */
+/* Буквенные знаки: трубка — обводка, внутри тот же лёгкий
+   свет, что заливает плитку. */
 .cmp-tile.gis,
 .cmp-tile.ya{
-  color:rgba(255,43,69,.16);
-  -webkit-text-stroke:calc(1.5 * var(--k)) #FF4257;
-  text-shadow:
-    0 0 calc(5 * var(--k)) rgba(255,43,69,.95),
-    0 0 calc(15 * var(--k)) rgba(255,43,69,.6);
+  color:rgba(180,123,234,.17);
+  -webkit-text-stroke:calc(1.4 * var(--k)) var(--neon-hi);
 }
 .cmp-tile.gis{font:800 calc(23 * var(--k))/1 var(--sans);letter-spacing:.01em}
 .cmp-tile.ya{font:700 calc(54 * var(--k))/1 var(--sans)}
-.cmp-tile svg{
-  display:block;width:100%;height:100%;
-  filter:drop-shadow(0 0 calc(4 * var(--k)) rgba(255,43,69,.9))
-         drop-shadow(0 0 calc(12 * var(--k)) rgba(255,43,69,.45));
+.cmp-tile svg{display:block;width:100%;height:100%}
+.cmp-tile .ln{
+  fill:none;stroke:#D4B2FA;stroke-width:3.2;
+  stroke-linecap:round;stroke-linejoin:round;
 }
-.cmp-tile .ln{fill:none;stroke:#FF4257;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
-.cmp-tile .ln.thin{stroke-width:2.6;opacity:.55}
-.cmp-tile .sh{fill:rgba(255,43,69,.16);stroke:#FF4257;stroke-width:3.4;stroke-linejoin:round}
+.cmp-tile .ln.thin{stroke-width:2.4;opacity:.5}
+.cmp-tile .sh{
+  fill:rgba(180,123,234,.15);stroke:#D4B2FA;stroke-width:3.2;
+  stroke-linejoin:round;
+}
 .cmp-app b{
   font:500 calc(11 * var(--k))/1 var(--mono);
-  letter-spacing:.04em;color:rgba(255,116,134,.82);
-  text-shadow:0 0 calc(9 * var(--k)) rgba(255,43,69,.45);
+  letter-spacing:.04em;color:rgba(186,142,232,.78);
 }
 
-/* ---- отметки: светятся и сияют --------------------------- */
+/* ---- отметки --------------------------------------------
+   Эмаль и волосяная бронзовая кромка, а не неон: дорого
+   выглядит сдержанное. Поэтому свечения почти нет — только
+   мягкий цветной подсвет под диском, один блик сверху и
+   тень снизу. Всё остальное сделал бы их ярмарочными.
+   -------------------------------------------------------- */
 .cmp-mark{
   position:relative;
-  width:calc(58 * var(--k));height:calc(58 * var(--k));
+  width:calc(56 * var(--k));height:calc(56 * var(--k));
   border-radius:50%;display:grid;place-items:center;
 }
-/* ореол вокруг отметки — отдельным слоем, чтобы он ложился
-   мягче, чем это умеет box-shadow */
-.cmp-mark::before{
-  content:'';position:absolute;z-index:-1;
-  inset:calc(-34 * var(--k));border-radius:50%;
-  background:radial-gradient(50% 50% at 50% 50%,
-    var(--halo) 0,transparent 70%);
-}
 .cmp-mark.no{
-  --halo:rgba(255,43,69,.42);
-  background:radial-gradient(110% 110% at 34% 26%,#FF93A3 0,#FF2B45 46%,#A80D26 100%);
+  --amb:rgba(158,51,32,.3);
+  background:
+    radial-gradient(74% 58% at 50% 6%,rgba(255,236,228,.3) 0,transparent 60%),
+    linear-gradient(176deg,#A8412E 0,#7C2A1C 54%,#54190F 100%);
   box-shadow:
-    0 0 calc(14 * var(--k)) rgba(255,43,69,.95),
-    0 0 calc(40 * var(--k)) rgba(255,43,69,.55),
-    inset 0 calc(1.6 * var(--k)) 0 rgba(255,255,255,.55),
-    inset 0 calc(-2 * var(--k)) calc(5 * var(--k)) rgba(110,0,16,.45);
+    0 calc(10 * var(--k)) calc(22 * var(--k)) calc(-8 * var(--k)) rgba(0,0,0,.75),
+    0 0 calc(24 * var(--k)) var(--amb),
+    inset 0 calc(-4 * var(--k)) calc(8 * var(--k)) rgba(50,10,4,.5),
+    inset 0 calc(1 * var(--k)) calc(1 * var(--k)) rgba(255,220,208,.28);
 }
 .cmp-mark.ok{
-  --halo:rgba(43,230,166,.4);
-  background:radial-gradient(110% 110% at 34% 26%,#B6FFE6 0,#2BE6A6 46%,#0A8763 100%);
+  --amb:rgba(11,106,83,.3);
+  background:
+    radial-gradient(74% 58% at 50% 6%,rgba(228,255,246,.3) 0,transparent 60%),
+    linear-gradient(176deg,#1E8A6C 0,#125F48 54%,#083A2C 100%);
   box-shadow:
-    0 0 calc(14 * var(--k)) rgba(43,230,166,.9),
-    0 0 calc(40 * var(--k)) rgba(43,230,166,.5),
-    inset 0 calc(1.6 * var(--k)) 0 rgba(255,255,255,.6),
-    inset 0 calc(-2 * var(--k)) calc(5 * var(--k)) rgba(0,80,58,.45);
+    0 calc(10 * var(--k)) calc(22 * var(--k)) calc(-8 * var(--k)) rgba(0,0,0,.75),
+    0 0 calc(24 * var(--k)) var(--amb),
+    inset 0 calc(-4 * var(--k)) calc(8 * var(--k)) rgba(2,40,30,.5),
+    inset 0 calc(1 * var(--k)) calc(1 * var(--k)) rgba(214,255,240,.26);
+}
+/* Кромка: бронза волоском и с перепадом по кругу. Ровное
+   золотое кольцо читается бижутерией, неровное — металлом. */
+.cmp-mark::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  border-radius:50%;padding:calc(1 * var(--k));
+  background:linear-gradient(148deg,
+    rgba(235,214,166,.9) 0,rgba(200,164,95,.3) 24%,
+    rgba(120,92,44,.22) 48%,rgba(200,164,95,.42) 72%,
+    rgba(235,214,166,.75) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask-composite:exclude;
 }
 .cmp-mark svg{
-  display:block;width:calc(27 * var(--k));height:calc(27 * var(--k));
-  fill:none;stroke:#fff;stroke-width:3.2;
+  display:block;width:calc(25 * var(--k));height:calc(25 * var(--k));
+  fill:none;stroke:#F6F1E8;stroke-width:2.7;
   stroke-linecap:round;stroke-linejoin:round;
-  filter:drop-shadow(0 0 calc(3 * var(--k)) rgba(255,255,255,.95));
+  filter:drop-shadow(0 calc(1 * var(--k)) calc(1.5 * var(--k)) rgba(0,0,0,.5));
 }
 
 /* ---- ноутбук ---------------------------------------------
@@ -4831,25 +4844,36 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    аппарата и заданы в долях его ширины. MacBook Air 13″ —
    корпус 304,1 × 212,4 мм, экран 286,4 × 179,0 мм. Отсюда
    рамка 8,85 мм по бокам, 10 мм сверху и 23,4 мм снизу: на
-   глаз именно этот перепад и опознаётся как макбук.
+   глаз именно этот перепад и опознаётся как макбук. Лицом к
+   зрителю алюминия видно около двух миллиметров, дальше идёт
+   чёрное стекло дисплея.
 
-   Лицом к зрителю алюминия видно всего около двух миллиметров
-   — дальше идёт чёрное стекло дисплея. Раньше рамка была
-   алюминиевой целиком, и от этого вся вещь читалась рисунком.
+   Клавиатурная часть — не полоска под крышкой, а настоящая
+   плоскость: preserve-3d, поворот на 90° вокруг петли. Она
+   уходит к зрителю, и клавиатура с трекпадом ложатся в
+   перспективу сами. Плоской заливкой этого не подделать —
+   именно по ней и видно, что ноутбук нарисован.
    -------------------------------------------------------- */
-.cmp-mac{
-  position:relative;width:calc(390 * var(--k));margin:0 auto;
-  transform:
-    perspective(calc(2100 * var(--k)))
-    rotateX(5deg) rotateY(-12deg) rotateZ(-.8deg);
-  transform-origin:54% 62%;
+.mac-stage{
+  position:relative;
+  padding-bottom:calc(46 * var(--k));
+  perspective:calc(3400 * var(--k));
+  perspective-origin:50% 46%;
 }
 /* тень на стол */
-.cmp-mac::after{
+.mac-stage::after{
   content:'';position:absolute;z-index:-1;
-  left:2%;right:2%;bottom:calc(-20 * var(--k));height:calc(40 * var(--k));
+  left:3%;right:3%;bottom:calc(6 * var(--k));height:calc(34 * var(--k));
   border-radius:50%;
-  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.85),transparent 70%);
+  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.82),transparent 70%);
+}
+.cmp-mac{
+  position:relative;width:calc(390 * var(--k));margin:0 auto;
+  transform-style:preserve-3d;
+  transform:rotateX(9deg) rotateY(-10deg) rotateZ(-.5deg);
+  /* ось вращения — середина раскрытого аппарата, а не петля:
+     иначе при повороте дека уезжает вбок из-под крышки */
+  transform-origin:50% 100% calc(126 * var(--k));
 }
 .mac-lid{
   position:relative;
@@ -4864,8 +4888,8 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
       #2F343A 50%,
       #343940 99.32%,#464C53 99.54%,#767D85 99.78%,#C2C8D0 100%);
   box-shadow:
-    0 calc(34 * var(--k)) calc(56 * var(--k)) calc(-26 * var(--k)) rgba(0,0,0,.9),
-    0 calc(4 * var(--k)) calc(10 * var(--k)) calc(-3 * var(--k)) rgba(0,0,0,.6);
+    0 calc(30 * var(--k)) calc(50 * var(--k)) calc(-26 * var(--k)) rgba(0,0,0,.85),
+    0 calc(4 * var(--k)) calc(10 * var(--k)) calc(-3 * var(--k)) rgba(0,0,0,.55);
 }
 /* полированная кромка: яркость гуляет по периметру */
 .mac-lid::before{
@@ -4881,7 +4905,6 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
           mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
           mask-composite:exclude;
 }
-/* чёрное стекло дисплея с рамками */
 .mac-glass{
   position:relative;
   padding:calc(10.2 * var(--k)) calc(8.75 * var(--k)) calc(27.4 * var(--k));
@@ -4889,7 +4912,6 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   background:linear-gradient(162deg,#111317,#050506 42%,#050506 76%,#0C0E11);
   box-shadow:inset 0 0 0 calc(.6 * var(--k)) rgba(255,255,255,.05);
 }
-/* глазок камеры */
 .mac-glass::before{
   content:'';position:absolute;left:50%;top:calc(4.6 * var(--k));
   transform:translateX(-50%);
@@ -4903,38 +4925,79 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   background:#0B0710;
 }
 .mac-scr img{display:block;width:100%;height:100%;object-fit:cover}
-/* блик на стекле и затемнение к краям */
 .mac-scr::after{
   content:'';position:absolute;inset:0;pointer-events:none;
   background:
     linear-gradient(118deg,
-      rgba(255,255,255,.11) 0,rgba(255,255,255,.03) 17%,
+      rgba(255,255,255,.09) 0,rgba(255,255,255,.025) 17%,
       transparent 34%,transparent 100%),
-    radial-gradient(120% 120% at 50% 50%,transparent 62%,rgba(0,0,0,.28) 100%);
+    radial-gradient(120% 120% at 50% 50%,transparent 64%,rgba(0,0,0,.26) 100%);
 }
-/* Клавиатурная часть. Видно её почти с торца, поэтому
-   клавиатура — не клавиши, а тёмная полоса: с такого угла
-   на снимке от неё ровно это и остаётся. */
+
+/* Дека. Лежит горизонтально: поворот на 90° вокруг петли,
+   передним краем к зрителю. Глубина настоящая — 212,4 мм,
+   в проекции от неё остаётся полоса в полсотни точек. */
 .mac-base{
-  position:relative;height:calc(20 * var(--k));
-  width:calc(406 * var(--k));margin-left:calc(-8 * var(--k));
-  clip-path:polygon(2.6% 0,97.4% 0,100% 100%,0 100%);
-  border-radius:0 0 calc(8 * var(--k)) calc(8 * var(--k));
+  position:absolute;left:50%;top:100%;
+  width:calc(388 * var(--k));height:calc(272 * var(--k));
+  margin-left:calc(-194 * var(--k));
+  transform-origin:top center;
+  transform:rotateX(90deg);
+  border-radius:0 0 calc(13 * var(--k)) calc(13 * var(--k));
+  /* После поворота верх элемента оказывается у зрителя, а низ —
+     у петли: поэтому светлое стоит в начале градиента, а
+     тень от крышки — в конце. */
   background:linear-gradient(180deg,
-    #08090A 0,#141619 7%,
-    #23272C 16%,#1E2126 30%,
-    #4E545B 42%,#5E656D 56%,
-    #474D54 74%,#33383E 88%,
-    #8D949C 94%,#5A6068 98%,#2E3238 100%);
-  box-shadow:0 calc(22 * var(--k)) calc(36 * var(--k)) calc(-14 * var(--k)) rgba(0,0,0,.9);
+    #6E757F 0,#666D77 14%,#5A616A 38%,
+    #4A5058 62%,#373C43 82%,#24282D 94%,#15181B 100%);
+  box-shadow:inset 0 0 0 calc(1 * var(--k)) rgba(255,255,255,.06);
 }
-/* выемка под палец на переднем торце */
-.mac-base::after{
-  content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);
-  width:calc(92 * var(--k));height:calc(5.5 * var(--k));
-  border-radius:calc(9 * var(--k)) calc(9 * var(--k)) 0 0;
-  background:linear-gradient(180deg,rgba(0,0,0,.62),rgba(0,0,0,.28));
+.mac-keys{
+  position:absolute;left:6.5%;right:6.5%;top:56%;height:38%;
+  border-radius:calc(4 * var(--k));overflow:hidden;
+  background:linear-gradient(180deg,#0D0F12,#16191D);
+  box-shadow:
+    inset 0 0 calc(8 * var(--k)) rgba(0,0,0,.7),
+    0 calc(1 * var(--k)) 0 rgba(255,255,255,.12);
 }
+/* клавиши: тёмные швы поверх поля цвета клавиш */
+.mac-keys::before{
+  content:'';position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(146,156,170,.34) 0 calc(1.6 * var(--k)),
+      transparent calc(1.6 * var(--k)) calc(15.5 * var(--k))),
+    repeating-linear-gradient(180deg,
+      rgba(146,156,170,.3) 0 calc(1.8 * var(--k)),
+      transparent calc(1.8 * var(--k)) calc(16.5 * var(--k)));
+}
+.mac-pad{
+  position:absolute;left:50%;top:13%;transform:translateX(-50%);
+  width:28%;height:34%;
+  border-radius:calc(5 * var(--k));
+  background:linear-gradient(180deg,#767D87,#656C76);
+  box-shadow:
+    inset 0 0 0 calc(1.2 * var(--k)) rgba(0,0,0,.5),
+    inset 0 calc(-2 * var(--k)) calc(5 * var(--k)) rgba(0,0,0,.3);
+}
+/* Передний торец: вертикальная грань у самого края деки. */
+.mac-edge{
+  position:absolute;left:50%;top:100%;
+  width:calc(386 * var(--k));height:calc(11 * var(--k));
+  margin-left:calc(-193 * var(--k));
+  transform:translateZ(calc(272 * var(--k)));
+  border-radius:0 0 calc(7 * var(--k)) calc(7 * var(--k));
+  background:linear-gradient(180deg,
+    #7C838C 0,#5E656E 26%,#40464D 68%,#2A2E34 100%);
+}
+/* выемка под палец */
+.mac-edge::after{
+  content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:calc(92 * var(--k));height:calc(4.5 * var(--k));
+  border-radius:0 0 calc(6 * var(--k)) calc(6 * var(--k));
+  background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.15));
+}
+
 
 
 /* ---- шевроны у самых краёв ------------------------------
