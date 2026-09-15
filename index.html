@@ -524,18 +524,22 @@
                  внутрь, отметки — и наружу: вывод разворота должен
                  быть самым ярким пятном сцены.
 
-                 Ноутбук — объёмная сборка из трёх плоскостей:
-                 крышка, дека и передний торец. Дека повёрнута на
-                 90° вокруг петли, торец свешен с её края ещё на 90°,
-                 клавиатура и трекпад лежат на деке и в перспективу
+                 Ноутбук — MacBook Pro 16″ в цвете Space Black,
+                 собранный по чертежу аппарата: корпус
+                 355,7 × 248,1 × 16,8 мм, экран 344,1 × 221,6 мм,
+                 вырез камеры 63 мм, шаг клавиши 19 мм. Это четыре
+                 настоящие плоскости — крышка, дека, передний торец
+                 и левая щека, — развёрнутые как у открытого на 114°
+                 ноутбука, снятого с 16° над столом. Клавиатура,
+                 решётки и трекпад лежат на деке и в перспективу
                  попадают сами.
 
                  На экране ноутбука настоящий снимок первого экрана
                  этой же страницы (assets/shots/pervyy-ekran.webp),
                  а не перерисовка: пересняли — заменили файл.
 
-                 Разбор в style.css, раздел «справочники против
-                 своего сайта». -->
+                 Разбор в style.css, разделы «справочники против
+                 своего сайта» и «MacBook Pro 16″». -->
             <div class="scene cmp-stage">
               <div class="cmp">
 
@@ -567,36 +571,54 @@
                 </div>
 
                 <div class="cmp-row">
-                  <div class="mac-stage">
-                   <div class="cmp-mac">
-                    <div class="mac-lid">
-                      <div class="mac-glass">
-                        <div class="mac-scr">
+                  <div class="mbp-stage">
+                   <div class="mbp">
+
+                    <!-- крышка: алюминиевая створка, в ней чёрное
+                         стекло, в стекле экран с вырезом камеры и
+                         подбородок с надписью. -->
+                    <div class="mbp-lid">
+                      <span class="mbp-top"></span>
+                      <div class="mbp-glass">
+                        <div class="mbp-scr">
                           <img src="assets/shots/pervyy-ekran.webp" width="1600" height="1000"
                                decoding="async"
                                alt="Первый экран сайта на экране ноутбука: предложение, заголовок, кнопка и макет страницы клиники — всё в одном месте.">
+                          <span class="mbp-gloss"></span>
                         </div>
+                        <span class="mbp-notch"><i></i></span>
+                        <span class="mbp-word">MacBook Pro</span>
                       </div>
                     </div>
-                    <div class="mac-deck">
-                      <span class="mac-hinge"></span>
-                      <span class="mac-grille l"></span>
-                      <span class="mac-grille r"></span>
-                      <!-- Клавиатура настоящая: шесть рядов, 77 клавиш,
-                           шаг 19 мм и все нестандартные ширины (delete,
-                           tab, caps, return, shift, пробел, стрелки) —
-                           ряды разложены гридом в style.css. -->
-                      <span class="mac-well">
-                        <span class="kr k1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="kr k2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="kr k3"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="kr k4"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="kr k5"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                        <span class="kr k6"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="ar"></i><i></i></span>
+
+                    <!-- основание: плита 355,7 × 248,1 × 16,8 мм.
+                         Дека повёрнута от петли к зрителю, передний
+                         торец свешен с её края, левая щека —
+                         третья грань. Клавиатура, решётки и трекпад
+                         лежат на деке и в перспективу попадают сами. -->
+                    <div class="mbp-base">
+                      <span class="mbp-hinge"></span>
+                      <span class="mbp-cast"></span>
+                      <span class="mbp-grille l"></span>
+                      <span class="mbp-grille r"></span>
+                      <!-- Клавиатура настоящая: шесть рядов, 78 клавиш,
+                           шаг 19 мм и все нестандартные ширины (esc,
+                           delete, tab, caps, return, shift, command,
+                           пробел, стрелки). Ряд функций вполовину
+                           ниже остальных — как у аппарата. -->
+                      <span class="mbp-well">
+                          <span class="mbp-row r1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                          <span class="mbp-row r2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                          <span class="mbp-row r3"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                          <span class="mbp-row r4"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                          <span class="mbp-row r5"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                          <span class="mbp-row r6"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="ar"></i><i></i></span>
                       </span>
-                      <span class="mac-pad"></span>
-                      <span class="mac-front"></span>
+                      <span class="mbp-pad"></span>
+                      <span class="mbp-front"></span>
+                      <span class="mbp-side"></span>
                     </div>
+
                    </div>
                   </div>
                   <span class="cmp-mark ok" aria-hidden="true">
