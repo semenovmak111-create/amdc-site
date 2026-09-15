@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916w">
-<link rel="stylesheet" href="assets/style.css?v=20260916w">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916x">
+<link rel="stylesheet" href="assets/style.css?v=20260916x">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916w">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916x">
 </head>
 <body>
 
@@ -320,7 +320,10 @@
                   <path class="a-head" d="M60.2 15.1 L46.4 26.3 Q49.2 18.5 42.5 13.7Z"/>
                 </svg>
               </span>
-              <a class="btn cta" href="#money">
+              <!-- Кнопка ведёт на второй раздел, а не на третий:
+                   человек с первого экрана должен попадать в «Что
+                   даёт», а не перепрыгивать его. -->
+              <a class="btn cta" href="#gain">
                 <span>Узнать, где теряются деньги</span>
                 <span class="knob" aria-hidden="true"><svg class="i"><use href="#i-check"/></svg></span>
               </a>
@@ -383,7 +386,6 @@
   <div class="wrap">
     <div class="rub"><span class="n">02</span>Что вы получаете</div>
     <h2 class="huge">Заберите свой боевой конверсионный сайт <mark>уже через 10 дней</mark></h2>
-    <p class="lede">Семь вещей, которых сегодня у клиники нет ни в одном справочнике — и которые начинают работать в первую же неделю после запуска.</p>
 
     <div class="deck" data-deck>
       <div class="tabs" role="tablist" aria-label="Выгоды"></div>
@@ -2003,7 +2005,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916w"></script>
+<script src="assets/mobile.js?v=20260916x"></script>
 
 </body>
 </html>
