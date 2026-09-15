@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916m">
-<link rel="stylesheet" href="assets/style.css?v=20260916m">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916n">
+<link rel="stylesheet" href="assets/style.css?v=20260916n">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916m">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916n">
 </head>
 <body>
 
@@ -1710,6 +1710,33 @@
     });
     var tabs = [].slice.call(strip.children);
 
+    /* Бегунок: бронзовая заливка переезжает к открытой вкладке,
+       а не возникает на ней. Размер и сдвиг ставим отсюда —
+       подписи разной длины, разметкой этого не выразить.
+       Разбор в style.css, раздел «бегунок». */
+    var pill = document.createElement('span');
+    pill.className = 'tab-pill jump';
+    pill.setAttribute('aria-hidden','true');
+    strip.appendChild(pill);
+    strip.classList.add('on-pill');
+
+    /* snap — поставить без переезда: первый расчёт, ресайз и
+       догрузка гарнитуры, после которой подписи меняют ширину. */
+    function place(snap){
+      var t = tabs[cur];
+      if (!t) return;
+      if (snap) pill.classList.add('jump');
+      pill.style.width     = t.offsetWidth  + 'px';
+      pill.style.height    = t.offsetHeight + 'px';
+      pill.style.transform =
+        'translate(' + t.offsetLeft + 'px,' + t.offsetTop + 'px)';
+      /* Снимаем «без переезда» сразу, а не в requestAnimationFrame:
+         чтение offsetWidth заставляет браузер применить новое
+         место немедленно, и следующее переключение уже едет.
+         Через кадр это ломается там, где кадров нет. */
+      if (snap){ void pill.offsetWidth; pill.classList.remove('jump'); }
+    }
+
     function at(){
       var w = view.clientWidth || 1;
       return Math.max(0, Math.min(slides.length - 1,
@@ -1748,6 +1775,7 @@
       slides.forEach(function(sl,n){
         sl.setAttribute('aria-hidden', n === i ? 'false' : 'true');
       });
+      place();
       /* на узком экране полоса вкладок сама уезжает за край —
          подтягиваем открытую в поле зрения */
       if (strip.scrollWidth > strip.clientWidth){
@@ -1776,9 +1804,16 @@
        пикселях — возвращаем её на ту же карточку. */
     addEventListener('resize', function(){
       slip(cur * view.clientWidth);
+      place(true);
     });
 
     mark(0);
+    place(true);
+    /* Manrope догружается после первой отрисовки, и подписи на
+       ней становятся другой ширины — бегунок пересчитываем. */
+    if (document.fonts && document.fonts.ready){
+      document.fonts.ready.then(function(){ place(true); });
+    }
   })();
 
   /* ---- 7. Рельса разделов -------------------------------- */
@@ -1855,7 +1890,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916m"></script>
+<script src="assets/mobile.js?v=20260916n"></script>
 
 </body>
 </html>
