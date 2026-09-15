@@ -5089,65 +5089,97 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 }
 
 /* ---- девять приёмов --------------------------------------
-   Девять рамок 3 × 3: шаг, приём, и на две строки — как
+   Девять рамок 3 × 3: шаг, приём, и на две-три строки — как
    именно он сделан на этой странице. Не макет и не снимок:
    как только тут появится дизайн, разворот начнёт спорить о
    красоте, а спорить он должен о порядке.
 
-   Рамки набраны по светлому — слоновая кость и бронзовый
+   Рамки набраны по светлому — слоновая кость и золотой
    контур: внутри тёмного разворота это выписка из системы,
    лист бумаги, и он обязан выглядеть листом.
 
-   Контур и номер шага залиты не «золотым цветом», а тем же
-   --au-plate-ink, которым набраны цифры в разделе «Как это
-   делается»: это градиент металла в пять стопов, и плоская
-   краска вместо него сразу выпадает из системы. Контур берёт
-   его через двойной фон — заливка по padding-box, металл по
-   border-box; номер — через background-clip:text. Способы
-   разные, металл один.
+   Золото здесь ярче, чем цифры в «Как это делается»: те
+   лежат на бумажной полосе, где светлый металл читается
+   жёлтым пятном, а эти — на тёмном развороте, где
+   потемнённый металл просто гаснет. Отсюда свой градиент
+   --au-mkt: те же пять стопов и тот же угол 155°, но взяты
+   на три тона светлее и насыщеннее. Плюс ореол наружу —
+   на тёмном фоне он и даёт свечение, которого на бумаге
+   взяться неоткуда.
+
+   Металл один, способов три: контур берёт его двойным фоном
+   (заливка по padding-box, металл по border-box), номер шага —
+   через background-clip:text, линейка под шапкой — обычным
+   фоном с растворёнными концами. Рисунок идёт сплошным
+   цветом: на волосяной обводке в 1,7 точки градиент не
+   читается вовсе.
    -------------------------------------------------------- */
 .mkt{
   list-style:none;margin:0;padding:0;
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:clamp(.34rem,.62vw,.6rem);
+  /* золото рамок: тот же чертёж, что у --au-plate, но светлее
+     и насыщеннее — на тёмном развороте бумажный металл гаснет */
+  --au-mkt:linear-gradient(155deg,
+    #A8761F 0%,#E3BB5A 26%,#C9992B 50%,#B0801F 72%,#E7C36A 100%);
+  --au-mkt-solid:#BE8C1E;
 }
 .mkt li{
   aspect-ratio:1;
   display:flex;flex-direction:column;
   padding:clamp(.5rem,.85vw,.82rem);
-  border:1.6px solid transparent;
+  border:2px solid transparent;
   border-radius:clamp(.7rem,1.1vw,1rem);
   /* слоновая кость: не белый лист, а тёплая бумага — рядом с
-     бронзой белое отдаёт синевой */
+     золотом белое отдаёт синевой */
   background:
     linear-gradient(#FBF4E4,#F6EEDC) padding-box,
-    var(--au-plate-ink) border-box;
-  box-shadow:0 14px 26px -18px rgba(0,0,0,.55);
+    var(--au-mkt) border-box;
+  /* ореол наружу и тонкий след внутрь: на тёмном фоне контур
+     от этого начинает светиться, а не просто лежать */
+  box-shadow:
+    0 0 clamp(11px,1.2vw,18px) rgba(226,183,86,.42),
+    0 14px 26px -18px rgba(0,0,0,.55);
 }
-/* шапка: рисунок слева, номер шага справа от него */
+
+/* ---- шапка: четверть рамки -------------------------------
+   Рисунок слева, номер шага справа от него, под ними золотая
+   линейка. Высота задана долей, а не отступами: рамка
+   квадратная, и четверть её высоты — это единственное число,
+   которое одинаково выглядит на любой ширине разворота. */
 .mkt-h{
+  position:relative;
+  flex:0 0 25%;
   display:flex;align-items:center;
-  gap:clamp(.3rem,.55vw,.5rem);
-  margin-bottom:clamp(.3rem,.6vw,.55rem);
+  gap:clamp(.34rem,.6vw,.55rem);
+}
+/* линейка под шапкой: до контура не доходит и растворяется
+   концами — упёртая в рамку, она читалась бы таблицей */
+.mkt-h::after{
+  content:'';position:absolute;left:7%;right:7%;bottom:0;
+  height:1.5px;border-radius:2px;
+  background:linear-gradient(90deg,
+    rgba(176,126,30,0) 0%,#B0801F 14%,#E3BB5A 50%,#B0801F 86%,
+    rgba(176,126,30,0) 100%);
 }
 .mkt-pic{
   flex:none;display:block;
-  width:clamp(17px,1.65vw,24px);height:clamp(17px,1.65vw,24px);
-  color:var(--au-ink);
+  width:clamp(22px,2.1vw,30px);height:clamp(22px,2.1vw,30px);
+  color:var(--au-mkt-solid);
 }
-.mkt-pic .ill{display:block;width:100%;height:100%}
+.mkt-pic .ill{display:block;width:100%;height:100%;stroke-width:1.9}
 .mkt-n{
-  font:700 clamp(.66rem,.52rem + .28vw,.82rem)/1 var(--serif);
+  font:700 clamp(.82rem,.62rem + .4vw,1.04rem)/1 var(--serif);
   font-variant-numeric:lining-nums;
   letter-spacing:-.01em;
   color:transparent;
   background-color:transparent;
-  background-image:var(--au-plate-ink);
+  background-image:var(--au-mkt);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-/* приём и его разбор — по центру рамки, под шапкой */
+/* приём и его разбор — по центру рамки, под линейкой */
 .mkt li b{
   display:block;text-align:center;text-wrap:balance;
   margin-top:auto;
@@ -5155,21 +5187,26 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   letter-spacing:-.005em;
   color:#241D12;
 }
-.mkt li span{
+/* Только разбор, а не всякий span в рамке: рисунок и номер
+   шага — тоже span'ы, и общий селектор перекрашивал их
+   текстовым серым поверх золота. */
+.mkt li > span{
   display:block;text-align:center;text-wrap:pretty;
   margin:clamp(.18rem,.35vw,.3rem) 0 auto;
-  font:400 clamp(.58rem,.44rem + .2vw,.66rem)/1.42 var(--sans);
+  font:400 clamp(.58rem,.44rem + .2vw,.66rem)/1.4 var(--sans);
   color:#6D6353;
 }
 /* Между 861 и 1150 точками колонка под сцену ещё узкая, а
    разворот уже двухколоночный: квадрат в этой полосе
    получается меньше текста, который в него положен. Рамка
    перестаёт быть квадратом и берёт высоту по содержанию —
-   ширина остаётся третью, и сетка 3 × 3 держится. */
+   ширина остаётся третью, и сетка 3 × 3 держится. Доля
+   высоты у шапки при этом не считается, и её заменяет
+   отступ под линейкой. */
 @media (max-width:1150px) and (min-width:861px){
   .mkt li{aspect-ratio:auto}
+  .mkt-h{flex:none;padding-bottom:.45rem}
 }
-
 /* На телефоне квадрат в треть ширины — это 105 точек, в
    которые не влезает ни заголовок, ни разбор. Сетка
    раскладывается в две колонки, рамка перестаёт быть
@@ -5179,154 +5216,48 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   .mkt{grid-template-columns:1fr 1fr;gap:.5rem}
   .mkt li{aspect-ratio:auto;padding:.72rem .68rem .78rem}
   .mkt li:last-child{grid-column:span 2}
-  .mkt-pic{width:21px;height:21px}
-  .mkt-n{font-size:.8rem}
+  .mkt-h{flex:none;padding-bottom:.5rem}
+  .mkt-pic{width:26px;height:26px}
+  .mkt-n{font-size:.95rem}
   .mkt li b{margin-top:.6rem;font-size:.92rem}
-  .mkt li span{font-size:.75rem;margin-bottom:0}
+  .mkt li > span{font-size:.75rem;margin-bottom:0}
 }
 
-/* ---- MacBook Pro 14″ --------------------------------------
-   Аппарат не нарисован, а взят кадром: официальная рамка
-   MacBook Pro 14″ Silver из Apple Developer Resources лежит в
-   assets/img/macbook-pro-14.webp. Рисовать ноутбук разметкой
-   бессмысленно там, где есть чертёж производителя: глаз
-   ловит не пропорции, а мелочь — фаску, радиус угла, ширину
-   подбородка, — и любая подгонка на глаз выдаёт рисунок.
+/* ---- ноутбук ----------------------------------------------
+   Аппарат не нарисован и не собран из плоскостей: на сцене
+   стоит готовый 3D-макет MacBook Air M1 (w2sv/pythonMockup,
+   MIT) с вписанным в него снимком первого экрана.
 
-   Вырез экрана в файле прозрачный, поэтому снимок страницы
-   лежит ПОД рамкой, а не поверх неё: кромку стекла рисует
-   сам кадр. Координаты выреза сняты с файла и переведены в
-   проценты от его размера — 392 × 121 точки от левого
-   верхнего угла, 3024 × 1900 при холсте 3808 × 2299.
-   Пересняли кадр — пересчитать четыре числа ниже.
+   Рисовать ноутбук разметкой бессмысленно там, где есть
+   готовый рендер аппарата: глаз ловит не пропорции, а
+   мелочь — блик на фаске, легенды на клавишах, тень под
+   передним краем, — и любая подгонка на глаз выдаёт рисунок.
+   Разворот при этом остаётся тем же: аппарат стоит под углом,
+   клавиатура развёрнута к зрителю, экран читается целиком.
 
-   Миллиметр корпуса (--mm) остаётся мерой и здесь: строка
-   меню, вырез камеры и глазок камеры заданы в миллиметрах
-   аппарата, как и раньше. 312,6 мм корпуса ложатся в 440
-   точек холста, отсюда 1,407.
+   Снимок вписан в экран заранее, а не подложен разметкой:
+   экран на макете — четырёхугольник в перспективе, и в CSS
+   такое кладётся только матрицей, которую потом никто не
+   пересчитает. Сборка живёт в sobrat-noutbuk.py: переснял
+   первый экран — прогнал скрипт, файл заменился.
    -------------------------------------------------------- */
 .mbp-stage{
   position:relative;
   /* Ноутбук стоит правее середины холста: слева под плиткой
      2ГИС поля нужно больше, чем справа под Google, — иначе
      левая плитка липнет к крышке, а правая висит в пустоте. */
-  left:calc(22 * var(--k));
-  padding-bottom:calc(30 * var(--k));
+  left:calc(14 * var(--k));
+  padding-bottom:calc(24 * var(--k));
 }
 .mbp{
-  position:relative;
-  width:calc(440 * var(--k));
+  display:block;
+  width:calc(408 * var(--k));height:auto;
   margin:0 auto;
-  --mm:calc(1.407 * var(--k));
-  /* Тень по силуэту, а не по прямоугольнику: у кадра
+  /* Тень по силуэту, а не по прямоугольнику: у макета
      прозрачный фон, и drop-shadow обводит сам аппарат. */
   filter:
-    drop-shadow(0 calc(10 * var(--k)) calc(12 * var(--k)) rgba(0,0,0,.45))
-    drop-shadow(0 calc(30 * var(--k)) calc(38 * var(--k)) rgba(0,0,0,.4));
-}
-.mbp-frame{
-  position:relative;z-index:2;
-  display:block;width:100%;height:auto;
-}
-
-/* ---- экран ------------------------------------------------
-   Вырез стекла в кадре. Снимок под ним, строка меню и вырез
-   камеры — поверх снимка, но всё ещё под рамкой.
-   -------------------------------------------------------- */
-.mbp-scr{
-  position:absolute;z-index:1;
-  left:10.294%;top:5.263%;width:79.412%;height:82.645%;
-  overflow:hidden;
-  padding-top:calc(6 * var(--mm));
-  background:#0B0710;
-}
-.mbp-scr img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
-/* Отражение в стекле: широкая мягкая полоса от окна слева
-   сверху и лёгкое затемнение к краям. Всё слабое: матрица
-   светится сама, и сильный блик читался бы грязью. */
-.mbp-gloss{
-  position:absolute;inset:0;pointer-events:none;z-index:3;
-  background:
-    linear-gradient(116deg,
-      rgba(255,255,255,.085) 0,rgba(255,255,255,.03) 14%,
-      rgba(255,255,255,0) 31%,rgba(255,255,255,0) 100%),
-    linear-gradient(196deg,
-      rgba(255,255,255,.05) 0,rgba(255,255,255,0) 9%),
-    radial-gradient(128% 128% at 50% 46%,transparent 58%,rgba(0,0,0,.34) 100%);
-}
-
-/* ---- строка меню macOS -----------------------------------
-   То, чем экран мака опознаётся мгновенно: яблоко слева,
-   жирное имя программы, ряд меню, справа значки состояния и
-   часы. В натуральную величину строка занимала бы 2,4 %
-   высоты экрана — здесь ей дано 3 %, иначе на этом размере
-   от неё не осталось бы ничего.
-
-   Слова в меню читать не нужно и нельзя: на живом снимке
-   ноутбука их тоже не прочесть. Работает композиция — яблоко,
-   плотный ряд коротких слов, пустота, часы у правого края.
-   -------------------------------------------------------- */
-.mbp-menu{
-  position:absolute;z-index:2;left:0;right:0;top:0;
-  height:calc(6 * var(--mm));
-  display:flex;align-items:center;
-  gap:calc(2.6 * var(--mm));
-  padding:0 calc(3.4 * var(--mm));
-  background:rgba(22,17,30,.72);
-  box-shadow:inset 0 calc(-.3 * var(--mm)) 0 rgba(255,255,255,.07);
-  font:400 calc(3.2 * var(--mm))/1 var(--sans);
-  color:rgba(255,255,255,.82);
-  white-space:nowrap;
-}
-.mbp-menu .apple{
-  width:calc(3.4 * var(--mm));height:calc(3.9 * var(--mm));
-  flex:none;display:block;
-}
-.mbp-menu .apple svg{display:block;width:100%;height:100%;fill:rgba(255,255,255,.92)}
-.mbp-menu b{font-weight:700;letter-spacing:.01em}
-.mbp-menu em{font-style:normal;color:rgba(255,255,255,.78)}
-.mbp-menu .sp{flex:1 1 auto;min-width:calc(62 * var(--mm))}
-/* значки состояния: батарея, вайфай, поиск, пункт управления */
-.mbp-menu u{
-  display:block;flex:none;text-decoration:none;
-  background:rgba(255,255,255,.82);
-}
-.mbp-menu u.bt{
-  width:calc(5 * var(--mm));height:calc(2.6 * var(--mm));
-  border-radius:calc(.8 * var(--mm));
-  background:none;box-shadow:inset 0 0 0 calc(.45 * var(--mm)) rgba(255,255,255,.75);
-}
-.mbp-menu u.wf,
-.mbp-menu u.sr{
-  width:calc(3.2 * var(--mm));height:calc(3.2 * var(--mm));
-  border-radius:50%;
-  background:none;box-shadow:inset 0 0 0 calc(.5 * var(--mm)) rgba(255,255,255,.72);
-}
-.mbp-menu u.cc{
-  width:calc(3.4 * var(--mm));height:calc(2.8 * var(--mm));
-  border-radius:calc(.6 * var(--mm));
-  background:linear-gradient(180deg,rgba(255,255,255,.8) 0 40%,transparent 40% 60%,rgba(255,255,255,.8) 60%);
-}
-.mbp-menu time{
-  font-variant-numeric:tabular-nums;letter-spacing:.01em;
-  color:rgba(255,255,255,.88);
-}
-
-/* Вырез камеры: 60 × 9,2 мм, скруглён снизу. В кадре Apple
-   его нет — рамка отдаёт ровный прямоугольник стекла, — а у
-   аппарата он есть, и без него экран читается не маком.
-   Поэтому вырез свой: это не «чёлка поверх экрана», а
-   вырезанный из матрицы кусок, и строка меню обтекает его. */
-.mbp-notch{
-  position:absolute;left:50%;top:0;transform:translateX(-50%);
-  width:calc(60 * var(--mm));height:calc(8.4 * var(--mm));z-index:3;
-  border-radius:0 0 calc(4.2 * var(--mm)) calc(4.2 * var(--mm));
-  background:#07080A;
-}
-.mbp-notch i{
-  position:absolute;left:50%;top:calc(3 * var(--mm));transform:translateX(-50%);
-  width:calc(2.6 * var(--mm));height:calc(2.6 * var(--mm));border-radius:50%;
-  background:radial-gradient(60% 60% at 38% 34%,#3A4048 0,#16181C 62%,#0A0B0D 100%);
+    drop-shadow(0 calc(8 * var(--k)) calc(10 * var(--k)) rgba(0,0,0,.42))
+    drop-shadow(0 calc(26 * var(--k)) calc(34 * var(--k)) rgba(0,0,0,.38));
 }
 
 

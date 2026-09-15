@@ -12,3 +12,6 @@ _probe.html
 _h_*.html
 _stamp.html
 _orig*.html
+
+# рабочая копия 3D-макета ноутбука: качается скриптом сборки
+.maket-*.png
