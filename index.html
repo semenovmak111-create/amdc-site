@@ -105,6 +105,12 @@
       <path fill="none" stroke="currentColor" d="M12 37h10"/>
       <path fill="none" stroke="currentColor" d="M36 33.6l1.5 3 3.3.5-2.4 2.3.6 3.3-3-1.6-3 1.6.6-3.3-2.4-2.3 3.3-.5z"/>
     </symbol>
+    <!-- силуэт по пояс: голова и плечи. Только контур, без заливки —
+         это строчка в списке, а не портрет. -->
+    <symbol id="il-bust" viewBox="0 0 64 64">
+      <circle cx="32" cy="20.5" r="11.5"/>
+      <path d="M12.5 62.5v-5.5C12.5 46.1 21.2 37.5 32 37.5s19.5 8.6 19.5 19.5v5.5"/>
+    </symbol>
     <symbol id="il-stars" viewBox="0 0 48 48">
       <path fill="currentColor" fill-opacity=".16" stroke="none" d="M13 5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L5 11.2l5.9-.9z"/>
       <path fill="currentColor" fill-opacity=".16" stroke="none" d="M36 22l2 4 4.4.7-3.2 3.1.8 4.4-4-2.1-3.9 2.1.7-4.4-3.2-3.1 4.4-.7z"/>
@@ -566,7 +572,8 @@
                     </span>
                   </div>
                   <span class="cmp-mark no" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6.4 6.4 17.6 17.6M17.6 6.4 6.4 17.6"/></svg>
+                    <i class="rays"></i>
+                    <i class="disc"><svg viewBox="0 0 24 24"><path d="M6.4 6.4 17.6 17.6M17.6 6.4 6.4 17.6"/></svg></i>
                   </span>
                 </div>
 
@@ -632,7 +639,8 @@
                    </div>
                   </div>
                   <span class="cmp-mark ok" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M5.4 12.6 10 17.4 18.8 7.2"/></svg>
+                    <i class="rays"></i>
+                    <i class="disc"><svg viewBox="0 0 24 24"><path d="M5.4 12.6 10 17.4 18.8 7.2"/></svg></i>
                   </span>
                 </div>
 
@@ -833,6 +841,45 @@
 
           <!-- 4 ------------------------------------------------ -->
           <article class="slide" role="group" aria-roledescription="выгода"
+                   data-tab="Своя площадка">
+            <div class="tx">
+              <div class="eye"><span class="pic"><svg class="ill"><use href="#il-compare"/></svg></span>Адрес, который нельзя отобрать</div>
+              <h3>Станьте единственной клиникой на странице — а не девятой строкой в чужом списке</h3>
+              <p>На чужой площадке порядок в выдаче определяете не вы: сегодня вы третьи, завтра девятые, потому что сосед купил продвижение. Свой адрес в интернете нельзя опустить в списке, задвинуть за платного конкурента или закрыть по чужому решению. Правила на нём устанавливаете вы, и больше никто.</p>
+              <p class="eg">Карточку в справочнике можно потерять за нарушение правил, которые вы не писали. Домен, оформленный на вашу компанию в первый же день работ, потерять нельзя.</p>
+              <div class="kick">Единственный актив в интернете, который принадлежит клинике.</div>
+            </div>
+
+            <!-- Довод нарисован буквально: двенадцать одинаковых
+                 силуэтов серым контуром — строчки в чужом списке, где
+                 все на одно лицо. Последний, нижний справа, того же
+                 размера и рисунка, но зелёный и со светом: тот же
+                 контур, только он один и виден.
+
+                 Двенадцать, а не девять: девять конкурентов плюс вы,
+                 плюс две платные строки сверху. Сетка 4 × 3 —
+                 единственная, в которой «вы» попадаете точно в угол,
+                 а не теряетесь в середине. Разбор в style.css,
+                 раздел «толпа». -->
+            <div class="scene crowd-stage">
+              <div class="crowd">
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+                <span class="fig you"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#il-bust"/></svg></span>
+              </div>
+            </div>
+          </article>
+          <!-- 5 ------------------------------------------------ -->
+          <article class="slide" role="group" aria-roledescription="выгода"
                    data-tab="14 входов в поиске">
             <div class="tx">
               <div class="eye"><span class="pic"><svg class="ill"><use href="#il-research"/></svg></span>Своя страница на каждый запрос</div>
@@ -872,7 +919,7 @@
             </div>
           </article>
 
-          <!-- 5 ------------------------------------------------ -->
+          <!-- 6 ------------------------------------------------ -->
           <article class="slide" role="group" aria-roledescription="выгода"
                    data-tab="Врач выбран заранее">
             <div class="tx">
@@ -934,42 +981,6 @@
             </div>
           </article>
 
-          <!-- 6 ------------------------------------------------ -->
-          <article class="slide" role="group" aria-roledescription="выгода"
-                   data-tab="Своя площадка">
-            <div class="tx">
-              <div class="eye"><span class="pic"><svg class="ill"><use href="#il-compare"/></svg></span>Адрес, который нельзя отобрать</div>
-              <h3>Перестаньте стоять в одном списке с девятью конкурентами по чужим правилам</h3>
-              <p>На чужой площадке порядок в выдаче определяете не вы: сегодня вы третьи, завтра девятые, потому что сосед купил продвижение. Свой адрес в интернете нельзя опустить в списке, задвинуть за платного конкурента или закрыть по чужому решению. Правила на нём устанавливаете вы, и больше никто.</p>
-              <p class="eg">Карточку в справочнике можно потерять за нарушение правил, которые вы не писали. Домен, оформленный на вашу компанию в первый же день работ, потерять нельзя.</p>
-              <div class="kick">Единственный актив в интернете, который принадлежит клинике.</div>
-            </div>
-
-            <div class="scene stack">
-              <div class="win back">
-                <div class="bar"><i></i><i></i><i></i><span class="url">чужой каталог</span></div>
-                <div class="sc tight">
-                  <div class="sc-cap">Медцентры Выборгского района</div>
-                  <div class="sc-line"><b>1</b><span>Амрита</span><i class="sc-ad">реклама</i></div>
-                  <div class="sc-line"><b>2</b><span>Мой Зубной</span><i class="sc-ad">реклама</i></div>
-                  <div class="sc-line"><b>3</b><span>Клиника на Тореза</span></div>
-                  <div class="sc-line"><b>…</b><span>ещё пять клиник</span></div>
-                  <div class="sc-line dim"><b>9</b><span>АМДЦ</span></div>
-                </div>
-              </div>
-              <div class="win front">
-                <div class="bar"><i></i><i></i><i></i><span class="url">am-dc.ru</span></div>
-                <div class="sc">
-                  <div class="sc-own">
-                    <div class="sc-h">Ваш собственный адрес</div>
-                    <div class="sc-t">Домен и хостинг оформлены на ООО «АМДЦ»</div>
-                  </div>
-                  <div class="sc-row hot"><i class="sc-dot"></i><span>Порядок на странице определяете вы</span></div>
-                  <div class="sc-row hot"><i class="sc-dot"></i><span>Рекламы конкурентов нет</span></div>
-                </div>
-              </div>
-            </div>
-          </article>
 
           <!-- 7 ------------------------------------------------ -->
           <article class="slide" role="group" aria-roledescription="выгода"
