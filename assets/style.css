@@ -4885,29 +4885,29 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    читались бы двумя разными значками, а не парой.
 
    Мера та же, что у телефонов: своя точка --k, всё остальное
-   умножение на неё. Ширина чертежа — 470 точек; в них и
-   заданы плитки, ноутбук и страница внутри него.
+   умножение на неё. Ширина чертежа — 540 точек; в них и
+   заданы плитки, ноутбук и страница внутри него. Холст шире
+   ноутбука не для воздуха: в поля по краям садятся плитки
+   справочников, и каждой нужна своя сторона.
    -------------------------------------------------------- */
 .cmp-stage{container-type:inline-size}
-.cmp{--k:calc(470px / 470)}
+.cmp{--k:calc(540px / 540)}
 @supports (container-type:inline-size){
-  .cmp{--k:calc(min(100cqi,470px) / 470)}
+  .cmp{--k:calc(min(100cqi,540px) / 540)}
 }
 
 .cmp{
-  width:calc(470 * var(--k));margin:0 auto;
-  display:flex;flex-direction:column;gap:calc(32 * var(--k));
+  position:relative;
+  width:calc(540 * var(--k));margin:0 auto;
+  /* Поле сверху — место под верхнюю плитку: у ноутбука свободны
+     только бока крышки и полоса над ней, снизу всё занимает
+     разъехавшееся основание. */
+  padding-top:calc(78 * var(--k));
   /* Миллиметр корпуса ноутбука в точках чертежа: 312,6 мм
-     MacBook Pro 14″ ложатся в 303 точки из 470. Меньше, чем
-     кажется нужным: камера стоит близко, и передний край
-     основания вылезает за габарит крышки на четверть. */
-  --mm:calc(.97 * var(--k));
-}
-/* Колонка отметок общая для обеих строк: крестик и галочка
-   встают друг под другом сами, без подгонки по месту. */
-.cmp-row{
-  display:grid;grid-template-columns:minmax(0,1fr) auto;
-  align-items:center;column-gap:calc(28 * var(--k));
+     MacBook Pro 14″ ложатся в 356 точек из 540. Крышка занимает
+     две трети холста, а передний край основания — четыре пятых:
+     камера стоит близко, и низ разваливается шире верха. */
+  --mm:calc(1.14 * var(--k));
 }
 
 /* ---- неоновые карточки справочников ----------------------
@@ -4918,36 +4918,46 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    подсветка. Цвет взят от фона полосы, чтобы карточки
    читались частью сцены, а не вывеской поверх неё.
    -------------------------------------------------------- */
-.cmp-apps{
-  display:flex;justify-content:center;gap:calc(19 * var(--k));
-}
+/* Три плитки стоят вокруг ноутбука, каждая со своей стороны:
+   слева, сверху и справа. Не в ряд и не по углам одной стороны
+   — иначе они читаются списком, а нужно, чтобы читались
+   окружением. Ноутбук от этого оказывается в кольце, а не над
+   строкой.
+
+   Плитка вдвое мельче прежней: это фон довода, а не его
+   предмет. Подпись под ней оставлена — карта без подписи
+   узнаётся картой, но не узнаётся Гуглом. */
 .cmp-app{
+  position:absolute;z-index:4;
   display:flex;flex-direction:column;align-items:center;
-  gap:calc(11 * var(--k));
+  gap:calc(6 * var(--k));
 }
+.cmp-app.a1{left:0;top:38%}
+.cmp-app.a2{left:52%;transform:translateX(-50%);top:0}
+.cmp-app.a3{right:0;top:38%}
 .cmp-tile{
   --neon:#B47BEA;
   --neon-hi:#D4B2FA;
   position:relative;
-  width:calc(104 * var(--k));height:calc(104 * var(--k));
-  border-radius:calc(24 * var(--k));
+  width:calc(58 * var(--k));height:calc(58 * var(--k));
+  border-radius:calc(14 * var(--k));
   display:grid;place-items:center;
-  border:calc(1.6 * var(--k)) solid var(--neon);
+  border:calc(1.1 * var(--k)) solid var(--neon);
   background:radial-gradient(112% 112% at 50% 50%,
     rgba(180,123,234,.015) 0,rgba(180,123,234,.06) 58%,rgba(180,123,234,.17) 100%);
   box-shadow:
-    inset 0 0 calc(15 * var(--k)) rgba(180,123,234,.3),
-    inset 0 0 calc(2.5 * var(--k)) rgba(212,178,250,.45);
+    inset 0 0 calc(9 * var(--k)) rgba(180,123,234,.3),
+    inset 0 0 calc(1.8 * var(--k)) rgba(212,178,250,.45);
 }
 /* Буквенные знаки: трубка — обводка, внутри тот же лёгкий
    свет, что заливает плитку. */
 .cmp-tile.gis,
 .cmp-tile.ya{
   color:rgba(180,123,234,.17);
-  -webkit-text-stroke:calc(1.4 * var(--k)) var(--neon-hi);
+  -webkit-text-stroke:calc(.9 * var(--k)) var(--neon-hi);
 }
-.cmp-tile.gis{font:800 calc(23 * var(--k))/1 var(--sans);letter-spacing:.01em}
-.cmp-tile.ya{font:700 calc(54 * var(--k))/1 var(--sans)}
+.cmp-tile.gis{font:800 calc(13 * var(--k))/1 var(--sans);letter-spacing:.01em}
+.cmp-tile.ya{font:700 calc(30 * var(--k))/1 var(--sans)}
 .cmp-tile svg{display:block;width:100%;height:100%}
 .cmp-tile .ln{
   fill:none;stroke:#D4B2FA;stroke-width:3.2;
@@ -4959,8 +4969,9 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   stroke-linejoin:round;
 }
 .cmp-app b{
-  font:500 calc(11 * var(--k))/1 var(--mono);
-  letter-spacing:.04em;color:rgba(186,142,232,.78);
+  font:500 calc(8.5 * var(--k))/1 var(--mono);
+  letter-spacing:.03em;color:rgba(186,142,232,.72);
+  white-space:nowrap;
 }
 
 /* ---- толпа: двенадцать строчек и одна ваша ---------------
@@ -5038,60 +5049,6 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 }
 @media (max-width:520px){
   .crowd{left:0;gap:calc(24 * var(--k)) calc(20 * var(--k))}
-}
-
-/* ---- отметки -------------------------------------------
-   Та же техника, что у логотипов справочников выше: неоновая
-   трубка контуром, внутри — лёгкий свет с неё. Отличается
-   только цветом: крестик горит красным, галочка — мятной
-   зеленью. Собраны по одному чертежу и отличаются друг от
-   друга ровно цветом, иначе читались бы двумя разными
-   значками, а не парой.
-
-   Одна поправка против логотипов: отметки светят и наружу,
-   слабо. Логотипов три, и если бы светил каждый, разворот
-   превратился бы в гирлянду; отметок две, и они — вывод
-   разворота, им подсветка положена.
-
-   Цвет задан тройкой --g, светлый оттенок трубки — --hi.
-   -------------------------------------------------------- */
-.cmp-mark{
-  position:relative;
-  width:calc(62 * var(--k));height:calc(62 * var(--k));
-  border-radius:50%;display:grid;place-items:center;
-  border:calc(1.7 * var(--k)) solid rgba(var(--g),.92);
-  background:radial-gradient(112% 112% at 50% 50%,
-    rgba(var(--g),.015) 0,rgba(var(--g),.07) 58%,rgba(var(--g),.2) 100%);
-  box-shadow:
-    inset 0 0 calc(16 * var(--k)) rgba(var(--g),.34),
-    inset 0 0 calc(3 * var(--k)) rgba(var(--g),.5),
-    0 0 calc(9 * var(--k)) rgba(var(--g),.34),
-    0 0 calc(24 * var(--k)) rgba(var(--g),.18);
-}
-.cmp-mark.no{--g:255,74,96;--hi:#FFB0BB}
-.cmp-mark.ok{--g:56,255,170;--hi:#93FFD5}
-/* блик стекла: тонкая дуга по верхней кромке */
-.cmp-mark::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  border-radius:50%;padding:calc(1 * var(--k));
-  background:linear-gradient(160deg,
-    rgba(255,255,255,.6) 0,rgba(255,255,255,.1) 26%,
-    transparent 52%,rgba(var(--g),.45) 100%);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-          mask-composite:exclude;
-}
-/* Знак — такая же трубка, как контуры логотипов: светлый
-   оттенок цвета, а не белое ядро. Белое ядро — это неон в
-   темноте, а здесь знак должен читаться той же линией, что
-   рисунок в плитке рядом. */
-.cmp-mark svg{
-  display:block;
-  width:calc(27 * var(--k));height:calc(27 * var(--k));
-  fill:none;stroke:var(--hi);stroke-width:3.2;
-  stroke-linecap:round;stroke-linejoin:round;
-  filter:drop-shadow(0 0 calc(2.2 * var(--k)) rgba(var(--g),.85));
 }
 
 /* ---- MacBook Pro 14″ M5 ------------------------------------
