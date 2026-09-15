@@ -4252,27 +4252,74 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   --u:calc(290px / 418);               /* 418 pt — ширина корпуса */
   position:relative;margin:0 auto;
   width:calc(418 * var(--u));height:calc(877 * var(--u));
-  padding:calc(1.5 * var(--u));
+  padding:calc(2.6 * var(--u));
   border-radius:calc(67.5 * var(--u));
-  /* алюминиевая рамка: с торцов блик, по центру тень */
-  background:linear-gradient(90deg,
-    #6E6E78 0,#33333A 1.2%,#1A1A1F 3.4%,#0F0F12 8%,
-    #121216 50%,
-    #0F0F12 92%,#1A1A1F 96.6%,#33333A 98.8%,#6E6E78 100%);
+  /* Алюминиевая рейка в два слоя. Нижний — поперечный
+     профиль боковой грани: полированная кромка, резкий
+     спад в тень, ровная сердцевина. Верхний — общий свет:
+     сверху светлее, снизу темнее, иначе металл читается
+     плоской заливкой. */
+  background:
+    linear-gradient(168deg,
+      rgba(255,255,255,.20) 0,rgba(255,255,255,0) 24%,
+      rgba(0,0,0,.30) 76%,rgba(0,0,0,.48) 100%),
+    linear-gradient(90deg,
+      #B4B4C0 0,#6A6A76 .16%,#33333B .34%,#16161B .52%,#0D0D11 .78%,
+      #0E0E12 50%,
+      #0D0D11 99.22%,#16161B 99.48%,#33333B 99.66%,#6A6A76 99.84%,#B4B4C0 100%);
   box-shadow:
     0 calc(70 * var(--u)) calc(104 * var(--u)) calc(-54 * var(--u)) rgba(0,0,0,.96),
     0 calc(22 * var(--u)) calc(40 * var(--u)) calc(-22 * var(--u)) rgba(0,0,0,.55),
-    inset 0 0 0 calc(.9 * var(--u)) rgba(255,255,255,.24);
+    0 calc(5 * var(--u)) calc(12 * var(--u)) calc(-5 * var(--u)) rgba(0,0,0,.65),
+    0 0 0 calc(.5 * var(--u)) rgba(0,0,0,.6),
+    inset 0 0 calc(3 * var(--u)) calc(-.6 * var(--u)) rgba(255,255,255,.34);
+}
+
+/* Кольцо фаски. Обычная рамка одной яркости сразу
+   выдаёт рисунок: у настоящей полированной кромки свет
+   гуляет по периметру — вспыхивает на углах, гаснет на
+   прямых. Задано градиентной рамкой через две маски:
+   заливка минус её же сердцевина дают ровно кольцо. */
+.phone::before{
+  content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  border-radius:inherit;padding:calc(1 * var(--u));
+  background:linear-gradient(146deg,
+    rgba(255,255,255,.66) 0,rgba(255,255,255,.14) 13%,
+    rgba(255,255,255,.03) 29%,rgba(255,255,255,.32) 47%,
+    rgba(255,255,255,.04) 63%,rgba(255,255,255,.17) 81%,
+    rgba(255,255,255,.56) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask-composite:exclude;
+}
+
+/* Второй свет, с противоположного угла и на всю ширину
+   рейки. Одного источника не бывает ни в одной комнате, и
+   именно по этому глаз отличает снимок от рисунка. */
+.phone::after{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  border-radius:inherit;padding:calc(2.6 * var(--u));
+  background:linear-gradient(28deg,
+    rgba(255,255,255,.26) 0,rgba(255,255,255,0) 24%,
+    rgba(255,255,255,0) 72%,rgba(255,255,255,.18) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask-composite:exclude;
 }
 
 /* кнопки корпуса: слева «Действие» и качелька громкости,
    справа боковая и «Управление камерой» — та самая, что
    появилась только на шестнадцатом */
 .ph-btn{
-  position:absolute;z-index:3;width:calc(3.4 * var(--u));
+  position:absolute;z-index:4;width:calc(3.6 * var(--u));
   border-radius:calc(2.2 * var(--u));
-  background:linear-gradient(180deg,#43434A,#1C1C21 26%,#131317 74%,#3A3A41);
-  box-shadow:inset 0 0 0 calc(.7 * var(--u)) rgba(255,255,255,.12);
+  background:linear-gradient(180deg,
+    #55555F 0,#2A2A31 14%,#15151A 46%,#0E0E12 78%,#43434C 100%);
+  box-shadow:
+    inset 0 0 0 calc(.6 * var(--u)) rgba(255,255,255,.18),
+    0 0 calc(3 * var(--u)) rgba(0,0,0,.7);
 }
 .ph-btn.act{left:calc(-2.4 * var(--u));top:calc(151 * var(--u));height:calc(35 * var(--u))}
 .ph-btn.vup{left:calc(-2.4 * var(--u));top:calc(226 * var(--u));height:calc(38 * var(--u))}
@@ -4283,14 +4330,18 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 /* чёрная рамка дисплея */
 .ph-glass{
   position:relative;height:100%;
-  padding:calc(11 * var(--u));
-  border-radius:calc(66 * var(--u));
-  background:#000;
+  padding:calc(9.9 * var(--u));
+  border-radius:calc(64.9 * var(--u));
+  background:linear-gradient(158deg,#0C0C10,#000 38%,#000 76%,#07070A);
+  box-shadow:
+    0 0 0 calc(.6 * var(--u)) rgba(0,0,0,.95),
+    inset 0 0 0 calc(.5 * var(--u)) rgba(255,255,255,.06);
 }
 
 .ph-scr{
   position:relative;height:100%;overflow:hidden;
   border-radius:calc(55 * var(--u));
+  box-shadow:inset 0 0 calc(2.4 * var(--u)) rgba(0,0,0,.75);
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',
     'Inter','Helvetica Neue',sans-serif;
   -webkit-font-smoothing:antialiased;
@@ -4368,7 +4419,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    же. -------------------------------------------------- */
 .ph-list{
   position:absolute;left:calc(14 * var(--u));right:calc(14 * var(--u));
-  top:calc(410 * var(--u));bottom:calc(164 * var(--u));
+  top:calc(230 * var(--u));bottom:calc(164 * var(--u));
   display:flex;flex-direction:column;justify-content:flex-end;
   gap:calc(10 * var(--u));overflow:hidden;z-index:2;
 }
@@ -4453,6 +4504,39 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   border-radius:inherit;
   background:linear-gradient(124deg,
     rgba(255,255,255,.085) 0,rgba(255,255,255,.02) 20%,transparent 36%);
+}
+
+/* ---- всплытие при открытии разворота ---------------
+   Телефон не лежит на странице заранее, а поднимается
+   снизу из ничего — так же, как ночью поднимается сам
+   экран, когда приходит заявка.
+
+   Состояние берётся из aria-hidden, который колода и так
+   расставляет при каждом переходе: отдельного класса,
+   наблюдателя и строки в скрипте не нужно.
+
+   Уход короткий и только прозрачностью: положение
+   возвращается вниз уже после того, как телефон погас,
+   иначе на свайпе видно, как он проваливается.
+   -------------------------------------------------------- */
+.slide .phone{
+  opacity:0;
+  transform:translateY(calc(96 * var(--u))) scale(.955);
+  transition:
+    opacity .22s linear,
+    transform 0s linear .22s;
+}
+.slide[aria-hidden="false"] .phone{
+  opacity:1;transform:none;
+  transition:
+    opacity .62s var(--ease) .06s,
+    transform 1.05s var(--ease-out) .06s;
+}
+@media (prefers-reduced-motion:reduce){
+  .slide .phone,
+  .slide[aria-hidden="false"] .phone{
+    opacity:1;transform:none;transition:none;
+  }
 }
 
 /* Где есть контейнерные запросы, корпус ещё и поджимается
