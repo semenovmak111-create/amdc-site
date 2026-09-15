@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916f">
-<link rel="stylesheet" href="assets/style.css?v=20260916f">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916g">
+<link rel="stylesheet" href="assets/style.css?v=20260916g">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916f">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916g">
 </head>
 <body>
 
@@ -383,7 +383,6 @@
 
       <div class="deck-view" tabindex="0" aria-label="Выгоды, листается стрелками">
         <div class="deck-track">
-
           <!-- 1 ------------------------------------------------ -->
           <article class="slide" role="group" aria-roledescription="выгода"
                    data-tab="Только целевые звонки">
@@ -393,28 +392,171 @@
               <p>Разгрузите отдел продаж! Теперь звонят только горячие клиенты, готовые купить или записаться. А если Вы принимаете звонки лично, Вы сэкономите драгоценное время и сможете потратить его на другие задачи. Теперь говорить с теми кто звонит «просто поинтересоваться» не придется!</p>
             </div>
 
-            <div class="scene">
-              <div class="win">
-                <div class="bar"><i></i><i></i><i></i><span class="url">am-dc.ru/urologiya</span></div>
-                <div class="sc">
-                  <div class="sc-card">
-                    <div>
-                      <div class="sc-h">Приём уролога, первичный</div>
-                      <div class="sc-t">Выборгский район, без очереди</div>
+            <!-- Тот же iPhone 16, что и в третьем развороте, только
+                 повёрнут и звонит. Собран в тех же точках iOS; разбор
+                 в style.css, раздел «iPhone 16».
+
+                 Контакт подписан «Новый клиент» — так его назовёт
+                 не телефон, а тот, кто ведёт базу. В этом и мысль
+                 разворота: звонок теперь приходит от человека,
+                 который уже всё прочитал и увидел цену.
+
+                 Дрожь и волны идут раз в две секунды и три четверти
+                 цикла аппарат стоит: пауза между посылками и есть
+                 то, по чему звонок узнаётся без звука. -->
+            <div class="scene ph-stage">
+              <span class="ph-buzz l" aria-hidden="true">
+                <svg viewBox="0 0 84 210">
+                  <path d="M8 66q24 39 0 78"/>
+                  <path d="M28 42q36 63 0 126"/>
+                  <path d="M48 18q50 87 0 174"/>
+                </svg>
+              </span>
+              <span class="ph-buzz r" aria-hidden="true">
+                <svg viewBox="0 0 84 210">
+                  <path d="M8 66q24 39 0 78"/>
+                  <path d="M28 42q36 63 0 126"/>
+                  <path d="M48 18q50 87 0 174"/>
+                </svg>
+              </span>
+
+              <div class="ph-tilt">
+                <div class="ph-shake">
+                  <div class="phone" role="img"
+                       aria-label="Экран телефона: входящий звонок от нового клиента, +7 921 •••-24-19.">
+                    <i class="ph-btn act" aria-hidden="true"></i>
+                    <i class="ph-btn vup" aria-hidden="true"></i>
+                    <i class="ph-btn vdn" aria-hidden="true"></i>
+                    <i class="ph-btn pwr" aria-hidden="true"></i>
+                    <i class="ph-btn cam" aria-hidden="true"></i>
+
+                    <div class="ph-glass">
+                      <div class="ph-scr" aria-hidden="true">
+                        <div class="ph-wall"></div>
+                        <div class="ph-veil"></div>
+
+                        <div class="ph-island"></div>
+
+                        <div class="ph-status">
+                          <svg class="sig" viewBox="0 0 18 12">
+                            <rect x="0" y="7.6" width="3" height="4.4" rx="1"/>
+                            <rect x="5" y="5.2" width="3" height="6.8" rx="1"/>
+                            <rect x="10" y="2.8" width="3" height="9.2" rx="1"/>
+                            <rect x="15" y="0.4" width="3" height="11.6" rx="1"/>
+                          </svg>
+                          <svg class="wf" viewBox="0 0 16 12">
+                            <path d="M1.2 4.1a10 10 0 0 1 13.6 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
+                            <path d="M4 7a6.1 6.1 0 0 1 8 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
+                            <circle cx="8" cy="10.2" r="1.3"/>
+                          </svg>
+                          <svg class="bat" viewBox="0 0 26 13">
+                            <rect x=".5" y=".5" width="22.6" height="12" rx="3.4" fill="none" stroke="#fff" stroke-opacity=".38"/>
+                            <rect x="2.1" y="2.1" width="12.6" height="8.8" rx="2.1" fill="#fff"/>
+                            <path d="M24.4 4.5c1 .3 1.6 1 1.6 2s-.6 1.7-1.6 2z" fill="#fff" fill-opacity=".38"/>
+                          </svg>
+                        </div>
+
+                        <div class="ph-who">Новый клиент</div>
+                        <div class="ph-num">+7 921 •••-24-19</div>
+                        <div class="ph-ava">НК</div>
+
+                        <div class="ph-acts">
+                          <span class="ph-act">
+                            <span class="ph-key">
+                              <svg viewBox="0 0 24 24">
+                                <path d="M12 4.6a7.9 7.9 0 1 0 0 15.8 7.9 7.9 0 0 0 0-15.8zm.95 3.7v4.2l3.1 1.85-.85 1.4-3.95-2.35V8.3z"/>
+                                <path d="M4.5 2.7 7.9 5.3 6.3 7.35 2.9 4.75zM19.5 2.7l3.4 2.05-1.6 2.05L17.9 5.3z"/>
+                              </svg>
+                            </span>
+                            <span>Напомнить</span>
+                          </span>
+                          <span class="ph-act">
+                            <span class="ph-key">
+                              <svg viewBox="0 0 24 24">
+                                <path d="M12 3.6c-5 0-9 3.4-9 7.6 0 2.4 1.3 4.5 3.35 5.95-.25 1.6-.95 3-2.05 4 2.3-.3 4.3-1.2 5.8-2.5.6.1 1.25.15 1.9.15 5 0 9-3.4 9-7.6s-4-7.6-9-7.6z"/>
+                              </svg>
+                            </span>
+                            <span>Сообщение</span>
+                          </span>
+                          <span class="ph-act">
+                            <span class="ph-key big no">
+                              <svg viewBox="0 0 24 24">
+                                <path d="M7.6 3.2c.8-.8 2.1-.7 2.8.2l2.1 2.7c.6.8.5 1.9-.2 2.6l-1.3 1.3c-.3.3-.4.8-.2 1.2.8 1.5 2 2.7 3.5 3.5.4.2.9.1 1.2-.2l1.3-1.3c.7-.7 1.8-.8 2.6-.2l2.7 2.1c.9.7 1 2 .2 2.8l-1.5 1.5c-1 1-2.5 1.4-3.9 1C11.1 19 5 12.9 3.3 6.6c-.4-1.4 0-2.9 1-3.9z"/>
+                              </svg>
+                            </span>
+                            <span>Отклонить</span>
+                          </span>
+                          <span class="ph-act">
+                            <span class="ph-key big yes">
+                              <svg viewBox="0 0 24 24">
+                                <path d="M7.6 3.2c.8-.8 2.1-.7 2.8.2l2.1 2.7c.6.8.5 1.9-.2 2.6l-1.3 1.3c-.3.3-.4.8-.2 1.2.8 1.5 2 2.7 3.5 3.5.4.2.9.1 1.2-.2l1.3-1.3c.7-.7 1.8-.8 2.6-.2l2.7 2.1c.9.7 1 2 .2 2.8l-1.5 1.5c-1 1-2.5 1.4-3.9 1C11.1 19 5 12.9 3.3 6.6c-.4-1.4 0-2.9 1-3.9z"/>
+                              </svg>
+                            </span>
+                            <span>Принять</span>
+                          </span>
+                        </div>
+
+                        <span class="ph-bar"></span>
+                        <span class="ph-sheen"></span>
+                      </div>
                     </div>
-                    <div class="sc-money"><b>1 200 ₽</b><span class="sc-btn">Записаться</span></div>
                   </div>
-                  <div class="sc-cap">Входящие за сегодня</div>
-                  <div class="sc-row dim"><i class="sc-x"></i><span>«А сколько стоит приём?»</span></div>
-                  <div class="sc-row dim"><i class="sc-x"></i><span>«У вас дорого, скидка есть?»</span></div>
-                  <div class="sc-row dim"><i class="sc-x"></i><span>«Я просто поинтересоваться»</span></div>
-                  <div class="sc-row hot"><i class="sc-dot"></i><span><b>«Запишите на четверг, 18:30»</b></span></div>
                 </div>
               </div>
             </div>
           </article>
 
           <!-- 2 ------------------------------------------------ -->
+          <article class="slide" role="group" aria-roledescription="выгода"
+                   data-tab="Всё в одном месте">
+            <div class="tx">
+              <div class="eye"><span class="pic"><svg class="ill"><use href="#il-stars"/></svg></span>Опыт, лицензия и отзывы рядом</div>
+              <h3>Все ваши преимущества собраны в одном месте, а не разбросаны по карточкам</h3>
+              <p>Лицензия, четырнадцать направлений, свои врачи, оборудование и отзывы — в одном месте и в том порядке, в каком нужно вам. В карточке справочника этого не разложить: там на всех одна форма, три строки и реклама конкурента сбоку. Ваш опыт существует, но целиком его сегодня не видно нигде.</p>
+              <p class="eg">У соседки по дому 196 оценок, у вас 28 — и это не про качество лечения. Отзыв оставляет тот, кто дошёл до приёма, а дошёл тот, кто смог записаться.</p>
+              <div class="kick">Опыт наконец видно целиком, а не по кусочкам.</div>
+            </div>
+
+            <div class="scene">
+              <div class="win">
+                <div class="bar"><i></i><i></i><i></i><span class="url">am-dc.ru/o-klinike</span></div>
+                <div class="sc">
+                  <div class="sc-kpi">
+                    <div><b>24 года</b><span>в Выборгском районе</span></div>
+                    <div><b>14</b><span>направлений</span></div>
+                    <div><b>4,9</b><span>по 324 отзывам</span></div>
+                  </div>
+                  <div class="sc-two">
+                    <div class="sc-lic">
+                      <svg viewBox="0 0 40 40" aria-hidden="true">
+                        <circle cx="20" cy="20" r="15" fill="none" stroke="#B08A3F" stroke-width="1.2"/>
+                        <circle cx="20" cy="20" r="11.5" fill="none" stroke="#B08A3F" stroke-width=".7"/>
+                        <path d="M20 13v8M16 17h8" stroke="#B08A3F" stroke-width="1.6" stroke-linecap="round"/>
+                        <path d="M14 27.5h12" stroke="#B08A3F" stroke-width=".7"/>
+                      </svg>
+                      <div>
+                        <div class="sc-h">Лицензия ЛО-78-01-011482</div>
+                        <div class="sc-t">Росздравнадзор, бессрочная</div>
+                      </div>
+                    </div>
+                    <div class="sc-rev">
+                      <div class="sc-stars">★★★★★</div>
+                      <div class="sc-q">«Лечилась у трёх врачей центра, всеми довольна. Записалась с сайта вечером.»</div>
+                      <div class="sc-t">Ирина К. · 12 сентября</div>
+                    </div>
+                  </div>
+                  <div class="sc-chips wrap">
+                    <span class="sc-chip">Урология</span><span class="sc-chip">Гинекология</span>
+                    <span class="sc-chip">Стоматология</span><span class="sc-chip">Косметология</span>
+                    <span class="sc-chip">Проктология</span><span class="sc-chip">Лаборатория</span>
+                    <span class="sc-chip">УЗИ</span><span class="sc-chip">+7</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 ------------------------------------------------ -->
           <article class="slide" role="group" aria-roledescription="выгода"
                    data-tab="Заявки круглосуточно">
             <div class="tx">
@@ -605,7 +747,7 @@
             </div>
           </article>
 
-          <!-- 3 ------------------------------------------------ -->
+          <!-- 4 ------------------------------------------------ -->
           <article class="slide" role="group" aria-roledescription="выгода"
                    data-tab="14 входов в поиске">
             <div class="tx">
@@ -646,7 +788,7 @@
             </div>
           </article>
 
-          <!-- 4 ------------------------------------------------ -->
+          <!-- 5 ------------------------------------------------ -->
           <article class="slide" role="group" aria-roledescription="выгода"
                    data-tab="Врач выбран заранее">
             <div class="tx">
@@ -702,56 +844,6 @@
                   <div class="sc-foot">
                     <span class="sc-price">Первичный приём — 1 200 ₽</span>
                     <span class="sc-btn">Записаться к врачу</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- 5 ------------------------------------------------ -->
-          <article class="slide" role="group" aria-roledescription="выгода"
-                   data-tab="Всё на одной странице">
-            <div class="tx">
-              <div class="eye"><span class="pic"><svg class="ill"><use href="#il-stars"/></svg></span>Опыт, лицензия и отзывы рядом</div>
-              <h3>Соберите двадцать четыре года работы на одной странице вместо четырёх чужих карточек по три строки</h3>
-              <p>Лицензия, четырнадцать направлений, свои врачи, оборудование и отзывы — в одном месте и в том порядке, в каком нужно вам. В карточке справочника этого не разложить: там на всех одна форма, три строки и реклама конкурента сбоку. Ваш опыт существует, но целиком его сегодня не видно нигде.</p>
-              <p class="eg">У соседки по дому 196 оценок, у вас 28 — и это не про качество лечения. Отзыв оставляет тот, кто дошёл до приёма, а дошёл тот, кто смог записаться.</p>
-              <div class="kick">Опыт наконец видно целиком, а не по кусочкам.</div>
-            </div>
-
-            <div class="scene">
-              <div class="win">
-                <div class="bar"><i></i><i></i><i></i><span class="url">am-dc.ru/o-klinike</span></div>
-                <div class="sc">
-                  <div class="sc-kpi">
-                    <div><b>24 года</b><span>в Выборгском районе</span></div>
-                    <div><b>14</b><span>направлений</span></div>
-                    <div><b>4,9</b><span>по 324 отзывам</span></div>
-                  </div>
-                  <div class="sc-two">
-                    <div class="sc-lic">
-                      <svg viewBox="0 0 40 40" aria-hidden="true">
-                        <circle cx="20" cy="20" r="15" fill="none" stroke="#B08A3F" stroke-width="1.2"/>
-                        <circle cx="20" cy="20" r="11.5" fill="none" stroke="#B08A3F" stroke-width=".7"/>
-                        <path d="M20 13v8M16 17h8" stroke="#B08A3F" stroke-width="1.6" stroke-linecap="round"/>
-                        <path d="M14 27.5h12" stroke="#B08A3F" stroke-width=".7"/>
-                      </svg>
-                      <div>
-                        <div class="sc-h">Лицензия ЛО-78-01-011482</div>
-                        <div class="sc-t">Росздравнадзор, бессрочная</div>
-                      </div>
-                    </div>
-                    <div class="sc-rev">
-                      <div class="sc-stars">★★★★★</div>
-                      <div class="sc-q">«Лечилась у трёх врачей центра, всеми довольна. Записалась с сайта вечером.»</div>
-                      <div class="sc-t">Ирина К. · 12 сентября</div>
-                    </div>
-                  </div>
-                  <div class="sc-chips wrap">
-                    <span class="sc-chip">Урология</span><span class="sc-chip">Гинекология</span>
-                    <span class="sc-chip">Стоматология</span><span class="sc-chip">Косметология</span>
-                    <span class="sc-chip">Проктология</span><span class="sc-chip">Лаборатория</span>
-                    <span class="sc-chip">УЗИ</span><span class="sc-chip">+7</span>
                   </div>
                 </div>
               </div>
@@ -1711,7 +1803,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916f"></script>
+<script src="assets/mobile.js?v=20260916g"></script>
 
 </body>
 </html>

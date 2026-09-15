@@ -4248,8 +4248,14 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    -------------------------------------------------------- */
 .ph-stage{container-type:inline-size}
 
+/* Точка iOS объявлена на прямых ветках сцены, а не на
+   самом корпусе: рядом с ним живут наклон и волны
+   вибрации, и им нужна та же мера. На самой .ph-stage
+   её задать нельзя: 100cqi внутри контейнера считается
+   от его родителя, а не от него самого. */
+.ph-stage > *{--u:calc(290px / 418)}   /* 418 pt — ширина корпуса */
+
 .phone{
-  --u:calc(290px / 418);               /* 418 pt — ширина корпуса */
   position:relative;margin:0 auto;
   width:calc(418 * var(--u));height:calc(877 * var(--u));
   padding:calc(2.6 * var(--u));
@@ -4519,25 +4525,171 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    возвращается вниз уже после того, как телефон погас,
    иначе на свайпе видно, как он проваливается.
    -------------------------------------------------------- */
-.slide .phone{
+.slide .phone,
+.slide .ph-buzz{
   opacity:0;
   transform:translateY(calc(96 * var(--u))) scale(.955);
   transition:
     opacity .22s linear,
     transform 0s linear .22s;
 }
-.slide[aria-hidden="false"] .phone{
+.slide .ph-buzz.l{transform:translateY(calc(96 * var(--u))) scale(.955) scaleX(-1)}
+.slide[aria-hidden="false"] .phone,
+.slide[aria-hidden="false"] .ph-buzz{
   opacity:1;transform:none;
   transition:
     opacity .62s var(--ease) .06s,
     transform 1.05s var(--ease-out) .06s;
 }
+.slide[aria-hidden="false"] .ph-buzz.l{transform:scaleX(-1)}
 @media (prefers-reduced-motion:reduce){
   .slide .phone,
-  .slide[aria-hidden="false"] .phone{
+  .slide[aria-hidden="false"] .phone,
+  .slide .ph-buzz,
+  .slide[aria-hidden="false"] .ph-buzz{
     opacity:1;transform:none;transition:none;
   }
+  .slide .ph-buzz.l,
+  .slide[aria-hidden="false"] .ph-buzz.l{transform:scaleX(-1)}
+  .ph-shake{animation:none}
+  .ph-buzz path{animation:none;opacity:var(--pk)}
 }
+
+/* ---- второй аппарат: входящий звонок --------------------
+   Тот же корпус, но повёрнут и живой. Слоёв три, и у каждого
+   своё дело — иначе они дерутся за одно свойство transform:
+
+     .ph-tilt   поворот в пространстве, стоит неподвижно
+     .ph-shake  дрожь раз в две секунды
+     .phone     всплытие при открытии разворота
+
+   Сложить их в один элемент нельзя: анимация, переход и
+   статический наклон переписали бы друг друга.
+   -------------------------------------------------------- */
+.ph-tilt{
+  position:relative;z-index:1;
+  transform:
+    perspective(calc(1500 * var(--u)))
+    rotateX(6deg) rotateY(-17deg) rotateZ(-2.4deg);
+  transform-origin:54% 50%;
+}
+
+/* Дрожь. Амплитуда — два пункта: телефон на столе ходит
+   именно так, а не подпрыгивает. Три четверти цикла аппарат
+   стоит: пауза между посылками и есть то, по чему звонок
+   узнаётся без звука. */
+.ph-shake{animation:ph-shake 2s var(--ease) infinite}
+@keyframes ph-shake{
+  0%      {transform:translate3d(0,0,0) rotate(0)}
+  2%      {transform:translate3d(calc( 1.9 * var(--u)),calc(-1.1 * var(--u)),0) rotate(.48deg)}
+  5%      {transform:translate3d(calc(-1.9 * var(--u)),calc( 1.1 * var(--u)),0) rotate(-.48deg)}
+  8%      {transform:translate3d(calc( 1.6 * var(--u)),calc(-0.9 * var(--u)),0) rotate(.4deg)}
+  11%     {transform:translate3d(calc(-1.6 * var(--u)),calc( 0.9 * var(--u)),0) rotate(-.4deg)}
+  14%     {transform:translate3d(calc( 1.1 * var(--u)),calc(-0.6 * var(--u)),0) rotate(.26deg)}
+  17%     {transform:translate3d(calc(-0.7 * var(--u)),calc( 0.4 * var(--u)),0) rotate(-.16deg)}
+  20%     {transform:translate3d(calc( 0.3 * var(--u)),calc(-0.2 * var(--u)),0) rotate(.06deg)}
+  23%,100%{transform:translate3d(0,0,0) rotate(0)}
+}
+.slide .ph-shake{animation-play-state:paused}
+.slide[aria-hidden="false"] .ph-shake{animation-play-state:running}
+
+/* Волны. Уходят из-под корпуса, поэтому внутренняя дуга
+   начинается ещё под ним: так они читаются исходящими от
+   аппарата, а не приклеенными сбоку. */
+.ph-buzz{
+  position:absolute;z-index:0;pointer-events:none;
+  top:calc(296 * var(--u));
+  width:calc(84 * var(--u));height:calc(210 * var(--u));
+}
+.ph-buzz.l{right:calc(50% + 196 * var(--u));transform:scaleX(-1)}
+.ph-buzz.r{left:calc(50% + 196 * var(--u))}
+.ph-buzz svg{display:block;width:100%;height:100%;overflow:visible}
+.ph-buzz path{
+  fill:none;stroke:#fff;stroke-linecap:round;opacity:0;
+  animation:ph-ring 2s var(--ease-io) infinite;
+}
+.ph-buzz path:nth-child(1){--pk:.58;stroke-width:calc(3.2 * var(--u))}
+.ph-buzz path:nth-child(2){--pk:.34;stroke-width:calc(2.8 * var(--u));animation-delay:.11s}
+.ph-buzz path:nth-child(3){--pk:.18;stroke-width:calc(2.4 * var(--u));animation-delay:.22s}
+@keyframes ph-ring{
+  0%  {opacity:0}
+  9%  {opacity:var(--pk)}
+  36% {opacity:0}
+  100%{opacity:0}
+}
+.slide .ph-buzz path{animation-play-state:paused}
+.slide[aria-hidden="false"] .ph-buzz path{animation-play-state:running}
+
+/* ---- экран входящего вызова ----------------------------- */
+/* iOS гасит обои под вызовом, иначе белый набор по ним не
+   читается. */
+.ph-veil{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,3,12,.30),rgba(6,3,12,.52));
+}
+.ph-who{
+  position:absolute;left:calc(24 * var(--u));right:calc(24 * var(--u));
+  top:calc(112 * var(--u));text-align:center;color:#fff;
+  font-size:calc(38 * var(--u));line-height:calc(46 * var(--u));
+  font-weight:500;letter-spacing:calc(-.3 * var(--u));
+}
+.ph-num{
+  position:absolute;left:0;right:0;top:calc(164 * var(--u));
+  text-align:center;color:rgba(255,255,255,.74);
+  font-size:calc(19 * var(--u));line-height:calc(24 * var(--u));
+  font-weight:400;
+}
+/* Монограмма: её iOS рисует сам, когда у контакта нет снимка. */
+.ph-ava{
+  position:absolute;left:50%;top:calc(238 * var(--u));
+  transform:translateX(-50%);
+  width:calc(124 * var(--u));height:calc(124 * var(--u));
+  border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.17);
+  -webkit-backdrop-filter:blur(calc(20 * var(--u)));
+  backdrop-filter:blur(calc(20 * var(--u)));
+  box-shadow:inset 0 0 0 calc(.7 * var(--u)) rgba(255,255,255,.14);
+  color:#fff;font-size:calc(44 * var(--u));line-height:1;
+  font-weight:400;letter-spacing:calc(1 * var(--u));
+}
+.ph-acts{
+  position:absolute;left:calc(40 * var(--u));right:calc(40 * var(--u));
+  bottom:calc(44 * var(--u));z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;
+  row-gap:calc(30 * var(--u));justify-items:center;
+}
+.ph-act{
+  display:flex;flex-direction:column;align-items:center;
+  gap:calc(9 * var(--u));
+}
+.ph-act span{
+  font-size:calc(13 * var(--u));line-height:1;
+  color:rgba(255,255,255,.88);
+}
+.ph-key{
+  width:calc(58 * var(--u));height:calc(58 * var(--u));
+  border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.2);
+  -webkit-backdrop-filter:blur(calc(18 * var(--u)));
+  backdrop-filter:blur(calc(18 * var(--u)));
+}
+.ph-key svg{
+  display:block;width:calc(25 * var(--u));height:calc(25 * var(--u));
+  fill:#fff;
+}
+.ph-key.big{width:calc(74 * var(--u));height:calc(74 * var(--u))}
+.ph-key.big svg{width:calc(32 * var(--u));height:calc(32 * var(--u))}
+.ph-key.no{
+  background:linear-gradient(180deg,#FF5147,#E5251A);
+  box-shadow:0 calc(6 * var(--u)) calc(14 * var(--u)) calc(-4 * var(--u)) rgba(229,37,26,.6);
+}
+.ph-key.yes{
+  background:linear-gradient(180deg,#53E37F,#1FBE4F);
+  box-shadow:0 calc(6 * var(--u)) calc(14 * var(--u)) calc(-4 * var(--u)) rgba(31,190,79,.6);
+}
+/* Трубка «отклонить» — та же, что у «принять», положенная
+   набок: так её и рисует Apple, отдельного значка нет. */
+.ph-key.no svg{transform:rotate(134deg)}
 
 /* Где есть контейнерные запросы, корпус ещё и поджимается
    под колонку, если та окажется уже 290 pt. Отдельным
@@ -4545,7 +4697,7 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    всплывает не при разборе, а при вычислении — обычной
    запасной строкой выше её не перекрыть. */
 @supports (container-type:inline-size){
-  .phone{--u:calc(min(100cqi,290px) / 418)}
+  .ph-stage > *{--u:calc(min(100cqi,290px) / 418)}
 }
 
 /* ---- шевроны у самых краёв ------------------------------
@@ -4614,9 +4766,9 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 
   /* телефон в телефоне: в натуральную величину он съедает
      целый экран и разрывает колоду по длине */
-  .phone{--u:calc(238px / 418)}
+  .ph-stage > *{--u:calc(238px / 418)}
   @supports (container-type:inline-size){
-    .phone{--u:calc(min(100cqi,238px) / 418)}
+    .ph-stage > *{--u:calc(min(100cqi,238px) / 418)}
   }
   .slide .tx{order:1}
   .slide h3{max-width:none}
