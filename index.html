@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916d">
-<link rel="stylesheet" href="assets/style.css?v=20260916d">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916e">
+<link rel="stylesheet" href="assets/style.css?v=20260916e">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916d">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916e">
 </head>
 <body>
 
@@ -421,28 +421,144 @@
               <div class="eye"><span class="pic"><svg class="ill"><use href="#il-sleep"/></svg></span>Двенадцать часов, которых у вас нет</div>
               <h3>Сайт приносит деньги, пока вы спите</h3>
               <p>Вы работаете ограниченное количество часов в сутках, и людям, которые решили записаться рано утром, ночью, или поздно вечером никто не ответит. Эти заявки сайт соберет сам. Он работает 24 часа в сутки и собирает каждую заявку самостоятельно.</p>
+              <div class="kick">Регистратура закрывается в 20:00. Сайт — нет.</div>
             </div>
 
-            <div class="scene">
-              <div class="phone">
-                <span class="ph-ear" aria-hidden="true"></span>
-                <div class="ph-scr">
-                  <div class="ph-top"><b>23:40</b><span>суббота, 14 сентября</span></div>
-                  <div class="ph-note">
-                    <div class="ph-app"><i></i>am-dc.ru<span>сейчас</span></div>
-                    <b>Новая заявка с сайта</b>
-                    <span>Ирина, +7 921 •••-24-19<br>Стоматология — лечение кариеса</span>
+            <!-- Экран блокировки настоящего iPhone 16, а не картинка
+                 «про телефон»: логический экран 393 × 852 pt, вырез
+                 125 × 37 pt, часы 96 pt, плашки уведомлений 22 pt —
+                 размеры и вёрстка взяты у аппарата и заданы в его
+                 точках. Разбор в style.css, раздел «iPhone 16».
+
+                 Три уведомления — из трёх разных приложений намеренно:
+                 iOS складывает соседние уведомления одного приложения
+                 в один стек, и три подряд от одного отправителя на
+                 живом экране не увидишь никогда. -->
+            <div class="scene ph-stage">
+              <div class="phone" role="img"
+                   aria-label="Экран блокировки телефона в 23:40: три заявки с сайта, пришедшие после закрытия регистратуры — в Telegram, в WhatsApp и на почту.">
+                <i class="ph-btn act" aria-hidden="true"></i>
+                <i class="ph-btn vup" aria-hidden="true"></i>
+                <i class="ph-btn vdn" aria-hidden="true"></i>
+                <i class="ph-btn pwr" aria-hidden="true"></i>
+                <i class="ph-btn cam" aria-hidden="true"></i>
+
+                <div class="ph-glass">
+                  <div class="ph-scr" aria-hidden="true">
+                    <div class="ph-wall"></div>
+
+                    <div class="ph-island"></div>
+
+                    <div class="ph-status">
+                      <svg class="sig" viewBox="0 0 18 12">
+                        <rect x="0" y="7.6" width="3" height="4.4" rx="1"/>
+                        <rect x="5" y="5.2" width="3" height="6.8" rx="1"/>
+                        <rect x="10" y="2.8" width="3" height="9.2" rx="1"/>
+                        <rect x="15" y="0.4" width="3" height="11.6" rx="1"/>
+                      </svg>
+                      <svg class="wf" viewBox="0 0 16 12">
+                        <path d="M1.2 4.1a10 10 0 0 1 13.6 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
+                        <path d="M4 7a6.1 6.1 0 0 1 8 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
+                        <circle cx="8" cy="10.2" r="1.3"/>
+                      </svg>
+                      <svg class="bat" viewBox="0 0 26 13">
+                        <rect x=".5" y=".5" width="22.6" height="12" rx="3.4" fill="none" stroke="#fff" stroke-opacity=".38"/>
+                        <rect x="2.1" y="2.1" width="12.6" height="8.8" rx="2.1" fill="#fff"/>
+                        <path d="M24.4 4.5c1 .3 1.6 1 1.6 2s-.6 1.7-1.6 2z" fill="#fff" fill-opacity=".38"/>
+                      </svg>
+                    </div>
+
+                    <div class="ph-lock">
+                      <svg viewBox="0 0 14 18">
+                        <path d="M3.5 7.2V5.1a3.5 3.5 0 0 1 7 0v2.1" fill="none" stroke="#fff" stroke-width="1.7"/>
+                        <rect x="0" y="6.6" width="14" height="11.4" rx="3.2" fill="#fff"/>
+                      </svg>
+                    </div>
+
+                    <div class="ph-date">суббота, 12 сентября</div>
+                    <div class="ph-clock">23:40</div>
+
+                    <div class="ph-list">
+                      <!-- почта: самое старое, 21:14 -->
+                      <div class="ph-note">
+                        <span class="ph-ico">
+                          <svg viewBox="0 0 38 38">
+                            <defs>
+                              <linearGradient id="ph-ml" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#26B7FF"/><stop offset="1" stop-color="#0A6CF5"/>
+                              </linearGradient>
+                            </defs>
+                            <rect width="38" height="38" fill="url(#ph-ml)"/>
+                            <rect x="7.6" y="12.4" width="22.8" height="13.6" rx="2.6" fill="#fff"/>
+                            <path d="M8.8 14 19 21.2l9.4-7.2" fill="none" stroke="#1C8DF7" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                        <span class="ph-tx">
+                          <span class="ph-hd"><b>Заявка с сайта am-dc.ru</b><i>21:14</i></span>
+                          <span class="ph-bd">Наталья, +7 905 •••-41-06 · УЗИ</span>
+                        </span>
+                      </div>
+
+                      <!-- WhatsApp: человек написал сам, 22:07 -->
+                      <div class="ph-note">
+                        <span class="ph-ico">
+                          <svg viewBox="0 0 38 38">
+                            <rect width="38" height="38" fill="#25D366"/>
+                            <path d="M19 7.4c-6.4 0-11.6 5.2-11.6 11.6 0 2.1.6 4 1.6 5.7l-1.6 5.9 6.1-1.6c1.6.9 3.5 1.4 5.5 1.4 6.4 0 11.6-5.2 11.6-11.6S25.4 7.4 19 7.4z" fill="#fff"/>
+                            <path d="M15.4 13.6c-.3-.7-.6-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.3 1.3-1.3 3s1.3 3.5 1.5 3.7c.2.3 2.5 4 6.1 5.4 3 1.2 3.6 1 4.3.9.7-.1 2.1-.9 2.4-1.7.3-.9.3-1.6.2-1.7-.1-.2-.4-.3-.8-.5l-2.5-1.2c-.3-.2-.6-.1-.9.2l-1 1.2c-.2.3-.5.3-.8.2-.4-.2-1.6-.6-2.9-1.8-1.1-1-1.8-2.1-2-2.4-.2-.3 0-.5.1-.7l.6-.8c.2-.2.2-.4.1-.6z" fill="#25D366"/>
+                          </svg>
+                        </span>
+                        <span class="ph-tx">
+                          <span class="ph-hd"><b>Сергей</b><i>22:07</i></span>
+                          <span class="ph-bd">Здравствуйте! Можно записаться<br>к урологу на четверг вечером?</span>
+                        </span>
+                      </div>
+
+                      <!-- Telegram: только что, 23:40 -->
+                      <div class="ph-note">
+                        <span class="ph-ico">
+                          <svg viewBox="0 0 38 38">
+                            <defs>
+                              <linearGradient id="ph-tg" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#3CBDF5"/><stop offset="1" stop-color="#1287C8"/>
+                              </linearGradient>
+                            </defs>
+                            <rect width="38" height="38" fill="url(#ph-tg)"/>
+                            <path d="M8.6 18.4 27.1 11.2c1-.4 1.9.2 1.6 1.6l-3.2 15c-.2 1-.9 1.2-1.7.7l-4.5-3.3-2.2 2.1c-.3.3-.5.5-1 .5l.4-4.6 9.1-8.2c.3-.3 0-.5-.4-.3l-11.2 7-4-1.2c-1-.3-1-.9.1-1.3z" fill="#fff"/>
+                          </svg>
+                        </span>
+                        <span class="ph-tx">
+                          <span class="ph-hd"><b>АМДЦ · заявки с сайта</b><i>сейчас</i></span>
+                          <span class="ph-bd">Ирина, +7 921 •••-24-19<br>Стоматология — лечение кариеса</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="ph-focus">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M3.4 5.4a1.1 1.1 0 0 1 2.2 0v4.9h13.2a2.4 2.4 0 0 1 2.4 2.4v5.9a1.1 1.1 0 0 1-2.2 0v-1.3H5.6v1.3a1.1 1.1 0 0 1-2.2 0z"/>
+                        <rect x="7" y="6.6" width="5.6" height="2.9" rx="1.45"/>
+                        <rect x="13.6" y="6.6" width="5.6" height="2.9" rx="1.45"/>
+                      </svg>
+                      Сон
+                    </div>
+
+                    <div class="ph-dock">
+                      <span class="ph-round">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M8.4 2.6h7.2a1.1 1.1 0 0 1 1.1 1.1v2.05a2.2 2.2 0 0 1-.42 1.3l-1.12 1.53a2.2 2.2 0 0 0-.42 1.3v9.42a2.1 2.1 0 0 1-2.1 2.1h-1.3a2.1 2.1 0 0 1-2.1-2.1V9.88a2.2 2.2 0 0 0-.42-1.3L7.7 7.05a2.2 2.2 0 0 1-.42-1.3V3.7A1.1 1.1 0 0 1 8.4 2.6z"/>
+                        </svg>
+                      </span>
+                      <span class="ph-round">
+                        <svg viewBox="0 0 24 24">
+                          <path fill-rule="evenodd" d="M9.3 3.6h5.4l1.05 1.7h2.45A2.8 2.8 0 0 1 21 8.1v7.9a2.8 2.8 0 0 1-2.8 2.8H5.8A2.8 2.8 0 0 1 3 16V8.1a2.8 2.8 0 0 1 2.8-2.8h2.45zM12 8.6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+                        </svg>
+                      </span>
+                    </div>
+
+                    <span class="ph-bar"></span>
+                    <span class="ph-sheen"></span>
                   </div>
-                  <div class="ph-note">
-                    <div class="ph-app"><i></i>am-dc.ru<span>22:07</span></div>
-                    <b>Новая заявка с сайта</b>
-                    <span>Сергей, +7 911 •••-08-77<br>Уролог — первичный приём</span>
-                  </div>
-                  <div class="ph-note pale">
-                    <div class="ph-app"><i></i>am-dc.ru<span>21:14</span></div>
-                    <b>Новая заявка с сайта</b>
-                  </div>
-                  <div class="ph-foot">Регистратура закрыта в 20:00</div>
                 </div>
               </div>
             </div>
@@ -1554,7 +1670,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916d"></script>
+<script src="assets/mobile.js?v=20260916e"></script>
 
 </body>
 </html>
