@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916g">
-<link rel="stylesheet" href="assets/style.css?v=20260916g">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916h">
+<link rel="stylesheet" href="assets/style.css?v=20260916h">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916g">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916h">
 </head>
 <body>
 
@@ -517,41 +517,83 @@
               <div class="kick">Опыт наконец видно целиком, а не по кусочкам.</div>
             </div>
 
-            <div class="scene">
-              <div class="win">
-                <div class="bar"><i></i><i></i><i></i><span class="url">am-dc.ru/o-klinike</span></div>
-                <div class="sc">
-                  <div class="sc-kpi">
-                    <div><b>24 года</b><span>в Выборгском районе</span></div>
-                    <div><b>14</b><span>направлений</span></div>
-                    <div><b>4,9</b><span>по 324 отзывам</span></div>
+            <!-- Довод нарисован буквально: сверху три чужие карточки
+                 с крестиком, снизу свой сайт на ноутбуке с галочкой.
+                 Первый экран внутри ноутбука — тот же самый, что в
+                 шапке страницы, в семь десятых величины. Разбор
+                 в style.css, раздел «справочники против своего сайта». -->
+            <div class="scene cmp-stage">
+              <div class="cmp">
+
+                <div class="cmp-row">
+                  <div class="cmp-apps">
+                    <span class="cmp-app">
+                      <span class="cmp-tile gis">2ГИС</span>
+                      <b>2ГИС</b>
+                    </span>
+                    <span class="cmp-app">
+                      <span class="cmp-tile ya">Я</span>
+                      <b>Яндекс Карты</b>
+                    </span>
+                    <span class="cmp-app">
+                      <span class="cmp-tile gm">
+                        <svg viewBox="0 0 104 104" aria-hidden="true">
+                          <rect width="104" height="104" fill="#F4F2EC"/>
+                          <rect x="60" y="0" width="44" height="34" fill="#CFE6CD"/>
+                          <rect x="0" y="74" width="34" height="30" fill="#CFE6CD"/>
+                          <path d="M-4 24Q26 40 34 74 38 92 46 108" fill="none" stroke="#A9D2F3" stroke-width="11"/>
+                          <path d="M-4 60 44 24 108 68" fill="none" stroke="#FFFFFF" stroke-width="10"/>
+                          <path d="M-4 60 44 24 108 68" fill="none" stroke="#F6C244" stroke-width="5"/>
+                          <path d="M52 27c-9.6 0-17.4 7.6-17.4 17 0 12.4 17.4 28.4 17.4 28.4S69.4 56.4 69.4 44c0-9.4-7.8-17-17.4-17z" fill="#E8453C"/>
+                          <circle cx="52" cy="43.6" r="6.3" fill="#fff"/>
+                        </svg>
+                      </span>
+                      <b>Google Карты</b>
+                    </span>
                   </div>
-                  <div class="sc-two">
-                    <div class="sc-lic">
-                      <svg viewBox="0 0 40 40" aria-hidden="true">
-                        <circle cx="20" cy="20" r="15" fill="none" stroke="#B08A3F" stroke-width="1.2"/>
-                        <circle cx="20" cy="20" r="11.5" fill="none" stroke="#B08A3F" stroke-width=".7"/>
-                        <path d="M20 13v8M16 17h8" stroke="#B08A3F" stroke-width="1.6" stroke-linecap="round"/>
-                        <path d="M14 27.5h12" stroke="#B08A3F" stroke-width=".7"/>
-                      </svg>
-                      <div>
-                        <div class="sc-h">Лицензия ЛО-78-01-011482</div>
-                        <div class="sc-t">Росздравнадзор, бессрочная</div>
+                  <span class="cmp-mark no" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6.4 6.4 17.6 17.6M17.6 6.4 6.4 17.6"/></svg>
+                  </span>
+                </div>
+
+                <div class="cmp-row">
+                  <div class="cmp-mac" role="img"
+                       aria-label="Ноутбук с первым экраном сайта клиники: лицензия, четырнадцать направлений, цены и кнопка записи на одной странице.">
+                    <div class="mac-lid">
+                      <div class="mac-scr" aria-hidden="true">
+                        <div class="mp">
+                          <div class="mp-bar"><i></i><i></i><i></i><span>am-dc.ru</span></div>
+                          <div class="mp-nav">
+                            <span class="mp-logo"><i></i>АМДЦ</span>
+                            <span class="mp-menu">
+                              <i style="width:calc(15 * var(--k))"></i>
+                              <i style="width:calc(11 * var(--k))"></i>
+                              <i style="width:calc(18 * var(--k))"></i>
+                              <i style="width:calc(12 * var(--k))"></i>
+                            </span>
+                            <span class="mp-btn">Записаться</span>
+                          </div>
+                          <div class="mp-hero">
+                            <div class="mp-eye">Медцентр с 2002 года · Выборгский район</div>
+                            <div class="mp-h">Приём без очереди у метро Площадь Мужества</div>
+                            <div class="mp-sub">Урология, гинекология, проктология, стоматология, косметология и лаборатория — 14 направлений в одном центре.</div>
+                            <div class="mp-cta"><span class="b">Записаться на приём</span><span class="t">+7 812 943-84-86</span></div>
+                          </div>
+                          <div class="mp-cards">
+                            <div><span class="n">Приём уролога</span><span class="p">от 300 ₽</span><i class="l" style="width:70%"></i></div>
+                            <div><span class="n">Лечение кариеса</span><span class="p">от 5 000 ₽</span><i class="l" style="width:55%"></i></div>
+                            <div><span class="n">Анализы</span><span class="p">от 220 ₽</span><i class="l" style="width:80%"></i></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="sc-rev">
-                      <div class="sc-stars">★★★★★</div>
-                      <div class="sc-q">«Лечилась у трёх врачей центра, всеми довольна. Записалась с сайта вечером.»</div>
-                      <div class="sc-t">Ирина К. · 12 сентября</div>
-                    </div>
+                    <div class="mac-base"></div>
                   </div>
-                  <div class="sc-chips wrap">
-                    <span class="sc-chip">Урология</span><span class="sc-chip">Гинекология</span>
-                    <span class="sc-chip">Стоматология</span><span class="sc-chip">Косметология</span>
-                    <span class="sc-chip">Проктология</span><span class="sc-chip">Лаборатория</span>
-                    <span class="sc-chip">УЗИ</span><span class="sc-chip">+7</span>
-                  </div>
+                  <span class="cmp-mark ok" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5.4 12.6 10 17.4 18.8 7.2"/></svg>
+                  </span>
                 </div>
+
               </div>
             </div>
           </article>
@@ -1803,7 +1845,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916g"></script>
+<script src="assets/mobile.js?v=20260916h"></script>
 
 </body>
 </html>
