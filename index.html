@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916p">
-<link rel="stylesheet" href="assets/style.css?v=20260916p">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916r">
+<link rel="stylesheet" href="assets/style.css?v=20260916r">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916p">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916r">
 </head>
 <body>
 
@@ -1820,6 +1820,26 @@
       view.style.scrollBehavior = '';
     }
 
+    /* Переход, начатый кликом, ведёт бегунок сам — прокрутка в
+       это время им не командует.
+
+       Зачем: лента едет к дальнему развороту плавно и по дороге
+       минует все промежуточные. На каждом из них обработчик
+       прокрутки видел новый индекс и переставлял цель бегунка:
+       тот разгонялся к соседней вкладке, его дёргали к
+       следующей, и переход начинался заново — отсюда рывки.
+       На одно деление промежутков нет, потому там всегда было
+       гладко.
+
+       Теперь цель ставится один раз, сразу конечная, и бегунок
+       едет к ней одним движением. Замок снимается, когда лента
+       доехала; таймер — на случай, если не доедет (прокрутку
+       перехватили пальцем, вкладка ушла в фон и кадров не
+       было). Полторы секунды заведомо больше и переезда
+       бегунка в 0,52 с, и самой плавной прокрутки. */
+    var navTo = -1, navTimer = 0;
+    function unlock(){ navTo = -1; clearTimeout(navTimer); }
+
     function go(i){
       var last = slides.length - 1;
       var jump = i > last || i < 0;
@@ -1827,6 +1847,9 @@
       if (i < 0)    i = last;
       var px = i * view.clientWidth;
       if (jump) slip(px); else view.scrollLeft = px;
+      navTo = i;
+      clearTimeout(navTimer);
+      navTimer = setTimeout(unlock, 1500);
       mark(i);
     }
 
@@ -1851,14 +1874,28 @@
     prev.addEventListener('click', function(){ go(cur - 1); });
     next.addEventListener('click', function(){ go(cur + 1); });
 
+    /* Тронули ленту рукой — замок снимается сразу, не дожидаясь
+       таймера: дальше прокруткой командует человек, а не
+       начатый переход. Слушаем только саму ленту: вкладки и
+       стрелки лежат снаружи, и их нажатия сюда не попадают. */
+    ['pointerdown','touchstart','wheel'].forEach(function(e){
+      view.addEventListener(e, unlock, {passive:true});
+    });
+
     var sTick = false;
     view.addEventListener('scroll', function(){
       if (sTick) return;
       sTick = true;
       requestAnimationFrame(function(){
         var i = at();
-        if (i !== cur) mark(i);
         sTick = false;
+        /* Пока едем по клику — молчим: цель уже поставлена, и
+           промежуточные развороты её только сбивали бы. */
+        if (navTo >= 0){
+          if (i === navTo) unlock();
+          return;
+        }
+        if (i !== cur) mark(i);
       });
     }, {passive:true});
 
@@ -1866,6 +1903,7 @@
        поворота телефона прокрутка остаётся на старых
        пикселях — возвращаем её на ту же карточку. */
     addEventListener('resize', function(){
+      unlock();
       slip(cur * view.clientWidth);
       place(true);
     });
@@ -1953,7 +1991,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916p"></script>
+<script src="assets/mobile.js?v=20260916r"></script>
 
 </body>
 </html>
