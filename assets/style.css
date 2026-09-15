@@ -5889,3 +5889,188 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   color:#2A1D06;border-color:rgba(120,90,38,.55);
   box-shadow:inset 0 1px 0 rgba(255,250,235,.7),0 3px 10px -4px rgba(0,0,0,.6);
 }
+
+/* ============================================================
+   ТРЕТЬЯ ПОЛОСА ПО ОБРАЗЦУ
+
+   Заказчик дал в образец maggistratura.com и попросил подвести
+   расчёт к нему как можно ближе. Разбор образца свёлся к шести
+   приёмам, и здесь взяты все шесть.
+
+   1. Тёмный баклажан вместо бумаги. У образца весь разговор о
+      деньгах идёт по чёрно-фиолетовому, и золото на нём горит;
+      на бумаге тот же металл читается жёлтым. Полоса поэтому
+      переведена с .b-paper на .b-onyx.
+   2. Центр. Рубрика, заголовок и лид у образца стоят по
+      середине — добавлен штатный модификатор .mid.
+   3. Двухцветный заголовок: белое плюс золото на выделенном
+      куске. Это <mark>, он на тёмных полосах уже золотой.
+   4. Золотая плашка верхом на кромке карточки — у образца так
+      помечены тарифы. Самый узнаваемый его приём.
+   5. Цифры набраны тяжёлым гротеском, а не серифом. У образца
+      цена — жирный гротеск в разрядку, и именно он делает
+      число «ценником». Сериф на этой роли читается изящно, но
+      не громко.
+   6. Итог — не коробка, а цена под золотым волоском.
+
+   Шестое стоит пояснить, потому что оно отменяет прежнее
+   решение. Табло раньше было единственным тёмным пятном на
+   светлой полосе — «золото светится только по чёрному». Теперь
+   чёрная вся полоса, и тёмная коробка на тёмном фоне
+   превращается в коробку внутри коробки: границы спорят, а
+   цифра не выигрывает ничего. У образца цена лежит прямо на
+   карточке и отделена сверху золотым волоском с растворёнными
+   концами. Так и сделано: у .payoff сняты рамка, заливка и
+   тень, остались ореол и размер.
+   ============================================================ */
+
+/* ---- пульт с золотой плашкой ----------------------------- */
+.mag .calc{margin-top:clamp(2.1rem,3.4vw,2.9rem)}
+.mag .calc-in{
+  position:relative;
+  padding-top:clamp(1.85rem,2.9vw,2.4rem);
+  border-color:rgba(200,164,95,.3);
+  border-radius:var(--r-lg);
+  box-shadow:
+    inset 0 1px 0 rgba(255,246,222,.07),
+    0 34px 74px -48px rgba(0,0,0,.95);
+}
+/* Плашка сидит верхом на кромке: половина внутри карточки,
+   половина снаружи. Приём образца — там так подписаны тарифы. */
+.mag .calc-in .t{
+  position:absolute;left:50%;top:0;
+  transform:translate(-50%,-50%);
+  margin:0;padding:.46rem 1.3rem;
+  border-radius:100px;
+  background:var(--au-plate);
+  color:#241703;
+  font:800 .7rem/1 var(--sans);
+  letter-spacing:.16em;text-transform:uppercase;
+  white-space:nowrap;
+  box-shadow:
+    inset 0 1px 0 rgba(255,250,228,.75),
+    0 12px 26px -14px rgba(200,164,95,.85);
+}
+
+/* ---- ведомость: цифры гротеском -------------------------- */
+/* У образца все числа — тяжёлый гротеск, и мелкие в списках
+   набраны тем же, чем крупная цена. Разнобой здесь дороже
+   единообразия: одна цифра не должна выглядеть из другого
+   документа, чем итог под ней. */
+.mag .cline .v{
+  font:700 1.3rem/1 var(--sans);
+  font-variant-numeric:tabular-nums lining-nums;
+  letter-spacing:-.01em;
+}
+.mag .cline .l{color:var(--t1);font-weight:500}
+.mag .cline.loss .l{color:var(--t2);font-weight:400}
+
+/* ---- итог: цена, а не табло ------------------------------ */
+.mag .payoff{
+  border:0;background:none;box-shadow:none;
+  overflow:visible;
+  margin-top:clamp(1.15rem,2vw,1.7rem);
+  padding:clamp(1.25rem,2.2vw,1.85rem) 0 0;
+}
+/* Золотой волосок с растворёнными концами — та самая линейка,
+   которой у образца отделена цена. Берёт общий --au-rule,
+   своего градиента тут заводить незачем. */
+.mag .payoff::after{
+  content:'';position:absolute;left:14%;right:14%;top:0;height:1px;
+  background:var(--au-rule);
+}
+.mag .payoff .pk{
+  font-weight:700;letter-spacing:.18em;
+  color:var(--au-hi);margin-bottom:.5rem;
+}
+/* Зачёркнутая цифра «до». Тон приглушён до .55 — у образца
+   старая цена именно тускнеет, а не спорит с новой. */
+.mag .payoff .pold{
+  position:relative;
+  margin:0 auto .35rem;max-width:42ch;
+  font:400 .78rem/1.5 var(--sans);
+  color:var(--t3);
+}
+.mag .payoff .pold s{
+  font:800 1.28rem/1 var(--sans);
+  letter-spacing:-.01em;
+  color:rgba(200,164,95,.55);
+  text-decoration-line:line-through;
+  text-decoration-thickness:2px;
+  margin-right:.5rem;
+}
+.mag .payoff .pv{
+  font:800 clamp(2.7rem,1.4rem + 5.4vw,5.4rem)/1 var(--sans);
+  letter-spacing:-.03em;
+}
+.mag .payoff .pn{color:var(--t2)}
+
+/* ---- три горизонта карточками ---------------------------- */
+/* У образца ряд чисел стоит одинаковыми тёмными карточками с
+   золотой цифрой и мелкой подписью капителью. Прежний зелёный
+   тут проигрывал: на золотой полосе он единственный чужой
+   цвет, и ряд разваливался. */
+.mag .hz{gap:clamp(.55rem,1vw,.9rem);margin-top:1.1rem}
+.mag .hz div{
+  text-align:center;
+  padding:clamp(.85rem,1.4vw,1.1rem) .7rem;
+  border:1px solid rgba(200,164,95,.2);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,
+    rgba(255,246,222,.045),rgba(255,246,222,.012));
+}
+.mag .hz.good b{
+  font:800 clamp(1.02rem,.78rem + .78vw,1.44rem)/1 var(--sans);
+  font-variant-numeric:tabular-nums lining-nums;
+  letter-spacing:-.01em;margin-bottom:.34rem;
+  color:transparent;
+  background-color:transparent;
+  background-image:var(--au-plate);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.mag .hz span{
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--t4);
+}
+
+/* ---- вывод: пункт списка, а не цитата -------------------- */
+/* У образца выводы набраны пунктами с золотым кружком-галкой.
+   Прежняя золотая черта слева — приём цитаты, и на тёмной
+   полосе она читалась врезкой из другого раздела. */
+.mag .strip{
+  display:flex;align-items:flex-start;gap:.9rem;
+  max-width:none;
+  padding:clamp(1rem,1.8vw,1.35rem) clamp(1.1rem,2vw,1.5rem);
+  /* border и border-left порознь: у базового правила слева
+     золотая черта в две точки, и общий border её не снимает —
+     он задаёт все четыре стороны, а отдельное правило ниже
+     побеждает по порядку. */
+  border:1px solid rgba(200,164,95,.22);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,
+    rgba(255,246,222,.05),rgba(255,246,222,.014));
+  font-size:clamp(1rem,.94rem + .4vw,1.22rem);
+}
+/* Золотую черту слева рисует не рамка, а .strip::before —
+   отдельное правило ниже по таблице, и общий border его не
+   снимает. Внутри карточки с собственной рамкой эта черта
+   читается остатком от прежнего оформления. */
+.mag .strip::before{display:none}
+.mag .strip .ck{
+  flex:none;width:24px;height:24px;margin-top:.22rem;
+  display:grid;place-items:center;border-radius:50%;
+  background:rgba(200,164,95,.14);
+  border:1px solid rgba(200,164,95,.42);
+  color:var(--au-hi);
+}
+.mag .strip .ck .i{width:13px;height:13px;stroke-width:2.8}
+/* Текст завёрнут в свой span, и это обязательно: .strip теперь
+   флекс, а прямой <b> внутри стал бы отдельной колонкой —
+   строка рвалась, и «22 пациента и 191 000 ₽» уезжало вправо
+   отдельным столбцом. */
+.mag .strip .tx{min-width:0}
+.mag .strip b{color:var(--au-hi)}
+
+/* Лид и сноска на тёмной полосе по центру — как у образца. */
+.mag .note{margin-left:auto;margin-right:auto;text-align:center}
