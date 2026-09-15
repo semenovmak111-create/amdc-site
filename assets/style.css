@@ -4786,109 +4786,112 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 }
 
 /* ---- отметки --------------------------------------------
-   Эмаль и волосяная бронзовая кромка, а не неон: дорого
-   выглядит сдержанное. Поэтому свечения почти нет — только
-   мягкий цветной подсвет под диском, один блик сверху и
-   тень снизу. Всё остальное сделал бы их ярмарочными.
+   Неоновые трубки той же техники, что и логотипы справочников,
+   только каждая в своём цвете: крестик горит красным, галочка —
+   мятной зеленью. В отличие от плиток, отметки светят и наружу:
+   это вывод разворота, ему и положено быть самым ярким пятном.
+
+   Свет собран слоями, одним box-shadow такого не выйдет: по
+   кольцу трубка, внутрь — отражённый свет и тёмная глубина,
+   наружу три расходящихся ореола, а сам знак с белым
+   сердечником и тройным свечением по контуру. Ядро у неона
+   всегда белое — цвет виден только в ореоле вокруг него.
+   Цвет задан тройкой --g: он идёт и в обводку, и в свет.
    -------------------------------------------------------- */
 .cmp-mark{
   position:relative;
   width:calc(56 * var(--k));height:calc(56 * var(--k));
   border-radius:50%;display:grid;place-items:center;
-}
-.cmp-mark.no{
-  --amb:rgba(158,51,32,.3);
+  border:calc(1.7 * var(--k)) solid rgba(var(--g),.9);
   background:
-    radial-gradient(74% 58% at 50% 6%,rgba(255,236,228,.3) 0,transparent 60%),
-    linear-gradient(176deg,#A8412E 0,#7C2A1C 54%,#54190F 100%);
+    radial-gradient(64% 64% at 50% 30%,rgba(var(--g),.3) 0,transparent 74%),
+    radial-gradient(120% 120% at 50% 50%,
+      rgba(8,6,12,.62) 0,rgba(var(--g),.1) 58%,rgba(var(--g),.34) 100%);
   box-shadow:
-    0 calc(10 * var(--k)) calc(22 * var(--k)) calc(-8 * var(--k)) rgba(0,0,0,.75),
-    0 0 calc(24 * var(--k)) var(--amb),
-    inset 0 calc(-4 * var(--k)) calc(8 * var(--k)) rgba(50,10,4,.5),
-    inset 0 calc(1 * var(--k)) calc(1 * var(--k)) rgba(255,220,208,.28);
+    0 0 calc(7 * var(--k)) rgba(var(--g),.85),
+    0 0 calc(18 * var(--k)) rgba(var(--g),.6),
+    0 0 calc(38 * var(--k)) rgba(var(--g),.4),
+    0 0 calc(72 * var(--k)) rgba(var(--g),.24),
+    0 0 calc(120 * var(--k)) rgba(var(--g),.12),
+    inset 0 0 calc(18 * var(--k)) rgba(var(--g),.6),
+    inset 0 0 calc(3.5 * var(--k)) rgba(255,255,255,.5);
 }
-.cmp-mark.ok{
-  --amb:rgba(11,106,83,.3);
-  background:
-    radial-gradient(74% 58% at 50% 6%,rgba(228,255,246,.3) 0,transparent 60%),
-    linear-gradient(176deg,#1E8A6C 0,#125F48 54%,#083A2C 100%);
-  box-shadow:
-    0 calc(10 * var(--k)) calc(22 * var(--k)) calc(-8 * var(--k)) rgba(0,0,0,.75),
-    0 0 calc(24 * var(--k)) var(--amb),
-    inset 0 calc(-4 * var(--k)) calc(8 * var(--k)) rgba(2,40,30,.5),
-    inset 0 calc(1 * var(--k)) calc(1 * var(--k)) rgba(214,255,240,.26);
-}
-/* Кромка: бронза волоском и с перепадом по кругу. Ровное
-   золотое кольцо читается бижутерией, неровное — металлом. */
+.cmp-mark.no{--g:255,72,92;--core:#FFECEE}
+.cmp-mark.ok{--g:58,255,168;--core:#E6FFF4}
+/* блик стекла: тонкая дуга по верхней кромке */
 .cmp-mark::before{
   content:'';position:absolute;inset:0;pointer-events:none;
   border-radius:50%;padding:calc(1 * var(--k));
-  background:linear-gradient(148deg,
-    rgba(235,214,166,.9) 0,rgba(200,164,95,.3) 24%,
-    rgba(120,92,44,.22) 48%,rgba(200,164,95,.42) 72%,
-    rgba(235,214,166,.75) 100%);
+  background:linear-gradient(160deg,
+    rgba(255,255,255,.75) 0,rgba(255,255,255,.12) 26%,
+    transparent 52%,rgba(var(--g),.5) 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
           mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
           mask-composite:exclude;
 }
 .cmp-mark svg{
-  display:block;width:calc(25 * var(--k));height:calc(25 * var(--k));
-  fill:none;stroke:#F6F1E8;stroke-width:2.7;
+  display:block;width:calc(26 * var(--k));height:calc(26 * var(--k));
+  fill:none;stroke:var(--core);stroke-width:3.1;
   stroke-linecap:round;stroke-linejoin:round;
-  filter:drop-shadow(0 calc(1 * var(--k)) calc(1.5 * var(--k)) rgba(0,0,0,.5));
+  filter:
+    drop-shadow(0 0 calc(1.4 * var(--k)) rgba(var(--g),1))
+    drop-shadow(0 0 calc(4 * var(--k)) rgba(var(--g),.9))
+    drop-shadow(0 0 calc(10 * var(--k)) rgba(var(--g),.7))
+    drop-shadow(0 0 calc(20 * var(--k)) rgba(var(--g),.4));
 }
 
 /* ---- ноутбук ---------------------------------------------
    Собран по тем же правилам, что и телефоны: размеры взяты у
-   аппарата и заданы в долях его ширины. MacBook Air 13″ —
-   корпус 304,1 × 212,4 мм, экран 286,4 × 179,0 мм. Отсюда
-   рамка 8,85 мм по бокам, 10 мм сверху и 23,4 мм снизу: на
-   глаз именно этот перепад и опознаётся как макбук. Лицом к
-   зрителю алюминия видно около двух миллиметров, дальше идёт
-   чёрное стекло дисплея.
+   аппарата и заданы в долях его ширины. MacBook Pro 14″ —
+   корпус 312,6 × 221,2 мм, экран 302,0 × 190,0 мм, толщина
+   деки 15,5 мм. Отсюда рамка вокруг экрана и глубина деки:
+   на глаз именно этот перепад и опознаётся как макбук.
 
-   Клавиатурная часть — не полоска под крышкой, а настоящая
-   плоскость: preserve-3d, поворот на 90° вокруг петли. Она
-   уходит к зрителю, и клавиатура с трекпадом ложатся в
-   перспективу сами. Плоской заливкой этого не подделать —
-   именно по ней и видно, что ноутбук нарисован.
+   Это настоящая объёмная сборка, а не картинка ноутбука:
+   крышка стоит в плоскости экрана, дека повёрнута на 90°
+   вокруг петли и уходит к зрителю, передний торец свешен с
+   её края ещё на 90°. Камера смотрит сверху и чуть слева —
+   поворот всей сборки на .cmp-mac. Клавиатура и трекпад
+   ложатся в перспективу сами, потому что лежат на деке.
    -------------------------------------------------------- */
 .mac-stage{
   position:relative;
-  padding-bottom:calc(46 * var(--k));
-  perspective:calc(3400 * var(--k));
-  perspective-origin:50% 46%;
+  padding-bottom:calc(74 * var(--k));
+  perspective:calc(2700 * var(--k));
+  perspective-origin:50% 30%;
 }
 /* тень на стол */
 .mac-stage::after{
   content:'';position:absolute;z-index:-1;
-  left:3%;right:3%;bottom:calc(6 * var(--k));height:calc(34 * var(--k));
+  left:2%;right:2%;bottom:calc(18 * var(--k));height:calc(46 * var(--k));
   border-radius:50%;
-  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.82),transparent 70%);
+  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.8),transparent 72%);
 }
 .cmp-mac{
   position:relative;width:calc(390 * var(--k));margin:0 auto;
   transform-style:preserve-3d;
-  transform:rotateX(9deg) rotateY(-10deg) rotateZ(-.5deg);
-  /* ось вращения — середина раскрытого аппарата, а не петля:
-     иначе при повороте дека уезжает вбок из-под крышки */
-  transform-origin:50% 100% calc(126 * var(--k));
+  /* камера: 16° сверху, 12° слева */
+  transform:rotateX(16deg) rotateY(-12deg);
+  transform-origin:50% 100%;
 }
+
+/* ---- крышка ---------------------------------------------- */
 .mac-lid{
   position:relative;
-  padding:calc(2.6 * var(--k));
-  border-radius:calc(15 * var(--k));
+  padding:calc(2.4 * var(--k));
+  border-radius:calc(14 * var(--k)) calc(14 * var(--k))
+                calc(3 * var(--k)) calc(3 * var(--k));
   background:
-    linear-gradient(166deg,
-      rgba(255,255,255,.20) 0,rgba(255,255,255,0) 26%,
-      rgba(0,0,0,.26) 76%,rgba(0,0,0,.42) 100%),
+    linear-gradient(168deg,
+      rgba(255,255,255,.16) 0,rgba(255,255,255,0) 24%,
+      rgba(0,0,0,.28) 78%,rgba(0,0,0,.45) 100%),
     linear-gradient(90deg,
-      #C2C8D0 0,#767D85 .22%,#464C53 .46%,#343940 .68%,
-      #2F343A 50%,
-      #343940 99.32%,#464C53 99.54%,#767D85 99.78%,#C2C8D0 100%);
+      #8E959E 0,#5A616A .3%,#31363C .7%,#23272C 1.6%,
+      #1E2226 50%,
+      #23272C 98.4%,#31363C 99.3%,#5A616A 99.7%,#8E959E 100%);
   box-shadow:
-    0 calc(30 * var(--k)) calc(50 * var(--k)) calc(-26 * var(--k)) rgba(0,0,0,.85),
+    0 calc(26 * var(--k)) calc(46 * var(--k)) calc(-24 * var(--k)) rgba(0,0,0,.85),
     0 calc(4 * var(--k)) calc(10 * var(--k)) calc(-3 * var(--k)) rgba(0,0,0,.55);
 }
 /* полированная кромка: яркость гуляет по периметру */
@@ -4896,10 +4899,10 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
   border-radius:inherit;padding:calc(.9 * var(--k));
   background:linear-gradient(142deg,
-    rgba(255,255,255,.72) 0,rgba(255,255,255,.16) 14%,
-    rgba(255,255,255,.04) 30%,rgba(255,255,255,.36) 48%,
-    rgba(255,255,255,.05) 64%,rgba(255,255,255,.2) 82%,
-    rgba(255,255,255,.62) 100%);
+    rgba(255,255,255,.66) 0,rgba(255,255,255,.14) 14%,
+    rgba(255,255,255,.04) 30%,rgba(255,255,255,.32) 48%,
+    rgba(255,255,255,.05) 64%,rgba(255,255,255,.18) 82%,
+    rgba(255,255,255,.56) 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
           mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
@@ -4907,20 +4910,22 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 }
 .mac-glass{
   position:relative;
-  padding:calc(10.2 * var(--k)) calc(8.75 * var(--k)) calc(27.4 * var(--k));
-  border-radius:calc(12.6 * var(--k));
+  padding:calc(9.4 * var(--k)) calc(6.6 * var(--k)) calc(11.6 * var(--k));
+  border-radius:calc(11.6 * var(--k)) calc(11.6 * var(--k))
+                calc(2 * var(--k)) calc(2 * var(--k));
   background:linear-gradient(162deg,#111317,#050506 42%,#050506 76%,#0C0E11);
   box-shadow:inset 0 0 0 calc(.6 * var(--k)) rgba(255,255,255,.05);
 }
+/* камера */
 .mac-glass::before{
-  content:'';position:absolute;left:50%;top:calc(4.6 * var(--k));
+  content:'';position:absolute;left:50%;top:calc(4.2 * var(--k));
   transform:translateX(-50%);
   width:calc(3 * var(--k));height:calc(3 * var(--k));
   border-radius:50%;background:rgba(150,162,178,.35);
 }
 .mac-scr{
   position:relative;overflow:hidden;
-  height:calc(229.6 * var(--k));
+  height:calc(236 * var(--k));
   border-radius:calc(1.6 * var(--k));
   background:#0B0710;
 }
@@ -4934,68 +4939,103 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
     radial-gradient(120% 120% at 50% 50%,transparent 64%,rgba(0,0,0,.26) 100%);
 }
 
-/* Дека. Лежит горизонтально: поворот на 90° вокруг петли,
-   передним краем к зрителю. Глубина настоящая — 212,4 мм,
-   в проекции от неё остаётся полоса в полсотни точек. */
-.mac-base{
+/* ---- дека ------------------------------------------------
+   Плоскость от петли к зрителю. Дальний край у петли лежит в
+   тени крышки, ближний ловит свет — отсюда направление
+   заливки. Всё, что на ней лежит, задано в процентах от
+   глубины, и перспективу получает даром.
+   -------------------------------------------------------- */
+.mac-deck{
   position:absolute;left:50%;top:100%;
   width:calc(388 * var(--k));height:calc(272 * var(--k));
   margin-left:calc(-194 * var(--k));
-  transform-origin:top center;
-  transform:rotateX(90deg);
-  border-radius:0 0 calc(13 * var(--k)) calc(13 * var(--k));
-  /* После поворота верх элемента оказывается у зрителя, а низ —
-     у петли: поэтому светлое стоит в начале градиента, а
-     тень от крышки — в конце. */
-  background:linear-gradient(180deg,
-    #6E757F 0,#666D77 14%,#5A616A 38%,
-    #4A5058 62%,#373C43 82%,#24282D 94%,#15181B 100%);
+  transform-style:preserve-3d;
+  transform-origin:50% 0;
+  transform:rotateX(-90deg);
+  border-radius:0 0 calc(15 * var(--k)) calc(15 * var(--k));
+  background:
+    /* свет падает слева сверху: у левого борта блик, у правого спад */
+    linear-gradient(90deg,
+      rgba(255,255,255,.12) 0,rgba(255,255,255,.03) 14%,
+      rgba(0,0,0,0) 46%,rgba(0,0,0,.14) 88%,rgba(0,0,0,.2) 100%),
+    linear-gradient(180deg,
+      #101316 0,#181C20 5%,#252A30 17%,#31363D 38%,
+      #3A4048 64%,#414851 86%,#474E57 100%);
   box-shadow:inset 0 0 0 calc(1 * var(--k)) rgba(255,255,255,.06);
 }
-.mac-keys{
-  position:absolute;left:6.5%;right:6.5%;top:56%;height:38%;
-  border-radius:calc(4 * var(--k));overflow:hidden;
-  background:linear-gradient(180deg,#0D0F12,#16191D);
-  box-shadow:
-    inset 0 0 calc(8 * var(--k)) rgba(0,0,0,.7),
-    0 calc(1 * var(--k)) 0 rgba(255,255,255,.12);
+/* петля: тёмный валик у самой крышки */
+.mac-hinge{
+  position:absolute;left:8%;right:8%;top:0;height:calc(7 * var(--k));
+  border-radius:0 0 calc(4 * var(--k)) calc(4 * var(--k));
+  background:linear-gradient(180deg,#0A0C0E,#1A1D21);
 }
-/* клавиши: тёмные швы поверх поля цвета клавиш */
-.mac-keys::before{
-  content:'';position:absolute;inset:0;
+/* решётки динамиков: две перфорированные полосы по бокам
+   клавиатуры. Точки заданы радиальным повтором — на этом
+   размере от них остаётся ровная сетчатая фактура. */
+.mac-deck::before,
+.mac-deck::after{
+  content:'';position:absolute;top:10%;height:38%;
+  width:6.2%;border-radius:calc(2 * var(--k));
+  background:radial-gradient(rgba(0,0,0,.55) 38%,transparent 42%)
+             0 0 / calc(3.4 * var(--k)) calc(3.4 * var(--k));
+  opacity:.8;
+}
+.mac-deck::before{left:2.4%}
+.mac-deck::after{right:2.4%}
+
+/* колодец клавиатуры: утоплен, с фаской по верху */
+.mac-well{
+  position:absolute;left:9%;right:9%;top:10%;height:38%;
+  border-radius:calc(4 * var(--k));
+  background:linear-gradient(180deg,#0B0D0F,#131619);
+  box-shadow:
+    inset 0 0 calc(10 * var(--k)) rgba(0,0,0,.75),
+    0 calc(1.2 * var(--k)) 0 rgba(255,255,255,.14);
+}
+/* клавиши: светлые швы поверх тёмного поля */
+.mac-keys{
+  position:absolute;inset:calc(3 * var(--k));
+  border-radius:calc(2 * var(--k));overflow:hidden;
   background:
     repeating-linear-gradient(90deg,
-      rgba(146,156,170,.34) 0 calc(1.6 * var(--k)),
-      transparent calc(1.6 * var(--k)) calc(15.5 * var(--k))),
+      rgba(150,160,174,.32) 0 calc(1.5 * var(--k)),
+      transparent calc(1.5 * var(--k)) calc(15.2 * var(--k))),
     repeating-linear-gradient(180deg,
-      rgba(146,156,170,.3) 0 calc(1.8 * var(--k)),
-      transparent calc(1.8 * var(--k)) calc(16.5 * var(--k)));
+      rgba(150,160,174,.28) 0 calc(1.6 * var(--k)),
+      transparent calc(1.6 * var(--k)) calc(15.8 * var(--k)));
 }
+/* трекпад: ближе к зрителю, по центру */
 .mac-pad{
-  position:absolute;left:50%;top:13%;transform:translateX(-50%);
-  width:28%;height:34%;
+  position:absolute;left:50%;top:56%;transform:translateX(-50%);
+  width:30%;height:33%;
   border-radius:calc(5 * var(--k));
-  background:linear-gradient(180deg,#767D87,#656C76);
+  background:linear-gradient(180deg,#3B424A,#454C55);
   box-shadow:
-    inset 0 0 0 calc(1.2 * var(--k)) rgba(0,0,0,.5),
-    inset 0 calc(-2 * var(--k)) calc(5 * var(--k)) rgba(0,0,0,.3);
+    inset 0 0 0 calc(1.1 * var(--k)) rgba(0,0,0,.55),
+    inset 0 calc(2 * var(--k)) calc(5 * var(--k)) rgba(0,0,0,.35);
 }
-/* Передний торец: вертикальная грань у самого края деки. */
-.mac-edge{
-  position:absolute;left:50%;top:100%;
-  width:calc(386 * var(--k));height:calc(11 * var(--k));
-  margin-left:calc(-193 * var(--k));
-  transform:translateZ(calc(272 * var(--k)));
-  border-radius:0 0 calc(7 * var(--k)) calc(7 * var(--k));
+/* Передний торец: свешен с переднего края деки, лицом к
+   зрителю. Ось — верхний край грани (top:100% и origin 50% 0).
+   Повернёшь её вокруг нижнего края — грань встанет изнанкой
+   и вверх ногами: светлая фаска окажется внизу. */
+.mac-front{
+  position:absolute;left:0;right:0;top:100%;
+  height:calc(15.5 * var(--k));
+  transform-origin:50% 0;
+  transform:rotateX(90deg);
+  border-radius:0 0 calc(9 * var(--k)) calc(9 * var(--k));
   background:linear-gradient(180deg,
-    #7C838C 0,#5E656E 26%,#40464D 68%,#2A2E34 100%);
+    #79808A 0,#5E656F 16%,#454C55 46%,#31363D 78%,#232730 100%);
+  box-shadow:
+    inset 0 calc(1 * var(--k)) 0 rgba(255,255,255,.3),
+    0 calc(12 * var(--k)) calc(22 * var(--k)) calc(-8 * var(--k)) rgba(0,0,0,.8);
 }
 /* выемка под палец */
-.mac-edge::after{
+.mac-front::after{
   content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);
-  width:calc(92 * var(--k));height:calc(4.5 * var(--k));
+  width:calc(94 * var(--k));height:calc(4.5 * var(--k));
   border-radius:0 0 calc(6 * var(--k)) calc(6 * var(--k));
-  background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.15));
+  background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.08));
 }
 
 

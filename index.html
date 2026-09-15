@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916j">
-<link rel="stylesheet" href="assets/style.css?v=20260916j">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916k">
+<link rel="stylesheet" href="assets/style.css?v=20260916k">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916j">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916k">
 </head>
 <body>
 
@@ -519,8 +519,16 @@
 
             <!-- Довод нарисован буквально: сверху три чужие карточки
                  с крестиком, снизу свой сайт на ноутбуке с галочкой.
-                 Логотипы переведены в один цвет и одну технику —
-                 неоновая трубка контуром, заливка светом с него.
+                 Логотипы и отметки переведены в одну технику —
+                 неоновая трубка контуром. Логотипы светят только
+                 внутрь, отметки — и наружу: вывод разворота должен
+                 быть самым ярким пятном сцены.
+
+                 Ноутбук — объёмная сборка из трёх плоскостей:
+                 крышка, дека и передний торец. Дека повёрнута на
+                 90° вокруг петли, торец свешен с её края ещё на 90°,
+                 клавиатура и трекпад лежат на деке и в перспективу
+                 попадают сами.
 
                  На экране ноутбука настоящий снимок первого экрана
                  этой же страницы (assets/shots/pervyy-ekran.webp),
@@ -570,11 +578,12 @@
                         </div>
                       </div>
                     </div>
-                    <div class="mac-base">
-                      <span class="mac-keys"></span>
+                    <div class="mac-deck">
+                      <span class="mac-hinge"></span>
+                      <span class="mac-well"><span class="mac-keys"></span></span>
                       <span class="mac-pad"></span>
+                      <span class="mac-front"></span>
                     </div>
-                    <div class="mac-edge"></div>
                    </div>
                   </div>
                   <span class="cmp-mark ok" aria-hidden="true">
@@ -1833,7 +1842,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916j"></script>
+<script src="assets/mobile.js?v=20260916k"></script>
 
 </body>
 </html>
