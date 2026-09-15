@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=20260916k">
-<link rel="stylesheet" href="assets/style.css?v=20260916k">
+<link rel="stylesheet" href="assets/fonts.css?v=20260916m">
+<link rel="stylesheet" href="assets/style.css?v=20260916m">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=20260916k">
+<link rel="stylesheet" href="assets/mobile.css?v=20260916m">
 </head>
 <body>
 
@@ -580,7 +580,20 @@
                     </div>
                     <div class="mac-deck">
                       <span class="mac-hinge"></span>
-                      <span class="mac-well"><span class="mac-keys"></span></span>
+                      <span class="mac-grille l"></span>
+                      <span class="mac-grille r"></span>
+                      <!-- Клавиатура настоящая: шесть рядов, 77 клавиш,
+                           шаг 19 мм и все нестандартные ширины (delete,
+                           tab, caps, return, shift, пробел, стрелки) —
+                           ряды разложены гридом в style.css. -->
+                      <span class="mac-well">
+                        <span class="kr k1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                        <span class="kr k2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                        <span class="kr k3"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                        <span class="kr k4"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                        <span class="kr k5"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                        <span class="kr k6"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="ar"></i><i></i></span>
+                      </span>
                       <span class="mac-pad"></span>
                       <span class="mac-front"></span>
                     </div>
@@ -1842,7 +1855,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=20260916k"></script>
+<script src="assets/mobile.js?v=20260916m"></script>
 
 </body>
 </html>

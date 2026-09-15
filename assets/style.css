@@ -4851,9 +4851,10 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    Это настоящая объёмная сборка, а не картинка ноутбука:
    крышка стоит в плоскости экрана, дека повёрнута на 90°
    вокруг петли и уходит к зрителю, передний торец свешен с
-   её края ещё на 90°. Камера смотрит сверху и чуть слева —
-   поворот всей сборки на .cmp-mac. Клавиатура и трекпад
-   ложатся в перспективу сами, потому что лежат на деке.
+   её края ещё на 90°. Камера смотрит сверху и чуть справа —
+   один поворот всей сборки на .cmp-mac, аппарат развёрнут
+   влево. Клавиатура, решётки и трекпад ложатся в перспективу
+   сами, потому что лежат на деке, а не нарисованы на ней.
    -------------------------------------------------------- */
 .mac-stage{
   position:relative;
@@ -4871,8 +4872,8 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 .cmp-mac{
   position:relative;width:calc(390 * var(--k));margin:0 auto;
   transform-style:preserve-3d;
-  /* камера: 16° сверху, 12° слева */
-  transform:rotateX(16deg) rotateY(-12deg);
+  /* камера: 16° сверху, 11° справа */
+  transform:rotateX(16deg) rotateY(11deg);
   transform-origin:50% 100%;
 }
 
@@ -4942,8 +4943,10 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 /* ---- дека ------------------------------------------------
    Плоскость от петли к зрителю. Дальний край у петли лежит в
    тени крышки, ближний ловит свет — отсюда направление
-   заливки. Всё, что на ней лежит, задано в процентах от
-   глубины, и перспективу получает даром.
+   заливки. Всё, что на ней лежит, посчитано от настоящего
+   аппарата и задано в процентах от корпуса: 312,6 мм вширь
+   и 221,2 мм вглубь. Перспективу всё это получает даром,
+   потому что лежит на деке, а не нарисовано на ней.
    -------------------------------------------------------- */
 .mac-deck{
   position:absolute;left:50%;top:100%;
@@ -4959,8 +4962,8 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
       rgba(255,255,255,.12) 0,rgba(255,255,255,.03) 14%,
       rgba(0,0,0,0) 46%,rgba(0,0,0,.14) 88%,rgba(0,0,0,.2) 100%),
     linear-gradient(180deg,
-      #101316 0,#181C20 5%,#252A30 17%,#31363D 38%,
-      #3A4048 64%,#414851 86%,#474E57 100%);
+      #0E1114 0,#161A1E 5%,#20252A 17%,#2A2F36 40%,
+      #31373E 66%,#363C44 88%,#3B424A 100%);
   box-shadow:inset 0 0 0 calc(1 * var(--k)) rgba(255,255,255,.06);
 }
 /* петля: тёмный валик у самой крышки */
@@ -4969,50 +4972,86 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   border-radius:0 0 calc(4 * var(--k)) calc(4 * var(--k));
   background:linear-gradient(180deg,#0A0C0E,#1A1D21);
 }
-/* решётки динамиков: две перфорированные полосы по бокам
-   клавиатуры. Точки заданы радиальным повтором — на этом
-   размере от них остаётся ровная сетчатая фактура. */
-.mac-deck::before,
-.mac-deck::after{
-  content:'';position:absolute;top:10%;height:38%;
-  width:6.2%;border-radius:calc(2 * var(--k));
-  background:radial-gradient(rgba(0,0,0,.55) 38%,transparent 42%)
-             0 0 / calc(3.4 * var(--k)) calc(3.4 * var(--k));
-  opacity:.8;
+/* Решётки динамиков: две перфорированные полосы по бокам
+   клавиатуры, шириной 18 мм — ровно поле между краем корпуса
+   и краем клавиатуры. Отверстия заданы повтором радиального
+   градиента; на этом размере от них остаётся ровная фактура. */
+.mac-grille{
+  position:absolute;top:6%;height:48%;
+  width:5.8%;border-radius:calc(2 * var(--k));
+  background:radial-gradient(rgba(0,0,0,.6) 38%,transparent 42%)
+             0 0 / calc(3.2 * var(--k)) calc(3.2 * var(--k));
+  opacity:.85;
 }
-.mac-deck::before{left:2.4%}
-.mac-deck::after{right:2.4%}
+.mac-grille.l{left:.8%}
+.mac-grille.r{right:.8%}
 
-/* колодец клавиатуры: утоплен, с фаской по верху */
+/* ---- клавиатура ------------------------------------------
+   Не заливка в полоску, а 77 настоящих клавиш. Шаг клавиши
+   19 мм, значит поле клавиатуры — 14,5 шага, то есть 266 мм
+   из 312,6 мм корпуса: отсюда поля по 7,45 % с каждой стороны.
+   Вглубь — ряд функций (11 мм) и пять рядов по 19 мм, всего
+   106 мм из 221,2 мм.
+
+   Ряды разложены гридом, и ширины нестандартных клавиш стоят
+   в долях шага, как у аппарата: delete 1,5, tab 1,5, caps и
+   return 1,75, шифты 2,25, command 1,25, пробел 5. Сумма
+   каждого ряда — те же 14,5, иначе ряды разъедутся по краям.
+   -------------------------------------------------------- */
 .mac-well{
-  position:absolute;left:9%;right:9%;top:10%;height:38%;
-  border-radius:calc(4 * var(--k));
-  background:linear-gradient(180deg,#0B0D0F,#131619);
+  position:absolute;left:7.45%;right:7.45%;top:6%;height:48%;
+  display:grid;grid-template-rows:.62fr 1fr 1fr 1fr 1fr 1fr;
+  gap:calc(2.2 * var(--k));
+  padding:calc(2.2 * var(--k));
+  border-radius:calc(3.5 * var(--k));
+  background:#07090B;
   box-shadow:
-    inset 0 0 calc(10 * var(--k)) rgba(0,0,0,.75),
-    0 calc(1.2 * var(--k)) 0 rgba(255,255,255,.14);
+    inset 0 0 calc(9 * var(--k)) rgba(0,0,0,.85),
+    0 calc(1.1 * var(--k)) 0 rgba(255,255,255,.13);
 }
-/* клавиши: светлые швы поверх тёмного поля */
-.mac-keys{
-  position:absolute;inset:calc(3 * var(--k));
-  border-radius:calc(2 * var(--k));overflow:hidden;
-  background:
-    repeating-linear-gradient(90deg,
-      rgba(150,160,174,.32) 0 calc(1.5 * var(--k)),
-      transparent calc(1.5 * var(--k)) calc(15.2 * var(--k))),
-    repeating-linear-gradient(180deg,
-      rgba(150,160,174,.28) 0 calc(1.6 * var(--k)),
-      transparent calc(1.6 * var(--k)) calc(15.8 * var(--k)));
+.kr{display:grid;gap:calc(2.2 * var(--k))}
+.kr.k1{grid-template-columns:1.25fr repeat(12,1fr) 1.25fr}
+.kr.k2{grid-template-columns:repeat(13,1fr) 1.5fr}
+.kr.k3{grid-template-columns:1.5fr repeat(13,1fr)}
+.kr.k4{grid-template-columns:1.75fr repeat(11,1fr) 1.75fr}
+.kr.k5{grid-template-columns:2.25fr repeat(10,1fr) 2.25fr}
+.kr.k6{grid-template-columns:1fr 1fr 1fr 1.25fr 5fr 1.25fr 1fr 1fr 1fr 1fr}
+/* Клавиша: тёмный колпачок с подсветом по верхней фаске.
+   Именно эта фаска и читается на грани — по ней глаз узнаёт
+   клавиатуру, а не по швам между клавишами. */
+.mac-well i{
+  border-radius:calc(1.7 * var(--k));
+  background:linear-gradient(180deg,#252A2F 0,#181C20 46%,#101316 100%);
+  box-shadow:
+    inset 0 calc(.7 * var(--k)) 0 rgba(255,255,255,.14),
+    inset 0 calc(-.6 * var(--k)) 0 rgba(0,0,0,.6),
+    0 calc(.6 * var(--k)) calc(1.2 * var(--k)) rgba(0,0,0,.55);
 }
-/* трекпад: ближе к зрителю, по центру */
+/* Стрелки: вверх и вниз — две половинки в одной клетке. */
+.kr.k6 .ar{
+  background:none;box-shadow:none;
+  display:grid;grid-template-rows:1fr 1fr;gap:calc(1.2 * var(--k));
+}
+.kr.k6 .ar::before,
+.kr.k6 .ar::after{
+  content:'';border-radius:calc(1.4 * var(--k));
+  background:linear-gradient(180deg,#252A2F 0,#181C20 46%,#101316 100%);
+  box-shadow:inset 0 calc(.6 * var(--k)) 0 rgba(255,255,255,.12);
+}
+
+/* Трекпад: 129,4 × 81,3 мм — почти половина ширины корпуса.
+   Стекло, а не алюминий: чуть светлее деки, с волосяной
+   тёмной кромкой и мягким бликом от верхнего края. */
 .mac-pad{
-  position:absolute;left:50%;top:56%;transform:translateX(-50%);
-  width:30%;height:33%;
+  position:absolute;left:50%;top:58.5%;transform:translateX(-50%);
+  width:41.4%;height:36.8%;
   border-radius:calc(5 * var(--k));
-  background:linear-gradient(180deg,#3B424A,#454C55);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.08) 0,rgba(255,255,255,0) 30%),
+    linear-gradient(180deg,#333941 0,#3A4149 60%,#3E454E 100%);
   box-shadow:
-    inset 0 0 0 calc(1.1 * var(--k)) rgba(0,0,0,.55),
-    inset 0 calc(2 * var(--k)) calc(5 * var(--k)) rgba(0,0,0,.35);
+    0 0 0 calc(.9 * var(--k)) rgba(0,0,0,.5),
+    inset 0 calc(1.4 * var(--k)) calc(3.5 * var(--k)) rgba(0,0,0,.3);
 }
 /* Передний торец: свешен с переднего края деки, лицом к
    зрителю. Ось — верхний край грани (top:100% и origin 50% 0).
@@ -5025,9 +5064,9 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   transform:rotateX(90deg);
   border-radius:0 0 calc(9 * var(--k)) calc(9 * var(--k));
   background:linear-gradient(180deg,
-    #79808A 0,#5E656F 16%,#454C55 46%,#31363D 78%,#232730 100%);
+    #565D67 0,#474E58 18%,#353B43 52%,#24282E 82%,#181B20 100%);
   box-shadow:
-    inset 0 calc(1 * var(--k)) 0 rgba(255,255,255,.3),
+    inset 0 calc(1 * var(--k)) 0 rgba(255,255,255,.22),
     0 calc(12 * var(--k)) calc(22 * var(--k)) calc(-8 * var(--k)) rgba(0,0,0,.8);
 }
 /* выемка под палец */
