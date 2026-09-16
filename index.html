@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=2026091711a">
-<link rel="stylesheet" href="assets/style.css?v=2026091711a">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091712a">
+<link rel="stylesheet" href="assets/style.css?v=2026091712a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=2026091711a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091712a">
 </head>
 <body>
 
@@ -1560,7 +1560,7 @@
   </div>
 </section>
 
-<section class="band b-onyx mag roomy" id="how" data-sec="s07" data-title="Технология">
+<section class="band b-onyx marble mag roomy" id="how" data-sec="s07" data-title="Технология">
   <div class="wrap">
     <h2 class="huge">Получите свой конверсионный сайт <mark>за 10 дней</mark></h2>
 
@@ -2272,7 +2272,9 @@
       var cur = 0;
       secs.forEach(function(sec,i){ if (sec.offsetTop <= line) cur = i; });
       links.forEach(function(a,i){ a.classList.toggle('here', i === cur); });
-      rail.classList.toggle('on-paper', /b-paper/.test(secs[cur].className));
+      /* Светлых полос две породы: бумага и мраморная плита. Рейка
+         на обеих идёт тёмными чернилами. */
+      rail.classList.toggle('on-paper', /b-paper|marble/.test(secs[cur].className));
       var hash = '#' + secs[cur].id;
       mlinks.forEach(function(a){
         a.classList.toggle('here', a.getAttribute('href') === hash);
@@ -2525,7 +2527,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=2026091711a"></script>
+<script src="assets/mobile.js?v=2026091712a"></script>
 
 </body>
 </html>
