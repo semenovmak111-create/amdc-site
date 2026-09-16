@@ -3772,6 +3772,27 @@ html.js [data-rise].seen{
    строка укладывалась в три против четырёх — и отменён
    заказчиком: блок переставал держать одну ось со всеми
    соседними. */
+/* Бумага этого разворота своя: на полтона темнее и желтее
+   общей. Полоса зажата между двумя тёмными — индиго сверху и
+   ониксом снизу, — и на общей слоновой кости она посреди них
+   светит как лист под лампой. Сдвиг крошечный: минус два-четыре
+   пункта по красному и зелёному, минус восемь-двенадцать по
+   синему, то есть тепла добавлено вдвое больше, чем убрано
+   света.
+
+   Свечение акцента здесь тоже сильнее общего: рядом золото на
+   тёмном, у которого подсветка читается за счёт контраста с
+   полосой, а пурпур по бумаге в тех же цифрах выглядел бледнее
+   соседей. Две тени вместо одной — ближняя плотнее, дальняя
+   широкая и еле видная, она и даёт «лампу». */
+#loss{
+  background:linear-gradient(180deg,#F7F3E2 0%,#F1ECD6 40%,#E7E0C6 100%);
+}
+#loss h2 mark{
+  filter:drop-shadow(0 2px 15px rgba(117,22,129,.52))
+         drop-shadow(0 0 34px rgba(117,22,129,.26));
+}
+
 .duel{
   display:grid;grid-template-columns:1fr 1fr;
   gap:clamp(.9rem,1.8vw,1.5rem);
@@ -4095,8 +4116,65 @@ h2.huge{
    что с этого».
    ============================================================ */
 
-.steps.rich{gap:clamp(.8rem,1.5vw,1.15rem)}
+.steps.rich{
+  --stag:clamp(10px,2vw,32px);
+  column-gap:clamp(1.5rem,3.6vw,3.8rem);
+  row-gap:clamp(2.4rem,4.6vw,4.6rem);
+  align-items:start;
+}
 .steps.rich::before{display:none}
+
+/* Второй ряд идёт справа налево: карточка 05 встаёт под 04, а
+   08 оказывается слева. Это змейка игрового поля — фишка
+   доходит до края и разворачивается, а не прыгает через всю
+   ширину обратно. В разметке порядок прежний, 01→08, меняются
+   только колонки: экранному диктору и телефону достаётся
+   правильная последовательность.
+
+   Высота у каждой своя: ряды остаются рядами, но карточки
+   стоят на разных уровнях — поле, а не таблица. */
+.steps.rich .step:nth-child(5){grid-column:4;grid-row:2}
+.steps.rich .step:nth-child(6){grid-column:3;grid-row:2}
+.steps.rich .step:nth-child(7){grid-column:2;grid-row:2}
+.steps.rich .step:nth-child(8){grid-column:1;grid-row:2}
+
+.steps.rich .step:nth-child(1){--dy:0}
+.steps.rich .step:nth-child(2){--dy:var(--stag)}
+.steps.rich .step:nth-child(3){--dy:calc(var(--stag) * .3)}
+.steps.rich .step:nth-child(4){--dy:calc(var(--stag) * 1.2)}
+.steps.rich .step:nth-child(5){--dy:calc(var(--stag) * .55)}
+.steps.rich .step:nth-child(6){--dy:0}
+.steps.rich .step:nth-child(7){--dy:calc(var(--stag) * .9)}
+.steps.rich .step:nth-child(8){--dy:calc(var(--stag) * .25)}
+
+/* Левитация. Сдвиг по сетке задан отступом, а не сдвигом:
+   transform занят покачиванием, и делить его не с кем —
+   карточка едва заметно дышит на месте, по восемь секунд на
+   ход, у каждой свой сдвиг фазы, чтобы поле не качалось
+   строем. На наведении покачивание замирает. */
+@keyframes step-float{
+  from{transform:translateY(0)}
+  to{transform:translateY(-11px)}
+}
+.steps.rich .step{
+  margin-top:var(--dy,0);
+  z-index:2;
+  animation:step-float var(--fdur,7.5s) var(--ease-io)
+            var(--fdel,0s) infinite alternate;
+}
+.steps.rich .step:nth-child(2n){--fdur:6.4s}
+.steps.rich .step:nth-child(3n){--fdur:8.2s}
+.steps.rich .step:nth-child(1){--fdel:0s}
+.steps.rich .step:nth-child(2){--fdel:-1.1s}
+.steps.rich .step:nth-child(3){--fdel:-2.4s}
+.steps.rich .step:nth-child(4){--fdel:-3.2s}
+.steps.rich .step:nth-child(5){--fdel:-.6s}
+.steps.rich .step:nth-child(6){--fdel:-2.9s}
+.steps.rich .step:nth-child(7){--fdel:-1.8s}
+.steps.rich .step:nth-child(8){--fdel:-3.7s}
+@media (prefers-reduced-motion:reduce){
+  .steps.rich .step{animation:none !important}
+}
 /* Контур у всех восьми — тот же металл, которым у первых трёх
    набрана полоса «бесплатно» над карточкой. Взят он приёмом,
    который на странице уже есть у разбора чужого сайта: два
@@ -4130,10 +4208,9 @@ h2.huge{
     linear-gradient(155deg,
       #8A672A 0%,#C8A45F 25%,#E8D09A 47%,#96702F 68%,#C8A45F 100%)
       border-box;
-  box-shadow:0 26px 52px -48px rgba(18,22,26,.7);
+  box-shadow:0 30px 44px -34px rgba(18,22,26,.42);
   display:flex;flex-direction:column;
-  transition:transform .35s var(--ease-out),
-             box-shadow .35s var(--ease);
+  transition:box-shadow .35s var(--ease);
 }
 .b-onyx .steps.rich .step,.b-indigo .steps.rich .step,
 .b-emerald .steps.rich .step{
@@ -4143,10 +4220,11 @@ h2.huge{
 }
 /* На наведении рамку не трогаем: она и так золотая, а
    border-color перекрыл бы металл border-box плоским тоном.
-   Остаётся подъём и тень. */
+   Подъёма тоже нет — transform занят покачиванием. Остаётся
+   тень и остановка: карточка замирает под курсором. */
 .steps.rich .step:hover{
-  transform:translateY(-3px);
-  box-shadow:0 30px 60px -44px rgba(18,22,26,.8);
+  animation-play-state:paused;
+  box-shadow:0 38px 60px -34px rgba(18,22,26,.55);
 }
 /* Номер шага — не жетон, а крупная цифра металлом с точкой,
    как номер главы. Она и ведёт по разделу: восемь карточек
@@ -4202,22 +4280,50 @@ h2.huge{
   margin-bottom:.55rem;
 }
 
-/* Пунктирная дорожка между карточками: короткий отрезок в
-   промежутке, на высоте номера. У последней в ряду его нет —
-   дорожка обрывается у края и продолжается со следующего ряда. */
-.steps.rich .step::after{
-  content:'';position:absolute;z-index:2;
-  top:clamp(2.1rem,3vw,2.7rem);
-  left:100%;width:clamp(.8rem,1.5vw,1.15rem);height:0;
-  border-top:2px dashed rgba(200,164,95,.5);
+/* Дорожка фишки. Одна штриховая линия, которая выходит из
+   рамки 01, ведёт к 02 и так далее до 08: от края к краю
+   внутри ряда, разворотом вниз между рядами.
+
+   Считает её скрипт по настоящим прямоугольникам карточек —
+   иначе никак: ширина колонки, высота карточки и сдвиг по
+   вертикали у каждой свои и меняются с шириной окна. Берёт он
+   offsetLeft/offsetTop, а не getBoundingClientRect: покачивание
+   идёт через transform, и на живых координатах дорожка дрожала
+   бы вместе с рамками.
+
+   Линия лежит под карточками (z-index 1 против 2) и заходит
+   концами внутрь них на десяток точек: карточка качается, а
+   стык всё равно остаётся прикрыт. */
+.steps.rich .board-path{
+  position:absolute;inset:0;width:100%;height:100%;
+  z-index:1;pointer-events:none;overflow:visible;
 }
-.steps.rich .step:nth-child(4n)::after,
-.steps.rich .step:last-child::after{display:none}
+.steps.rich .board-path path{
+  fill:none;
+  stroke:rgba(190,150,80,.85);
+  stroke-width:3;stroke-linecap:round;
+  stroke-dasharray:12 10;
+}
+.b-onyx .steps.rich .board-path path,
+.b-indigo .steps.rich .board-path path,
+.b-emerald .steps.rich .board-path path{stroke:rgba(200,164,95,.5)}
+
+/* Узкий экран: змейка распускается в обычный порядок, сдвиги
+   и покачивание сняты, дорожки нет — на двух колонках она
+   превращается в зигзаг поперёк экрана. */
 @media (max-width:940px){
-  .steps.rich .step:nth-child(4n)::after{display:block}
-  .steps.rich .step:nth-child(2n)::after{display:none}
+  .steps.rich{
+    --stag:0px;
+    column-gap:clamp(.9rem,2vw,1.4rem);
+    row-gap:clamp(1.4rem,3vw,2rem);
+  }
+  .steps.rich .step:nth-child(5),
+  .steps.rich .step:nth-child(6),
+  .steps.rich .step:nth-child(7),
+  .steps.rich .step:nth-child(8){grid-column:auto;grid-row:auto}
+  .steps.rich .step{animation:none;margin-top:0}
+  .steps.rich .board-path{display:none}
 }
-@media (max-width:560px){.steps.rich .step::after{display:none}}
 
 /* Стык полос. Встык, без линии, два цвета сходятся бритвой —
    и видно край заливки, а не край раздела. Волосок бронзы
@@ -6688,18 +6794,27 @@ html.js .quiz-scene .q[data-rise].seen{
    подводки, ни перечня — доводом работает сама страница, до
    конца которой человек к этому месту дочитал.
 
-   Заголовок здесь рядовой, без .huge: крупный набор сделал бы
-   из приписки одиннадцатый разворот, а она нарочно меньше
-   соседей. Ширина ограничена двадцатью знаками, чтобы вопрос
-   ложился в две строки и кнопка оставалась на той же линии.
+   Мерка задана заказчиком: вдвое меньше «разрешения», под
+   которым полоса стоит. У того разворота 675 точек высоты и
+   заголовок в 49, здесь — 110 и 26: приписка, а не одиннадцатый
+   разворот. Поэтому и падинги свои, вдвое меньше даже тесных.
+
+   Заголовок держится в одну строку (34 знака при ширине в 36):
+   в две он ломает высоту полосы вдвое, и вся мерка уезжает.
    ============================================================ */
+
+.pitch-band{padding:clamp(1.3rem,2.2vw,2rem) 0}
 
 .pitch{
   display:flex;flex-wrap:wrap;align-items:center;
   justify-content:space-between;
-  gap:clamp(1.1rem,2.4vw,2.6rem);
+  gap:clamp(.9rem,2vw,2.2rem);
 }
-.pitch h2{max-width:20ch}
+.pitch h2{
+  max-width:36ch;
+  font-size:clamp(1.18rem,.95rem + .72vw,1.6rem);
+  line-height:1.18;
+}
 .pitch .btn{flex:0 0 auto}
 
 /* На телефоне строка разваливается на две: кнопка уходит под

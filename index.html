@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=2026091622a">
-<link rel="stylesheet" href="assets/style.css?v=2026091622a">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091623a">
+<link rel="stylesheet" href="assets/style.css?v=2026091623a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=2026091622a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091623a">
 </head>
 <body>
 
@@ -1560,7 +1560,7 @@
   </div>
 </section>
 
-<section class="band b-paper" id="how" data-sec="s07" data-title="Технология">
+<section class="band b-paper roomy" id="how" data-sec="s07" data-title="Технология">
   <div class="wrap">
     <h2 class="huge">Получите свой конверсионный сайт <mark>за 10 дней</mark></h2>
 
@@ -1783,7 +1783,7 @@
 
      Засечки на рельсе нарочно нет (нет data-sec): рельса
      держит счёт разворотов, а это приписка, а не разворот. -->
-<section class="band b-paper tight" id="same">
+<section class="band b-paper pitch-band" id="same">
   <div class="wrap">
     <div class="pitch">
       <h2>Понравился сайт? <mark>Ваш может так же!</mark></h2>
@@ -2330,6 +2330,94 @@
     });
   });
 
+  /* ---- 9. Дорожка фишки между шагами -----------------------
+     Восемь шагов расставлены змейкой: первый ряд слева
+     направо, второй — справа налево, и по ним идёт одна
+     штриховая линия, как поле настольной игры. Нарисовать её
+     разметкой нельзя: ширина колонки, высота карточки и сдвиг
+     по вертикали у каждой свои и меняются с шириной окна,
+     поэтому путь считается по настоящим прямоугольникам.
+
+     Координаты берутся из offsetLeft/offsetTop, а не из
+     getBoundingClientRect: карточки покачиваются через
+     transform, и на живых координатах линия дрожала бы
+     вместе с ними.
+
+     Концы каждого отрезка заходят внутрь карточек — стык
+     остаётся прикрыт, даже когда рамка ушла в верхнюю точку
+     своего покачивания. */
+  (function(){
+    var board = document.querySelector('.steps.rich');
+    if (!board) return;
+
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg  = document.createElementNS(NS, 'svg');
+    var path = document.createElementNS(NS, 'path');
+    svg.setAttribute('class', 'board-path');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.appendChild(path);
+    board.appendChild(svg);
+
+    var cards = [].slice.call(board.querySelectorAll('.step'));
+    if (cards.length < 2) return;
+
+    var r1 = function(n){ return Math.round(n * 10) / 10; };
+    var IN = 12;            /* заход конца линии внутрь карточки */
+
+    var draw = function(){
+      if (getComputedStyle(svg).display === 'none') return;
+      var W = board.offsetWidth, H = board.offsetHeight;
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+      var box = cards.map(function(c){
+        return {l:c.offsetLeft, t:c.offsetTop, w:c.offsetWidth, h:c.offsetHeight};
+      });
+
+      var d = '';
+      for (var i = 0; i < box.length - 1; i++){
+        var a = box[i], b = box[i+1];
+        var turn = (i === 3);              /* разворот из ряда в ряд */
+        var back = (i > 3);                /* второй ряд идёт влево */
+        var p1, p2, c1, c2, k;
+
+        if (turn){
+          p1 = {x:a.l + a.w * .52, y:a.t + a.h - IN};
+          p2 = {x:b.l + b.w * .66, y:b.t + IN};
+          k  = (p2.y - p1.y) * .6;
+          c1 = {x:p1.x + a.w * .34, y:p1.y + k};
+          c2 = {x:p2.x - b.w * .30, y:p2.y - k};
+        } else {
+          var ya = a.t + Math.min(a.h * .38, 150);
+          var yb = b.t + Math.min(b.h * .38, 150);
+          p1 = {x: back ? a.l + IN : a.l + a.w - IN, y: ya};
+          p2 = {x: back ? b.l + b.w - IN : b.l + IN, y: yb};
+          /* Провис: без него отрезок в промежутке выглядит
+             чёрточкой, а не дорожкой. Глубина — половина
+             промежутка, но не меньше 18 и не больше 52 точек. */
+          var gap = Math.abs(p2.x - p1.x);
+          var sag = Math.min(Math.max(gap * .55, 18), 52);
+          k  = (p2.x - p1.x) * .45;
+          c1 = {x:p1.x + k, y:p1.y + sag};
+          c2 = {x:p2.x - k, y:p2.y + sag};
+        }
+
+        d += 'M' + r1(p1.x) + ' ' + r1(p1.y) +
+             'C' + r1(c1.x) + ' ' + r1(c1.y) + ',' +
+                   r1(c2.x) + ' ' + r1(c2.y) + ',' +
+                   r1(p2.x) + ' ' + r1(p2.y);
+      }
+      path.setAttribute('d', d);
+    };
+
+    draw();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+    var t = 0;
+    addEventListener('resize', function(){
+      clearTimeout(t); t = setTimeout(draw, 120);
+    });
+  })();
+
   /* ---- 9. Голосовое сообщение -----------------------------
      Плеер настоящий: кнопка, дорожка и таймер работают от
      <audio>, а не изображают работу. Пока файла записи нет,
@@ -2409,7 +2497,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=2026091622a"></script>
+<script src="assets/mobile.js?v=2026091623a"></script>
 
 </body>
 </html>
