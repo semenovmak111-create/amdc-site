@@ -6465,3 +6465,220 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   background-repeat:no-repeat;
 }
 .mag::before{background:none}
+
+/* ============================================================
+   ШЕСТЬ ВОПРОСОВ (приём образца maggistratura.com)
+
+   У образца это «reality check»: шесть вопросов подряд, на
+   которые человек отвечает себе сам. Ни иллюстраций, ни
+   карточек — только вопросы, набранные крупно, через
+   волосяные линейки. Карточка здесь была бы лишней: она
+   превращает вопрос в утверждение, а весь смысл в том, что
+   ответа у страницы нет, ответ у читателя.
+
+   Вопросы набраны антиквой и в полтора раза крупнее текста:
+   так набирают реплику, а не абзац. Номер слева — моноширинным
+   капителью, тем же, каким на странице подписаны даты и
+   реквизиты; он держит счёт и не спорит с вопросом.
+   ============================================================ */
+
+.quiz{
+  list-style:none;margin:clamp(1.6rem,2.6vw,2.4rem) 0 0;padding:0;
+  border-top:1px solid var(--rule-l2);
+}
+.b-onyx .quiz,.b-indigo .quiz{border-top-color:var(--rule-2)}
+
+.quiz > li{
+  display:flex;gap:clamp(.9rem,2vw,1.9rem);align-items:baseline;
+  padding:clamp(.95rem,1.7vw,1.4rem) 0;
+  border-bottom:1px solid var(--rule-l2);
+  transition:border-color .35s var(--ease);
+}
+.b-onyx .quiz > li,.b-indigo .quiz > li{border-bottom-color:var(--rule-2)}
+.quiz > li:hover{border-bottom-color:var(--au-line)}
+
+.quiz .n{
+  flex:none;
+  font:500 .78rem/1 var(--mono);letter-spacing:.14em;
+  color:var(--au-ink);
+}
+.b-onyx .quiz .n,.b-indigo .quiz .n{color:var(--au)}
+
+.quiz p{
+  margin:0;min-width:0;
+  font:400 clamp(1.08rem,1rem + .55vw,1.46rem)/1.34 var(--serif);
+  color:var(--ink);
+}
+.b-onyx .quiz p,.b-indigo .quiz p{color:var(--t1)}
+
+@media (max-width:560px){
+  .quiz > li{gap:.75rem}
+  .quiz .n{font-size:.72rem}
+}
+
+/* ============================================================
+   ДВА СТОЛБЦА: СЕГОДНЯ И ЧЕРЕЗ ДЕСЯТЬ ДНЕЙ
+
+   Тоже приём образца: слева состояние сегодня, справа то же
+   место после работы, между ними переход. От ведомости потерь
+   третьего разворота отличается нарочно — там доводы абзацами
+   и счёт в рублях, здесь только метки в два-четыре слова.
+   Разворот обязан читаться целиком за десять секунд: это не
+   аргумент, а опись перемен.
+
+   Левый столбец приглушён до цвета подписей, правый набран
+   белым с золотой засечкой. Разница в тоне делает работу
+   раньше, чем прочитан хоть один пункт.
+   ============================================================ */
+
+.shift{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  gap:clamp(.9rem,2.2vw,2.2rem);align-items:center;
+  margin-top:clamp(1.7rem,2.8vw,2.5rem);
+}
+
+.shift .col{
+  padding:clamp(1.1rem,1.9vw,1.6rem) clamp(1.1rem,1.8vw,1.5rem);
+  border:1px solid var(--rule);border-radius:var(--r-lg);
+  background:rgba(244,241,233,.028);
+}
+.shift .now{
+  border-color:var(--au-line);
+  background:linear-gradient(180deg,rgba(200,164,95,.07),rgba(244,241,233,.02));
+}
+
+.shift .lab{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:clamp(.85rem,1.5vw,1.15rem);
+}
+.shift .was .lab{color:var(--t4)}
+.shift .now .lab{color:var(--au)}
+
+.shift ul{list-style:none;margin:0;padding:0;display:grid;gap:.72rem}
+.shift li{
+  position:relative;padding-left:1.15rem;
+  font-size:var(--f-sm);line-height:1.45;
+}
+.shift li::before{
+  content:'';position:absolute;left:0;top:.52em;
+  width:5px;height:5px;border-radius:50%;
+}
+.shift .was li{color:var(--t3)}
+.shift .was li::before{background:var(--t4)}
+.shift .now li{color:var(--t1);font-weight:600}
+.shift .now li::before{background:var(--au)}
+
+/* Переход между столбцами. Стрелка в кружке и подпись под
+   ней: без подписи стрелка читается «а потом», с подписью —
+   «через десять дней», а это и есть весь разворот. */
+.shift .arrow{
+  display:grid;justify-items:center;gap:.5rem;
+  color:var(--au);
+}
+.shift .arrow .i{
+  width:clamp(30px,3.4vw,42px);height:clamp(30px,3.4vw,42px);
+  padding:clamp(6px,.7vw,9px);
+  border:1px solid var(--au-line);border-radius:50%;
+  background:var(--au-wash);stroke-width:1.6;
+}
+.shift .arrow span{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.14em;text-transform:uppercase;
+  white-space:nowrap;
+}
+
+/* В столбец переход ложится боком: кружок со стрелкой вниз и
+   подпись рядом, вместе по центру колонки. Растянутый по краям
+   он читался бы двумя разными элементами, а не одним. */
+@media (max-width:820px){
+  .shift{grid-template-columns:1fr;gap:.9rem}
+  .shift .arrow{
+    grid-auto-flow:column;justify-content:center;
+    align-items:center;gap:.7rem;
+  }
+  .shift .arrow .i{transform:rotate(90deg)}
+}
+
+/* ============================================================
+   ГОЛОСОВОЕ СООБЩЕНИЕ
+
+   Последний приём образца: вместо ещё одного экрана с кнопкой
+   — минута голосом. На странице, написанной одному человеку,
+   это работает сильнее любого дожима, поэтому плеер стоит
+   после всех доводов и перед подвалом.
+
+   Собран он как сообщение в мессенджере, а не как проигрыватель
+   на сайте: скруглённая пилюля, круглая кнопка, дорожка и
+   таймер на убыль. Узнаваемая форма экономит объяснение — что
+   с этим делать, понятно без подписи.
+   ============================================================ */
+
+.voice{max-width:46rem;margin:0 auto;text-align:center}
+
+.voice .vt{
+  margin:0;
+  font:400 clamp(1.06rem,1rem + .52vw,1.34rem)/1.5 var(--serif);
+  color:var(--t1);
+}
+.b-paper .voice .vt{color:var(--ink)}
+
+.vplayer{
+  display:flex;align-items:center;gap:clamp(.75rem,1.5vw,1.15rem);
+  margin-top:clamp(1.15rem,2vw,1.7rem);
+  padding:clamp(.6rem,1.1vw,.85rem) clamp(.95rem,1.7vw,1.35rem)
+          clamp(.6rem,1.1vw,.85rem) clamp(.6rem,1.1vw,.85rem);
+  border:1px solid var(--au-line);border-radius:100px;
+  background:linear-gradient(180deg,rgba(0,0,0,.34),rgba(0,0,0,.2));
+  text-align:left;
+}
+
+/* кнопка — единственное золотое пятно разворота */
+.vbtn{
+  flex:none;width:clamp(44px,4.4vw,54px);height:clamp(44px,4.4vw,54px);
+  display:grid;place-items:center;
+  border:0;border-radius:50%;cursor:pointer;
+  background:var(--au-plate);color:#2A1E06;
+  box-shadow:0 8px 20px -8px rgba(0,0,0,.9);
+  transition:transform .3s var(--ease-out),filter .3s var(--ease);
+}
+.vbtn:hover{transform:scale(1.04);filter:brightness(1.06)}
+.vbtn svg{width:46%;height:46%;fill:currentColor;stroke:none}
+.vbtn .ic-pause,.vplayer.on .vbtn .ic-play{display:none}
+.vplayer.on .vbtn .ic-pause{display:block}
+
+.vbody{flex:1;min-width:0}
+.vwho{
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--t3);margin-bottom:.55rem;
+}
+
+/* дорожка: тонкая линия, по ней ползёт золото */
+.vwave{
+  position:relative;height:5px;border-radius:100px;cursor:pointer;
+  background:rgba(244,241,233,.12);
+}
+.vwave > i{
+  position:absolute;left:0;top:0;bottom:0;width:0;
+  border-radius:100px;background:var(--au-plate-lite);
+}
+.vtime{
+  flex:none;
+  font:500 .82rem/1 var(--mono);letter-spacing:.06em;
+  color:var(--t2);
+}
+
+/* Пока файла записи нет, плеер это показывает, а не изображает
+   работу: кнопка гаснет, под пилюлей появляется строка. */
+.vplayer.dead{opacity:.55}
+.vplayer.dead .vbtn{cursor:default;filter:grayscale(.65)}
+.voice .vnote{
+  margin:.85rem 0 0;
+  font-size:var(--f-xs);color:var(--t3);
+}
+
+@media (max-width:560px){
+  .vplayer{border-radius:var(--r-lg)}
+  .vwho{font-size:.66rem}
+}

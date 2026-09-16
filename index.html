@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=2026091616a">
-<link rel="stylesheet" href="assets/style.css?v=2026091616a">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091618a">
+<link rel="stylesheet" href="assets/style.css?v=2026091618a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=2026091616a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091618a">
 </head>
 <body>
 
@@ -387,6 +387,34 @@
      выдача поиска, карточка врача, кабинет Метрики. Нарисовано
      разметкой, а не снято: снимков несуществующего сайта не
      бывает, а обещать рисунком то, чего не будет, нельзя. -->
+<!-- ============ 2. ПРОВЕРКА ============ -->
+<!-- Приём образца maggistratura.com: шесть вопросов подряд,
+     на которые человек отвечает себе сам. Отвечать вслух не
+     надо, спорить не с кем — диагноз человек ставит себе до
+     того, как его поставил я.
+
+     Стоит сразу за первым экраном и до всех доводов: дальше
+     по странице каждый из шести вопросов получает ответ, и
+     читать её человек идёт уже за своими ответами, а не за
+     моими. -->
+<section class="band b-paper" id="check" data-sec="s02b" data-title="Проверка">
+  <div class="wrap">
+    <h2 class="huge">Шесть вопросов, на которые <mark>ответьте себе</mark></h2>
+    <p class="lede">Вслух не нужно и мне отвечать не нужно. Если хотя бы на один ответа нет — ниже он появится.</p>
+
+    <ol class="quiz">
+      <li><span class="n">01</span><p>Сколько человек в этом месяце искали ваши услуги и до вас не дошли?</p></li>
+      <li><span class="n">02</span><p>Где человек видит цену приёма, если звонить он не готов?</p></li>
+      <li><span class="n">03</span><p>Кто решает, на каком месте в списке вы стоите — вы или площадка?</p></li>
+      <li><span class="n">04</span><p>Куда вести рекламу, если завтра расписание опустеет?</p></li>
+      <li><span class="n">05</span><p>Что происходит с человеком, который решил записаться в половине одиннадцатого вечера?</p></li>
+      <li><span class="n">06</span><p>Где собраны двадцать четыре года отзывов, врачей и случаев — все вместе, в одном месте?</p></li>
+    </ol>
+
+    <div class="strip">Ни один из шести вопросов не про качество лечения. Все шесть — про то, что человек может узнать о клинике до того, как впервые вам позвонил.</div>
+  </div>
+</section>
+
 <section class="band b-indigo mid" id="gain" data-sec="s02" data-title="Что даёт">
   <div class="wrap">
     <h2 class="huge">Заберите свой боевой конверсионный сайт <mark>уже через 10 дней</mark></h2>
@@ -1468,6 +1496,51 @@
 </section>
 
 <!-- ============ 7. ТЕХНОЛОГИЯ ============ -->
+<!-- ============ ДЕСЯТЬ ДНЕЙ ============ -->
+<!-- Приём образца: слева состояние сегодня, справа — то же
+     место через десять дней, между ними переход. Здесь не
+     доводы и не счёт — они выше, — а короткие метки: разворот
+     читается целиком за десять секунд и работает как опись
+     перемен, а не как ещё один перечень выгод. -->
+<section class="band b-onyx mid" id="shift" data-sec="s06b" data-title="Десять дней">
+  <div class="wrap">
+    <h2 class="huge">Между этими двумя столбцами <mark>десять дней работы</mark></h2>
+
+    <div class="shift">
+      <div class="col was">
+        <div class="lab">Сегодня</div>
+        <ul>
+          <li>Строчка в чужом каталоге</li>
+          <li>Записаться можно только голосом</li>
+          <li>Цену знает регистратура</li>
+          <li>Отзывы на четырёх площадках</li>
+          <li>Рекламу вести некуда</li>
+          <li>После 20:00 тишина</li>
+        </ul>
+      </div>
+
+      <div class="arrow" aria-hidden="true">
+        <svg class="i"><use href="#i-arr"/></svg>
+        <span>10 дней</span>
+      </div>
+
+      <div class="col now">
+        <div class="lab">Через десять дней</div>
+        <ul>
+          <li>Свой адрес в интернете</li>
+          <li>Запись в два касания, круглосуточно</li>
+          <li>Прайс открыт на странице услуги</li>
+          <li>Отзывы, врачи и лицензии в одном месте</li>
+          <li>Директ включается в тот же день</li>
+          <li>Ночные заявки ждут вас утром</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="strip">Ни одна строка справа не про новых врачей, новое оборудование или новые деньги в рекламу. Всё это — та же клиника, просто её стало видно.</div>
+  </div>
+</section>
+
 <section class="band b-paper" id="how" data-sec="s07" data-title="Технология">
   <div class="wrap">
     <h2 class="huge">Получите свой конверсионный сайт <mark>за 10 дней</mark></h2>
@@ -1678,6 +1751,44 @@
   </div>
 </section>
 
+<!-- ============ ГОЛОСОВОЕ ============ -->
+<!-- Приём образца maggistratura.com: вместо ещё одного экрана
+     с кнопкой — голосовое сообщение. На странице, написанной
+     одному человеку, минута голосом стоит дороже любого
+     дожима: читать её будет тот же человек, которому я это
+     скажу при встрече.
+
+     Плеер настоящий, а не картинка: кнопка, дорожка и таймер
+     работают от <audio>. Файла записи пока нет — когда он
+     ляжет в assets/audio/, плеер оживёт сам, и подпись с
+     длительностью заменится на настоящую из метаданных.
+     Пока файла нет, кнопка не делает вид, что играет: она
+     честно говорит, что записи ещё нет. -->
+<section class="band b-indigo tight" id="voice" data-sec="s10b" data-title="Голосом">
+  <div class="wrap">
+    <div class="voice">
+      <p class="vt">Мне полагалось поставить сюда ещё один экран с кнопкой и словами «последний шанс». Вместо него — голосовое. Включите, это минута.</p>
+
+      <div class="vplayer" data-dur="1:47">
+        <audio preload="metadata" src="assets/audio/soobshenie.m4a"></audio>
+        <button class="vbtn" type="button" aria-label="Прослушать голосовое сообщение">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5h3v13h-3zM12.5 5.5h3v13h-3z"/></svg>
+        </button>
+
+        <div class="vbody">
+          <div class="vwho">Максим, автор этого предложения</div>
+          <div class="vwave" role="presentation"><i></i></div>
+        </div>
+
+        <div class="vtime">1:47</div>
+      </div>
+
+      <p class="vnote" hidden>Запись ещё не загружена — она появится здесь в ближайшие дни.</p>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="cols">
@@ -1798,7 +1909,7 @@
     'section:not(.hero) .wrap > .note',
     'section:not(.hero) .wrap > h3',
     '.crit > li', '.aud > li', '.calc > *', '.hz > div', '.part',
-    '.tally-i', '.duel-c',
+    '.tally-i', '.duel-c', '.quiz > li', '.shift > *', '.voice > *',
     '.way', '.fk-start', '.people',
     '.formgrid > *', '.gain', '.step', '.vs .row', '.site', '.guard'
   ].join(',');
@@ -2176,10 +2287,87 @@
       }, 900);
     });
   });
+
+  /* ---- 9. Голосовое сообщение -----------------------------
+     Плеер настоящий: кнопка, дорожка и таймер работают от
+     <audio>, а не изображают работу. Пока файла записи нет,
+     это видно сразу — кнопка говорит, что записи ещё нет, и
+     не притворяется играющей. Как только файл ляжет в
+     assets/audio/, длительность в подписи заменится на
+     настоящую из метаданных, и трогать разметку не придётся.
+
+     Таймер идёт на убыль, как в мессенджере: человек читает
+     не «сколько прошло», а «сколько осталось терпеть».
+
+     Длительность в разметке (data-dur) — заглушка на время,
+     пока записи нет. Как только файл появится, обработчик
+     loadedmetadata перепишет и её, и подпись справа. */
+  (function(){
+    var p = document.querySelector('.vplayer');
+    if (!p) return;
+
+    var a    = p.querySelector('audio'),
+        btn  = p.querySelector('.vbtn'),
+        wave = p.querySelector('.vwave'),
+        fill = p.querySelector('.vwave > i'),
+        time = p.querySelector('.vtime'),
+        note = document.querySelector('.vnote');
+
+    function mmss(v){
+      v = Math.max(0, Math.round(v));
+      return Math.floor(v / 60) + ':' + ('0' + (v % 60)).slice(-2);
+    }
+    function dead(){
+      if (note) note.hidden = false;
+      p.classList.add('dead');
+      p.classList.remove('on');
+    }
+
+    a.addEventListener('loadedmetadata', function(){
+      if (!isFinite(a.duration)) return;
+      p.setAttribute('data-dur', mmss(a.duration));
+      time.textContent = mmss(a.duration);
+    });
+
+    a.addEventListener('timeupdate', function(){
+      if (!a.duration) return;
+      fill.style.width = (a.currentTime / a.duration * 100) + '%';
+      time.textContent = mmss(a.duration - a.currentTime);
+    });
+
+    a.addEventListener('ended', function(){
+      p.classList.remove('on');
+      fill.style.width = '0%';
+      time.textContent = p.getAttribute('data-dur');
+    });
+
+    /* Ошибку загрузки заранее не показываем: до нажатия плеер
+       выглядит готовым, как и задумано. Сказать, что записи
+       ещё нет, честнее в ответ на нажатие — зато никто не
+       услышит подсунутой тишины вместо голоса. */
+    btn.addEventListener('click', function(){
+      if (p.classList.contains('dead')) return;
+      if (a.paused){
+        var t = a.play();
+        p.classList.add('on');
+        if (t && t.catch) t.catch(dead);
+      } else {
+        a.pause();
+        p.classList.remove('on');
+      }
+    });
+
+    /* перемотка щелчком по дорожке */
+    wave.addEventListener('click', function(e){
+      if (!a.duration) return;
+      var r = wave.getBoundingClientRect();
+      a.currentTime = (e.clientX - r.left) / r.width * a.duration;
+    });
+  })();
 })();
 </script>
 
-<script src="assets/mobile.js?v=2026091616a"></script>
+<script src="assets/mobile.js?v=2026091618a"></script>
 
 </body>
 </html>
