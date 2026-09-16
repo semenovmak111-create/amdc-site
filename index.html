@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=2026091621a">
-<link rel="stylesheet" href="assets/style.css?v=2026091621a">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091622a">
+<link rel="stylesheet" href="assets/style.css?v=2026091622a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=2026091621a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091622a">
 </head>
 <body>
 
@@ -1769,6 +1769,29 @@
   </div>
 </section>
 
+<!-- ============ ВАША ОЧЕРЕДЬ ============ -->
+<!-- Мини-полоса в одну строку: слева вопрос, справа дверь.
+     Стоит последней перед голосовым нарочно — человек только
+     что дочитал страницу до конца, и довод здесь не нужен:
+     доводом работает сама страница, которую он держит на
+     экране. Отсюда и краткость: заголовок и кнопка, без
+     подводки, без буллитов, без второй кнопки.
+
+     Полоса светлая между двумя тёмными: на ониксе и индиго
+     подряд она слилась бы с соседями и прочиталась бы
+     хвостом «разрешения», а не отдельным предложением.
+
+     Засечки на рельсе нарочно нет (нет data-sec): рельса
+     держит счёт разворотов, а это приписка, а не разворот. -->
+<section class="band b-paper tight" id="same">
+  <div class="wrap">
+    <div class="pitch">
+      <h2>Понравился сайт? <mark>Ваш может так же!</mark></h2>
+      <a class="btn" href="#start">Забрать свой сайт <svg class="i"><use href="#i-arr"/></svg></a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ ГОЛОСОВОЕ ============ -->
 <!-- Приём образца maggistratura.com: вместо ещё одного экрана
      с кнопкой — голосовое сообщение. На странице, написанной
@@ -1927,7 +1950,8 @@
     'section:not(.hero) .wrap > .note',
     'section:not(.hero) .wrap > h3',
     '.crit > li', '.aud > li', '.calc > *', '.hz > div', '.part',
-    '.tally-i', '.duel-c', '.quiz-scene .q', '.shift > *', '.voice > *',
+    '.tally-i', '.duel-c', '.quiz-scene .q', '.shift > *',
+    '.pitch', '.voice > *',
     '.way', '.fk-start', '.people',
     '.formgrid > *', '.gain', '.step', '.vs .row', '.site', '.guard'
   ].join(',');
@@ -2385,7 +2409,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=2026091621a"></script>
+<script src="assets/mobile.js?v=2026091622a"></script>
 
 </body>
 </html>
