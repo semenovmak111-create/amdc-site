@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=202609162a">
-<link rel="stylesheet" href="assets/style.css?v=202609162a">
+<link rel="stylesheet" href="assets/fonts.css?v=202609163a">
+<link rel="stylesheet" href="assets/style.css?v=202609163a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=202609162a">
+<link rel="stylesheet" href="assets/mobile.css?v=202609163a">
 </head>
 <body>
 
@@ -68,15 +68,6 @@
          ======================================================== -->
 
     <!-- потери -->
-    <symbol id="il-lost" viewBox="0 0 48 48">
-      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="4" y="9" width="26" height="5" rx="2.5"/>
-      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="4" y="19" width="26" height="5" rx="2.5"/>
-      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="4" y="29" width="26" height="5" rx="2.5"/>
-      <path fill="none" stroke="currentColor" d="M4 31.5h26"/>
-      <circle fill="none" stroke="currentColor" cx="33" cy="31" r="9"/>
-      <path fill="none" stroke="currentColor" d="M39.6 37.6 L45 43"/>
-      <path fill="none" stroke="currentColor" d="M30 28l6 6M36 28l-6 6"/>
-    </symbol>
     <symbol id="il-call" viewBox="0 0 48 48">
       <path fill="currentColor" fill-opacity=".16" stroke="none" d="M10 6h7l3 8-4 3a20 20 0 0012 12l3-4 8 3v7a3 3 0 01-3.3 3A34 34 0 017 9.3 3 3 0 0110 6z"/>
       <path fill="none" stroke="currentColor" d="M10 6h7l3 8-4 3a20 20 0 0012 12l3-4 8 3v7a3 3 0 01-3.3 3A34 34 0 017 9.3 3 3 0 0110 6z"/>
@@ -89,12 +80,6 @@
       <circle fill="none" stroke="currentColor" cx="12.5" cy="12.5" r="2.4"/>
       <path fill="none" stroke="currentColor" d="M21 24.5c0-3 4.6-3 4.6-6 0-1.7-1.5-3-3.4-3-1.7 0-3.1 1-3.4 2.5"/>
       <path fill="none" stroke="currentColor" d="M21.2 30.2h.1"/>
-    </symbol>
-    <symbol id="il-deadend" viewBox="0 0 48 48">
-      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M6 30h36v12H6z"/>
-      <path fill="none" stroke="currentColor" d="M6 30h36v12H6zM18 30v12M30 30v12M6 36h36"/>
-      <path fill="none" stroke="currentColor" d="M24 4v18"/>
-      <path fill="none" stroke="currentColor" d="M17 15l7 7 7-7"/>
     </symbol>
 
     <!-- что остаётся без сайта -->
@@ -121,12 +106,6 @@
       <path fill="currentColor" fill-opacity=".16" stroke="none" d="M36 22l2 4 4.4.7-3.2 3.1.8 4.4-4-2.1-3.9 2.1.7-4.4-3.2-3.1 4.4-.7z"/>
       <path fill="none" stroke="currentColor" d="M24 28l-2.3 4.7-5.2.8 3.8 3.6-.9 5.1 4.6-2.4 4.6 2.4-.9-5.1 3.8-3.6-5.2-.8z"/>
       <path fill="none" stroke="currentColor" d="M4 42 L44 4" stroke-dasharray="3 4"/>
-    </symbol>
-    <symbol id="il-night" viewBox="0 0 48 48">
-      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M40 28.5A16 16 0 0119.5 8 17 17 0 1040 28.5z"/>
-      <path fill="none" stroke="currentColor" d="M40 28.5A16 16 0 0119.5 8 17 17 0 1040 28.5z"/>
-      <path fill="none" stroke="currentColor" d="M6 44h36" stroke-dasharray="2 4"/>
-      <path fill="none" stroke="currentColor" d="M35 8.5l.9 2 2 .3-1.4 1.4.3 2-1.8-1-1.8 1 .3-2-1.4-1.4 2-.3z"/>
     </symbol>
 
     <!-- что появляется с сайтом -->
@@ -1107,64 +1086,83 @@
 <section class="band b-paper" id="loss" data-sec="s03" data-title="Потери">
   <div class="wrap">
     <h2 class="huge">Каждый месяц без сайта стоит вам <mark>16 клиентов и 128 000 ₽</mark></h2>
-    <p class="lede">Это самая осторожная оценка: только те, кто уже искал вас или ваши услуги и до кресла не дошёл. Не будущая выгода, а счёт, который клиника оплачивает каждые тридцать дней. Вот семь его строк.</p>
+    <p class="lede">Это самая осторожная оценка: только те, кто уже искал вас или ваши услуги и до кресла не дошёл. Не будущая выгода, а счёт, который клиника оплачивает каждые тридцать дней. Слева — семь его строк. Справа — то, что встаёт на их место, когда у клиники появляется собственная страница.</p>
 
-    <div class="tally minus">
-      <div class="tally-i">
-        <div class="pic"><svg class="ill"><use href="#il-lost"/></svg></div>
-        <div class="tx">
-          <h3>Вас не находят по услуге</h3>
-          <p>Человек набирает «уролог площадь мужества». Открываются чужие каталоги, где вы стоите <b>рядом с девятью конкурентами</b>, и порядок в списке определяете не вы.</p>
-          <div class="kick">Вы есть в городе, но вас нет в выдаче.</div>
-        </div>
+    <!-- Ведомость в два столбца по образцу maggistratura.com:
+         слева то, где клиника остаётся без страницы, справа то,
+         к чему приходит с ней. Порядок строк зеркальный — первая
+         слева и первая справа про одно и то же, — но в одну
+         линию они не сводятся: у образца это два независимых
+         перечня, и попарное чтение здесь уже занято шестым
+         разворотом («Чужая площадка»). Разбор в README, раздел
+         «Потери и приобретения двумя панелями». -->
+    <div class="duel">
+      <div class="duel-c neg">
+        <h3>Без своей страницы вы остаётесь тут:</h3>
+        <ul>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span>
+            <div class="tx"><b>Вас не находят по услуге</b><p>Человек набирает «уролог площадь мужества» — открываются чужие каталоги, где вы стоите <b>рядом с девятью конкурентами</b>. Порядок в списке определяете не вы.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span>
+            <div class="tx"><b>Записаться можно только звонком</b><p>Карточку открывают 420 человек в месяц, а <b>звонить готовы двое из десяти</b>. Остальные ищут кнопку «Записаться», не находят и закрывают вкладку.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span>
+            <div class="tx"><b>Цену узнать негде</b><p>Сколько стоит приём и кто принимает — только позвонив и спросив. Человек выбирает того, <b>у кого цена написана</b>, а не того, кто лечит лучше.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span>
+            <div class="tx"><b>Рекламу вести некуда</b><p>Яндекс Директ требует страницу с описанием услуги и ценой. Без неё <b>канал закрыт целиком</b>: даже если захотите купить клиентов, привести их некуда.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span>
+            <div class="tx"><b>Вы всегда в одной строке с соседями</b><p>На чужой площадке вы стоите в списке, и выбирают вас <b>по звёздам и цене</b> — не глядя, кто из вас работает двадцать четыре года.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span>
+            <div class="tx"><b>Отзывы рассыпаны по четырём площадкам</b><p><b>У соседки 196 оценок, у вас 28</b> — не потому, что лечите хуже, а потому что отзыв оставляет тот, кто смог записаться.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span>
+            <div class="tx"><b>Вы ограничены режимом работы</b><p>После 20:00 и в выходные клиенту не отвечает никто. <b>Он открывает следующую клинику в списке</b>, и вы об этом даже не узнаете.</p></div>
+          </li>
+        </ul>
       </div>
-      <div class="tally-i">
-        <div class="pic"><svg class="ill"><use href="#il-call"/></svg></div>
-        <div class="tx">
-          <h3>Записаться можно только звонком</h3>
-          <p>Карточку открывают 420 человек в месяц. По данным Яндекса, <b>звонить готовы двое из десяти</b> — остальные ищут кнопку «Записаться» и не находят.</p>
-          <div class="kick">305 человек в месяц закрывают вкладку молча.</div>
-        </div>
-      </div>
-      <div class="tally-i">
-        <div class="pic"><svg class="ill"><use href="#il-price"/></svg></div>
-        <div class="tx">
-          <h3>Цену узнать негде</h3>
-          <p>Сколько стоит приём и кто принимает — только позвонив и спросив. Клиент выбирает того, <b>у кого цена написана</b>, а не того, кто лечит лучше.</p>
-          <div class="kick">Двадцать четыре года опыта проигрывают строчке «от 300 ₽».</div>
-        </div>
-      </div>
-      <div class="tally-i">
-        <div class="pic"><svg class="ill"><use href="#il-deadend"/></svg></div>
-        <div class="tx">
-          <h3>Рекламу вести некуда</h3>
-          <p>Яндекс Директ требует страницу с описанием услуги и ценой. Без неё <b>канал закрыт целиком</b>: даже если захотите купить клиентов, привести их некуда.</p>
-          <div class="kick">Деньги есть, а дороги нет.</div>
-        </div>
-      </div>
-      <div class="tally-i">
-        <div class="pic"><svg class="ill"><use href="#il-compare"/></svg></div>
-        <div class="tx">
-          <h3>Постоянное сравнение с конкурентами на площадках</h3>
-          <p>На чужой площадке вы всегда в списке. Человек видит вас <b>в одной строке с соседями</b> и выбирает по звёздам и цене — не глядя, кто из вас работает двадцать четыре года.</p>
-          <div class="kick">Вы соревнуетесь на чужом поле и по чужим правилам.</div>
-        </div>
-      </div>
-      <div class="tally-i">
-        <div class="pic"><svg class="ill"><use href="#il-stars"/></svg></div>
-        <div class="tx">
-          <h3>Ваши лучшие отзывы тяжело найти</h3>
-          <p>Они рассыпаны по четырём площадкам и перемешаны с чужими. <b>У соседки 196 оценок, у вас 28</b> — не потому, что лечите хуже, а потому что отзыв оставляет тот, кто смог записаться.</p>
-          <div class="kick">Двадцать четыре года благодарностей нигде не собраны вместе.</div>
-        </div>
-      </div>
-      <div class="tally-i wide">
-        <div class="pic"><svg class="ill"><use href="#il-night"/></svg></div>
-        <div class="tx">
-          <h3>Вы ограничены режимом работы</h3>
-          <p>После 20:00 и в выходные клиенту не ответит никто. Он не ждёт до утра — <b>он открывает следующую клинику в списке</b>, и вы об этом даже не узнаете: ни звонка, ни жалобы, просто его не было.</p>
-          <div class="kick">Половина суток и два дня недели клиника недоступна.</div>
-        </div>
+
+      <div class="duel-c pos">
+        <h3>Мы закроем все семь строк, и вы придёте к следующему:</h3>
+        <ul>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div class="tx"><b>Вас находят по каждому из четырнадцати направлений</b><p>Под каждую услугу — своя страница с теми словами, которые люди набирают. <b>В выдачу вы попадаете сами</b>, а не через чужой каталог, и рядом с вами никого.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div class="tx"><b>Записаться можно в два касания и круглосуточно</b><p>Форма стоит на каждой странице: человек выбирает врача и время, не набирая номер. <b>Заявка приходит в WhatsApp регистратуры</b> даже когда клиника закрыта.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div class="tx"><b>Цена и врач видны до звонка</b><p>Прайс открыт, у каждого врача карточка с опытом. <b>До кресла доходит тот, кто уже согласен с ценой</b>, — разговоров «просто узнать» становится меньше.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div class="tx"><b>Появляется куда вести рекламу</b><p>Под каждую услугу есть посадочная страница, и Директ наконец можно включить. <b>Поток заявок вы включаете в тот день, когда он нужен</b>, и гасите, когда расписание заполнилось.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div class="tx"><b>Внимание человека принадлежит только вам</b><p>На своей странице рядом с вами <b>нет ни одного конкурента</b>. Сравнивают вас не с соседом по списку, а с тем, за чем человек пришёл.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div class="tx"><b>Двадцать четыре года собраны в одном месте</b><p>Отзывы, врачи, лицензии и случаи лежат на одной странице, а не на четырёх чужих. <b>Их никто не перемешивает с соседскими</b> и не двигает вниз списка.</p></div>
+          </li>
+          <li>
+            <span class="mk"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div class="tx"><b>Заявки собираются, пока вы спите</b><p>Ночью, в выходные и в праздники страница отвечает на вопросы и записывает. <b>Утром вы открываете список заявок</b>, а не гадаете, кто вчера не дозвонился.</p></div>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -1220,7 +1218,7 @@
                  data-for="c-found" aria-label="Находят вас в открытом поиске">
         </div>
         <div class="cf">
-          <label for="c-check">Ваш средний чек за первый приём</label>
+          <label for="c-check">Ваш средний чек за первый приём <span>(средний чек в вашей нише — 11 000 рублей)</span></label>
           <div class="box">
             <input id="c-check" type="number" inputmode="numeric" min="0" max="999999" step="100" value="5000">
             <span class="unit">₽</span>
@@ -1793,7 +1791,7 @@
     'section:not(.hero) .wrap > .note',
     'section:not(.hero) .wrap > h3',
     '.crit > li', '.aud > li', '.calc > *', '.hz > div', '.part',
-    '.tally-i',
+    '.tally-i', '.duel-c',
     '.way', '.fk-start', '.people',
     '.formgrid > *', '.gain', '.step', '.vs .row', '.site', '.guard'
   ].join(',');
@@ -2174,7 +2172,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=202609162a"></script>
+<script src="assets/mobile.js?v=202609163a"></script>
 
 </body>
 </html>

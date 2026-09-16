@@ -2641,6 +2641,13 @@ html.js .hero.lit h1 .ln > i{
   font:500 .78rem/1.4 var(--sans);color:var(--ink-2);
 }
 .b-onyx .cf > label,.b-indigo .cf > label{color:var(--t2)}
+/* Ориентир по нише в скобках. Он подсказывает, а не спрашивает,
+   поэтому набран тише самой подписи: человек должен прочитать
+   сначала, чьё число у него просят, и только потом — на что
+   равняться. В один голос с подписью скобка читалась бы частью
+   вопроса. */
+.cf > label span{color:var(--ink-3)}
+.b-onyx .cf > label span,.b-indigo .cf > label span{color:var(--t4)}
 .cf .box{position:relative;display:flex;align-items:center}
 .cf input{
   width:100%;
@@ -3615,18 +3622,11 @@ html.js [data-rise].seen{
   box-shadow:0 26px 52px -48px rgba(18,22,26,.7);
 }
 .tally-i:hover{transform:translateY(-2px)}
-.tally.minus .tally-i:hover{border-color:rgba(210,96,75,.4)}
-.tally.plus  .tally-i:hover{border-color:rgba(70,199,158,.42)}
-.tally-i.wide{grid-column:1/-1}
 
 .tally-i .pic{
   position:relative;flex:none;
   width:clamp(50px,5vw,64px);height:clamp(50px,5vw,64px);
 }
-.tally.minus .pic{color:var(--carn)}
-.tally.plus  .pic{color:var(--jade)}
-.b-paper .tally.minus .pic{color:var(--carn-ink)}
-.b-paper .tally.plus  .pic{color:var(--jade-ink)}
 
 /* знак на рисунке */
 .tally-i .pic::after{
@@ -3634,16 +3634,6 @@ html.js [data-rise].seen{
   width:22px;height:22px;border-radius:50%;
   display:grid;place-items:center;
   font:700 .95rem/1 var(--mono);
-}
-.tally.minus .pic::after{
-  content:'−';
-  color:#2A0C05;background:var(--carn);
-  box-shadow:0 0 0 3px var(--onyx),0 4px 10px -3px rgba(210,96,75,.8);
-}
-.tally.plus .pic::after{
-  content:'+';
-  color:#03251C;background:var(--jade);
-  box-shadow:0 0 0 3px var(--onyx),0 4px 10px -3px rgba(70,199,158,.8);
 }
 .b-indigo .tally .pic::after{box-shadow:0 0 0 3px var(--indigo)}
 .b-paper  .tally .pic::after{box-shadow:0 0 0 3px var(--paper-3)}
@@ -3662,10 +3652,6 @@ html.js [data-rise].seen{
   font:600 .78rem/1.5 var(--sans);
 }
 .b-paper .tally-i .kick{border-top-color:var(--rule-l2)}
-.tally.minus .kick{color:var(--carn-hi)}
-.tally.plus  .kick{color:var(--jade)}
-.b-paper .tally.minus .kick{color:var(--carn-ink)}
-.b-paper .tally.plus  .kick{color:var(--jade-ink)}
 
 /* ---- ведомость в два столбца: минус и плюс в одной строке -
 
@@ -3699,6 +3685,146 @@ html.js [data-rise].seen{
 .tally.duo .pos .kick{color:var(--jade)}
 .b-paper .tally.duo .neg .kick{color:var(--carn-ink)}
 .b-paper .tally.duo .pos .kick{color:var(--jade-ink)}
+
+/* ============================================================
+   ПОТЕРИ И ПРИОБРЕТЕНИЯ ДВУМЯ ПАНЕЛЯМИ
+   (по образцу maggistratura.com)
+
+   Заказчик дал в образец блок «80–90% маркетологов точно
+   останутся тут» / «Мы проработаем 8 основных точек роста».
+   Разобран он так:
+
+     | Приём образца                  | Как сделано            |
+     | две панели встык, одна против  | .duel — сетка 1fr 1fr  |
+     |   другой                       |                        |
+     | левая светлая, правая тёмная   | бумага против порфира  |
+     | заголовок панели цветом её     | карнеол слева,         |
+     |   исхода                       |   бронза справа        |
+     | строка = кружок со знаком,     | .mk + .tx > b + p      |
+     |   жирный заголовок, серый      |                        |
+     |   абзац под ним                |                        |
+     | крест в красном кружке,        | #i-x и #i-check        |
+     |   галка в золотом              |                        |
+
+   Не взята только одна вещь — фотографическая подложка левой
+   панели: у образца по белому лежит тень от пальмовых листьев.
+   На бумажной полосе она бы спорила с облачностью, которая уже
+   лежит на самой полосе.
+
+   Тёмная половина собрана из того же материала, что полоса
+   расчёта: подложка #11091a, своя текстура и чёрная плёнка
+   сверху. Причина не в экономии файла, а в правиле системы —
+   золото светится только по чёрному, а весь смысл правой
+   панели в том, что она золотая. На бумаге позолота стала бы
+   жёлтой краской, и перечень выгод читался бы дешевле
+   перечня потерь.
+
+   Панели не выровнены построчно, и это осознанно: у образца
+   перечни независимы, а чтение поперёк, парами, на этой
+   странице уже занято шестым разворотом. Здесь порядок строк
+   только зеркальный — первая слева отвечает первой справа, —
+   но в одну линию они не сводятся.
+   ============================================================ */
+
+.duel{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(.9rem,1.8vw,1.5rem);
+  margin-top:clamp(1.6rem,2.6vw,2.3rem);
+}
+@media (max-width:820px){.duel{grid-template-columns:1fr}}
+
+.duel-c{
+  position:relative;overflow:hidden;
+  border-radius:var(--r-lg);
+  padding:clamp(1.5rem,2.4vw,2.4rem) clamp(1.3rem,2.1vw,2rem);
+}
+
+/* левая половина — тот же картон, что у остальных карточек
+   светлой полосы: она не должна выглядеть чужой на бумаге */
+.duel-c.neg{
+  border:1px solid var(--rule-l);
+  background:linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.45));
+  box-shadow:0 30px 60px -52px rgba(18,22,26,.75);
+}
+
+/* правая — порфир с текстурой расчёта */
+.duel-c.pos{
+  border:1px solid var(--au-line);
+  background-color:#11091a;
+  background-image:
+    linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.25)),
+    url("img/mag-bg.jpg");
+  background-size:auto,cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  box-shadow:0 34px 66px -50px rgba(16,11,22,.95);
+}
+
+/* ---- заголовок панели ---------------------------------- */
+.duel-c > h3{
+  margin:0 0 clamp(1.15rem,1.9vw,1.6rem);
+  font:800 clamp(1.16rem,1rem + .62vw,1.52rem)/1.22 var(--sans);
+  letter-spacing:-.012em;max-width:23ch;
+}
+.duel-c.neg > h3{color:var(--carn-ink)}
+/* Ровная заливка сверху вниз, а не пластина: пластина ложится
+   на одну-две глифы, а здесь фраза в семь слов — её тёмные
+   полосы попали бы на отдельные слова, и заголовок вышел бы
+   пятнистым. То же решение, что у золотого акцента в
+   заголовках тёмных полос. */
+.duel-c.pos > h3{
+  color:transparent;
+  background:linear-gradient(180deg,
+    #FDF3D8 0%,#EBD6A6 30%,#C8A45F 66%,#8E6B2C 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ---- строки -------------------------------------------- */
+.duel-c ul{
+  list-style:none;margin:0;padding:0;
+  display:grid;gap:clamp(1rem,1.7vw,1.4rem);
+}
+.duel-c li{
+  display:flex;align-items:flex-start;
+  gap:clamp(.7rem,1.2vw,1rem);
+}
+
+/* Знак стоит в кружке и читается раньше заголовка: крест —
+   это уже потеря, галка — уже приобретение, и панель понятна
+   до чтения. Кольцо вокруг кружка — в цвет знака, но в
+   пятнадцать процентов: оно отделяет знак от фона, не
+   превращаясь во вторую рамку. */
+.duel-c .mk{
+  flex:none;width:30px;height:30px;margin-top:.1rem;
+  border-radius:50%;display:grid;place-items:center;
+}
+.duel-c .mk .i{width:14px;height:14px;stroke-width:2.8}
+.duel-c.neg .mk{
+  background:var(--carn);color:#FFF6F3;
+  box-shadow:0 0 0 3px rgba(210,96,75,.15),
+             0 5px 12px -4px rgba(158,51,32,.55);
+}
+.duel-c.pos .mk{
+  background:var(--au-plate-lite);color:#241703;
+  box-shadow:0 0 0 3px rgba(200,164,95,.15),
+             0 6px 14px -5px rgba(0,0,0,.8);
+}
+
+.duel-c .tx{min-width:0;flex:1}
+.duel-c .tx > b{
+  display:block;margin-bottom:.34rem;
+  font-weight:800;font-size:clamp(1rem,.96rem + .22vw,1.12rem);
+  line-height:1.3;letter-spacing:-.006em;
+}
+.duel-c.neg .tx > b{color:var(--ink)}
+.duel-c.pos .tx > b{color:var(--t1)}
+
+.duel-c .tx p{margin:0;font-size:var(--f-sm);line-height:1.6}
+.duel-c.neg .tx p{color:var(--ink-2)}
+.duel-c.pos .tx p{color:var(--t2)}
+.duel-c.neg .tx p b{color:var(--ink)}
+.duel-c.pos .tx p b{color:var(--t1)}
 
 /* ---- крупный заголовок для блоков с ведомостью ---------- */
 h2.huge{
