@@ -3667,6 +3667,39 @@ html.js [data-rise].seen{
 .b-paper .tally.minus .kick{color:var(--carn-ink)}
 .b-paper .tally.plus  .kick{color:var(--jade-ink)}
 
+/* ---- ведомость в два столбца: минус и плюс в одной строке -
+
+   Тот же карточный набор, но знак задаётся не всей ведомости,
+   а каждой карточке: слева отнимается, справа прибавляется,
+   и пара стоит в одной строке сетки. Счёт читается поперёк —
+   «как в чужой карточке» против «как на своей странице», —
+   а не двумя перечнями подряд.
+
+   На телефоне сетка сходится в одну колонку, и пара идёт
+   парой: сначала потеря, сразу под ней то, чем она
+   закрывается. ------------------------------------------- */
+.tally.duo .neg .pic{color:var(--carn)}
+.tally.duo .pos .pic{color:var(--jade)}
+.b-paper .tally.duo .neg .pic{color:var(--carn-ink)}
+.b-paper .tally.duo .pos .pic{color:var(--jade-ink)}
+
+.tally.duo .neg .pic::after{content:'−';color:#2A0C05;background:var(--carn)}
+.tally.duo .pos .pic::after{content:'+';color:#03251C;background:var(--jade)}
+
+/* Кольцо вокруг знака — в цвет полосы, на которой стоит блок:
+   знак должен быть вырезан в фоне, а не наклеен поверх. */
+.tally.duo .pic::after{box-shadow:0 0 0 3px var(--onyx)}
+.b-indigo .tally.duo .pic::after{box-shadow:0 0 0 3px var(--indigo)}
+.b-paper  .tally.duo .pic::after{box-shadow:0 0 0 3px var(--paper-3)}
+
+.tally.duo .neg:hover{border-color:rgba(210,96,75,.4)}
+.tally.duo .pos:hover{border-color:rgba(70,199,158,.42)}
+
+.tally.duo .neg .kick{color:var(--carn-hi)}
+.tally.duo .pos .kick{color:var(--jade)}
+.b-paper .tally.duo .neg .kick{color:var(--carn-ink)}
+.b-paper .tally.duo .pos .kick{color:var(--jade-ink)}
+
 /* ---- крупный заголовок для блоков с ведомостью ---------- */
 h2.huge{
   font-size:clamp(2.35rem,1.35rem + 3.6vw,4.3rem);

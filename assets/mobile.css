@@ -1134,6 +1134,10 @@
   .mob-sp > .in > .incl{
     display:grid;grid-template-columns:1fr;gap:.8rem;margin-top:0;
   }
+  /* карточки ведомости лежат в спойлере поштучно: зазор между
+     ними держала сетка, внутри её нет */
+  .mob-sp > .in > .tally-i{margin-top:.8rem}
+  .mob-sp > .in > .tally-i:first-child{margin-top:0}
   .mob-sp > .in > .findings{margin-top:0}
   .mob-sp > .in > .findings li:first-child{padding-top:0}
   .mob-sp > .in > .tickets{margin-top:0}

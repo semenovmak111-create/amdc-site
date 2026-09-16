@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=202609161f">
-<link rel="stylesheet" href="assets/style.css?v=202609161f">
+<link rel="stylesheet" href="assets/fonts.css?v=202609162a">
+<link rel="stylesheet" href="assets/style.css?v=202609162a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=202609161f">
+<link rel="stylesheet" href="assets/mobile.css?v=202609162a">
 </head>
 <body>
 
@@ -159,6 +159,32 @@
       <circle fill="none" stroke="currentColor" cx="24" cy="14" r="9"/>
       <path fill="none" stroke="currentColor" d="M19 29.5l5 6 5-6"/>
       <path fill="none" stroke="currentColor" d="M33 33v4M31 35h4"/>
+    </symbol>
+
+    <!-- чужая площадка -->
+    <symbol id="il-percent" viewBox="0 0 48 48">
+      <circle fill="currentColor" fill-opacity=".16" stroke="none" cx="24" cy="24" r="19"/>
+      <circle fill="none" stroke="currentColor" cx="24" cy="24" r="19"/>
+      <circle fill="none" stroke="currentColor" cx="18" cy="18" r="4"/>
+      <circle fill="none" stroke="currentColor" cx="30" cy="30" r="4"/>
+      <path fill="none" stroke="currentColor" d="M32 15 L16 33"/>
+    </symbol>
+    <symbol id="il-cards" viewBox="0 0 48 48">
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="6" y="7" width="36" height="11" rx="3.5"/>
+      <rect fill="none" stroke="currentColor" x="6" y="7" width="36" height="11" rx="3.5"/>
+      <rect fill="none" stroke="currentColor" x="6" y="20.5" width="36" height="11" rx="3.5"/>
+      <rect fill="none" stroke="currentColor" x="6" y="34" width="36" height="11" rx="3.5"/>
+      <circle fill="none" stroke="currentColor" cx="14" cy="12.5" r="2.6"/>
+      <circle fill="none" stroke="currentColor" cx="14" cy="26" r="2.6"/>
+      <circle fill="none" stroke="currentColor" cx="14" cy="39.5" r="2.6"/>
+      <path fill="none" stroke="currentColor" d="M22 12.5h14M22 26h14M22 39.5h14"/>
+    </symbol>
+    <symbol id="il-lock" viewBox="0 0 48 48">
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="9" y="21" width="30" height="22" rx="4"/>
+      <rect fill="none" stroke="currentColor" x="9" y="21" width="30" height="22" rx="4"/>
+      <path fill="none" stroke="currentColor" d="M16 21v-6.5a8 8 0 0116 0V21"/>
+      <circle fill="none" stroke="currentColor" cx="24" cy="30" r="2.8"/>
+      <path fill="none" stroke="currentColor" d="M24 32.8V37"/>
     </symbol>
 
     <!-- технология -->
@@ -1338,8 +1364,114 @@
   </div>
 </section>
 
-<!-- ============ 6. ТЕХНОЛОГИЯ ============ -->
-<section class="band b-paper" id="how" data-sec="s06" data-title="Технология">
+<!-- ============ 6. ЧУЖАЯ ПЛОЩАДКА ============ -->
+<!-- Ведомость в два столбца. Слева то, как устроена аренда
+     места в каталоге, справа то же самое на своей странице;
+     пара стоит в одной строке, и счёт читается поперёк.
+
+     С площадками здесь не спорят: они приводят людей и в
+     расчёте участвуют теми же 420 переходами. Спор идёт о
+     том, кому достаётся пациент после первого визита. -->
+<section class="band b-indigo" id="rent" data-sec="s06" data-title="Чужая площадка">
+  <div class="wrap">
+    <h2 class="huge">Площадки сдают вам место в списке. Сайт — это <mark>собственный адрес</mark></h2>
+    <p class="lede">Карты, справочники и медицинские порталы приводят к вам 420 человек в месяц, и отказываться от них незачем. Но всё, что происходит там, идёт по чужим правилам и за отдельные деньги. Вот пять строк, которыми арендованная карточка отличается от своей страницы.</p>
+
+    <div class="tally duo">
+      <div class="tally-i neg">
+        <div class="pic"><svg class="ill"><use href="#il-bill"/></svg></div>
+        <div class="tx">
+          <h3>Место в списке снимаете помесячно</h3>
+          <p>Приоритетное размещение в картах стоит от 3 000 до 30 000 ₽ в месяц — цена зависит от района и числа соседей. <b>Перестали платить — карточка уезжает вниз</b>, и поток прекращается в тот же день.</p>
+          <div class="kick">Деньги уходят за место в очереди, а не за пациента.</div>
+        </div>
+      </div>
+      <div class="tally-i pos">
+        <div class="pic"><svg class="ill"><use href="#il-key"/></svg></div>
+        <div class="tx">
+          <h3>Свой адрес с публикации не снимают</h3>
+          <p>Домен и хостинг — несколько тысяч рублей в год, и оформлены они на клинику. Страница стоит в выдаче, пока стоит клиника, и <b>с каждым месяцем её находят чаще</b>, а не реже.</p>
+          <div class="kick">Один раз построено — дальше работает само.</div>
+        </div>
+      </div>
+      <div class="tally-i neg">
+        <div class="pic"><svg class="ill"><use href="#il-percent"/></svg></div>
+        <div class="tx">
+          <h3>За каждую запись берут процент</h3>
+          <p>Медицинские порталы зарабатывают дважды: ставка за показ в списке плюс <b>процент с каждой записи — у ПроДокторов это 3,7% с приёма</b>. Пациент, который дошёл бы до вас и так, стоит денег каждый раз.</p>
+          <div class="kick">Даже повторный визит оплачивается заново.</div>
+        </div>
+      </div>
+      <div class="tally-i pos">
+        <div class="pic"><svg class="ill"><use href="#il-mock"/></svg></div>
+        <div class="tx">
+          <h3>Запись со своей страницы бесплатна</h3>
+          <p>Человек нажал «Записаться» — заявка ушла в WhatsApp регистратуры. Ни ставки, ни комиссии: <b>сто заявок стоят ровно столько же, сколько одна</b>.</p>
+          <div class="kick">Чем больше записей, тем дешевле каждая.</div>
+        </div>
+      </div>
+      <div class="tally-i neg">
+        <div class="pic"><svg class="ill"><use href="#il-cards"/></svg></div>
+        <div class="tx">
+          <h3>Пациент остаётся в базе площадки</h3>
+          <p>Телефоны тех, кто записался через каталог, хранятся у каталога. Позвать их на профосмотр или гигиену вы не можете: <b>контактов у вас нет</b>, а своей базой площадка не делится.</p>
+          <div class="kick">Двадцать четыре года работы — и ни одного своего списка.</div>
+        </div>
+      </div>
+      <div class="tally-i pos">
+        <div class="pic"><svg class="ill"><use href="#il-mega"/></svg></div>
+        <div class="tx">
+          <h3>База собирается у вас</h3>
+          <p>Каждая заявка приходит с именем, телефоном и услугой и <b>остаётся в клинике</b>. Метрика показывает, откуда человек пришёл и что читал перед тем, как записаться.</p>
+          <div class="kick">Напомнить о себе можно одним сообщением.</div>
+        </div>
+      </div>
+      <div class="tally-i neg">
+        <div class="pic"><svg class="ill"><use href="#il-stars"/></svg></div>
+        <div class="tx">
+          <h3>Рейтинг и отзывы принадлежат площадке</h3>
+          <p>У соседки 4,9 и 196 оценок, у вас 4,3 и 28 — в списке человек видит только это. Правила модерации чужие: <b>какой отзыв опубликовать, а какой снять, решаете не вы</b>.</p>
+          <div class="kick">Репутацию за вас считает чужой алгоритм.</div>
+        </div>
+      </div>
+      <div class="tally-i pos">
+        <div class="pic"><svg class="ill"><use href="#il-doctor"/></svg></div>
+        <div class="tx">
+          <h3>Отзывы и врачи — на своей странице</h3>
+          <p>Четырнадцать направлений, фамилии со стажем, лицензия и благодарности собраны в одном месте, <b>где рядом никого нет</b>. Карточки в справочниках при этом остаются — пусть подтверждают.</p>
+          <div class="kick">Сначала вас читают, потом сравнивают.</div>
+        </div>
+      </div>
+      <div class="tally-i neg">
+        <div class="pic"><svg class="ill"><use href="#il-lock"/></svg></div>
+        <div class="tx">
+          <h3>Правила меняет площадка, вас не спрашивают</h3>
+          <p>Тарифы, комиссия и порядок в списке — решение сервиса, и в 2026 году тарифы уже поменялись. А в вашей же карточке площадка показывает блок «Похожие места» — <b>тех самых соседей с Орбели</b>.</p>
+          <div class="kick">В вашей карточке рекламируются конкуренты.</div>
+        </div>
+      </div>
+      <div class="tally-i pos">
+        <div class="pic"><svg class="ill"><use href="#il-build"/></svg></div>
+        <div class="tx">
+          <h3>Правила на своей странице пишете вы</h3>
+          <p>Что вынести вперёд, какую цену назвать, где поставить кнопку — решаете вы, а не алгоритм. Домен, хостинг и доступы оформлены на клинику: <b>подрядчик может смениться, сайт останется</b>.</p>
+          <div class="kick">Это актив клиники, а не аренда.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="anchors">
+      <div><b>3 000–30 000 ₽</b><span>в месяц стоит приоритет в картах</span></div>
+      <div><b>3,7%</b><span>берёт портал с каждой записи</span></div>
+      <div><b>0 ₽</b><span>стоит заявка с вашей страницы</span></div>
+    </div>
+
+    <div class="strip warn">Тарифы взяты из открытых прайсов площадок, сентябрь 2026 — откройте и сверьте. Справочники при этом никуда не уходят: пусть приводят людей дальше. Вопрос только в том, есть ли куда их привести и кому достанется пациент потом.</div>
+  </div>
+</section>
+
+<!-- ============ 7. ТЕХНОЛОГИЯ ============ -->
+<section class="band b-paper" id="how" data-sec="s07" data-title="Технология">
   <div class="wrap">
     <h2 class="huge">Получите свой конверсионный сайт <mark>за 10 дней</mark></h2>
     <p class="lede">Первые три шага бесплатные и заканчиваются готовым экраном. Ваше участие за весь проект — один разговор на полчаса и одно согласование текстов.</p>
@@ -1437,11 +1569,11 @@
   </div>
 </section>
 
-<!-- ============ 7. КОМУ НЕ ПОДОЙДЁТ ============ -->
+<!-- ============ 8. КОМУ НЕ ПОДОЙДЁТ ============ -->
 <!-- Страх «сейчас будут впаривать» снимается не словами
      «я не продаю», а отказами. Человек должен сам увидеть,
      что его отговаривают, и сам сделать вывод. -->
-<section class="band b-onyx" id="fit" data-sec="s07" data-title="Кому не надо">
+<section class="band b-onyx" id="fit" data-sec="s08" data-title="Кому не надо">
   <div class="wrap">
     <h2 class="widest">Из десяти таких разговоров четыре заканчиваются тем, что я отвечаю <mark>«не надо»</mark></h2>
     <p class="lede">Проще сказать это сразу, чем через месяц объяснять, почему сайт есть, а толку нет.</p>
@@ -1471,8 +1603,8 @@
   </div>
 </section>
 
-<!-- ============ 8. ПЕРВЫЙ ШАГ ============ -->
-<section class="band b-emerald roomy" id="start" data-sec="s08" data-title="Первый шаг">
+<!-- ============ 9. ПЕРВЫЙ ШАГ ============ -->
+<section class="band b-emerald roomy" id="start" data-sec="s09" data-title="Первый шаг">
   <div class="wrap">
     <h2 class="widest">Через 4–5 дней у вас будет макет главной, список 14 страниц с ценами и разбор запросов по вашему району</h2>
     <div class="formgrid">
@@ -1522,8 +1654,8 @@
   </div>
 </section>
 
-<!-- ============ 9. РАЗРЕШЕНИЕ ============ -->
-<section class="band b-onyx tight" id="last" data-sec="s09" data-title="Разрешение">
+<!-- ============ 10. РАЗРЕШЕНИЕ ============ -->
+<section class="band b-onyx tight" id="last" data-sec="s10" data-title="Разрешение">
   <div class="wrap">
     <h2 class="huge">Не соглашайтесь сразу на сайт. <mark>Просто разрешите показать</mark></h2>
     <p class="lede">Макет, список страниц и разбор запросов — четыре-пять дней моей работы, отданных до договора и до первого рубля. Посмотрите и скажите «нет», если не подойдёт: это нормальный ответ, и он ничего не испортит.</p>
@@ -2042,7 +2174,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=202609161f"></script>
+<script src="assets/mobile.js?v=202609162a"></script>
 
 </body>
 </html>
