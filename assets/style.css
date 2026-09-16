@@ -4135,8 +4135,8 @@ h2.huge{
   --stag:clamp(10px,2.2vw,38px);
   width:var(--bw);
   margin-left:calc((100% - var(--bw)) / 2);
-  column-gap:clamp(1.8rem,4.6vw,5.2rem);
-  row-gap:clamp(3rem,6vw,6.4rem);
+  column-gap:clamp(2rem,5.1vw,6rem);
+  row-gap:clamp(4.2rem,9.5vw,10.5rem);
   align-items:start;
 }
 .steps.rich::before{display:none}
@@ -4228,6 +4228,12 @@ h2.huge{
   box-shadow:0 30px 44px -34px rgba(18,22,26,.42);
   display:flex;flex-direction:column;
   transition:box-shadow .35s var(--ease);
+  /* Рост на треть: своей высоты у карточек 278–320 точек, общая
+     нижняя мерка в 24rem делает их 384 и заодно ровняет между
+     собой. Строка «что у вас на руках» прижата к низу
+     (margin-top:auto), поэтому лишняя высота уходит в воздух
+     между текстом и ею, а не в пустой хвост под рамкой. */
+  min-height:clamp(19rem,25vw,24rem);
 }
 .b-onyx .steps.rich .step,.b-indigo .steps.rich .step,
 .b-emerald .steps.rich .step{
@@ -4339,7 +4345,7 @@ h2.huge{
   .steps.rich .step:nth-child(6),
   .steps.rich .step:nth-child(7),
   .steps.rich .step:nth-child(8){grid-column:auto;grid-row:auto}
-  .steps.rich .step{animation:none;margin-top:0}
+  .steps.rich .step{animation:none;margin-top:0;min-height:0}
   .steps.rich .board-path{display:none}
 }
 
