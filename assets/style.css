@@ -5930,10 +5930,11 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
 }
 .mag .cline .l{color:var(--t1);font-weight:500}
 /* Плюс между двумя источниками. Он не число и весом с числом
-   спорить не должен: тон тише, начертание обычное. */
+   спорить не должен: начертание обычное, а тон взят тот же, что
+   у строки под суммой, — --t2. */
 .mag .cline .v i{
   font-style:normal;font-weight:400;
-  color:var(--t3);margin:0 .3rem;
+  color:var(--t2);margin:0 .3rem;
 }
 .mag .cline.loss .l{color:var(--t2);font-weight:400}
 
