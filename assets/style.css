@@ -5938,6 +5938,12 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   letter-spacing:-.01em;
 }
 .mag .cline .l{color:var(--t1);font-weight:500}
+/* Плюс между двумя источниками. Он не число и весом с числом
+   спорить не должен: тон тише, начертание обычное. */
+.mag .cline .v i{
+  font-style:normal;font-weight:400;
+  color:var(--t3);margin:0 .3rem;
+}
 .mag .cline.loss .l{color:var(--t2);font-weight:400}
 
 /* Шаг между цифрами держится ровным. У первой строки нет

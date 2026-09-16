@@ -1180,6 +1180,19 @@
           <input class="rng" type="range" min="0" max="2000" step="10" value="420"
                  data-for="c-views" aria-label="Открытий карточки в месяц">
         </div>
+        <!-- Второй источник людей. Карточка в справочнике ловит тех,
+             кто ищет клинику; открытый поиск — тех, кто ищет услугу
+             («удаление зуба мудрости спб»). Это разные люди, и до
+             сих пор вторые в расчёт не входили вовсе. -->
+        <div class="cf">
+          <label for="c-found">Находят вас в открытом поиске</label>
+          <div class="box">
+            <input id="c-found" type="number" inputmode="numeric" min="0" max="9999" step="1" value="9">
+            <span class="unit">чел.</span>
+          </div>
+          <input class="rng" type="range" min="0" max="200" step="1" value="9"
+                 data-for="c-found" aria-label="Находят вас в открытом поиске">
+        </div>
         <div class="cf">
           <label for="c-check">Ваш средний чек за первый приём</label>
           <div class="box">
@@ -1206,8 +1219,8 @@
              тех, кто к вам зашёл бы, то есть о ступени воронки, а не
              об убыли, и класс снят вместе со смыслом. -->
         <div class="cline">
-          <div class="l">Зашли бы на сайт<i>72,6% — данные Яндекса по Петербургу</i></div>
-          <div class="v" data-c="left">305</div>
+          <div class="l">Зашли бы на сайт с карточки + нашли бы сами<i>72,6% с карточки — данные Яндекса по Петербургу; второе число ваше</i></div>
+          <div class="v"><span data-c="left">305</span><i>+</i><span data-c="found">9</span></div>
         </div>
         <div class="cline">
           <div class="l">Записались бы на странице услуги<i>6% — нижняя граница для страницы с ценой и кнопкой</i></div>
@@ -1238,7 +1251,7 @@
       </div>
     </div>
 
-    <div class="strip"><span class="ck"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="tx">В расчёте только те, кто уже открыл карточку. Люди, которые ищут стоматолога и косметолога по услуге, сюда не попали вовсе: это ещё 9 пациентов и 126 000 ₽ в месяц. Вместе — <b>22 пациента и 191 000 ₽</b>.</span></div>
+    <div class="strip"><span class="ck"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="tx">В расчёте обе дороги: те, кто уже открыл вашу карточку, и те, кто ищет услугу в поиске и находит вас сам. Вторых по умолчанию поставлено девять в месяц — <b>это заведомо мало</b>: сегодня они уходят к тем, у кого есть страница с ценой, и сосчитать их негде. Поставьте своё число, если знаете точнее.</span></div>
 
     <p class="note">Точные цифры лежат в вашем кабинете Яндекс Бизнеса — откроем на созвоне и пересчитаем при вас. Если ваша доходимость до приёма выше 70%, итог вырастет.</p>
   </div>
@@ -1688,6 +1701,7 @@
   (function(){
     var fV = document.getElementById('c-views');
     var fC = document.getElementById('c-check');
+    var fF = document.getElementById('c-found');
     if (!fV || !fC) return;
 
     var LEFT   = 0.726;  /* не звонят — данные Яндекса по СПб  */
@@ -1712,14 +1726,20 @@
     function calc(){
       var views = Math.max(0, Math.min(99999, parseInt(fV.value, 10) || 0));
       var check = Math.max(0, Math.min(999999, parseInt(fC.value, 10) || 0));
+      var found = fF ? Math.max(0, Math.min(99999, parseInt(fF.value, 10) || 0)) : 0;
 
       var left   = Math.round(views * LEFT);
-      var leads  = Math.round(left  * LEAD);
+      /* Два источника сходятся здесь, на странице: те, кто ушёл
+         из карточки, и те, кто нашёл вас в поиске сам. Заявку
+         считаем уже от суммы — дальше воронка у них общая. */
+      var site   = left + found;
+      var leads  = Math.round(site  * LEAD);
       var visits = Math.round(leads * COME);
       var money  = visits * check;
 
       put('views',  num(views));
       put('left',   num(left));
+      put('found',  num(found));
       put('leads',  num(leads));
       put('visits', num(visits));
       put('money',  '+' + rub(money));
@@ -1756,6 +1776,7 @@
 
     fV.addEventListener('input', function(){ calc(); hit(); });
     fC.addEventListener('input', function(){ calc(); hit(); });
+    if (fF) fF.addEventListener('input', function(){ calc(); hit(); });
     calc();
   })();
 
