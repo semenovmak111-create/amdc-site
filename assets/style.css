@@ -6191,11 +6191,10 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    border-box, иначе слои сядут на пиксель внутрь и разъедутся
    с кольцом.
 
-   Тем же контуром обведена золотая панель третьего разворота
-   («Мы закроем все семь строк»): заказчик попросил рамку один
-   в один, и правило просто получило второй селектор. */
-.mag .payoff::after,
-.duel-c.pos::after{
+   Тем же контуром обведена золотая панель третьего разворота —
+   см. «Рамка золотой панели» ниже: рисунок там тот же, но
+   краска другая, и почему, разобрано на месте. */
+.mag .payoff::after{
   content:'';position:absolute;inset:0;
   border-radius:inherit;padding:1px;
   background-origin:border-box;
@@ -6210,6 +6209,51 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
       rgba(200,164,95,0) 0%,#8A672A 8%,#E3C98F 28%,#FDF3D8 46%,
       #9A7534 66%,#D8BE86 88%,rgba(200,164,95,0) 100%),
     linear-gradient(0deg,#8A672A,#8A672A);
+  background-size:100% 1px,100% 1px,1px 100%,1px 100%,auto;
+  background-position:top,bottom,left,right,0 0;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+}
+
+/* ---- рамка золотой панели третьего разворота -------------
+   Контур у неё тот же, что у табло итога: волосок в пиксель,
+   четыре стороны по отдельности, ровная подложка под ними,
+   нутро вырезано маской. А вот краска другая, и дело не во
+   вкусе, а в длине стороны.
+
+   У табло сторона короткая — двести с небольшим точек, — и
+   перелив успевает разгореться до блика на заметной её части.
+   У панели сторона в тысячу: тот же градиент растягивается, и
+   почти весь периметр приходится на растворённые концы. Плюс
+   фон под ним не порфир, а баклажан, он светлее на полтора
+   десятка единиц яркости. Вдвоём это и съедало рамку — на
+   снимке её не было видно вовсе.
+
+   Поэтому концы у линейки не в ноль, а в бронзу #A9803A: весь
+   периметр остаётся золотым, а блик к середине стороны никуда
+   не делся. Подложка поднята с #8A672A до той же бронзы —
+   чтобы на скруглениях не открывался тон темнее контура. */
+.duel-c.pos::after{
+  content:'';position:absolute;inset:0;
+  border-radius:inherit;padding:1px;
+  background-origin:border-box;
+  background-repeat:no-repeat;
+  background-image:
+    linear-gradient(90deg,
+      #A9803A 0%,#C8A45F 12%,#EBD6A6 30%,#FDF3D8 48%,
+      #C8A45F 70%,#E3C98F 88%,#A9803A 100%),
+    linear-gradient(90deg,
+      #A9803A 0%,#C8A45F 12%,#EBD6A6 30%,#FDF3D8 48%,
+      #C8A45F 70%,#E3C98F 88%,#A9803A 100%),
+    linear-gradient(180deg,
+      #A9803A 0%,#C8A45F 12%,#EBD6A6 30%,#FDF3D8 48%,
+      #C8A45F 70%,#E3C98F 88%,#A9803A 100%),
+    linear-gradient(180deg,
+      #A9803A 0%,#C8A45F 12%,#EBD6A6 30%,#FDF3D8 48%,
+      #C8A45F 70%,#E3C98F 88%,#A9803A 100%),
+    linear-gradient(0deg,#A9803A,#A9803A);
   background-size:100% 1px,100% 1px,1px 100%,1px 100%,auto;
   background-position:top,bottom,left,right,0 0;
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
