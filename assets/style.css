@@ -404,31 +404,12 @@ body::after{
 h1,h2,h3,h4{margin:0;color:var(--t1);font-weight:600}
 .b-paper h1,.b-paper h2,.b-paper h3,.b-paper h4{color:var(--ink)}
 
-/* ---- рубрика раздела ----------------------------------- */
-/* Номер, тире, название. Моноширинный, разрядка, бронза.
-   Линия уходит вправо до края колонки — так рубрика
-   становится шапкой раздела, а не подписью над заголовком. */
-.rub{
-  display:flex;align-items:center;gap:.8rem;
-  font:500 var(--f-rub)/1 var(--mono);
-  letter-spacing:.22em;text-transform:uppercase;
-  color:var(--au);
-  margin-bottom:clamp(1.1rem,1.8vw,1.7rem);
-}
-.rub .n{
-  display:flex;align-items:center;gap:.8rem;
-  font-weight:700;color:var(--au-hi);
-  font-variant-numeric:tabular-nums;
-}
-.rub .n::after{
-  content:'';width:1.6rem;height:1px;
-  background:var(--au-line);
-}
-.rub::after{
-  content:'';flex:1 1 auto;height:1px;min-width:2rem;
-  background:linear-gradient(90deg,var(--au-line),transparent);
-}
-.b-paper .rub,.b-paper .rub .n{color:var(--au-ink)}
+/* Рубрика раздела («02 — Что вы получаете») со страницы снята
+   целиком: заказчик убрал нумерацию разделов. Правила её тоже
+   убраны, чтобы не держать мёртвый чертёж. Размер --f-rub
+   остался — на нём живут подписи капителью внутри блоков:
+   плашка пульта и строка над суммой. Название разделов не
+   потеряно, оно лежит в data-title и читается рейкой справа. */
 
 /* ---- заголовки ----------------------------------------- */
 h2{
@@ -4005,11 +3986,6 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    висит не по оси, а чуть левее.
    ============================================================ */
 
-.band.mid > .wrap > .rub{justify-content:center}
-.band.mid > .wrap > .rub::before{
-  content:'';flex:1 1 auto;height:1px;min-width:2rem;
-  background:linear-gradient(270deg,var(--au-line),transparent);
-}
 .band.mid > .wrap > h2,
 .band.mid > .wrap > .lede{
   margin-left:auto;margin-right:auto;text-align:center;
@@ -5777,7 +5753,6 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
   .band::before,.band::after,footer::before{display:none !important}
   .band,footer{background:#fff !important;color:#000 !important;border:0}
   h1,h2,h3,h4,.strip,.lede,.note,p,li,td,th{color:#000 !important}
-  .rub,.rub .n{color:#555 !important}
   .btn,.biglink{
     background:#fff !important;color:#000 !important;
     border:1.2pt solid #000 !important;box-shadow:none !important;
@@ -5859,15 +5834,6 @@ footer{border-top:1px solid rgba(200,164,95,.14)}
    Заметить перелив нельзя, но линия перестаёт быть границей
    таблицы и становится золочёным обрезом.
    -------------------------------------------------------- */
-.rub::after{
-  height:1.5px;
-  background:var(--au-rule);
-  opacity:.75;
-}
-.rub .n::after{
-  height:1.5px;width:1.9rem;
-  background:var(--au-rule);
-}
 .steps.rich .step .got{
   border-top:0;
   position:relative;padding-top:.95rem;
