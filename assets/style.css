@@ -3747,14 +3747,18 @@ html.js [data-rise].seen{
   box-shadow:0 30px 60px -52px rgba(18,22,26,.75);
 }
 
-/* правая — порфир с текстурой расчёта */
+/* Правая — баклажан образца. Мера по его полотну даёт среднее
+   (32, 18, 47) при разбросе (13, 9, 17): это не наш порфир,
+   который почти чёрный, а заметно более фиолетовый и светлый
+   тон. Чужой файл не берётся — текстура расчёта пересчитана в
+   этот цвет поканально, среднее и разброс сошлись до десятых
+   (`duel-bg.jpg`, 50 КБ). Чёрной плёнки сверху нет: полотно
+   уже несёт нужную светлоту, плёнка увела бы его в порфир. */
 .duel-c.pos{
   border:1px solid var(--au-line);
-  background-color:#11091a;
-  background-image:
-    linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.25)),
-    url("img/mag-bg.jpg");
-  background-size:auto,cover;
+  background-color:#201230;
+  background-image:url("img/duel-bg.jpg");
+  background-size:cover;
   background-position:center center;
   background-repeat:no-repeat;
   box-shadow:0 34px 66px -50px rgba(16,11,22,.95);
@@ -3766,7 +3770,12 @@ html.js [data-rise].seen{
   font:800 clamp(1.16rem,1rem + .62vw,1.52rem)/1.22 var(--sans);
   letter-spacing:-.012em;max-width:23ch;
 }
-.duel-c.neg > h3{color:var(--carn-ink)}
+/* Красный взят у образца буквально — #FF3636, тот же, что в
+   его кружке. Это не карнеол системы (--carn-ink темнее и
+   глуше): заказчик просил цвет один в один, и здесь он стоит
+   выше внутренней шкалы оценок. Больше нигде на странице
+   этого красного нет. */
+.duel-c.neg > h3{color:#FF3636}
 /* Ровная заливка сверху вниз, а не пластина: пластина ложится
    на одну-две глифы, а здесь фраза в семь слов — её тёмные
    полосы попали бы на отдельные слова, и заголовок вышел бы
@@ -3799,16 +3808,24 @@ html.js [data-rise].seen{
   flex:none;width:30px;height:30px;margin-top:.1rem;
   border-radius:50%;display:grid;place-items:center;
 }
-.duel-c .mk .i{width:14px;height:14px;stroke-width:2.8}
+.duel-c .mk .i{width:15px;height:15px;stroke-width:4}
+
+/* Кольцо вокруг кружка белое и в три пикселя — так оно
+   нарисовано у образца: там под цветным кругом радиусом 14,5
+   лежит белый радиусом 17,5. На бумаге кольцо почти незаметно,
+   на баклажане отрезает золото от фона. */
 .duel-c.neg .mk{
-  background:var(--carn);color:#FFF6F3;
-  box-shadow:0 0 0 3px rgba(210,96,75,.15),
-             0 5px 12px -4px rgba(158,51,32,.55);
+  background:#FF3636;color:#fff;
+  box-shadow:0 0 0 3px #fff,0 5px 12px -4px rgba(255,54,54,.6);
 }
+/* Заливка золотого кружка снята с образца по стопам: тёмное,
+   светлое, самый яркий блик, снова тёмное, светлое. Ровно та
+   же логика, что у нашей пластины, только его цифры. */
 .duel-c.pos .mk{
-  background:var(--au-plate-lite);color:#241703;
-  box-shadow:0 0 0 3px rgba(200,164,95,.15),
-             0 6px 14px -5px rgba(0,0,0,.8);
+  background:linear-gradient(155deg,
+    #B27128 0%,#D8BA7C 25.5%,#FCEAC8 40%,#B27128 72%,#D8BA7C 100%);
+  color:#2F200E;
+  box-shadow:0 0 0 3px #fff,0 6px 14px -5px rgba(0,0,0,.8);
 }
 
 .duel-c .tx{min-width:0;flex:1}
