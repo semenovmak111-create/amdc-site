@@ -3784,13 +3784,19 @@ html.js [data-rise].seen{
    тёмном, у которого подсветка читается за счёт контраста с
    полосой, а пурпур по бумаге в тех же цифрах выглядел бледнее
    соседей. Две тени вместо одной — ближняя плотнее, дальняя
-   широкая и еле видная, она и даёт «лампу». */
+   широкая и еле видная, она и даёт «лампу».
+
+   Грань искалась в три захода: на .34 и одной тени заголовок
+   тонул рядом с золотыми соседями, на .52 и дальней в .26
+   пурпур начинал светиться сам по себе и лез вперёд текста.
+   Взята середина: ближняя .42, дальняя .12 — подсветка видна,
+   но читается бумагой под лампой, а не лампой. */
 #loss{
   background:linear-gradient(180deg,#F7F3E2 0%,#F1ECD6 40%,#E7E0C6 100%);
 }
 #loss h2 mark{
-  filter:drop-shadow(0 2px 15px rgba(117,22,129,.52))
-         drop-shadow(0 0 34px rgba(117,22,129,.26));
+  filter:drop-shadow(0 2px 14px rgba(117,22,129,.42))
+         drop-shadow(0 0 30px rgba(117,22,129,.12));
 }
 
 .duel{
@@ -4116,10 +4122,21 @@ h2.huge{
    что с этого».
    ============================================================ */
 
+/* Поле шире колонки. Промежутки между рамками заказчик просил
+   увеличить дважды, а ширина .wrap — 1220 точек: всё, что
+   уходит в промежутки, вычитается из самих карточек, и после
+   второго захода они стали бы уже текста. Поэтому поле выходит
+   из колонки и берёт до 1520 точек (но не больше окна за
+   вычетом полей), а центрируется отрицательным отступом.
+   Промежутки выросли, карточки при этом стали шире, чем были
+   до всей переделки. */
 .steps.rich{
-  --stag:clamp(10px,2vw,32px);
-  column-gap:clamp(1.5rem,3.6vw,3.8rem);
-  row-gap:clamp(2.4rem,4.6vw,4.6rem);
+  --bw:min(100vw - var(--gut) * 2,1520px);
+  --stag:clamp(10px,2.2vw,38px);
+  width:var(--bw);
+  margin-left:calc((100% - var(--bw)) / 2);
+  column-gap:clamp(1.8rem,4.6vw,5.2rem);
+  row-gap:clamp(3rem,6vw,6.4rem);
   align-items:start;
 }
 .steps.rich::before{display:none}
@@ -4302,7 +4319,7 @@ h2.huge{
   fill:none;
   stroke:rgba(190,150,80,.85);
   stroke-width:3;stroke-linecap:round;
-  stroke-dasharray:12 10;
+  stroke-dasharray:20 12;
 }
 .b-onyx .steps.rich .board-path path,
 .b-indigo .steps.rich .board-path path,
@@ -4314,6 +4331,7 @@ h2.huge{
 @media (max-width:940px){
   .steps.rich{
     --stag:0px;
+    width:auto;margin-left:0;
     column-gap:clamp(.9rem,2vw,1.4rem);
     row-gap:clamp(1.4rem,3vw,2rem);
   }
