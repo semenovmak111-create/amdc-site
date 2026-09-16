@@ -1889,6 +1889,21 @@ html.js .hero.lit h1 .ln > i{
   width:5px;height:5px;border-radius:50%;
   background:var(--carn);margin-right:.5rem;vertical-align:middle;
 }
+/* Та же строка, но подтверждающая: нефрит вместо карнеола. В
+   блоке «кому подойдёт» она держит вывод из карточки — не
+   довод, а его следствие одной фразой. Правила ровно два,
+   цвет точки и цвет текста; всё остальное приходит от .no. */
+.gain .yes{
+  display:block;margin-top:.95rem;padding-top:.85rem;
+  border-top:1px solid var(--rule-2);
+  font-size:.76rem;line-height:1.5;color:var(--jade);
+}
+.gain .yes::before{
+  content:'';display:inline-block;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--jade);margin-right:.5rem;vertical-align:middle;
+}
+.b-paper .gain .yes{color:var(--jade-ink);border-top-color:var(--rule-l2)}
 .b-paper .gain{border-color:var(--rule-l);
   background:linear-gradient(180deg,var(--paper-3),rgba(255,255,255,.4))}
 .b-paper .gain p{color:var(--ink-2)}
@@ -2910,8 +2925,14 @@ html.js .hero.lit h1 .ln > i{
 .b-paper .site.none .win{background:
   linear-gradient(180deg,rgba(210,96,75,.07),transparent 70%),rgba(255,255,255,.35)}
 .site.none:hover .win{transform:none}
-.site.none .bar{opacity:.5}
-.site.none .bar .url{text-decoration:line-through}
+/* Полоса браузера у пустой карточки скрыта целиком — заказчик
+   попросил убрать и зачёркнутый адрес, и точки слева от него.
+   Не display:none: полоса держит высоту, и без неё третье окно
+   стало бы на сорок точек ниже двух соседних, а ряд разъехался
+   бы по нижней кромке. visibility убирает содержимое вместе с
+   фоном и границей, оставляя ровно тот же отступ, что занимает
+   полоса у соседей. */
+.site.none .bar{visibility:hidden}
 
 .site.none .empty{
   aspect-ratio:1120/875;
