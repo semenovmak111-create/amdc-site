@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Расчёт для АМДЦ — шесть вопросов и сумма по вашим числам</title>
+<meta name="description" content="Шесть вопросов по пятнадцать секунд. В конце — расчёт, сколько сайт принесёт АМДЦ в первый месяц, и структура страниц под ваши направления. Без звонков.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1C1129">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Сколько принесёт сайт — расчёт по вашим числам">
+<meta property="og:description" content="Шесть вопросов и сумма за первый месяц, квартал и год. Считает по вашим цифрам, а не по моим.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230A0C0E'/><rect x='1.5' y='1.5' width='29' height='29' rx='3' fill='none' stroke='%23C8A45F' stroke-width='1'/><path d='M16 9v14M9 16h14' stroke='%23C8A45F' stroke-width='2.4' stroke-linecap='round'/></svg>">
+<script>document.documentElement.className+=" js";</script>
+
+<!-- Гарнитуры те же, что на предложении: страница обязана
+     читаться его продолжением, а не отдельным сервисом. -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/cormorant-cyrillic.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/manrope-cyrillic.woff2">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091726a">
+<link rel="stylesheet" href="assets/style.css?v=2026091726a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091726a">
+
+<style>
+/* ============================================================
+   КВИЗ ПЕРЕД РАСЧЁТОМ
+
+   ── Зачем он ─────────────────────────────────────────────
+   На странице предложения расчёт стоит голым: три поля и
+   ведомость. Человек доводит цифру до «+65 000 ₽» и уходит,
+   потому что дальше идти некуда — захвата на выходе нет.
+
+   Квиз не заменяет расчёт, а надстраивается над ним. Шесть
+   вопросов ведут к той же ведомости, но по дороге собирают
+   то, чего у калькулятора не было: сколько направлений,
+   откуда приходят люди сегодня, нужна ли реклама и когда
+   нужен сайт. К моменту, когда человек видит сумму, он уже
+   вложил в неё минуту своего времени — и оставляет номер
+   охотнее, чем на голой форме.
+
+   ── Правила, по которым он собран ────────────────────────
+   Шесть вопросов, не больше пятнадцати секунд на каждый.
+   Ползунки и кнопки вместо ввода с клавиатуры: ручной ввод
+   включает критическое мышление — «зачем я это пишу». В
+   каждом вопросе есть «не знаю»: без него теряются те, кто
+   честно не считал. Перед номером стоит вопрос-прокладка
+   «куда отправить» — он снимает ощущение, что номер просят
+   ради звонка.
+
+   ── Чего здесь намеренно нет ─────────────────────────────
+   Ни одного технического вопроса. Человек врач, а не
+   маркетолог: «нужен ли каталог», «сколько разделов в меню»
+   он не знает и знать не обязан. Спрашивается только то,
+   что он и так держит в голове, — приёмы, чек, направления.
+
+   Не просятся ни почта, ни капча. Только номер.
+
+   ── Цвет ─────────────────────────────────────────────────
+   Полоса аметистовая с золотом — та же, что у расчёта на
+   предложении («Ваши цифры», класс .mag). Это не украшение:
+   человек должен узнать полосу, на которой уже был.
+   ============================================================ */
+
+/* ---- рамка квиза ---------------------------------------- */
+/* Панель повторяет .calc-in с предложения: тот же волосок,
+   тот же радиус, та же подсветка в правом верхнем углу.
+   Собственных красок у квиза нет ни одной — всё из :root. */
+.quiz{
+  max-width:53rem;
+  margin:clamp(1.6rem,3vw,2.6rem) auto 0;
+  padding:clamp(1.3rem,2.6vw,2.1rem);
+  border:1px solid var(--au-line);
+  border-radius:var(--r-lg);
+  background:
+    radial-gradient(24rem 13rem at 100% 0%,rgba(200,164,95,.1),transparent 70%),
+    linear-gradient(180deg,rgba(244,241,233,.06),rgba(244,241,233,.02));
+  box-shadow:0 34px 70px -56px rgba(0,0,0,.9);
+  transition:max-width .5s var(--ease-out);
+}
+/* На результате панель распахивается во всю колонку: расчёт
+   стоит в два столбца, и в 53rem пульт с ведомостью ужимаются
+   до нечитаемого. Медиазапрос .calc тут не помогает — он
+   считает ширину окна, а не панели. */
+.quiz.wide{max-width:none}
+@media (prefers-reduced-motion:reduce){.quiz{transition:none}}
+
+/* ---- счётчик и полоса прогресса -------------------------- */
+/* Полоса нужна не для красоты: незавершённое дело бросают
+   неохотно, и видимый остаток — главный довод дойти до конца.
+   Поэтому процент назван словом, а не только нарисован. */
+.qbar{margin-bottom:clamp(1.1rem,2vw,1.6rem)}
+.qbar-t{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:1rem;margin-bottom:.55rem;
+  font:500 var(--f-rub)/1 var(--mono);
+  letter-spacing:.2em;text-transform:uppercase;
+}
+.qbar-t .qn{color:var(--au)}
+.qbar-t .qp{color:var(--t4)}
+.qbar-l{
+  height:3px;border-radius:2px;
+  background:rgba(244,241,233,.09);
+  overflow:hidden;
+}
+.qbar-l i{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#8A672A 0%,#C8A45F 45%,#E8D09A 100%);
+  transition:width .5s var(--ease-out);
+}
+
+/* ---- шаг -------------------------------------------------- */
+.qs{display:none}
+.qs.on{display:block}
+.js .qs.on{animation:q-in .42s var(--ease-out) both}
+@keyframes q-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.qs > h3{
+  font:500 var(--f-h3)/1.32 var(--sans);
+  color:var(--t1);letter-spacing:-.005em;
+  margin:0 0 .5rem;
+}
+.qs > .qsub{
+  font:400 .86rem/1.6 var(--sans);
+  color:var(--t3);margin:0 0 1.15rem;max-width:52ch;
+}
+.qs > .qsub b{color:var(--t2);font-weight:600}
+
+/* ---- ползунковый вопрос ---------------------------------- */
+/* Число живёт крупно и отдельно от ползунка: человек тянет
+   бегунок и читает цифру, а не ищет её в поле. Поле при этом
+   остаётся — кому удобнее вписать, вписывает. */
+.qnum{
+  display:flex;align-items:baseline;gap:.55rem;
+  margin-bottom:.85rem;
+}
+.qnum input{
+  width:7.2rem;padding:.7rem .85rem;
+  border:1px solid var(--rule);border-radius:var(--r);
+  background:rgba(6,8,10,.42);color:var(--t1);
+  font:500 1.5rem/1.15 var(--mono);
+  font-variant-numeric:tabular-nums lining-nums;
+  -moz-appearance:textfield;
+  transition:border-color .3s,box-shadow .3s;
+}
+.qnum input::-webkit-outer-spin-button,
+.qnum input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qnum input:focus{
+  outline:none;border-color:var(--au);
+  box-shadow:0 0 0 3px rgba(200,164,95,.18);
+}
+.qnum .u{
+  font:400 .84rem/1 var(--mono);color:var(--t4);letter-spacing:.06em;
+}
+
+/* Ползунок красится до бегунка — тем же приёмом, что в
+   расчёте на предложении: видно, где стоишь на шкале. */
+.qrng{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:3px;border-radius:2px;margin:.2rem 0 .5rem;
+  background:linear-gradient(90deg,var(--au) 0 var(--p,0%),rgba(244,241,233,.13) var(--p,0%) 100%);
+  cursor:pointer;
+}
+.qrng::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--au-plate);border:1px solid #8A672A;
+  box-shadow:0 2px 8px -2px rgba(0,0,0,.7);
+  transition:transform .2s var(--ease-out);
+}
+.qrng::-moz-range-thumb{
+  width:20px;height:20px;border-radius:50%;border:1px solid #8A672A;
+  background:#C8A45F;box-shadow:0 2px 8px -2px rgba(0,0,0,.7);
+}
+.qrng:hover::-webkit-slider-thumb{transform:scale(1.1)}
+.qrng:focus{outline:none}
+.qrng:focus::-webkit-slider-thumb{box-shadow:0 2px 8px -2px rgba(0,0,0,.7),0 0 0 5px rgba(200,164,95,.22)}
+.qends{
+  display:flex;justify-content:space-between;
+  font:400 .7rem/1 var(--mono);color:var(--t4);letter-spacing:.04em;
+}
+
+/* ---- вопрос с вариантами --------------------------------- */
+/* Вариант — не радиокнопка с точкой, а карточка целиком:
+   на телефоне в точку диаметром в шесть пикселей не попасть,
+   а в карточку попадает кто угодно. */
+.chips{display:grid;gap:.6rem}
+@media (min-width:620px){.chips.two{grid-template-columns:1fr 1fr}}
+.chip{
+  display:flex;align-items:flex-start;gap:.75rem;
+  width:100%;text-align:left;
+  padding:.92rem 1.05rem;
+  border:1px solid var(--rule);border-radius:var(--r-md);
+  background:rgba(6,8,10,.3);
+  color:var(--t2);
+  font:400 var(--f-sm)/1.45 var(--sans);
+  cursor:pointer;
+  transition:border-color .25s,background .25s,color .25s,transform .25s var(--ease-out);
+}
+.chip:hover{border-color:rgba(200,164,95,.42);color:var(--t1);transform:translateY(-1px)}
+.chip .bx{
+  flex:none;width:19px;height:19px;margin-top:.1rem;
+  border:1px solid var(--rule-3);border-radius:5px;
+  display:grid;place-items:center;
+  transition:border-color .25s,background .25s;
+}
+.chip[data-one] .bx{border-radius:50%}
+.chip .bx .i{width:12px;height:12px;stroke-width:3;opacity:0;transition:opacity .2s}
+.chip.on{
+  border-color:var(--au);
+  background:rgba(200,164,95,.1);
+  color:var(--t1);
+}
+.chip.on .bx{border-color:var(--au);background:rgba(200,164,95,.2)}
+.chip.on .bx .i{opacity:1;color:var(--au-hi)}
+.chip b{display:block;font-weight:600;color:var(--t1)}
+.chip i{
+  display:block;font-style:normal;margin-top:.15rem;
+  font:400 .78rem/1.5 var(--sans);color:var(--t4);
+}
+.chip.on i{color:var(--t3)}
+
+/* ---- низ шага: кнопки и «не знаю» ------------------------- */
+.qnav{
+  display:flex;align-items:center;gap:.8rem;
+  margin-top:clamp(1.2rem,2.2vw,1.7rem);
+  padding-top:clamp(1rem,1.8vw,1.35rem);
+  border-top:1px solid var(--rule-2);
+}
+.qnav .grow{flex:1}
+.qskip{
+  background:none;border:0;cursor:pointer;padding:.4rem 0;
+  font:400 .82rem/1 var(--sans);color:var(--t4);
+  border-bottom:1px solid rgba(244,241,233,.16);
+  transition:color .25s,border-color .25s;
+}
+.qskip:hover{color:var(--t2);border-color:var(--au)}
+.qback{
+  background:none;border:0;cursor:pointer;padding:.55rem .2rem;
+  display:inline-flex;align-items:center;gap:.4rem;
+  font:500 .82rem/1 var(--sans);color:var(--t3);
+  transition:color .25s;
+}
+.qback:hover{color:var(--t1)}
+.qback .i{width:14px;height:14px;stroke-width:2.2}
+.qback[hidden]{display:none}
+
+/* На телефоне три элемента в строку не встают: «не знаю —
+   дальше» переносится на две строки и жмёт кнопку. Кнопка
+   уходит наверх во всю ширину — до неё дотягивается большой
+   палец, — а «назад» и «не знаю» встают под ней мелкой
+   строкой, где им и место. */
+@media (max-width:520px){
+  .qnav{flex-wrap:wrap;gap:.7rem 1rem}
+  .qnav .btn{order:-1;width:100%;justify-content:center}
+  .qnav .grow{display:none}
+  .qback{margin-right:auto}
+}
+
+/* ---- экран результата ------------------------------------ */
+.qres{display:none}
+.qres.on{display:block}
+.js .qres.on{animation:q-in .5s var(--ease-out) both}
+
+/* Заголовок результата набран антиквой, как заголовки полос:
+   это не служебная надпись, а вывод, ради которого всё. */
+.qres-h{
+  text-align:center;
+  margin:0 0 .4rem;
+  font:400 clamp(1.5rem,1.05rem + 1.6vw,2.15rem)/1.2 var(--serif);
+  color:var(--t1);letter-spacing:-.01em;
+}
+.qres-h mark{background:none;color:var(--au-hi)}
+.qres-s{
+  text-align:center;max-width:56ch;margin:0 auto clamp(1.4rem,2.4vw,2rem);
+  font:400 .92rem/1.6 var(--sans);color:var(--t3);
+}
+
+/* Сводка ответов: то, что человек сам наговорил, возвращается
+   ему строкой. Это и подтверждение, что его услышали, и
+   последняя возможность заметить ошибку до отправки. */
+.qsum{
+  display:flex;flex-wrap:wrap;gap:.45rem;
+  margin:0 0 clamp(1.2rem,2vw,1.7rem);
+}
+.qsum span{
+  padding:.4rem .7rem;border-radius:100px;
+  border:1px solid rgba(200,164,95,.22);
+  background:rgba(200,164,95,.07);
+  font:400 .76rem/1.3 var(--sans);color:var(--t2);
+}
+.qsum span b{color:var(--au-hi);font-weight:600}
+/* Кнопка стоит в одном ряду со сводкой и набрана тише её:
+   это поправка, а не призыв. Числа правятся прямо в пульте,
+   и заново проходить квиз нужно только тому, кто ошибся в
+   вариантах. */
+.qsum .qagain{
+  padding:.4rem .7rem;border-radius:100px;cursor:pointer;
+  border:1px dashed rgba(244,241,233,.2);background:none;
+  font:400 .76rem/1.3 var(--sans);color:var(--t4);
+  transition:color .25s,border-color .25s;
+}
+.qsum .qagain:hover{color:var(--t1);border-color:var(--au)}
+
+/* ---- форма под расчётом ---------------------------------- */
+.qform{
+  margin-top:clamp(1.5rem,2.6vw,2.2rem);
+  padding-top:clamp(1.3rem,2.2vw,1.8rem);
+  border-top:1px solid var(--rule-2);
+}
+.qform > h3{
+  font:500 var(--f-h3)/1.32 var(--sans);color:var(--t1);
+  margin:0 0 .45rem;letter-spacing:-.005em;
+}
+.qform > .qsub{
+  font:400 .86rem/1.6 var(--sans);color:var(--t3);
+  margin:0 0 1.1rem;max-width:56ch;
+}
+/* Поле номера не растягивается во всю колонку: длинная пустая
+   строка под короткий номер читается как «заполните анкету», а
+   не «впишите телефон». Ширина взята по маске +7 (999) 999-99-99
+   с запасом. */
+.qrow{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.8rem;margin-top:1rem}
+.qrow > div:first-child{flex:1 1 100%;min-width:0}
+@media (min-width:620px){.qrow > div:first-child{flex:0 1 21rem}}
+.qrow label{
+  display:block;margin-bottom:.4rem;
+  font:500 .78rem/1.4 var(--sans);color:var(--t2);
+}
+.qrow input[type=tel]{
+  width:100%;padding:.9rem 1rem;
+  border:1px solid var(--rule);border-radius:var(--r);
+  background:rgba(6,8,10,.42);color:var(--t1);
+  font:500 1.05rem/1.3 var(--mono);
+  letter-spacing:.02em;
+  transition:border-color .3s,box-shadow .3s;
+}
+.qrow input[type=tel]:focus{
+  outline:none;border-color:var(--au);
+  box-shadow:0 0 0 3px rgba(200,164,95,.18);
+}
+/* Кнопка не сжимается и не переносится: в узкой колонке во
+   вторую строку уходило «расчёт», и стрелка вставала между
+   словами, а сама кнопка обрезала текст по своей кромке. */
+.qrow .qgo{flex:none}
+/* Размер задан здесь, а не классом .btn.lg: имя lg в таблице
+   стилей занято блоком расшифровки («.lg{display:grid}»), оно
+   стоит ниже и перебивает кнопку — та становится гридом и
+   режет собственный текст по кромке. */
+.qrow .qgo .btn{white-space:nowrap;padding:1.2rem 2.1rem;font-size:1rem}
+@media (max-width:619px){.qrow .qgo{flex:1 1 100%}}
+@media (max-width:619px){.qrow .qgo .btn{width:100%;justify-content:center}}
+
+.qagree{
+  display:flex;gap:.6rem;align-items:flex-start;
+  margin-top:.9rem;
+  font:400 .78rem/1.55 var(--sans);color:var(--t4);
+}
+.qagree input{margin-top:.2rem;accent-color:var(--au);flex:none}
+.qagree a{color:var(--t3);text-decoration:underline;text-underline-offset:2px}
+.qagree a:hover{color:var(--au)}
+
+/* Повтор бонусов у самой кнопки. На последнем шаге человек
+   напрягается сильнее всего, и здесь ему надо ещё раз
+   показать, что он получает и чего не теряет. */
+.qgive{
+  display:grid;gap:.5rem;margin-top:1.1rem;
+  padding:clamp(.9rem,1.6vw,1.2rem);
+  border:1px solid rgba(200,164,95,.18);border-radius:var(--r-md);
+  background:rgba(200,164,95,.05);
+}
+.qgive div{
+  display:flex;gap:.6rem;align-items:flex-start;
+  font:400 .84rem/1.5 var(--sans);color:var(--t2);
+}
+.qgive div b{color:var(--t1);font-weight:600}
+.qgive .i{width:15px;height:15px;stroke-width:2.4;color:var(--au);flex:none;margin-top:.15rem}
+
+/* ---- «заявка собрана» ------------------------------------ */
+.qdone{text-align:center;padding:clamp(1.4rem,3vw,2.4rem) 0}
+.qdone h3{
+  font:400 clamp(1.4rem,1rem + 1.4vw,2rem)/1.25 var(--serif);
+  color:var(--t1);margin:0 0 .6rem;
+}
+.qdone p{
+  font:400 .92rem/1.6 var(--sans);color:var(--t3);
+  max-width:48ch;margin:0 auto 1.2rem;
+}
+.qdone a{color:var(--au-hi);text-decoration:underline;text-underline-offset:2px}
+
+/* ---- шапка и подвал страницы ----------------------------- */
+/* Обе узкие нарочно: страница существует ради одного блока,
+   и всё, что не он, обязано уйти в поля. */
+.kv-top{
+  position:sticky;top:0;z-index:40;
+  background:rgba(10,6,16,.86);
+  backdrop-filter:saturate(1.4) blur(14px);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);
+  border-bottom:1px solid var(--rule-2);
+}
+.kv-top .wrap{
+  display:flex;align-items:center;gap:1rem;
+  min-height:62px;
+}
+.kv-back{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font:500 .82rem/1 var(--sans);color:var(--t3);
+  transition:color .25s;
+}
+.kv-back:hover{color:var(--t1)}
+.kv-back .i{width:15px;height:15px;stroke-width:2.2}
+.kv-top .grow{flex:1}
+.kv-tel{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font:500 .84rem/1 var(--mono);color:var(--t2);letter-spacing:.02em;
+  transition:color .25s;
+}
+.kv-tel:hover{color:var(--au-hi)}
+.kv-tel .i{width:15px;height:15px;stroke-width:2}
+@media (max-width:560px){.kv-tel span{display:none}}
+
+.kv-foot{
+  padding:clamp(1.6rem,3vw,2.4rem) 0;
+  background:var(--onyx-3);
+  border-top:1px solid var(--rule-2);
+}
+.kv-foot .wrap{
+  display:flex;flex-wrap:wrap;gap:.9rem 1.6rem;align-items:center;
+  font:400 .78rem/1.5 var(--sans);color:var(--t4);
+}
+.kv-foot a{color:var(--t3);transition:color .25s}
+.kv-foot a:hover{color:var(--au)}
+.kv-foot .grow{flex:1}
+
+@media (prefers-reduced-motion:reduce){
+  .js .qs.on,.js .qres.on{animation:none}
+  .qbar-l i{transition:none}
+  .chip{transition:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 6.5"/></symbol>
+    <symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M16.5 4.5L8 12l8.5 7.5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.7 7.4L3 20.5l1.7-5.1A8.5 8.5 0 1121 11.5z"/><path d="M8.6 9.2c.3 2.5 2.6 4.9 5.2 5.5"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ ШАПКА ============ -->
+<header class="kv-top">
+  <div class="wrap">
+    <a class="kv-back" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-chev"/></svg> К предложению</a>
+    <span class="grow"></span>
+    <a class="kv-tel" href="tel:+79111112122"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span>+7 911 111-21-22</span></a>
+  </div>
+</header>
+
+<!-- ============ КВИЗ И РАСЧЁТ ============ -->
+<section class="band b-onyx mid mag" id="kviz">
+  <div class="wrap">
+
+    <h2 class="huge">Посчитайте, сколько принесёт сайт <mark>уже в первый месяц</mark></h2>
+    <p class="lede">Шесть вопросов, пятнадцать секунд на каждый. В конце — сумма по вашим числам, а не по моим, и структура страниц под ваши направления. Звонить без спроса никто не будет.</p>
+
+    <div class="quiz" id="quiz">
+
+      <!-- ---- прогресс ---- -->
+      <div class="qbar">
+        <div class="qbar-t">
+          <span class="qn" id="q-n">Вопрос 1 из 6</span>
+          <span class="qp" id="q-p">готово на 0%</span>
+        </div>
+        <div class="qbar-l"><i id="q-fill"></i></div>
+      </div>
+
+      <!-- ---- шаги ---- -->
+      <div id="q-steps">
+
+        <!-- 1. Направления. Первым стоит самый лёгкий вопрос:
+             число, которое человек знает наизусть и которым
+             гордится. Начинать с того, что придётся выяснять,
+             нельзя — закроет вкладку на первом же экране. -->
+        <div class="qs on" data-k="dirs">
+          <h3>Сколько направлений нужно показать на сайте?</h3>
+          <p class="qsub">У АМДЦ их четырнадцать: урология, гинекология, проктология, стоматология, косметология, лаборатория и другие. <b>Каждое направление — отдельная страница со своей ценой</b>, потому что ищут их разные люди и разными словами.</p>
+          <div class="qnum">
+            <input id="q-dirs" type="number" inputmode="numeric" min="1" max="30" step="1" value="14">
+            <span class="u">направлений</span>
+          </div>
+          <input class="qrng" type="range" min="1" max="30" step="1" value="14" data-for="q-dirs" aria-label="Сколько направлений">
+          <div class="qends"><span>1</span><span>30</span></div>
+        </div>
+
+        <!-- 2. Открытия карточки. Кормит первую строку
+             ведомости: это единственный входящий поток,
+             который у клиники сегодня есть. -->
+        <div class="qs" data-k="views">
+          <h3>Сколько человек в месяц открывают вашу карточку в справочниках?</h3>
+          <p class="qsub">В Яндекс Бизнесе это строка «показы карточки», в 2ГИС — «просмотры». <b>Не смотрели — оставьте 420</b>: столько у клиники вашего профиля в Выборгском районе, посчитано по открытым данным.</p>
+          <div class="qnum">
+            <input id="q-views" type="number" inputmode="numeric" min="0" max="5000" step="10" value="420">
+            <span class="u">чел. в месяц</span>
+          </div>
+          <input class="qrng" type="range" min="0" max="2000" step="10" value="420" data-for="q-views" aria-label="Открытий карточки в месяц">
+          <div class="qends"><span>0</span><span>2 000</span></div>
+        </div>
+
+        <!-- 3. Чек. Второе число из головы врача, спрашивается
+             сразу за первым: два числовых вопроса подряд
+             человек проходит на разгоне, вперемешку с
+             выборами — теряет темп. -->
+        <div class="qs" data-k="check">
+          <h3>Ваш средний чек за первый приём</h3>
+          <p class="qsub">Именно первый приём, без плана лечения и повторных. <b>Средний по нише — 11 000 ₽</b>; на странице предложения расчёт нарочно ведётся от 8 000, чтобы итог не был завышен.</p>
+          <div class="qnum">
+            <input id="q-check" type="number" inputmode="numeric" min="0" max="99999" step="100" value="8000">
+            <span class="u">₽</span>
+          </div>
+          <input class="qrng" type="range" min="0" max="20000" step="100" value="8000" data-for="q-check" aria-label="Средний чек за первый приём">
+          <div class="qends"><span>0 ₽</span><span>20 000 ₽</span></div>
+        </div>
+
+        <!-- 4. Откуда приходят. Первый вопрос с вариантами и
+             единственный, где можно отметить несколько:
+             каналов у клиники всегда больше одного, и выбор
+             одного заставил бы соврать. -->
+        <div class="qs" data-k="from" data-multi>
+          <h3>Откуда к вам приходят люди сегодня?</h3>
+          <p class="qsub">Отметьте всё, что работает. Ответ ничего не меняет в расчёте — он нужен, чтобы понять, <b>какие страницы делать первыми</b>.</p>
+          <div class="chips two">
+            <button type="button" class="chip" data-v="Яндекс Карты и 2ГИС"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Яндекс Карты и 2ГИС</b><i>Карточка организации</i></span></button>
+            <button type="button" class="chip" data-v="Справочники и медпорталы"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Справочники и медпорталы</b><i>ПроДокторов, НаПоправку и прочие</i></span></button>
+            <button type="button" class="chip" data-v="Сарафан и повторные"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Сарафан и повторные</b><i>Приходят по рекомендации</i></span></button>
+            <button type="button" class="chip" data-v="Реклама"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Реклама</b><i>Директ, соцсети, наружная</i></span></button>
+            <button type="button" class="chip" data-v="Не знаю" data-solo><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Не знаю</b><i>Никто не считал — это нормально</i></span></button>
+          </div>
+        </div>
+
+        <!-- 5. Реклама. Вопрос квалификации, замаскированный
+             под вопрос о планах: реклама без посадочной
+             невозможна, и «да» здесь означает, что сайт нужен
+             не вообще, а к конкретному сроку. -->
+        <div class="qs" data-k="ads">
+          <h3>Собираетесь запускать рекламу?</h3>
+          <p class="qsub">Яндекс Директ требует страницу с описанием услуги и ценой. <b>Без неё канал закрыт целиком</b> — карточку в справочнике рекламировать нельзя.</p>
+          <div class="chips">
+            <button type="button" class="chip" data-one data-v="Да, в ближайшее время"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Да, в ближайшее время</b><i>Тогда посадочные страницы делаем первыми</i></span></button>
+            <button type="button" class="chip" data-one data-v="Позже, когда будет сайт"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Позже, когда будет сайт</b><i>Структуру заложу так, чтобы включалось в тот же день</i></span></button>
+            <button type="button" class="chip" data-one data-v="Нет, не планирую"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Нет, не планирую</b><i>Тогда работаем с бесплатным поиском</i></span></button>
+            <button type="button" class="chip" data-one data-v="Не знаю, нужна консультация"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Не знаю, нужна консультация</b><i>Разберём на встрече, это бесплатно</i></span></button>
+          </div>
+        </div>
+
+        <!-- 6. Срок. Последний и самый важный: он и есть та
+             самая стадия принятия решения, ради которой
+             обычно звонят и спрашивают. Здесь человек
+             отвечает сам и без неловкости. -->
+        <div class="qs" data-k="when">
+          <h3>Когда нужен сайт?</h3>
+          <p class="qsub">Отвечайте честно, «пока смотрю» — <b>нормальный ответ</b>. От него зависит только то, что я пришлю: расчёт и макет или ещё и календарь с датами.</p>
+          <div class="chips">
+            <button type="button" class="chip" data-one data-v="В этом месяце"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>В этом месяце</b><i>Десять дней работы — успеваем</i></span></button>
+            <button type="button" class="chip" data-one data-v="В течение квартала"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>В течение квартала</b><i>Место в расписании держу за вами</i></span></button>
+            <button type="button" class="chip" data-one data-v="Пока просто смотрю"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Пока просто смотрю</b><i>Пришлю расчёт и исчезну, дёргать не буду</i></span></button>
+            <button type="button" class="chip" data-one data-v="Не знаю"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Не знаю</b><i>Тем более стоит сначала посмотреть цифры</i></span></button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ---- низ: назад, «не знаю», дальше ---- -->
+      <div class="qnav" id="q-nav">
+        <button type="button" class="qback" id="q-back" hidden><svg class="i" aria-hidden="true"><use href="#i-chev"/></svg> Назад</button>
+        <button type="button" class="qskip" id="q-skip">Не знаю — дальше</button>
+        <span class="grow"></span>
+        <button type="button" class="btn" id="q-next">Дальше <svg class="i" aria-hidden="true"><use href="#i-arr"/></svg></button>
+      </div>
+
+      <!-- ---- экран результата ---- -->
+      <!-- Ведомость, итог и три горизонта взяты с предложения
+           один в один: те же классы, те же коэффициенты, те же
+           подписи. Квиз ничего не считает по-своему — он
+           только доводит человека до того же расчёта, собрав
+           по дороге четыре ответа, которых у калькулятора
+           не было. -->
+      <div class="qres" id="q-res">
+
+        <h3 class="qres-h">По вашим числам сайт приносит <mark id="r-head">+65 000 ₽</mark> в первый месяц</h3>
+        <p class="qres-s">Считано по нижней границе: коэффициенты взяты самые осторожные и подписаны прямо в ведомости. Спорить с осторожной цифрой нечем.</p>
+
+        <div class="qsum" id="q-sum"></div>
+
+        <div class="calc">
+          <div class="calc-in">
+            <div class="t">Ваши ответы</div>
+            <div class="cf">
+              <label for="c-views">Открывают вашу карточку</label>
+              <div class="box">
+                <input id="c-views" type="number" inputmode="numeric" min="0" max="99999" step="10" value="420">
+                <span class="unit">чел.</span>
+              </div>
+              <input class="rng" type="range" min="0" max="2000" step="10" value="420" data-for="c-views" aria-label="Открытий карточки в месяц">
+            </div>
+            <!-- Второй источник людей. Карточка ловит тех, кто
+                 ищет клинику по названию; открытый поиск — тех,
+                 кто ищет услугу. Число по умолчанию считается от
+                 направлений и намеренно занижено: посчитать этих
+                 людей сегодня негде, и завышать здесь нельзя. -->
+            <div class="cf">
+              <label for="c-found">Находят вас в открытом поиске <span>(оценка по числу направлений)</span></label>
+              <div class="box">
+                <input id="c-found" type="number" inputmode="numeric" min="0" max="9999" step="1" value="9">
+                <span class="unit">чел.</span>
+              </div>
+              <input class="rng" type="range" min="0" max="200" step="1" value="9" data-for="c-found" aria-label="Находят вас в открытом поиске">
+            </div>
+            <div class="cf">
+              <label for="c-check">Средний чек за первый приём</label>
+              <div class="box">
+                <input id="c-check" type="number" inputmode="numeric" min="0" max="999999" step="100" value="8000">
+                <span class="unit">₽</span>
+              </div>
+              <input class="rng" type="range" min="0" max="20000" step="100" value="8000" data-for="c-check" aria-label="Средний чек за первый приём">
+            </div>
+            <div class="pull">
+              <svg class="i" aria-hidden="true"><use href="#i-arr"/></svg>
+              Числа можно поправить — справа пересчитается сразу
+            </div>
+          </div>
+
+          <div class="calc-out">
+            <div class="cline">
+              <div class="l">Откроют вашу карточку</div>
+              <div class="v" data-c="views">420</div>
+            </div>
+            <div class="cline">
+              <div class="l">Зайдут на сайт с карточки + найдут в интернете сами<i>72,6% с карточки — данные Яндекса по Петербургу</i></div>
+              <div class="v"><span data-c="left">305</span><i>+</i><span data-c="found">9</span></div>
+            </div>
+            <div class="cline">
+              <div class="l">Придут к вам с сайта<i>6% запишутся со страницы с ценой и кнопкой, 7 из 10 записавшихся дойдут</i></div>
+              <div class="v" data-c="visits">13</div>
+            </div>
+
+            <div class="payoff">
+              <div class="pk">Сайт принесёт в первый месяц</div>
+              <div class="pold"><s>0 ₽</s> приносит своя страница сегодня</div>
+              <div class="pv" data-c="money">+65 000 ₽</div>
+              <div class="pn">и столько же каждый следующий — <b data-c="m12">780 000 ₽</b> за год</div>
+            </div>
+
+            <div class="hz good">
+              <div><b data-c="m1">+65 000 ₽</b><span>первый месяц</span></div>
+              <div><b data-c="m3">+195 000 ₽</b><span>за квартал</span></div>
+              <div><b data-c="m12b">+780 000 ₽</b><span>за год</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strip" id="r-strip"><span class="ck"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="tx"></span></div>
+
+        <!-- ---- прокладка и номер ---- -->
+        <!-- Вопрос «куда отправить» стоит перед полем номера
+             нарочно: он превращает номер из платы за доступ в
+             адрес доставки. Человек отвечает не на «дайте
+             телефон», а на «куда прислать то, что вы уже
+             увидели». -->
+        <div class="qform">
+          <h3>Куда отправить расчёт и структуру страниц?</h3>
+          <p class="qsub">Пришлю одним сообщением: этот расчёт с вашими числами, список страниц под ваши направления и разбор запросов по району. <b>Без звонка</b>, если сами не попросите.</p>
+
+          <div class="chips two" id="q-where">
+            <button type="button" class="chip on" data-one data-v="WhatsApp"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>В WhatsApp</b><i>Отвечу в течение часа</i></span></button>
+            <button type="button" class="chip" data-one data-v="Telegram"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>В Telegram</b><i>Если удобнее там</i></span></button>
+            <button type="button" class="chip" data-one data-v="звонком"><span class="bx"><svg class="i"><use href="#i-check"/></svg></span><span><b>Позвоните мне</b><i>Наберу в удобное время</i></span></button>
+          </div>
+
+          <form id="q-form" novalidate>
+            <div class="qrow">
+              <div>
+                <label for="q-phone">Введите номер, на который отправить расчёт</label>
+                <input id="q-phone" name="phone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel" required>
+              </div>
+              <div class="qgo">
+                <button class="btn" type="submit">Получить расчёт <svg class="i" aria-hidden="true"><use href="#i-arr"/></svg></button>
+              </div>
+            </div>
+
+            <label class="qagree"><input type="checkbox" id="q-ok" required checked><span>Согласен на обработку персональных данных в соответствии с <a href="privacy.html">политикой конфиденциальности</a></span></label>
+
+            <div class="qgive">
+              <div><svg class="i"><use href="#i-check"/></svg><span><b>Расчёт с вашими числами</b> — тот же, что вы сейчас видите, но в файле, который можно показать партнёру</span></div>
+              <div><svg class="i"><use href="#i-check"/></svg><span><b>Список страниц</b> под ваши направления — готовая структура будущего сайта</span></div>
+              <div><svg class="i"><use href="#i-check"/></svg><span><b>Разбор запросов по району</b> — что ищут, сколько раз в месяц и кто сейчас на это отвечает</span></div>
+              <div><svg class="i"><use href="#i-check"/></svg><span><b>0 ₽ и никаких обязательств.</b> Посмотрите и скажите «нет» — это нормальный ответ, и он ничего не испортит</span></div>
+            </div>
+          </form>
+        </div>
+
+      </div><!-- /.qres -->
+    </div><!-- /.quiz -->
+
+    <p class="note">Коэффициенты в расчёте: 72,6% посетителей карточки не звонят (данные Яндекса по Петербургу), 6% зашедших на страницу услуги с ценой оставляют заявку, семеро из десяти записавшихся доходят до приёма. Все три взяты по нижней границе.</p>
+
+  </div>
+</section>
+
+<footer class="kv-foot">
+  <div class="wrap">
+    <span>АМДЦ · ул. Орбели, 19 · Санкт-Петербург</span>
+    <span class="grow"></span>
+    <a href="index.html">Вернуться к предложению</a>
+    <a href="privacy.html">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var WA   = '79111112122';
+  var soft = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ---- 1. Шаги ---------------------------------------------
+     Состояние квиза — это индекс текущего шага и объект с
+     ответами. Ничего больше: ни истории, ни хранилища. Человек
+     проходит квиз один раз за визит, и восстанавливать ему
+     нечего. */
+  var steps = [].slice.call(document.querySelectorAll('#q-steps .qs'));
+  var nav   = document.getElementById('q-nav');
+  var res   = document.getElementById('q-res');
+  var bNext = document.getElementById('q-next');
+  var bBack = document.getElementById('q-back');
+  var bSkip = document.getElementById('q-skip');
+  var eN    = document.getElementById('q-n');
+  var eP    = document.getElementById('q-p');
+  var eFill = document.getElementById('q-fill');
+
+  var i = 0;
+  var A = { dirs:14, views:420, check:8000, from:[], ads:'', when:'', where:'WhatsApp' };
+
+  function paintBar(){
+    var pct = Math.round(i / steps.length * 100);
+    eN.textContent = 'Вопрос ' + Math.min(i + 1, steps.length) + ' из ' + steps.length;
+    eP.textContent = 'готово на ' + pct + '%';
+    eFill.style.width = pct + '%';
+  }
+
+  function show(n){
+    i = n;
+    steps.forEach(function(s,k){ s.classList.toggle('on', k === n); });
+    bBack.hidden = (n === 0);
+    /* «Не знаю» показываем только там, где вариант с ним не
+       выписан кнопкой: на числовых шагах. В вопросах с
+       вариантами свой «не знаю» уже стоит в списке, и второй
+       рядом читался бы опечаткой. */
+    var k = steps[n].dataset.k;
+    bSkip.hidden = (k === 'from' || k === 'ads' || k === 'when');
+    bNext.innerHTML = (n === steps.length - 1)
+      ? 'Показать расчёт <svg class="i" aria-hidden="true"><use href="#i-arr"/></svg>'
+      : 'Дальше <svg class="i" aria-hidden="true"><use href="#i-arr"/></svg>';
+    paintBar();
+  }
+
+  function next(){
+    var s = steps[i];
+    var k = s.dataset.k;
+
+    /* Числовые шаги забирают значение поля, шаги с вариантами —
+       выбранные кнопки. Пустой выбор не блокирует: человек
+       имеет право не ответить, и «не знаю» подставится сам. */
+    if (k === 'dirs' || k === 'views' || k === 'check'){
+      A[k] = clampNum(s.querySelector('input[type=number]'));
+    } else if (s.hasAttribute('data-multi')){
+      A[k] = [].slice.call(s.querySelectorAll('.chip.on')).map(function(c){ return c.dataset.v; });
+      if (!A[k].length) A[k] = ['Не знаю'];
+    } else {
+      var on = s.querySelector('.chip.on');
+      A[k] = on ? on.dataset.v : 'Не знаю';
+    }
+
+    if (i < steps.length - 1){ show(i + 1); scrollTop(); }
+    else finish();
+  }
+
+  function clampNum(el){
+    var v = parseInt(el.value, 10);
+    if (isNaN(v)) v = +el.defaultValue || 0;
+    return Math.max(+el.min, Math.min(+el.max, v));
+  }
+
+  /* Прокрутка к началу квиза, а не к началу страницы: заголовок
+     полосы человек уже прочитал, и возвращать его к нему на
+     каждом шаге — терять шаг впустую. */
+  function scrollTop(){
+    var q = document.getElementById('quiz');
+    var y = q.getBoundingClientRect().top + window.pageYOffset - 92;
+    if (window.pageYOffset > y) window.scrollTo({ top:y, behavior: soft ? 'auto' : 'smooth' });
+  }
+
+  bNext.addEventListener('click', next);
+  bBack.addEventListener('click', function(){ if (i > 0){ show(i - 1); scrollTop(); } });
+  bSkip.addEventListener('click', next);
+
+  /* Enter на числовом поле идёт дальше, а не отправляет ничего:
+     на телефоне это единственная кнопка, до которой дотягивается
+     большой палец, не закрывая клавиатуру. */
+  steps.forEach(function(s){
+    var f = s.querySelector('input[type=number]');
+    if (f) f.addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){ e.preventDefault(); next(); }
+    });
+  });
+
+  /* ---- 2. Кнопки-варианты -----------------------------------
+     Одиночный выбор ведёт себя как радиокнопка и сам листает
+     дальше: лишнее нажатие на «Дальше» после уже сделанного
+     выбора — это ровно тот шаг, на котором люди уходят.
+     Множественный выбор не листает, там нужно дать отметить
+     несколько. */
+  [].slice.call(document.querySelectorAll('.qs .chips, #q-where')).forEach(function(box){
+    var multi = box.closest('.qs') && box.closest('.qs').hasAttribute('data-multi');
+    box.addEventListener('click', function(e){
+      var c = e.target.closest('.chip');
+      if (!c) return;
+      if (multi){
+        /* «Не знаю» гасит остальные и гаснет само, если выбрали
+           что-то конкретное: одновременно знать и не знать
+           нельзя. */
+        if (c.hasAttribute('data-solo')){
+          var was = c.classList.contains('on');
+          box.querySelectorAll('.chip').forEach(function(x){ x.classList.remove('on'); });
+          c.classList.toggle('on', !was);
+        } else {
+          c.classList.toggle('on');
+          var solo = box.querySelector('.chip[data-solo]');
+          if (solo) solo.classList.remove('on');
+        }
+      } else {
+        box.querySelectorAll('.chip').forEach(function(x){ x.classList.remove('on'); });
+        c.classList.add('on');
+        if (box.id === 'q-where'){ A.where = c.dataset.v; return; }
+        setTimeout(next, soft ? 0 : 190);
+      }
+    });
+  });
+
+  /* ---- 3. Ползунки квиза ------------------------------------ */
+  function paintRange(r){
+    var min = +r.min, max = +r.max;
+    var p = max > min ? ((+r.value - min) / (max - min)) * 100 : 0;
+    r.style.setProperty('--p', p.toFixed(1) + '%');
+  }
+  [].slice.call(document.querySelectorAll('.qrng')).forEach(function(r){
+    var f = document.getElementById(r.getAttribute('data-for'));
+    paintRange(r);
+    r.addEventListener('input', function(){ paintRange(r); if (f) f.value = r.value; });
+    if (f) f.addEventListener('input', function(){
+      var v = parseInt(f.value, 10) || 0;
+      r.value = Math.max(+r.min, Math.min(+r.max, v));
+      paintRange(r);
+    });
+  });
+
+  /* ---- 4. Расчёт --------------------------------------------
+     Формула и коэффициенты взяты с предложения без единой
+     правки. Если они там изменятся — менять и здесь, иначе
+     две страницы будут обещать разное, и это заметят. */
+  var LEFT = 0.726;  /* не звонят из карточки — Яндекс по СПб */
+  var LEAD = 0.06;   /* заявка со страницы услуги с ценой     */
+  var COME = 0.70;   /* доходимость до приёма                 */
+
+  var fV = document.getElementById('c-views');
+  var fF = document.getElementById('c-found');
+  var fC = document.getElementById('c-check');
+  var pay = res.querySelector('.payoff');
+  var hitT = null;
+
+  function out(k){ return res.querySelector('[data-c="' + k + '"]'); }
+  function num(n){ return Math.round(n).toLocaleString('ru-RU'); }
+  function rub(n){ return num(n) + ' ₽'; }
+  function put(k,v){ var el = out(k); if (el) el.textContent = v; }
+
+  function calc(){
+    var views = Math.max(0, Math.min(99999,  parseInt(fV.value, 10) || 0));
+    var found = Math.max(0, Math.min(9999,   parseInt(fF.value, 10) || 0));
+    var check = Math.max(0, Math.min(999999, parseInt(fC.value, 10) || 0));
+
+    /* Цепочка считается без округлений и округляется только на
+       выводе: шесть процентов от семидесяти — это 0,042
+       пациента с человека, и при счёте по целым итог застывает
+       на десятках шагов ползунка. */
+    var left   = views * LEFT;
+    var site   = left + found;
+    var leads  = site * LEAD;
+    var visits = leads * COME;
+    var money  = visits * check;
+
+    put('views',  num(views));
+    put('left',   num(left));
+    put('found',  num(found));
+    put('visits', num(visits));
+    put('money',  '+' + rub(money));
+    put('m1',     '+' + rub(money));
+    put('m3',     '+' + rub(money * 3));
+    put('m12',    rub(money * 12));
+    put('m12b',   '+' + rub(money * 12));
+
+    var h = document.getElementById('r-head');
+    if (h) h.textContent = '+' + rub(money);
+    A.money = Math.round(money);
+    return money;
+  }
+
+  function hit(){
+    if (!pay || soft) return;
+    pay.classList.remove('hit'); void pay.offsetWidth; pay.classList.add('hit');
+    clearTimeout(hitT);
+    hitT = setTimeout(function(){ pay.classList.remove('hit'); }, 460);
+  }
+
+  [].slice.call(res.querySelectorAll('.cf .rng')).forEach(function(r){
+    var f = document.getElementById(r.getAttribute('data-for'));
+    r.addEventListener('input', function(){
+      paintRange(r); if (f) f.value = r.value; calc(); hit();
+    });
+    if (f) f.addEventListener('input', function(){
+      var v = parseInt(f.value, 10) || 0;
+      r.value = Math.max(+r.min, Math.min(+r.max, v));
+      paintRange(r); calc(); hit();
+    });
+  });
+  [fV, fF, fC].forEach(function(f){
+    f.addEventListener('input', function(){ calc(); hit(); });
+  });
+
+  /* ---- 5. Переход к результату ------------------------------ */
+  function finish(){
+    /* Открытый поиск считается от направлений и нарочно
+       занижен: четырнадцать направлений — это четырнадцать
+       разных запросов, но сколько людей по ним приходит,
+       сегодня не знает никто, потому что приводить их некуда.
+       Ставим по одному человеку на полтора направления и
+       говорим об этом вслух. */
+    var found = Math.max(3, Math.round(A.dirs * 0.65));
+
+    fV.value = A.views;
+    fF.value = A.found = found;
+    fC.value = A.check;
+    [].slice.call(res.querySelectorAll('.cf .rng')).forEach(function(r){
+      var f = document.getElementById(r.getAttribute('data-for'));
+      if (f) r.value = Math.max(+r.min, Math.min(+r.max, parseInt(f.value, 10) || 0));
+      paintRange(r);
+    });
+    calc();
+
+    /* Ответы возвращаются человеку строкой: и подтверждение,
+       что его услышали, и последняя возможность заметить
+       ошибку до отправки. */
+    var sum = document.getElementById('q-sum');
+    var bits = [
+      ['Направлений', A.dirs],
+      ['Открытий карточки', A.views.toLocaleString('ru-RU') + ' в месяц'],
+      ['Средний чек', A.check.toLocaleString('ru-RU') + ' ₽'],
+      ['Реклама', A.ads || 'не знаю'],
+      ['Сайт нужен', (A.when || 'не знаю').toLowerCase()]
+    ];
+    sum.innerHTML = bits.map(function(b){
+      return '<span>' + b[0] + ': <b>' + b[1] + '</b></span>';
+    }).join('') + '<button type="button" class="qagain">Пройти заново</button>';
+    sum.querySelector('.qagain').addEventListener('click', again);
+
+    /* Полоса под ведомостью говорит разное в зависимости от
+       ответа про рекламу: одному важно, что Директ включится,
+       другому — что без рекламы тоже считается. */
+    var strip = document.querySelector('#r-strip .tx');
+    var pages = A.dirs + 4;
+    var base  = '<b>' + A.dirs + ' направлений — это ' + pages + ' страниц в структуре</b>: по одной на каждое направление плюс главная, цены, врачи и контакты. ';
+    if (/^Да/.test(A.ads)){
+      strip.innerHTML = base + 'Раз реклама нужна в ближайшее время — посадочные под направления делаю первыми, и Директ включается в тот же день, когда сайт встаёт на домен.';
+    } else if (/^Позже/.test(A.ads)){
+      strip.innerHTML = base + 'Рекламы пока нет, но структуру заложу так, чтобы Директ включался в тот день, когда он понадобится, без переделок.';
+    } else {
+      strip.innerHTML = base + 'Реклама в расчёте не участвует вовсе: всё, что выше, — это люди, которые ищут вас сами и сегодня не доходят.';
+    }
+
+    steps.forEach(function(s){ s.classList.remove('on'); });
+    nav.style.display = 'none';
+    document.querySelector('.qbar').style.display = 'none';
+    res.classList.add('on');
+    document.getElementById('quiz').classList.add('wide');
+    scrollTop();
+  }
+
+  /* Возврат к вопросам. Ответы не стираются: человек чаще
+     хочет поправить один вариант, чем начать с чистого листа,
+     и обнулённые кнопки прочитались бы потерей его работы. */
+  function again(){
+    res.classList.remove('on');
+    document.getElementById('quiz').classList.remove('wide');
+    nav.style.display = '';
+    document.querySelector('.qbar').style.display = '';
+    show(0);
+    scrollTop();
+  }
+
+  /* ---- 6. Заявка уходит готовым сообщением ------------------
+     Тем же способом, что на предложении: в мессенджер уходит
+     собранный текст, а человеку остаётся нажать «отправить».
+     Разница одна — теперь в сообщении есть ответы квиза, и
+     разговор начинается не с «расскажите о себе». */
+  var form = document.getElementById('q-form');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var pf = document.getElementById('q-phone');
+    var phone = (pf.value || '').trim();
+    if (phone.replace(/\D/g,'').length < 10){
+      pf.focus();
+      pf.style.borderColor = '#D2604B';
+      pf.style.boxShadow = '0 0 0 3px rgba(210,96,75,.18)';
+      return;
+    }
+    if (!document.getElementById('q-ok').checked){
+      document.getElementById('q-ok').focus();
+      return;
+    }
+
+    var money = calc();
+    var text =
+      'Здравствуйте! Это АМДЦ (ул. Орбели, 19). Прошёл расчёт на сайте.\n\n' +
+      'Направлений: ' + A.dirs + '\n' +
+      'Открытий карточки: ' + A.views + ' в месяц\n' +
+      'Средний чек: ' + A.check + ' ₽\n' +
+      'Приходят сегодня: ' + (A.from.join(', ') || 'не знаю') + '\n' +
+      'Реклама: ' + (A.ads || 'не знаю') + '\n' +
+      'Сайт нужен: ' + (A.when || 'не знаю') + '\n' +
+      'Расчёт показал: +' + Math.round(money).toLocaleString('ru-RU') + ' ₽ в первый месяц\n\n' +
+      'Пришлите расчёт и структуру страниц ' +
+      (A.where === 'звонком' ? 'или позвоните' : 'в ' + A.where) + '. ' +
+      'Мой номер: ' + phone + '.';
+
+    var btn = form.querySelector('button[type=submit]');
+    btn.textContent = 'Открываю WhatsApp…';
+    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+
+    setTimeout(function(){
+      document.querySelector('.qform').innerHTML =
+        '<div class="qdone">' +
+          '<h3>Расчёт собран</h3>' +
+          '<p>Если WhatsApp не открылся сам — напишите на ' +
+          '<a href="https://wa.me/' + WA + '">+7 911 111-21-22</a> или позвоните. ' +
+          'Отвечу в течение часа, материалы пришлю за 4–5 дней.</p>' +
+          '<a class="btn" href="https://wa.me/' + WA + '" target="_blank" rel="noopener">' +
+            '<svg class="i" aria-hidden="true"><use href="#i-wa"/></svg> Открыть WhatsApp' +
+          '</a>' +
+        '</div>';
+    }, 700);
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>
