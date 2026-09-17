@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Разворот «Технология» на диагональном мраморе — АМДЦ</title>
+<meta name="description" content="Тот же разворот «Технология», что и на странице предложения, но на другом камне: диагональная сеть жил вместо рамки из вертикальных. Страница для сравнения фонов.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#F4F2EF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Разворот «Технология» — вариант фона">
+<meta property="og:description" content="Сравнение двух мраморов под одним и тем же разворотом.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230A0C0E'/><rect x='1.5' y='1.5' width='29' height='29' rx='3' fill='none' stroke='%23C8A45F' stroke-width='1'/><path d='M16 9v14M9 16h14' stroke='%23C8A45F' stroke-width='2.4' stroke-linecap='round'/></svg>">
+<script>document.documentElement.className+=" js";</script>
+<!-- Гарнитуры первого экрана. Кириллический Cormorant несёт
+     заголовок, кириллический Manrope — подводку и кнопку;
+     оба нужны раньше всего остального, поэтому запрашиваются
+     параллельно с таблицами стилей, а не после них. -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/cormorant-cyrillic.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/manrope-cyrillic.woff2">
+<!-- ?v= в адресах таблиц и скрипта — метка версии. GitHub Pages
+     отдаёт статику с Cache-Control: max-age=600, и после правки
+     браузер ещё десять минут показывает старый файл, сколько ни
+     обновляй страницу. Менять метку при каждой выкладке. -->
+<link rel="stylesheet" href="assets/fonts.css?v=2026091721a">
+<link rel="stylesheet" href="assets/style.css?v=2026091721a">
+<!-- Телефонный слой. Подключён последним и целиком живёт
+     внутри @media (max-width:860px) — на широком экране
+     не меняет ни одного пикселя. -->
+<link rel="stylesheet" href="assets/mobile.css?v=2026091721a">
+
+<!-- ============================================================
+     ДРУГОЙ КАМЕНЬ
+
+     Страница целиком повторяет разворот «Технология» с главной:
+     та же разметка, те же таблицы стилей, те же скрипты. Разное
+     только одно — фотография камня под ним. На главной стоит
+     кадр-рамка: вертикальные жилы по краям, пустая середина под
+     карточки. Здесь — сплошная диагональная сеть жил.
+
+     Отсюда и вторая правка, ниже. Телефонный слой тянет фон по
+     высоте (`100% 100%`), потому что рамку подрезать нельзя:
+     в узкую полосу попала бы только пустая середина. У сплошного
+     рисунка пустых мест нет, подрезка ему не вредит, и здесь
+     возвращается обычный `cover` — иначе диагональ на телефоне
+     растянулась бы в восемь раз по высоте и легла бы почти
+     вертикально.
+     ============================================================ -->
+<style>
+  .marble{
+    background-image:
+      linear-gradient(to bottom,
+        rgba(255,255,255,.74) 0%,
+        rgba(255,255,255,.46) 12%,
+        rgba(255,255,255,.06) 21%,
+        rgba(255,255,255,.06) 74%,
+        rgba(255,255,255,.52) 80%,
+        rgba(255,255,255,.68) 100%),
+      url("assets/img/marble-diagonal.webp?v=2026091721a");
+  }
+  @media (max-width:860px){
+    .marble{background-size:auto,cover}
+  }
+  /* Полоса тут единственная, и ниже неё страница кончается.
+     Тело страницы покрашено в тон камня: если окно окажется
+     выше разворота, снизу будет не белая кромка, а продолжение
+     того же тона. Тянуть полосу во весь экран не стал —
+     пробовал, и на высоком окне под последней строкой повисает
+     пустое поле камня, что заметно хуже кромки. Разворот и так
+     2005 точек высотой: чтобы кромка вылезла, нужно окно выше
+     1800 точек. */
+  html,body{background:#F4F2EF}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 6.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.7 7.4L3 20.5l1.7-5.1A8.5 8.5 0 1121 11.5z"/><path d="M8.6 9.2c.3 2.5 2.6 4.9 5.2 5.5"/></symbol>
+    <symbol id="i-tg" viewBox="0 0 24 24"><path d="M21.5 4.3L2.9 11.5c-.9.35-.9 1.5.05 1.75l4.6 1.3 1.75 5.3c.25.75 1.2.9 1.7.3l2.5-2.9 4.7 3.45c.7.5 1.7.1 1.85-.75l2.4-14.3c.15-.9-.75-1.6-1.45-1.35z"/><path d="M7.55 14.55L18.3 7.4l-8.1 8.35-.3 3.55"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-price" viewBox="0 0 24 24"><path d="M20.6 13.4L12 22l-9-9V3h10z"/><circle cx="7.5" cy="7.5" r="1.3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <!-- Шеврон для листания. Угол намеренно тупее обычного:
+         острая «птичка» читается значком, раскрытая — жестом. -->
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M16.5 4.5L8 12l8.5 7.5"/></symbol>
+    <symbol id="i-phone-m" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18.5h2"/></symbol>
+
+    <!-- ========================================================
+         ИЛЛЮСТРАЦИИ
+
+         В отличие от значков выше, это двухтоновые рисунки:
+         класс f заливается цветом блока на 14%, класс s идёт
+         контуром. Один цвет на иллюстрацию, оттенок задаёт
+         блок — карнеол там, где теряется, нефрит там, где
+         появляется, бронза в технологии.
+         ======================================================== -->
+
+    <!-- потери -->
+    <symbol id="il-call" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M10 6h7l3 8-4 3a20 20 0 0012 12l3-4 8 3v7a3 3 0 01-3.3 3A34 34 0 017 9.3 3 3 0 0110 6z"/>
+      <path fill="none" stroke="currentColor" d="M10 6h7l3 8-4 3a20 20 0 0012 12l3-4 8 3v7a3 3 0 01-3.3 3A34 34 0 017 9.3 3 3 0 0110 6z"/>
+      <path fill="none" stroke="currentColor" d="M40 8 L30 18"/>
+      <path fill="none" stroke="currentColor" d="M40 16v-8h-8"/>
+    </symbol>
+    <symbol id="il-price" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M25 4H7a3 3 0 00-3 3v18l19 19 21-21z"/>
+      <path fill="none" stroke="currentColor" d="M25 4H7a3 3 0 00-3 3v18l19 19 21-21z"/>
+      <circle fill="none" stroke="currentColor" cx="12.5" cy="12.5" r="2.4"/>
+      <path fill="none" stroke="currentColor" d="M21 24.5c0-3 4.6-3 4.6-6 0-1.7-1.5-3-3.4-3-1.7 0-3.1 1-3.4 2.5"/>
+      <path fill="none" stroke="currentColor" d="M21.2 30.2h.1"/>
+    </symbol>
+
+    <!-- что остаётся без сайта -->
+    <symbol id="il-compare" viewBox="0 0 48 48">
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="5" y="7" width="38" height="8" rx="3"/>
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="5" y="20" width="38" height="8" rx="3"/>
+      <rect fill="none" stroke="currentColor" x="5" y="33" width="38" height="8" rx="3"/>
+      <path fill="none" stroke="currentColor" d="M12 37h10"/>
+      <path fill="none" stroke="currentColor" d="M36 33.6l1.5 3 3.3.5-2.4 2.3.6 3.3-3-1.6-3 1.6.6-3.3-2.4-2.3 3.3-.5z"/>
+    </symbol>
+    <!-- Силуэт по пояс: голова и плечи. Только контур, без заливки —
+         это строчка в списке, а не портрет.
+
+         Туловище — прямоугольник со скруглёнными верхними углами,
+         а не купол. Купол читается каплей и вблизи перестаёт быть
+         человеком; прямые бока с мягким плечом читаются фигурой
+         даже в двух миллиметрах линии. -->
+    <symbol id="il-bust" viewBox="0 0 64 64">
+      <circle cx="32" cy="20.5" r="11.5"/>
+      <path d="M12.5 62.5V46.5c0-5 4-9 9-9h21c5 0 9 4 9 9v16"/>
+    </symbol>
+    <symbol id="il-stars" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M13 5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L5 11.2l5.9-.9z"/>
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M36 22l2 4 4.4.7-3.2 3.1.8 4.4-4-2.1-3.9 2.1.7-4.4-3.2-3.1 4.4-.7z"/>
+      <path fill="none" stroke="currentColor" d="M24 28l-2.3 4.7-5.2.8 3.8 3.6-.9 5.1 4.6-2.4 4.6 2.4-.9-5.1 3.8-3.6-5.2-.8z"/>
+      <path fill="none" stroke="currentColor" d="M4 42 L44 4" stroke-dasharray="3 4"/>
+    </symbol>
+
+    <!-- что появляется с сайтом -->
+    <symbol id="il-filter" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M5 7h38L29 24v14l-10 6V24z"/>
+      <path fill="none" stroke="currentColor" d="M5 7h38L29 24v14l-10 6V24z"/>
+      <path fill="none" stroke="currentColor" d="M17 14h14"/>
+      <circle fill="none" stroke="currentColor" cx="38" cy="36" r="7"/>
+      <path fill="none" stroke="currentColor" d="M38 32.5v7M36 34.4h4M36 38h4"/>
+    </symbol>
+    <symbol id="il-sleep" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M4 40h40v4H4z"/>
+      <path fill="none" stroke="currentColor" d="M4 44V26a4 4 0 014-4h26a8 8 0 018 8v14"/>
+      <path fill="none" stroke="currentColor" d="M4 34h40"/>
+      <circle fill="none" stroke="currentColor" cx="13" cy="28" r="3.5"/>
+      <path fill="none" stroke="currentColor" d="M28 16h9l-9 8h9"/>
+      <path fill="none" stroke="currentColor" d="M36 5h7l-7 6h7"/>
+    </symbol>
+    <symbol id="il-mega" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M6 18h8l18-9v30l-18-9H6z"/>
+      <path fill="none" stroke="currentColor" d="M6 18h8l18-9v30l-18-9H6a2 2 0 01-2-2v-8a2 2 0 012-2z"/>
+      <path fill="none" stroke="currentColor" d="M14 30v9a3 3 0 006 0v-6"/>
+      <path fill="none" stroke="currentColor" d="M38 18a8 8 0 010 12"/>
+      <path fill="none" stroke="currentColor" d="M43 13a15 15 0 010 22"/>
+    </symbol>
+
+    <symbol id="il-doctor" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M6 44v-5a10 10 0 0110-10h16a10 10 0 0110 10v5z"/>
+      <path fill="none" stroke="currentColor" d="M6 44v-5a10 10 0 0110-10h16a10 10 0 0110 10v5"/>
+      <circle fill="none" stroke="currentColor" cx="24" cy="14" r="9"/>
+      <path fill="none" stroke="currentColor" d="M19 29.5l5 6 5-6"/>
+      <path fill="none" stroke="currentColor" d="M33 33v4M31 35h4"/>
+    </symbol>
+
+    <!-- чужая площадка -->
+    <symbol id="il-percent" viewBox="0 0 48 48">
+      <circle fill="currentColor" fill-opacity=".16" stroke="none" cx="24" cy="24" r="19"/>
+      <circle fill="none" stroke="currentColor" cx="24" cy="24" r="19"/>
+      <circle fill="none" stroke="currentColor" cx="18" cy="18" r="4"/>
+      <circle fill="none" stroke="currentColor" cx="30" cy="30" r="4"/>
+      <path fill="none" stroke="currentColor" d="M32 15 L16 33"/>
+    </symbol>
+    <symbol id="il-cards" viewBox="0 0 48 48">
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="6" y="7" width="36" height="11" rx="3.5"/>
+      <rect fill="none" stroke="currentColor" x="6" y="7" width="36" height="11" rx="3.5"/>
+      <rect fill="none" stroke="currentColor" x="6" y="20.5" width="36" height="11" rx="3.5"/>
+      <rect fill="none" stroke="currentColor" x="6" y="34" width="36" height="11" rx="3.5"/>
+      <circle fill="none" stroke="currentColor" cx="14" cy="12.5" r="2.6"/>
+      <circle fill="none" stroke="currentColor" cx="14" cy="26" r="2.6"/>
+      <circle fill="none" stroke="currentColor" cx="14" cy="39.5" r="2.6"/>
+      <path fill="none" stroke="currentColor" d="M22 12.5h14M22 26h14M22 39.5h14"/>
+    </symbol>
+    <symbol id="il-lock" viewBox="0 0 48 48">
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="9" y="21" width="30" height="22" rx="4"/>
+      <rect fill="none" stroke="currentColor" x="9" y="21" width="30" height="22" rx="4"/>
+      <path fill="none" stroke="currentColor" d="M16 21v-6.5a8 8 0 0116 0V21"/>
+      <circle fill="none" stroke="currentColor" cx="24" cy="30" r="2.8"/>
+      <path fill="none" stroke="currentColor" d="M24 32.8V37"/>
+    </symbol>
+
+    <!-- технология -->
+    <symbol id="il-research" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M8 40h6V28H8zM19 40h6V18h-6zM30 40h6V25h-6z"/>
+      <path fill="none" stroke="currentColor" d="M4 44h40"/>
+      <path fill="none" stroke="currentColor" d="M8 40V28h6v12M19 40V18h6v22M30 40V25h6v15"/>
+      <circle fill="none" stroke="currentColor" cx="34" cy="13" r="8"/>
+      <path fill="none" stroke="currentColor" d="M40 19l4.5 4.5"/>
+    </symbol>
+    <symbol id="il-map" viewBox="0 0 48 48">
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="17" y="4" width="14" height="9" rx="2.5"/>
+      <rect fill="none" stroke="currentColor" x="17" y="4" width="14" height="9" rx="2.5"/>
+      <rect fill="none" stroke="currentColor" x="4" y="33" width="12" height="9" rx="2.5"/>
+      <rect fill="none" stroke="currentColor" x="18" y="33" width="12" height="9" rx="2.5"/>
+      <rect fill="none" stroke="currentColor" x="32" y="33" width="12" height="9" rx="2.5"/>
+      <path fill="none" stroke="currentColor" d="M24 13v9M10 33v-6h28v6M24 27v6"/>
+    </symbol>
+    <symbol id="il-mock" viewBox="0 0 48 48">
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="4" y="7" width="40" height="8" rx="3"/>
+      <rect fill="none" stroke="currentColor" x="4" y="7" width="40" height="34" rx="4"/>
+      <path fill="none" stroke="currentColor" d="M4 15h40"/>
+      <circle fill="none" stroke="currentColor" cx="9.5" cy="11" r="1.1"/>
+      <circle fill="none" stroke="currentColor" cx="14" cy="11" r="1.1"/>
+      <path fill="none" stroke="currentColor" d="M9 21h16M9 27h12"/>
+      <rect fill="none" stroke="currentColor" x="9" y="32" width="13" height="5" rx="2.5"/>
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="29" y="20" width="11" height="17" rx="2.5"/>
+    </symbol>
+    <symbol id="il-decide" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M10 4h18l10 10v30H10z"/>
+      <path fill="none" stroke="currentColor" d="M10 4h18l10 10v30H10z"/>
+      <path fill="none" stroke="currentColor" d="M28 4v10h10"/>
+      <path fill="none" stroke="currentColor" d="M16 28l5 5 11-11"/>
+    </symbol>
+    <symbol id="il-key" viewBox="0 0 48 48">
+      <circle fill="currentColor" fill-opacity=".16" stroke="none" cx="15" cy="15" r="11"/>
+      <circle fill="none" stroke="currentColor" cx="15" cy="15" r="11"/>
+      <circle fill="none" stroke="currentColor" cx="15" cy="15" r="3.6"/>
+      <path fill="none" stroke="currentColor" d="M23 23 L42 42"/>
+      <path fill="none" stroke="currentColor" d="M36 36l-5 5M41 31l-4 4"/>
+    </symbol>
+    <symbol id="il-build" viewBox="0 0 48 48">
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="4" y="22" width="18" height="10" rx="3"/>
+      <rect fill="none" stroke="currentColor" x="4" y="8" width="18" height="10" rx="3"/>
+      <rect fill="none" stroke="currentColor" x="4" y="22" width="18" height="10" rx="3"/>
+      <rect fill="none" stroke="currentColor" x="4" y="36" width="18" height="8" rx="3"/>
+      <rect fill="currentColor" fill-opacity=".16" stroke="none" x="28" y="8" width="16" height="36" rx="3"/>
+      <path fill="none" stroke="currentColor" d="M28 8h16v36H28z"/>
+      <path fill="none" stroke="currentColor" d="M33 16h6M33 24h6M33 32h6"/>
+    </symbol>
+    <symbol id="il-launch" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M27 4c8 4 13 13 12 24l-8 6-12-2-6-8C17 13 20 7 27 4z"/>
+      <path fill="none" stroke="currentColor" d="M30 5c7 5 11 14 9 25l-9 5-11-3-4-9C20 12 24 7 30 5z"/>
+      <circle fill="none" stroke="currentColor" cx="29" cy="18" r="4"/>
+      <path fill="none" stroke="currentColor" d="M15 33c-4 1-7 5-8 11 6-1 10-4 11-8"/>
+      <path fill="none" stroke="currentColor" d="M4 44l6-6" stroke-dasharray="2 3"/>
+    </symbol>
+    <symbol id="il-bill" viewBox="0 0 48 48">
+      <path fill="currentColor" fill-opacity=".16" stroke="none" d="M9 4h30v40l-5-3-5 3-5-3-5 3-5-3-5 3z"/>
+      <path fill="none" stroke="currentColor" d="M9 4h30v40l-5-3-5 3-5-3-5 3-5-3-5 3z"/>
+      <path fill="none" stroke="currentColor" d="M19 13h6a5 5 0 010 10h-6zM19 23v9M16 27h8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<section class="band b-onyx marble mag roomy" id="how" data-sec="s07" data-title="Технология">
+  <div class="wrap">
+    <h2 class="huge">Получите свой конверсионный сайт <mark>за 10 дней</mark></h2>
+
+    <div class="steps rich">
+      <div class="step now">
+        <div class="sh">
+          <div class="pic"><svg class="ill"><use href="#il-research"/></svg></div>
+          <div class="badge">01</div>
+        </div>
+        <div class="when">Дни 1–2 · бесплатно</div>
+        <h3>Разбор запросов</h3>
+        <p>Сколько людей в вашем районе ищут ваши услуги — и куда они уходят сейчас.</p>
+        <ul class="pts">
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Частота по каждому запросу</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Запросы с ценой и «рядом со мной»</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Кто стоит в выдаче сегодня</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Список запросов остаётся у вас</span></li>
+        </ul>
+      </div>
+      <div class="step now">
+        <div class="sh">
+          <div class="pic"><svg class="ill"><use href="#il-map"/></svg></div>
+          <div class="badge">02</div>
+        </div>
+        <div class="when">Дни 3–4 · бесплатно</div>
+        <h3>Структура и тексты</h3>
+        <p>Собираю сам, из ваших карточек и регистратуры — от вас ничего не нужно.</p>
+        <ul class="pts">
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>14 страниц направлений</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Заголовки и описания услуг</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Прайс по каждой странице</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Карта сайта до единой страницы</span></li>
+        </ul>
+      </div>
+      <div class="step now">
+        <div class="sh">
+          <div class="pic"><svg class="ill"><use href="#il-mock"/></svg></div>
+          <div class="badge">03</div>
+        </div>
+        <div class="when">Дни 4–5 · бесплатно</div>
+        <h3>Макет главной</h3>
+        <p>Не описание словами, а рабочая страница, которую можно открыть и пролистать.</p>
+        <ul class="pts">
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>8 экранов первой страницы</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Открывается и листается с телефона</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Видно, что покупаете, до первого рубля</span></li>
+        </ul>
+      </div>
+      <div class="step">
+        <div class="sh">
+          <div class="pic"><svg class="ill"><use href="#il-decide"/></svg></div>
+          <div class="badge">04</div>
+        </div>
+        <div class="when">День 6 · 30 минут</div>
+        <h3>Ваше решение</h3>
+        <p>Смотрите на конкретную страницу и говорите «да» или «нет».</p>
+        <ul class="pts">
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Разговор на 30 минут</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>«Нет» — расходимся, вы не должны ничего</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>«Да» — договор с составом, сроком и сметой</span></li>
+        </ul>
+      </div>
+      <div class="step">
+        <div class="sh">
+          <div class="pic"><svg class="ill"><use href="#il-key"/></svg></div>
+          <div class="badge">05</div>
+        </div>
+        <div class="when">День 7</div>
+        <h3>Домен и доступы</h3>
+        <p>Всё оформляется на вашу компанию, а не на подрядчика.</p>
+        <ul class="pts">
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Домен и хостинг на ваше юрлицо</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Почта на своём домене</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Метрика в вашем аккаунте</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Логины приходят в первый день работ</span></li>
+        </ul>
+      </div>
+      <div class="step">
+        <div class="sh">
+          <div class="pic"><svg class="ill"><use href="#il-build"/></svg></div>
+          <div class="badge">06</div>
+        </div>
+        <div class="when">Дни 7–9</div>
+        <h3>Сборка страниц</h3>
+        <p>Вручную, без конструкторов и готовых тем.</p>
+        <ul class="pts">
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>14 направлений с ценами и врачами</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Лицензия, отзывы, маршрут от метро</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Отдельная версия для телефона</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Проверка на всех размерах экрана</span></li>
+        </ul>
+      </div>
+      <div class="step">
+        <div class="sh">
+          <div class="pic"><svg class="ill"><use href="#il-launch"/></svg></div>
+          <div class="badge">07</div>
+        </div>
+        <div class="when">День 10</div>
+        <h3>Запуск и замеры</h3>
+        <p>Сайт уходит в работу, и с первого дня видно, что он приносит.</p>
+        <ul class="pts">
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Кнопка записи, WhatsApp, Telegram</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Метрика с целями на заявку</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Ссылка на сайт во всех ваших карточках</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Видно, сколько нажали «Записаться»</span></li>
+        </ul>
+      </div>
+      <div class="step">
+        <div class="sh">
+          <div class="pic"><svg class="ill"><use href="#il-bill"/></svg></div>
+          <div class="badge">08</div>
+        </div>
+        <div class="when">После приёмки</div>
+        <h3>Счёт</h3>
+        <p>Последний документ, а не первый.</p>
+        <ul class="pts">
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Аванса нет</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Правки внутри объёма входят в цену</span></li>
+          <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>Платите за принятую работу</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="anchors">
+      <div><b>10 дней</b><span>от старта до работающего сайта</span></div>
+      <div><b>30 минут</b><span>вашего времени за весь проект</span></div>
+      <div><b>0 ₽</b><span>до того, как вы увидите макет</span></div>
+    </div>
+
+    <div class="strip">Остановиться можно между любыми двумя шагами, без объяснения причин: домен, тексты и макеты к этому моменту уже ваши.</div>
+  </div>
+</section>
+
+<script>
+/* ============================================================
+   Ни библиотек, ни сборки.
+
+   Движения на странице ровно три, и все три — здесь:
+     1. заголовок первого экрана раскрывается один раз;
+     2. мягкий свет идёт за курсором — только по первому экрану;
+     3. расчёт пересчитывается, когда человек трогает поля.
+   Всё остальное — служебное: полоса прочитанного, прилипшая
+   шапка, появление блоков и отправка заявки в WhatsApp.
+   ============================================================ */
+(function(){
+  'use strict';
+  var WA   = '79111112122';
+  var NL   = String.fromCharCode(10);  /* обратный слэш в эту
+                                          сборку не доезжает */
+  var soft = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  var hero   = document.querySelector('.hero');
+  var bar    = document.querySelector('.progress');
+  var top    = document.querySelector('.top');
+  var sticky = document.querySelector('.sticky');
+
+  /* ---- 1. Раскрыв заголовка ------------------------------ */
+  if (hero){
+    var lines = [].slice.call(hero.querySelectorAll('h1 .ln > i'));
+    lines.forEach(function(el,i){
+      el.style.setProperty('--d',(i*0.09).toFixed(2)+'s');
+    });
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ hero.classList.add('lit'); });
+    });
+  }
+
+  /* ---- 2. Свет за курсором, только первый экран ---------- */
+  var glow = hero && hero.querySelector('.glow');
+  if (glow && fine && !soft){
+    var gTick = false, gx = 50, gy = 50;
+    hero.addEventListener('pointermove', function(e){
+      var r = hero.getBoundingClientRect();
+      gx = (e.clientX - r.left) / r.width  * 100;
+      gy = (e.clientY - r.top)  / r.height * 100;
+      if (!gTick){
+        gTick = true;
+        requestAnimationFrame(function(){
+          glow.style.setProperty('--mx', gx.toFixed(1)+'%');
+          glow.style.setProperty('--my', gy.toFixed(1)+'%');
+          gTick = false;
+        });
+      }
+    }, {passive:true});
+  }
+
+  /* ---- 3. Полоса прочитанного и прилипшая шапка ---------- */
+  var tick = false, railTick = false;
+
+  function onScroll(){
+    var y   = window.pageYOffset;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    if (top) top.classList.toggle('stuck', y > 40);
+    if (sticky && hero) sticky.classList.toggle('on', y > hero.offsetHeight * 0.75);
+    tick = false;
+  }
+  addEventListener('scroll', function(){
+    if (!tick){ tick = true; requestAnimationFrame(onScroll); }
+  }, {passive:true});
+  onScroll();
+
+  /* ---- 4. Появление блоков при прокрутке ----------------- */
+  var rise = [
+    '.hero-l > *', '.hero-r > *', '.hero-grid > .bul', '.trust',
+    'section:not(.hero) .wrap > h2',
+    'section:not(.hero) .wrap > .lede',
+    'section:not(.hero) .wrap > .strip',
+    'section:not(.hero) .wrap > .note',
+    'section:not(.hero) .wrap > h3',
+    '.crit > li', '.aud > li', '.calc > *', '.hz > div', '.part',
+    '.tally-i', '.duel-c', '.quiz-scene .q', '.shift > *',
+    '.pitch', '.voice > *',
+    '.way', '.fk-start', '.people',
+    '.formgrid > *', '.gain', '.step', '.vs .row', '.site', '.guard'
+  ].join(',');
+
+  var items = [].slice.call(document.querySelectorAll(rise));
+  if (!('IntersectionObserver' in window) || soft){
+    items.forEach(function(el){ el.classList.add('seen'); });
+  } else {
+    items.forEach(function(el){ el.setAttribute('data-rise',''); });
+    var io = new IntersectionObserver(function(entries){
+      var k = 0;
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.style.setProperty('--d', (Math.min(k++, 3) * 0.07) + 's');
+        e.target.classList.add('seen');
+        io.unobserve(e.target);
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:0.08});
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---- 5. Расчёт по его цифрам ---------------------------
+     Пока человек не тронул поля, на экране мой расчёт. Как
+     только тронул — его собственный, и спорить с ним уже
+     не с кем. Поэтому пересчёт идёт на каждом нажатии
+     клавиши, а не по кнопке «посчитать»: кнопка превращает
+     арифметику в форму, а её заполняет один из десяти.
+
+     Рядом с каждым полем стоит ползунок: набирать числа не
+     любит никто, а тянуть — любят все, и тронутая цифра
+     становится своей.
+
+     Итог показан прибавкой, а не убылью: тот же расчёт,
+     но человек читает, сколько получит, а не сколько
+     потерял. Коэффициенты взяты по нижней границе и
+     подписаны прямо в ведомости — непроверяемая цифра
+     доверия не добавляет.
+     ------------------------------------------------------ */
+  (function(){
+    var fV = document.getElementById('c-views');
+    var fC = document.getElementById('c-check');
+    var fF = document.getElementById('c-found');
+    if (!fV || !fC) return;
+
+    var LEFT   = 0.726;  /* не звонят — данные Яндекса по СПб  */
+    var LEAD   = 0.06;   /* заявка со страницы услуги          */
+    var COME   = 0.70;   /* доходимость до приёма              */
+
+    var pay  = document.querySelector('.payoff');
+    var hitT = null;
+
+    function out(k){ return document.querySelector('[data-c="' + k + '"]'); }
+    function num(n){ return Math.round(n).toLocaleString('ru-RU'); }
+    function rub(n){ return num(n) + ' ₽'; }
+    function put(k,v){ var el = out(k); if (el) el.textContent = v; }
+
+    /* ползунок красится до бегунка: видно, где стоишь */
+    function paint(r){
+      var min = +r.min, max = +r.max;
+      var p = max > min ? ((+r.value - min) / (max - min)) * 100 : 0;
+      r.style.setProperty('--p', p.toFixed(1) + '%');
+    }
+
+    function calc(){
+      var views = Math.max(0, Math.min(99999, parseInt(fV.value, 10) || 0));
+      var check = Math.max(0, Math.min(999999, parseInt(fC.value, 10) || 0));
+      var found = fF ? Math.max(0, Math.min(99999, parseInt(fF.value, 10) || 0)) : 0;
+
+      /* Цепочка считается без округлений и округляется только
+         на выводе. Иначе счёт застывает: шесть процентов от
+         семидесяти — это 0,042 пациента с человека, и при счёте
+         по целым нужно два десятка новых посетителей, чтобы
+         итог сдвинулся хоть на рубль. Человек двигает поле на
+         единицу, справа не меняется ничего, и калькулятор
+         выглядит сломанным. */
+      var left   = views * LEFT;
+      /* Два источника сходятся здесь, на странице: те, кто ушёл
+         из карточки, и те, кто нашёл вас в поиске сам. Заявку
+         считаем уже от суммы — дальше воронка у них общая. */
+      var site   = left + found;
+      var leads  = site  * LEAD;
+      var visits = leads * COME;
+      var money  = visits * check;
+
+      put('views',  num(views));
+      put('left',   num(left));
+      put('found',  num(found));
+      put('leads',  num(leads));
+      put('visits', num(visits));
+      put('money',  '+' + rub(money));
+      put('m1',  '+' + rub(money));
+      put('m3',  '+' + rub(money * 3));
+      put('m12',  rub(money * 12));
+      put('m12b', '+' + rub(money * 12));
+    }
+
+    /* короткое подмигивание итога: видно, что счёт живой */
+    function hit(){
+      if (!pay || soft) return;
+      pay.classList.remove('hit');
+      void pay.offsetWidth;
+      pay.classList.add('hit');
+      clearTimeout(hitT);
+      hitT = setTimeout(function(){ pay.classList.remove('hit'); }, 460);
+    }
+
+    [].slice.call(document.querySelectorAll('.cf .rng')).forEach(function(r){
+      var f = document.getElementById(r.getAttribute('data-for'));
+      paint(r);
+      r.addEventListener('input', function(){
+        paint(r);
+        if (f){ f.value = r.value; }
+        calc(); hit();
+      });
+      if (f) f.addEventListener('input', function(){
+        var v = parseInt(f.value, 10) || 0;
+        r.value = Math.max(+r.min, Math.min(+r.max, v));
+        paint(r);
+      });
+    });
+
+    fV.addEventListener('input', function(){ calc(); hit(); });
+    fC.addEventListener('input', function(){ calc(); hit(); });
+    if (fF) fF.addEventListener('input', function(){ calc(); hit(); });
+    calc();
+  })();
+
+  /* ---- 6. Колода выгод ------------------------------------
+     Листание живёт в CSS: у ленты scroll-snap, и свайп, колесо
+     и стрелки с клавиатуры работают без единой строки здесь.
+     Скрипту остаются только три вещи, которых разметкой не
+     сделать: собрать полосу вкладок, подтолкнуть прокрутку по
+     кнопке и сказать, какая выгода сейчас открыта.
+     ------------------------------------------------------ */
+  (function(){
+    var deck = document.querySelector('[data-deck]');
+    if (!deck) return;
+
+    var view   = deck.querySelector('.deck-view');
+    var slides = [].slice.call(deck.querySelectorAll('.slide'));
+    var strip  = deck.querySelector('.tabs');
+    var prev   = deck.querySelector('.deck-nav.prev');
+    var next   = deck.querySelector('.deck-nav.next');
+    if (!view || slides.length < 2) return;
+
+    var cur = 0;
+
+    /* Вкладки собраны из самих карточек: подпись лежит рядом
+       с выгодой, а не отдельным списком в разметке, и разойтись
+       им негде. */
+    slides.forEach(function(sl,i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tab';
+      b.setAttribute('role','tab');
+      b.textContent = sl.dataset.tab || ('Выгода ' + (i+1));
+      b.addEventListener('click', function(){ go(i); });
+      strip.appendChild(b);
+      sl.setAttribute('aria-label', b.textContent);
+    });
+    var tabs = [].slice.call(strip.children);
+
+    /* Бегунок: бронзовая заливка переезжает к открытой вкладке,
+       а не возникает на ней. Размер и сдвиг ставим отсюда —
+       подписи разной длины, разметкой этого не выразить.
+       Разбор в style.css, раздел «бегунок». */
+    var pill = document.createElement('span');
+    pill.className = 'tab-pill jump';
+    pill.setAttribute('aria-hidden','true');
+    strip.appendChild(pill);
+    strip.classList.add('on-pill');
+
+    /* snap — поставить без переезда: первый расчёт, ресайз и
+       догрузка гарнитуры, после которой подписи меняют ширину. */
+    function place(snap){
+      var t = tabs[cur];
+      if (!t) return;
+      if (snap) pill.classList.add('jump');
+      pill.style.width     = t.offsetWidth  + 'px';
+      pill.style.height    = t.offsetHeight + 'px';
+      pill.style.transform =
+        'translate(' + t.offsetLeft + 'px,' + t.offsetTop + 'px)';
+      /* Снимаем «без переезда» сразу, а не в requestAnimationFrame:
+         чтение offsetWidth заставляет браузер применить новое
+         место немедленно, и следующее переключение уже едет.
+         Через кадр это ломается там, где кадров нет. */
+      if (snap){ void pill.offsetWidth; pill.classList.remove('jump'); }
+    }
+
+    function at(){
+      var w = view.clientWidth || 1;
+      return Math.max(0, Math.min(slides.length - 1,
+                                  Math.round(view.scrollLeft / w)));
+    }
+
+    /* Позиция ставится присвоением scrollLeft, а не через
+       scrollTo: плавность и её отключение для тех, кто просил
+       меньше движения, заданы в таблице стилей, и держать то
+       же правило вторым местом здесь незачем.
+
+       Перескок с последней на первую идёт рывком: иначе лента
+       метёт мимо пяти карточек, и это читается сбоем, а не
+       переходом по кругу. */
+    function slip(px){
+      view.style.scrollBehavior = 'auto';
+      view.scrollLeft = px;
+      view.style.scrollBehavior = '';
+    }
+
+    /* Переход, начатый кликом, ведёт бегунок сам — прокрутка в
+       это время им не командует.
+
+       Зачем: лента едет к дальнему развороту плавно и по дороге
+       минует все промежуточные. На каждом из них обработчик
+       прокрутки видел новый индекс и переставлял цель бегунка:
+       тот разгонялся к соседней вкладке, его дёргали к
+       следующей, и переход начинался заново — отсюда рывки.
+       На одно деление промежутков нет, потому там всегда было
+       гладко.
+
+       Теперь цель ставится один раз, сразу конечная, и бегунок
+       едет к ней одним движением. Замок снимается, когда лента
+       доехала; таймер — на случай, если не доедет (прокрутку
+       перехватили пальцем, вкладка ушла в фон и кадров не
+       было). Полторы секунды заведомо больше и переезда
+       бегунка в 0,52 с, и самой плавной прокрутки. */
+    var navTo = -1, navTimer = 0;
+    function unlock(){ navTo = -1; clearTimeout(navTimer); }
+
+    function go(i){
+      var last = slides.length - 1;
+      var jump = i > last || i < 0;
+      if (i > last) i = 0;
+      if (i < 0)    i = last;
+      var px = i * view.clientWidth;
+      if (jump) slip(px); else view.scrollLeft = px;
+      navTo = i;
+      clearTimeout(navTimer);
+      navTimer = setTimeout(unlock, 1500);
+      mark(i);
+    }
+
+    function mark(i){
+      cur = i;
+      tabs.forEach(function(b,n){
+        b.setAttribute('aria-selected', n === i ? 'true' : 'false');
+      });
+      slides.forEach(function(sl,n){
+        sl.setAttribute('aria-hidden', n === i ? 'false' : 'true');
+      });
+      place();
+      /* на узком экране полоса вкладок сама уезжает за край —
+         подтягиваем открытую в поле зрения */
+      if (strip.scrollWidth > strip.clientWidth){
+        var t = tabs[i];
+        var l = t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2;
+        strip.scrollTo({left: Math.max(0, l), behavior: soft ? 'auto' : 'smooth'});
+      }
+    }
+
+    prev.addEventListener('click', function(){ go(cur - 1); });
+    next.addEventListener('click', function(){ go(cur + 1); });
+
+    /* Тронули ленту рукой — замок снимается сразу, не дожидаясь
+       таймера: дальше прокруткой командует человек, а не
+       начатый переход. Слушаем только саму ленту: вкладки и
+       стрелки лежат снаружи, и их нажатия сюда не попадают. */
+    ['pointerdown','touchstart','wheel'].forEach(function(e){
+      view.addEventListener(e, unlock, {passive:true});
+    });
+
+    var sTick = false;
+    view.addEventListener('scroll', function(){
+      if (sTick) return;
+      sTick = true;
+      requestAnimationFrame(function(){
+        var i = at();
+        sTick = false;
+        /* Пока едем по клику — молчим: цель уже поставлена, и
+           промежуточные развороты её только сбивали бы. */
+        if (navTo >= 0){
+          if (i === navTo) unlock();
+          return;
+        }
+        if (i !== cur) mark(i);
+      });
+    }, {passive:true});
+
+    /* Ширина карточки равна ширине окна просмотра. После
+       поворота телефона прокрутка остаётся на старых
+       пикселях — возвращаем её на ту же карточку. */
+    addEventListener('resize', function(){
+      unlock();
+      slip(cur * view.clientWidth);
+      place(true);
+    });
+
+    mark(0);
+    place(true);
+    /* Manrope догружается после первой отрисовки, и подписи на
+       ней становятся другой ширины — бегунок пересчитываем. */
+    if (document.fonts && document.fonts.ready){
+      document.fonts.ready.then(function(){ place(true); });
+    }
+  })();
+
+  /* ---- 7. Рельса разделов -------------------------------- */
+  var rail = document.querySelector('.rail');
+  var secs = [].slice.call(document.querySelectorAll('section[data-sec]'));
+  if (rail && secs.length){
+    secs.forEach(function(sec,i){
+      var a = document.createElement('a');
+      a.href = '#' + (sec.id || sec.dataset.sec);
+      if (!sec.id) sec.id = sec.dataset.sec;
+      if (sec.querySelector('form') || i === 0) a.className = 'big';
+      a.innerHTML = '<i></i><span data-n="' + String(i+1).padStart(2,'0') + '"></span>';
+      a.querySelector('span').appendChild(
+        document.createTextNode(sec.dataset.title || ''));
+      a.setAttribute('aria-label', sec.dataset.title || '');
+      rail.appendChild(a);
+    });
+    var links  = [].slice.call(rail.children);
+    var mlinks = [].slice.call(document.querySelectorAll('.menu a'));
+    var markRail = function(){
+      var line = window.pageYOffset + window.innerHeight * 0.34;
+      var cur = 0;
+      secs.forEach(function(sec,i){ if (sec.offsetTop <= line) cur = i; });
+      links.forEach(function(a,i){ a.classList.toggle('here', i === cur); });
+      /* Светлых полос две породы: бумага и мраморная плита. Рейка
+         на обеих идёт тёмными чернилами. */
+      rail.classList.toggle('on-paper', /b-paper|marble/.test(secs[cur].className));
+      var hash = '#' + secs[cur].id;
+      mlinks.forEach(function(a){
+        a.classList.toggle('here', a.getAttribute('href') === hash);
+      });
+    };
+    addEventListener('scroll', function(){
+      if (!railTick){ railTick = true; requestAnimationFrame(function(){
+        markRail(); railTick = false;
+      }); }
+    }, {passive:true});
+    markRail();
+  }
+
+  /* ---- 8. Заявка уходит готовым сообщением в WhatsApp ----- */
+  document.querySelectorAll('form[data-lead]').forEach(function(f){
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var val = function(sel){
+        var el = f.querySelector(sel);
+        return el && el.value ? el.value.trim() : '';
+      };
+      var phone = val('[name=phone]');
+      if (phone.replace(/\D/g,'').length < 10){
+        var pf = f.querySelector('[name=phone]');
+        pf.focus();
+        pf.style.borderColor = '#D2604B';
+        pf.style.boxShadow = '0 0 0 3px rgba(210,96,75,.18)';
+        return;
+      }
+      var text = 'Здравствуйте! Это АМДЦ (ул. Орбели, 19). '
+               + 'Хочу ' + (f.dataset.kind || 'прототип главной страницы') + '.'
+               + (val('[name=name]') ? ' Меня зовут ' + val('[name=name]') + '.' : '')
+               + ' Мой номер: ' + phone + '.';
+
+      var btn = f.querySelector('button[type=submit]');
+      btn.textContent = 'Открываю WhatsApp…';
+      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+      setTimeout(function(){
+        f.innerHTML =
+          '<h3>Заявка собрана</h3>' +
+          '<div class="sub">Если WhatsApp не открылся сам — напишите на ' +
+          '<a href="https://wa.me/' + WA + '">+7 911 111-21-22</a> или позвоните. ' +
+          'Отвечу в течение часа.</div>' +
+          '<div class="formfoot"><span class="dot"><i></i>Прототип — через 4–5 дней</span>' +
+          '<span><b>0 ₽</b> и никаких обязательств</span></div>';
+      }, 900);
+    });
+  });
+
+  /* ---- 9. Дорожка фишки между шагами -----------------------
+     Восемь шагов расставлены змейкой: первый ряд слева
+     направо, второй — справа налево, и по ним идёт одна
+     штриховая линия, как поле настольной игры. Нарисовать её
+     разметкой нельзя: ширина колонки, высота карточки и сдвиг
+     по вертикали у каждой свои и меняются с шириной окна,
+     поэтому путь считается по настоящим прямоугольникам.
+
+     Координаты берутся из offsetLeft/offsetTop, а не из
+     getBoundingClientRect: карточки покачиваются через
+     transform, и на живых координатах линия дрожала бы
+     вместе с ними.
+
+     Концы каждого отрезка заходят внутрь карточек — стык
+     остаётся прикрыт, даже когда рамка ушла в верхнюю точку
+     своего покачивания. */
+  (function(){
+    var board = document.querySelector('.steps.rich');
+    if (!board) return;
+
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg  = document.createElementNS(NS, 'svg');
+    var path = document.createElementNS(NS, 'path');
+    /* Невидимая направляющая. Сама дорожка теперь не линия, а
+       цепь, и её звенья нужно расставить по длине кривой —
+       считать длину и точку на ней умеет только настоящий
+       элемент пути, поэтому он лежит в разметке со снятой
+       обводкой. */
+    var guide = document.createElementNS(NS, 'path');
+    guide.setAttribute('fill', 'none');
+    guide.setAttribute('stroke', 'none');
+    /* Металл цепи. Сперва он был взят с рамки табло итога знак
+       в знак, но на цепи это не работает: у рамки сплошной
+       контур длиной в тысячу точек, перелив успевает пройти
+       весь круг, а цепь разрезана на звенья по два десятка, и
+       на каждое приходится один ровный тон.
+
+       Поэтому здесь свой набор, и он глубже и желтее рамочного.
+       Тень ушла с бронзы #8A672A на почти чёрный #3A2408,
+       середина — на насыщенное золото #C08A22 и #F0C860, а на
+       самом верху стоит узкий, в одну десятую периода, блик
+       #FFF8E0. Узкий он не случайно: широкий блик читается
+       выцветанием, узкий — бликом на металле.
+
+       Кремовые тона рамки (#E3C98F, #D8BE86) убраны совсем. Они
+       серые по своей природе, и на цепи, где каждое звено
+       короткое, серое пятно выглядит не металлом, а пылью.
+
+       Перелив повторяется. Координаты заданы в точках поля
+       (userSpaceOnUse), шаг 165 — около восьми звеньев, — и
+       spreadMethod="repeat" гонит его по всей длине. Вместо
+       одной растяжки на весь разворот по цепи идёт волна:
+       блик, тень, снова блик. Так ведёт себя настоящая цепь, у
+       которой каждое звено ловит свет по-своему. */
+    var defs = document.createElementNS(NS, 'defs');
+    defs.innerHTML =
+      '<linearGradient id="au-chain" gradientUnits="userSpaceOnUse"' +
+      ' spreadMethod="repeat" x1="0" y1="0" x2="165" y2="165">' +
+      '<stop offset="0" stop-color="#3A2408"/>' +
+      '<stop offset=".10" stop-color="#7A5418"/>' +
+      '<stop offset=".26" stop-color="#C08A22"/>' +
+      '<stop offset=".40" stop-color="#F0C860"/>' +
+      '<stop offset=".50" stop-color="#FFF8E0"/>' +
+      '<stop offset=".60" stop-color="#EBC157"/>' +
+      '<stop offset=".76" stop-color="#A8761C"/>' +
+      '<stop offset=".90" stop-color="#6B4712"/>' +
+      '<stop offset="1" stop-color="#3A2408"/>' +
+      '</linearGradient>';
+    svg.appendChild(defs);
+    svg.setAttribute('class', 'board-path');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.appendChild(guide);
+    svg.appendChild(path);
+    board.appendChild(svg);
+
+    var cards = [].slice.call(board.querySelectorAll('.step'));
+    if (cards.length < 2) return;
+
+    var r1 = function(n){ return Math.round(n * 10) / 10; };
+    var seg = function(p, c1, c2, q){
+      return 'M' + r1(p.x)  + ' ' + r1(p.y) +
+             'C' + r1(c1.x) + ' ' + r1(c1.y) + ',' +
+                   r1(c2.x) + ' ' + r1(c2.y) + ',' +
+                   r1(q.x)  + ' ' + r1(q.y);
+    };
+    var IN = 12;            /* заход конца линии внутрь карточки */
+
+    /* ---- цепь вместо пунктира ----------------------------
+       Звено — эллипс, вытянутый вдоль хода дорожки. Соседние
+       звенья идут через одно плашмя и через одно ребром:
+       плоское шире, рёберное почти схлопнуто. Этого хватает,
+       чтобы цепь читалась цепью, а не бусами, — настоящая
+       цепь так и выглядит, у неё каждое второе кольцо
+       повёрнуто поперёк.
+
+       Шаг меньше длины звена, звенья заходят друг в друга:
+       между кольцами не должно быть просвета, иначе цепь
+       рассыпается на отдельные овалы.
+
+       Эллипс рисуется двумя дугами внутри общего пути: одна
+       дуга даёт половину кольца, вторая замыкает. Так вся
+       цепь остаётся одним элементом, а не сотней <ellipse> в
+       разметке. */
+    var RX = 10.5;          /* половина длины звена           */
+    var STEP = RX * 1.24;   /* меньше 2*RX — звенья в зацепе  */
+
+    var chain = function(dStr){
+      guide.setAttribute('d', dStr);
+      var L = guide.getTotalLength();
+      if (!L) return '';
+      var out = '', k = 0;
+      for (var s = RX * .5; s <= L - RX * .5; s += STEP, k++){
+        var pt = guide.getPointAtLength(s);
+        var nx = guide.getPointAtLength(Math.min(s + 1.5, L));
+        var an = Math.atan2(nx.y - pt.y, nx.x - pt.x);
+        var ry = (k % 2) ? RX * .21 : RX * .60;
+        var ca = Math.cos(an), sa = Math.sin(an);
+        var x0 = r1(pt.x + RX * ca), y0 = r1(pt.y + RX * sa);
+        var x1 = r1(pt.x - RX * ca), y1 = r1(pt.y - RX * sa);
+        var dg = r1(an * 180 / Math.PI);
+        out += 'M' + x0 + ' ' + y0 +
+               'A' + r1(RX) + ' ' + r1(ry) + ' ' + dg + ' 1 1 ' + x1 + ' ' + y1 +
+               'A' + r1(RX) + ' ' + r1(ry) + ' ' + dg + ' 1 1 ' + x0 + ' ' + y0;
+      }
+      return out;
+    };
+
+    var draw = function(){
+      if (getComputedStyle(svg).display === 'none') return;
+      var W = board.offsetWidth, H = board.offsetHeight;
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+      var box = cards.map(function(c){
+        return {l:c.offsetLeft, t:c.offsetTop, w:c.offsetWidth, h:c.offsetHeight};
+      });
+
+      var parts = [];
+      for (var i = 0; i < box.length - 1; i++){
+        var a = box[i], b = box[i+1];
+        var turn = (i === 3);              /* разворот из ряда в ряд */
+        var back = (i > 3);                /* второй ряд идёт влево */
+        var curl = (i === 1 || i === 5);   /* петля посреди пути */
+        var p1, p2, c1, c2, k;
+
+        if (turn){
+          p1 = {x:a.l + a.w * .52, y:a.t + a.h - IN};
+          p2 = {x:b.l + b.w * .66, y:b.t + IN};
+          k  = (p2.y - p1.y) * .6;
+          c1 = {x:p1.x + a.w * .34, y:p1.y + k};
+          c2 = {x:p2.x - b.w * .30, y:p2.y - k};
+          parts.push(seg(p1, c1, c2, p2));
+          continue;
+        }
+
+        var ya = a.t + Math.min(a.h * .38, 215);
+        var yb = b.t + Math.min(b.h * .38, 215);
+        p1 = {x: back ? a.l + IN : a.l + a.w - IN, y: ya};
+        p2 = {x: back ? b.l + b.w - IN : b.l + IN, y: yb};
+
+        /* Провис: без него отрезок в промежутке выглядит
+           чёрточкой, а не дорожкой. Глубина — половина
+           промежутка, но не меньше 18 и не больше 52 точек. */
+        var dx  = p2.x - p1.x;
+        var dir = dx < 0 ? -1 : 1;
+        var gap = Math.abs(dx);
+        var sag = Math.min(Math.max(gap * .55, 18), 52);
+
+        if (!curl){
+          k  = dx * .45;
+          parts.push(seg(p1, {x:p1.x + k, y:p1.y + sag},
+                             {x:p2.x - k, y:p2.y + sag}, p2));
+          continue;
+        }
+
+        /* Завитушка. Ровно две на всю дорожку — посреди
+           верхнего ряда и посреди нижнего: путь фишки делает
+           петлю и идёт дальше.
+
+           Петля — одна кубическая кривая с перекрещенными
+           опорными точками: правая уехала левее левой, и линия
+           сама себя пересекает. Вылет считается от промежутка,
+           иначе на узкой сетке петля выходит за края рамок,
+           а она лежит под ними и была бы срезана. Уходит вниз:
+           вверху проходит сама дорожка, внизу пусто. */
+        var mx = p1.x + dx * .5;
+        var my = (p1.y + p2.y) * .5 + sag * .72;
+        var R  = Math.min(gap * .62, 58);
+        var w  = 4;
+        var H  = R * .88;
+        var A  = {x:mx - w * dir, y:my};
+        var B  = {x:mx + w * dir, y:my};
+
+        parts.push(
+          seg(p1, {x:p1.x + (A.x - p1.x) * .55, y:p1.y + sag * .6},
+                  {x:A.x - (A.x - p1.x) * .3,   y:A.y}, A) +
+          seg(A,  {x:A.x + R * dir, y:A.y + H},
+                  {x:B.x - R * dir, y:B.y + H}, B) +
+          seg(B,  {x:B.x + (p2.x - B.x) * .3,   y:B.y},
+                  {x:p2.x - (p2.x - B.x) * .55, y:p2.y + sag * .6}, p2));
+      }
+      /* Каждый пролёт одевается в цепь порознь: сшей их в один
+         путь — и звено ляжет на разрыве между карточками, где
+         дорожки нет. */
+      path.setAttribute('d', parts.map(chain).join(''));
+    };
+
+    draw();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+    var t = 0;
+    addEventListener('resize', function(){
+      clearTimeout(t); t = setTimeout(draw, 120);
+    });
+  })();
+
+  /* ---- 9. Голосовое сообщение -----------------------------
+     Плеер настоящий: кнопка, дорожка и таймер работают от
+     <audio>, а не изображают работу. Пока файла записи нет,
+     это видно сразу — кнопка говорит, что записи ещё нет, и
+     не притворяется играющей. Как только файл ляжет в
+     assets/audio/, длительность в подписи заменится на
+     настоящую из метаданных, и трогать разметку не придётся.
+
+     Таймер идёт на убыль, как в мессенджере: человек читает
+     не «сколько прошло», а «сколько осталось терпеть».
+
+     Длительность в разметке (data-dur) — заглушка на время,
+     пока записи нет. Как только файл появится, обработчик
+     loadedmetadata перепишет и её, и подпись справа. */
+  (function(){
+    var p = document.querySelector('.vplayer');
+    if (!p) return;
+
+    var a    = p.querySelector('audio'),
+        btn  = p.querySelector('.vbtn'),
+        wave = p.querySelector('.vwave'),
+        fill = p.querySelector('.vwave > i'),
+        time = p.querySelector('.vtime'),
+        note = document.querySelector('.vnote');
+
+    function mmss(v){
+      v = Math.max(0, Math.round(v));
+      return Math.floor(v / 60) + ':' + ('0' + (v % 60)).slice(-2);
+    }
+    function dead(){
+      if (note) note.hidden = false;
+      p.classList.add('dead');
+      p.classList.remove('on');
+    }
+
+    a.addEventListener('loadedmetadata', function(){
+      if (!isFinite(a.duration)) return;
+      p.setAttribute('data-dur', mmss(a.duration));
+      time.textContent = mmss(a.duration);
+    });
+
+    a.addEventListener('timeupdate', function(){
+      if (!a.duration) return;
+      fill.style.width = (a.currentTime / a.duration * 100) + '%';
+      time.textContent = mmss(a.duration - a.currentTime);
+    });
+
+    a.addEventListener('ended', function(){
+      p.classList.remove('on');
+      fill.style.width = '0%';
+      time.textContent = p.getAttribute('data-dur');
+    });
+
+    /* Ошибку загрузки заранее не показываем: до нажатия плеер
+       выглядит готовым, как и задумано. Сказать, что записи
+       ещё нет, честнее в ответ на нажатие — зато никто не
+       услышит подсунутой тишины вместо голоса. */
+    btn.addEventListener('click', function(){
+      if (p.classList.contains('dead')) return;
+      if (a.paused){
+        var t = a.play();
+        p.classList.add('on');
+        if (t && t.catch) t.catch(dead);
+      } else {
+        a.pause();
+        p.classList.remove('on');
+      }
+    });
+
+    /* перемотка щелчком по дорожке */
+    wave.addEventListener('click', function(e){
+      if (!a.duration) return;
+      var r = wave.getBoundingClientRect();
+      a.currentTime = (e.clientX - r.left) / r.width * a.duration;
+    });
+  })();
+})();
+</script>
+
+<!-- ============ МАСШТАБ СТРАНИЦЫ НА ДЕСКТОПЕ ============
+     Заказчик снял экран в браузерном масштабе 90 % и попросил
+     такой вид по умолчанию, а попытку его сменить — отменять.
+
+     Сам масштаб по умолчанию задаёт таблица стилей: html{zoom}
+     на ширине от 861 точки. Здесь — только удержание.
+
+     Прочитать или задать масштаб браузера напрямую нельзя,
+     такого интерфейса у страницы нет. Но он виден косвенно:
+     devicePixelRatio умножается ровно на него. Значит, можно
+     запомнить dpr на старте и держать произведение zoom × dpr
+     постоянным — сколько человек прибавит, столько же отнимет
+     наш zoom, и на экране ничего не изменится.
+
+     Колесо с Ctrl отменяется напрямую: это единственный путь к
+     масштабу, который браузер отдаёт странице. Сочетания
+     Ctrl + и Ctrl − он обрабатывает сам и странице о них не
+     сообщает, поэтому там работает только пересчёт выше — с
+     мгновенным возвратом, но всё-таки после самого скачка.
+
+     Чего это стоит. Человек, которому текст мелок, больше не
+     сможет его увеличить — ни колесом, ни сочетанием клавиш.
+     Это прямое требование заказчика; снимается удалением этого
+     блока и правила html{zoom} в таблице стилей. На телефоне не
+     работает вовсе: там свой слой вёрстки и щипковое
+     увеличение, которое трогать нельзя.
+     ====================================================== -->
+<script>
+(function(){
+  var BASE = 0.9;                 /* тот самый масштаб со снимка */
+  var MQ   = matchMedia('(min-width:861px)');
+  var root = document.documentElement;
+  var dpr0 = 0;
+  var tid  = 0;
+
+  function dpr(){ return window.devicePixelRatio || 1; }
+
+  function apply(){
+    if (!MQ.matches){ root.style.zoom = ''; dpr0 = 0; return; }
+    if (!dpr0) dpr0 = dpr();
+    var z = BASE * (dpr0 / dpr());
+    /* Предел на всякий случай: если человек утащил окно на
+       экран с другой плотностью, dpr меняется не от масштаба, и
+       без ограничения страница уехала бы в разы. */
+    if (z < 0.25) z = 0.25;
+    if (z > 3)    z = 3;
+    root.style.zoom = z.toFixed(4);
+  }
+
+  function later(){ clearTimeout(tid); tid = setTimeout(apply, 60); }
+
+  apply();
+  addEventListener('resize', later, {passive:true});
+  if (window.visualViewport){
+    visualViewport.addEventListener('resize', later, {passive:true});
+  }
+  if (MQ.addEventListener) MQ.addEventListener('change', later);
+
+  /* Колесо с Ctrl — единственный перехватываемый путь. */
+  addEventListener('wheel', function(e){
+    if (e.ctrlKey && MQ.matches) e.preventDefault();
+  }, {passive:false});
+
+  /* Ctrl + / Ctrl − / Ctrl 0 браузер до страницы обычно не
+     доносит, но попытка отмены ничего не стоит. */
+  addEventListener('keydown', function(e){
+    if (!(e.ctrlKey || e.metaKey) || !MQ.matches) return;
+    if ('+-=_0'.indexOf(e.key) >= 0) e.preventDefault();
+  });
+})();
+</script>
+
+<script src="assets/mobile.js?v=2026091721a"></script>
+
+</body>
+</html>
