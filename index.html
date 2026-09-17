@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=2026091716a">
-<link rel="stylesheet" href="assets/style.css?v=2026091716a">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091717a">
+<link rel="stylesheet" href="assets/style.css?v=2026091717a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=2026091716a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091717a">
 </head>
 <body>
 
@@ -2355,21 +2355,36 @@
     var guide = document.createElementNS(NS, 'path');
     guide.setAttribute('fill', 'none');
     guide.setAttribute('stroke', 'none');
-    /* Металл цепи — тот же, что у рамки табло итога: те же шесть
-       стоянок перелива из --au-rule, только растворённые концы
-       заменены на бронзу #8A672A. У рамки в нуле открывается не
-       фон, а ровная подложка того же тона — здесь под обводкой
-       подложки нет, поэтому бронза ставится прямо в стоянки. */
+    /* Металл цепи. Сперва он был взят с рамки табло итога знак
+       в знак, но на цепи это не работает: у рамки сплошной
+       контур длиной в тысячу точек, перелив успевает пройти
+       весь круг, а цепь разрезана на звенья по два десятка, и
+       на каждое приходится один ровный тон.
+
+       Поэтому здесь свой набор, и он глубже: тёмный конец ушёл
+       с бронзы #8A672A на #5E3F12, блик поднят с #FDF3D8 до
+       почти белого #FFF6DC. Размах от этого вырос вдвое —
+       золото читается золотом, а не жёлтой краской.
+
+       Главное же — перелив повторяется. Координаты заданы в
+       точках поля (userSpaceOnUse), шаг 230 — примерно
+       одиннадцать звеньев, — и spreadMethod="repeat" гонит его
+       по всей длине. Вместо одной растяжки на весь разворот,
+       где половина цепи приходилась на тёмный конец, по цепи
+       идёт волна: блик, тень, снова блик. Так ведёт себя
+       настоящая цепь, у которой каждое звено ловит свет
+       по-своему. */
     var defs = document.createElementNS(NS, 'defs');
     defs.innerHTML =
-      '<linearGradient id="au-chain" x1="0" y1="0" x2="1" y2="1">' +
-      '<stop offset="0" stop-color="#8A672A"/>' +
-      '<stop offset=".08" stop-color="#8A672A"/>' +
-      '<stop offset=".28" stop-color="#E3C98F"/>' +
-      '<stop offset=".46" stop-color="#FDF3D8"/>' +
-      '<stop offset=".66" stop-color="#9A7534"/>' +
-      '<stop offset=".88" stop-color="#D8BE86"/>' +
-      '<stop offset="1" stop-color="#8A672A"/>' +
+      '<linearGradient id="au-chain" gradientUnits="userSpaceOnUse"' +
+      ' spreadMethod="repeat" x1="0" y1="0" x2="230" y2="230">' +
+      '<stop offset="0" stop-color="#5E3F12"/>' +
+      '<stop offset=".18" stop-color="#9A7534"/>' +
+      '<stop offset=".37" stop-color="#E8CE93"/>' +
+      '<stop offset=".5" stop-color="#FFF6DC"/>' +
+      '<stop offset=".63" stop-color="#E3C98F"/>' +
+      '<stop offset=".82" stop-color="#8A672A"/>' +
+      '<stop offset="1" stop-color="#5E3F12"/>' +
       '</linearGradient>';
     svg.appendChild(defs);
     svg.setAttribute('class', 'board-path');
@@ -2597,7 +2612,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=2026091716a"></script>
+<script src="assets/mobile.js?v=2026091717a"></script>
 
 </body>
 </html>
