@@ -1425,7 +1425,7 @@
 
   /* зазор между строками держала сетка перечня; внутри
      спойлера её нет, поэтому строки разводятся полями */
-  .duel-c .mob-sp > .in > li{margin-top:clamp(1rem,1.7vw,1.4rem)}
+  .duel-c .mob-sp > .in > li{margin-top:clamp(1.4rem,2.5vw,2.3rem)}
   .duel-c .mob-sp > .in > li:first-child{margin-top:0}
   .duel-c .mob-sp > .in{padding:.2rem .9rem 1.05rem}
 
