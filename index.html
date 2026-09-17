@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=2026091712a">
-<link rel="stylesheet" href="assets/style.css?v=2026091712a">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091713a">
+<link rel="stylesheet" href="assets/style.css?v=2026091713a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=2026091712a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091713a">
 </head>
 <body>
 
@@ -2347,9 +2347,18 @@
     var NS = 'http://www.w3.org/2000/svg';
     var svg  = document.createElementNS(NS, 'svg');
     var path = document.createElementNS(NS, 'path');
+    /* Невидимая направляющая. Сама дорожка теперь не линия, а
+       цепь, и её звенья нужно расставить по длине кривой —
+       считать длину и точку на ней умеет только настоящий
+       элемент пути, поэтому он лежит в разметке со снятой
+       обводкой. */
+    var guide = document.createElementNS(NS, 'path');
+    guide.setAttribute('fill', 'none');
+    guide.setAttribute('stroke', 'none');
     svg.setAttribute('class', 'board-path');
     svg.setAttribute('aria-hidden', 'true');
     svg.setAttribute('preserveAspectRatio', 'none');
+    svg.appendChild(guide);
     svg.appendChild(path);
     board.appendChild(svg);
 
@@ -2365,6 +2374,46 @@
     };
     var IN = 12;            /* заход конца линии внутрь карточки */
 
+    /* ---- цепь вместо пунктира ----------------------------
+       Звено — эллипс, вытянутый вдоль хода дорожки. Соседние
+       звенья идут через одно плашмя и через одно ребром:
+       плоское шире, рёберное почти схлопнуто. Этого хватает,
+       чтобы цепь читалась цепью, а не бусами, — настоящая
+       цепь так и выглядит, у неё каждое второе кольцо
+       повёрнуто поперёк.
+
+       Шаг меньше длины звена, звенья заходят друг в друга:
+       между кольцами не должно быть просвета, иначе цепь
+       рассыпается на отдельные овалы.
+
+       Эллипс рисуется двумя дугами внутри общего пути: одна
+       дуга даёт половину кольца, вторая замыкает. Так вся
+       цепь остаётся одним элементом, а не сотней <ellipse> в
+       разметке. */
+    var RX = 10.5;          /* половина длины звена           */
+    var STEP = RX * 1.24;   /* меньше 2*RX — звенья в зацепе  */
+
+    var chain = function(dStr){
+      guide.setAttribute('d', dStr);
+      var L = guide.getTotalLength();
+      if (!L) return '';
+      var out = '', k = 0;
+      for (var s = RX * .5; s <= L - RX * .5; s += STEP, k++){
+        var pt = guide.getPointAtLength(s);
+        var nx = guide.getPointAtLength(Math.min(s + 1.5, L));
+        var an = Math.atan2(nx.y - pt.y, nx.x - pt.x);
+        var ry = (k % 2) ? RX * .21 : RX * .60;
+        var ca = Math.cos(an), sa = Math.sin(an);
+        var x0 = r1(pt.x + RX * ca), y0 = r1(pt.y + RX * sa);
+        var x1 = r1(pt.x - RX * ca), y1 = r1(pt.y - RX * sa);
+        var dg = r1(an * 180 / Math.PI);
+        out += 'M' + x0 + ' ' + y0 +
+               'A' + r1(RX) + ' ' + r1(ry) + ' ' + dg + ' 1 1 ' + x1 + ' ' + y1 +
+               'A' + r1(RX) + ' ' + r1(ry) + ' ' + dg + ' 1 1 ' + x0 + ' ' + y0;
+      }
+      return out;
+    };
+
     var draw = function(){
       if (getComputedStyle(svg).display === 'none') return;
       var W = board.offsetWidth, H = board.offsetHeight;
@@ -2374,7 +2423,7 @@
         return {l:c.offsetLeft, t:c.offsetTop, w:c.offsetWidth, h:c.offsetHeight};
       });
 
-      var d = '';
+      var parts = [];
       for (var i = 0; i < box.length - 1; i++){
         var a = box[i], b = box[i+1];
         var turn = (i === 3);              /* разворот из ряда в ряд */
@@ -2388,7 +2437,7 @@
           k  = (p2.y - p1.y) * .6;
           c1 = {x:p1.x + a.w * .34, y:p1.y + k};
           c2 = {x:p2.x - b.w * .30, y:p2.y - k};
-          d += seg(p1, c1, c2, p2);
+          parts.push(seg(p1, c1, c2, p2));
           continue;
         }
 
@@ -2407,8 +2456,8 @@
 
         if (!curl){
           k  = dx * .45;
-          d += seg(p1, {x:p1.x + k, y:p1.y + sag},
-                       {x:p2.x - k, y:p2.y + sag}, p2);
+          parts.push(seg(p1, {x:p1.x + k, y:p1.y + sag},
+                             {x:p2.x - k, y:p2.y + sag}, p2));
           continue;
         }
 
@@ -2430,14 +2479,18 @@
         var A  = {x:mx - w * dir, y:my};
         var B  = {x:mx + w * dir, y:my};
 
-        d += seg(p1, {x:p1.x + (A.x - p1.x) * .55, y:p1.y + sag * .6},
-                     {x:A.x - (A.x - p1.x) * .3,   y:A.y}, A);
-        d += seg(A,  {x:A.x + R * dir, y:A.y + H},
-                     {x:B.x - R * dir, y:B.y + H}, B);
-        d += seg(B,  {x:B.x + (p2.x - B.x) * .3,   y:B.y},
-                     {x:p2.x - (p2.x - B.x) * .55, y:p2.y + sag * .6}, p2);
+        parts.push(
+          seg(p1, {x:p1.x + (A.x - p1.x) * .55, y:p1.y + sag * .6},
+                  {x:A.x - (A.x - p1.x) * .3,   y:A.y}, A) +
+          seg(A,  {x:A.x + R * dir, y:A.y + H},
+                  {x:B.x - R * dir, y:B.y + H}, B) +
+          seg(B,  {x:B.x + (p2.x - B.x) * .3,   y:B.y},
+                  {x:p2.x - (p2.x - B.x) * .55, y:p2.y + sag * .6}, p2));
       }
-      path.setAttribute('d', d);
+      /* Каждый пролёт одевается в цепь порознь: сшей их в один
+         путь — и звено ляжет на разрыве между карточками, где
+         дорожки нет. */
+      path.setAttribute('d', parts.map(chain).join(''));
     };
 
     draw();
@@ -2527,7 +2580,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=2026091712a"></script>
+<script src="assets/mobile.js?v=2026091713a"></script>
 
 </body>
 </html>
