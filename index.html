@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=2026091713a">
-<link rel="stylesheet" href="assets/style.css?v=2026091713a">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091714a">
+<link rel="stylesheet" href="assets/style.css?v=2026091714a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=2026091713a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091714a">
 </head>
 <body>
 
@@ -2355,6 +2355,23 @@
     var guide = document.createElementNS(NS, 'path');
     guide.setAttribute('fill', 'none');
     guide.setAttribute('stroke', 'none');
+    /* Металл цепи — тот же, что у рамки табло итога: те же шесть
+       стоянок перелива из --au-rule, только растворённые концы
+       заменены на бронзу #8A672A. У рамки в нуле открывается не
+       фон, а ровная подложка того же тона — здесь под обводкой
+       подложки нет, поэтому бронза ставится прямо в стоянки. */
+    var defs = document.createElementNS(NS, 'defs');
+    defs.innerHTML =
+      '<linearGradient id="au-chain" x1="0" y1="0" x2="1" y2="1">' +
+      '<stop offset="0" stop-color="#8A672A"/>' +
+      '<stop offset=".08" stop-color="#8A672A"/>' +
+      '<stop offset=".28" stop-color="#E3C98F"/>' +
+      '<stop offset=".46" stop-color="#FDF3D8"/>' +
+      '<stop offset=".66" stop-color="#9A7534"/>' +
+      '<stop offset=".88" stop-color="#D8BE86"/>' +
+      '<stop offset="1" stop-color="#8A672A"/>' +
+      '</linearGradient>';
+    svg.appendChild(defs);
     svg.setAttribute('class', 'board-path');
     svg.setAttribute('aria-hidden', 'true');
     svg.setAttribute('preserveAspectRatio', 'none');
@@ -2580,7 +2597,7 @@
 })();
 </script>
 
-<script src="assets/mobile.js?v=2026091713a"></script>
+<script src="assets/mobile.js?v=2026091714a"></script>
 
 </body>
 </html>

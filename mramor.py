@@ -39,8 +39,8 @@ from PIL import Image, ImageDraw, ImageFilter
 W, H = 2560, 2720
 SS = 3                       # надрисовка для сглаживания кромки
 # Семя выбрано перебором: при нём обе текстовые зоны чистые
-# (шапка 0.24 %, якоря 0.00 %), см. замер в конце файла.
-SEED = int(sys.argv[1]) if len(sys.argv) > 1 else 7
+# (шапка 0.00 %, якоря 0.53 %), см. замер в конце файла.
+SEED = int(sys.argv[1]) if len(sys.argv) > 1 else 3
 rng = np.random.default_rng(SEED)
 
 
@@ -77,18 +77,25 @@ d_big, d_fine = ImageDraw.Draw(big), ImageDraw.Draw(fine)
 trail = []                    # точки крупных жил: по ним селится сетка
 
 
-def walk(x, y, ang, width, steps, depth, sink, remember):
+def walk(x, y, ang, width, span, steps, depth, sink, remember):
+    base = ang
     """Одна жила. Возвращает точки, где стоит отпустить ветвь."""
     pts = [(x, y)]
     forks = []
     for i in range(steps):
-        # Длина отрезка привязана к толщине: у волоса шаг
-        # короткий, у крупной жилы длинный. Общая длина для всех
-        # давала длинные прямые царапины поперёк всей плиты.
-        step = rng.uniform(5.0, 16.0) * width
+        # Длина отрезка задаётся мерой жилы, а не её толщиной:
+        # у волоса шаг короткий, у крупной жилы длинный. Общая
+        # длина для всех давала длинные прямые царапины поперёк
+        # всей плиты, а вывод из толщины — жилы в треть плиты.
+        step = rng.uniform(0.55, 1.7) * span
         ang += rng.normal(0.0, 0.16)                      # лёгкий снос
         if rng.random() < 0.22:                           # излом
             ang += np.sign(rng.normal()) * rng.uniform(0.52, 1.15)
+        # Возврат к своему направлению. Без него за сорок шагов
+        # жила забывает, откуда шла, и вся плита превращается в
+        # чащу без единого направления — а на образце зерно
+        # читается сразу: всё идёт снизу слева наверх направо.
+        ang += (base - ang) * 0.30
         x += np.cos(ang) * step
         y += np.sin(ang) * step
         pts.append((x, y))
@@ -113,45 +120,88 @@ def walk(x, y, ang, width, steps, depth, sink, remember):
     return forks
 
 
-def vein(x, y, ang, width, steps, sink, remember=False):
-    stack = [(x, y, ang, width, steps, 0)]
+def vein(x, y, ang, width, span, steps, sink, remember=False):
+    stack = [(x, y, ang, width, span, steps, 0)]
     while stack:
-        x, y, ang, width, steps, depth = stack.pop()
+        x, y, ang, width, span, steps, depth = stack.pop()
         if steps < 2 or width < 1:
             continue
-        for fx, fy, fang, _ in walk(x, y, ang, width, steps, depth,
+        for fx, fy, fang, _ in walk(x, y, ang, width, span, steps, depth,
                                     sink, remember):
             stack.append((fx, fy, fang + np.sign(rng.normal()) *
                           rng.uniform(0.55, 1.25),
-                          width * 0.55, int(steps * 0.5), depth + 1))
+                          width * 0.55, span * 0.62,
+                          int(steps * 0.5), depth + 1))
 
 
-# Крупные русла входят с краёв. Точки входа разложены по всем
-# четырём сторонам по очереди и с дрожанием: чистая случайность
-# сваливает их в один угол, и половина плиты остаётся пустой.
-for k in range(11):
-    side = k % 4
-    t = (k // 4 + rng.uniform(0.15, 0.85)) / 3.0
-    if side == 0:
-        x, y, a = t * W * SS, -20.0, rng.uniform(0.7, 2.4)
-    elif side == 1:
-        x, y, a = t * W * SS, H * SS + 20.0, rng.uniform(-2.4, -0.7)
-    elif side == 2:
-        x, y, a = -20.0, t * H * SS, rng.uniform(-0.8, 0.8)
+# ---------- раскладка по образцу ------------------------------
+# На фотографии, которую дал заказчик, жилы не разбросаны как
+# попало: у них есть главное направление — снизу слева наверх
+# направо, — и вся плита им прошита насквозь. Поперёк идёт
+# вторая, редкая семья. Отсюда и раскладка: угол берётся не
+# случайный, а около главного, с разбросом в четверть радиана.
+DOM = -0.62                      # главное направление, радианы
+CROSS = 0.52                     # поперечная семья
+
+wide = Image.new("L", (W * SS, H * SS), 0)
+d_wide = ImageDraw.Draw(wide)
+
+SPAN = 150 * SS / 2.2            # мера шага крупной жилы
+
+
+def enter(k, n, ang, width, steps, sink, remember=False, left=False):
+    """Точка входа с края, разложенная по стороне с дрожанием."""
+    t = (k + rng.uniform(0.1, 0.9)) / n
+    if left:
+        vein(-30.0, t * H * SS, ang, width, SPAN, steps, sink, remember)
     else:
-        x, y, a = W * SS + 20.0, t * H * SS, rng.uniform(2.4, 3.9)
-    vein(x, y, a, rng.uniform(4.5, 9.5) * SS / 2.2,
-         int(rng.integers(16, 28)), d_big, remember=True)
+        vein((t * 1.8 - 0.45) * W * SS, H * SS + 30.0, ang, width,
+             SPAN, steps, sink, remember)
 
-# Волосяная сетка селится НА крупных жилах, а не по всему полю:
-# на камне мелочь всегда идёт свитой при большой жиле, а ровно
-# рассыпанные нитки читаются царапинами по столу.
-for _ in range(70):
+
+# Широкие серые массы вдоль главного направления. Это не линии,
+# а тень: на образце вдоль крупных жил идёт размытая тёмная
+# кайма шириной в палец. Рисуются в свою маску, она размывается
+# целиком.
+for k in range(9):
+    enter(k, 9, DOM + rng.normal(0, 0.14),
+          rng.uniform(26, 54) * SS / 2.2, int(rng.integers(38, 62)), d_wide)
+
+# Первый разряд: шесть главных жил через всю плиту. Они держат
+# рисунок, всё остальное — их свита.
+for k in range(6):
+    enter(k, 6, DOM + rng.normal(0, 0.18),
+          rng.uniform(12, 22) * SS / 2.2, int(rng.integers(44, 70)),
+          d_big, remember=True)
+
+# Второй разряд: те же направления, вдвое тоньше.
+for k in range(20):
+    enter(k, 20, DOM + rng.normal(0, 0.26),
+          rng.uniform(3.0, 6.5) * SS / 2.2, int(rng.integers(38, 66)),
+          d_big, remember=True)
+for k in range(10):
+    enter(k, 10, DOM + rng.normal(0, 0.26),
+          rng.uniform(3.0, 6.5) * SS / 2.2, int(rng.integers(34, 60)),
+          d_big, remember=True, left=True)
+
+# Поперечная семья — реже и тоньше, она держит рисунок от
+# превращения в штриховку.
+for k in range(8):
+    enter(k, 8, CROSS + rng.normal(0, 0.22),
+          rng.uniform(1.8, 4.2) * SS / 2.2, int(rng.integers(34, 58)),
+          d_big, remember=True, left=True)
+
+# Волосяная сетка. На образце её очень много: между крупными
+# жилами всё поле в мелкой ломаной крошке. Селится она по
+# крупным жилам, поэтому и густеет там же, где они.
+for _ in range(150):
     px, py = trail[int(rng.integers(0, len(trail)))]
-    px += rng.normal(0, 55) * SS
-    py += rng.normal(0, 55) * SS
-    vein(px, py, rng.uniform(0, 6.283), rng.uniform(0.9, 1.9) * SS / 2.2,
-         int(rng.integers(3, 7)), d_fine)
+    px += rng.normal(0, 70) * SS
+    py += rng.normal(0, 70) * SS
+    ang = (DOM if rng.random() < 0.55 else rng.uniform(0, 6.283))
+    vein(px, py, ang + rng.normal(0, 0.55),
+         rng.uniform(0.8, 1.7) * SS / 2.2,
+         26 * SS / 2.2, int(rng.integers(3, 7)), d_fine)
 
 
 def bring_down(im):
@@ -161,6 +211,11 @@ def bring_down(im):
 
 core_big = bring_down(big)
 core_fine = bring_down(fine)
+# Широкие полосы размываются в массу: резкой у них должна быть
+# не кромка, а соседняя с ними тонкая жила.
+band = np.asarray(
+    Image.fromarray((bring_down(wide) * 255).astype(np.uint8))
+    .filter(ImageFilter.GaussianBlur(44)), dtype=np.float32) / 255.0
 # Ореол считается от обеих масок сразу и размывается уже в
 # конечном размере — размывать в тройном значит впустую сжечь
 # втрое больше памяти.
@@ -173,10 +228,11 @@ clouds = fbm(3, 4)
 patch = 0.15 + 0.85 * smooth(fbm(2, 3), 0.34, 0.68)   # где камень грязнее
 
 lum = np.full((H, W), 0.988, np.float32)
-lum -= smooth(clouds, 0.26, 0.92) * 0.10      # разводы
-lum -= halo * patch * 1.25                    # ореол вокруг жил
+lum -= smooth(clouds, 0.26, 0.92) * 0.09      # разводы
+lum -= np.clip(band, 0, 1) * patch * 0.55     # серые полосы-массы
+lum -= halo * patch * 0.70                    # ореол вокруг жил
 lum -= np.clip(core_big, 0, 1) * 1.05         # ядро крупных жил
-lum -= np.clip(core_fine, 0, 1) * 0.72        # волосяная сетка
+lum -= np.clip(core_fine, 0, 1) * 0.80        # волосяная сетка
 lum = np.clip(lum, 0.0, 1.0)
 
 # Мрамор не серый в ноль: тени уходят в холодный синевато-серый,
