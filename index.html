@@ -22,12 +22,12 @@
      отдаёт статику с Cache-Control: max-age=600, и после правки
      браузер ещё десять минут показывает старый файл, сколько ни
      обновляй страницу. Менять метку при каждой выкладке. -->
-<link rel="stylesheet" href="assets/fonts.css?v=2026091723a">
-<link rel="stylesheet" href="assets/style.css?v=2026091723a">
+<link rel="stylesheet" href="assets/fonts.css?v=2026091724a">
+<link rel="stylesheet" href="assets/style.css?v=2026091724a">
 <!-- Телефонный слой. Подключён последним и целиком живёт
      внутри @media (max-width:860px) — на широком экране
      не меняет ни одного пикселя. -->
-<link rel="stylesheet" href="assets/mobile.css?v=2026091723a">
+<link rel="stylesheet" href="assets/mobile.css?v=2026091724a">
 </head>
 <body>
 
@@ -2670,79 +2670,7 @@
 })();
 </script>
 
-<!-- ============ МАСШТАБ СТРАНИЦЫ НА ДЕСКТОПЕ ============
-     Заказчик снял экран в браузерном масштабе 90 % и попросил
-     такой вид по умолчанию, а попытку его сменить — отменять.
-
-     Сам масштаб по умолчанию задаёт таблица стилей: html{zoom}
-     на ширине от 861 точки. Здесь — только удержание.
-
-     Прочитать или задать масштаб браузера напрямую нельзя,
-     такого интерфейса у страницы нет. Но он виден косвенно:
-     devicePixelRatio умножается ровно на него. Значит, можно
-     запомнить dpr на старте и держать произведение zoom × dpr
-     постоянным — сколько человек прибавит, столько же отнимет
-     наш zoom, и на экране ничего не изменится.
-
-     Колесо с Ctrl отменяется напрямую: это единственный путь к
-     масштабу, который браузер отдаёт странице. Сочетания
-     Ctrl + и Ctrl − он обрабатывает сам и странице о них не
-     сообщает, поэтому там работает только пересчёт выше — с
-     мгновенным возвратом, но всё-таки после самого скачка.
-
-     Чего это стоит. Человек, которому текст мелок, больше не
-     сможет его увеличить — ни колесом, ни сочетанием клавиш.
-     Это прямое требование заказчика; снимается удалением этого
-     блока и правила html{zoom} в таблице стилей. На телефоне не
-     работает вовсе: там свой слой вёрстки и щипковое
-     увеличение, которое трогать нельзя.
-     ====================================================== -->
-<script>
-(function(){
-  var BASE = 0.9;                 /* тот самый масштаб со снимка */
-  var MQ   = matchMedia('(min-width:861px)');
-  var root = document.documentElement;
-  var dpr0 = 0;
-  var tid  = 0;
-
-  function dpr(){ return window.devicePixelRatio || 1; }
-
-  function apply(){
-    if (!MQ.matches){ root.style.zoom = ''; dpr0 = 0; return; }
-    if (!dpr0) dpr0 = dpr();
-    var z = BASE * (dpr0 / dpr());
-    /* Предел на всякий случай: если человек утащил окно на
-       экран с другой плотностью, dpr меняется не от масштаба, и
-       без ограничения страница уехала бы в разы. */
-    if (z < 0.25) z = 0.25;
-    if (z > 3)    z = 3;
-    root.style.zoom = z.toFixed(4);
-  }
-
-  function later(){ clearTimeout(tid); tid = setTimeout(apply, 60); }
-
-  apply();
-  addEventListener('resize', later, {passive:true});
-  if (window.visualViewport){
-    visualViewport.addEventListener('resize', later, {passive:true});
-  }
-  if (MQ.addEventListener) MQ.addEventListener('change', later);
-
-  /* Колесо с Ctrl — единственный перехватываемый путь. */
-  addEventListener('wheel', function(e){
-    if (e.ctrlKey && MQ.matches) e.preventDefault();
-  }, {passive:false});
-
-  /* Ctrl + / Ctrl − / Ctrl 0 браузер до страницы обычно не
-     доносит, но попытка отмены ничего не стоит. */
-  addEventListener('keydown', function(e){
-    if (!(e.ctrlKey || e.metaKey) || !MQ.matches) return;
-    if ('+-=_0'.indexOf(e.key) >= 0) e.preventDefault();
-  });
-})();
-</script>
-
-<script src="assets/mobile.js?v=2026091723a"></script>
+<script src="assets/mobile.js?v=2026091724a"></script>
 
 </body>
 </html>
