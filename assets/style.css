@@ -7429,7 +7429,7 @@ html.js .quiz-scene .q[data-rise].seen{
 
 .path{
   position:relative;
-  margin:clamp(1.6rem,3.4vw,2.9rem) 0 clamp(1.1rem,2vw,1.7rem);
+  margin:clamp(1.6rem,3.4vw,2.9rem) 0 clamp(2.4rem,4vw,3.4rem);
   aspect-ratio:1200 / 460;
   /* Ниже этой ширины подписи начинают наезжать друг на друга
      раньше, чем кривая теряет читаемость, — поэтому рисунок
@@ -7508,16 +7508,21 @@ html.js .quiz-scene .q[data-rise].seen{
   letter-spacing:.02em;text-transform:uppercase;
 }
 .pl.bad b{
-  font-size:clamp(.88rem,.72rem + .58vw,1.14rem);
-  letter-spacing:.015em;
+  font-size:clamp(1rem,.78rem + .74vw,1.42rem);
+  letter-spacing:.005em;
 }
 
-.pl-1{left:8%;  top:63%}
-.pl-2{left:17%; top:93%}
-.pl-3{left:25%; top:20%}
-.pl-4{left:41%; top:50%}
-.pl-5{left:54%; top:94%}
-.pl-6{left:86%; top:8%}
+.pl-1{left:8%;  top:50%}
+.pl-2{left:25%; top:20%}
+.pl-3{left:41%; top:50%}
+.pl-4{left:52%; top:94%}
+.pl-5{left:70%; top:64%}
+.pl-6{left:86%; top:12%}
+
+/* Концы горизонтальной оси — как «новичок → эксперт» у образца */
+.pl-x0{left:8%;  top:101%}
+.pl-x1{left:92%; top:101%}
+.pl-x0 i,.pl-x1 i{letter-spacing:.08em;text-transform:uppercase;font-size:.66rem}
 
 /* Номер ступени. Кривая читается как шесть шагов только
    тогда, когда шаги пронумерованы: без цифр это просто
