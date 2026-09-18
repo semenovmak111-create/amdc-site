@@ -7397,3 +7397,218 @@ html.js .quiz-scene .q[data-rise].seen{
   .steps.rich .step .pts .ck{width:21px;height:21px}
   .steps.rich .step .pts .ck .i{width:12px;height:12px}
 }
+
+/* ============================================================
+   РАЗВИЛКА: ГДЕ ВЫ СЕЙЧАС
+
+   Второй разворот. Образец — блок «кладбище новичков» у
+   maggistratura.com: вопрос «остаться там или войти в 10%»,
+   кривая под ним и две колонки с исходами.
+
+   Иллюстрация не заимствована. У образца кривая Даннинга —
+   Крюгера, про самооценку новичка; здесь путь клиники, к
+   которой поток приходил сам. Кривая рисуется, а не лежит
+   картинкой: на ретине растр в такую ширину весит больше
+   всего остального на полосе, а здесь это два пути и три
+   кружка.
+
+   Цвет по кривой идёт слева направо и меняется вместе со
+   смыслом: бронза на подъёме, янтарь на пике («наполовину»),
+   карнеол в яме («сломано»), снова бронза и блик на плато.
+   Это ровно шкала оценок системы, просто растянутая в линию.
+   ============================================================ */
+
+/* Подписи стоят абсолютом и по краям кривой выходят за её
+   коробку. На широком экране запас по бокам полосы это
+   поглощает, на узком — нет: вылет за правый край делает
+   документ шире вьюпорта, и страница начинает ездить вбок
+   целиком. clip, а не hidden: hidden сделал бы полосу
+   контейнером прокрутки и сломал бы залипающие элементы
+   выше по дереву. */
+#fork{overflow-x:clip}
+
+.path{
+  position:relative;
+  margin:clamp(1.6rem,3.4vw,2.9rem) 0 clamp(1.1rem,2vw,1.7rem);
+  aspect-ratio:1200 / 460;
+  /* Ниже этой ширины подписи начинают наезжать друг на друга
+     раньше, чем кривая теряет читаемость, — поэтому рисунок
+     не тянется во всю двойную колонку. */
+  max-width:1120px;
+  margin-inline:auto;
+}
+
+/* preserveAspectRatio="none" на самом SVG: коробка задана
+   сеткой выше, и растягивать кривую по ней — единственный
+   способ держать подписи в процентах от той же коробки. */
+.path-line{
+  position:absolute;inset:0;width:100%;height:100%;
+  overflow:visible;
+}
+
+.pc-base{
+  stroke:rgba(244,241,233,.14);
+  stroke-width:1;
+  stroke-dasharray:3 7;
+  vector-effect:non-scaling-stroke;
+}
+
+.pc-area{fill:url(#pc-fill);mask:url(#pc-mask)}
+
+.pc-curve{
+  fill:none;
+  stroke:url(#pc-stroke);
+  stroke-width:4.5;
+  stroke-linecap:round;
+  /* Без этого растяжение по X делает линию на пологих
+     участках вдвое толще, чем на крутых. */
+  vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 6px 18px rgba(200,164,95,.28));
+}
+
+.pc-dot{
+  stroke:var(--indigo);
+  stroke-width:3;
+  vector-effect:non-scaling-stroke;
+}
+.pc-dot.warn{fill:var(--amber)}
+.pc-dot.bad {fill:var(--carn)}
+.pc-dot.good{
+  fill:var(--au-hi);
+  filter:drop-shadow(0 0 12px rgba(235,214,166,.75));
+}
+
+/* ---- подписи на кривой --------------------------------- */
+/* Абсолют в процентах от коробки рисунка: кривая тянется,
+   подписи едут вместе с ней и не меняют кегль. */
+.pl{
+  position:absolute;
+  display:flex;flex-direction:column;gap:.2rem;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  pointer-events:none;
+}
+.pl b{
+  font:700 clamp(.82rem,.7rem + .42vw,1.02rem)/1.2 var(--sans);
+  letter-spacing:.005em;color:var(--t1);
+}
+.pl i{
+  font-style:normal;
+  font-size:clamp(.7rem,.64rem + .22vw,.82rem);
+  line-height:1.35;color:var(--t3);
+}
+.pl.warn b{color:var(--amber)}
+.pl.bad  b{color:var(--carn-hi)}
+.pl.good b{
+  color:transparent;
+  background:linear-gradient(180deg,#FDF3D8 0%,#EBD6A6 34%,#C8A45F 74%,#9B7534 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-size:clamp(.95rem,.76rem + .66vw,1.28rem);
+  letter-spacing:.02em;text-transform:uppercase;
+}
+.pl.bad b{
+  font-size:clamp(.88rem,.72rem + .58vw,1.14rem);
+  letter-spacing:.015em;
+}
+
+.pl-1{left:6%;  top:66%}
+.pl-2{left:24%; top:22%}
+.pl-3{left:38%; top:53%}
+.pl-4{left:52%; top:96%}
+.pl-5{left:71%; top:70%}
+.pl-6{left:86%; top:8%}
+.pl-6 b{white-space:nowrap}
+
+/* Заголовок развилки: плоская часть и акцент — каждый со своей
+   строки. У образца вопрос тоже разломан ровно по «или», и это
+   не типографская вольность: первая строка — то, где человек
+   стоит сейчас, вторая — куда он может выйти. Слитой строкой
+   выбор перестаёт читаться выбором. */
+h2.huge.fork-h{max-width:30ch}
+.fork-h > span,.fork-h > mark{display:block}
+
+.path-capt{
+  max-width:64ch;margin-inline:auto;text-align:center;
+  margin-top:clamp(.7rem,1.4vw,1.15rem);
+}
+
+/* ============================================================
+   ДВЕ КОЛОНКИ РАЗВИЛКИ
+
+   Родня ведомости из третьего разворота (`.duel`), но не она:
+   там две панели встык, бумага против порфира, и читается это
+   как документ. Здесь панелей нет вовсе — два перечня стоят
+   прямо на полосе, разделённые волоском. Иначе второй и
+   третий развороты подряд дали бы одну и ту же картинку.
+   ============================================================ */
+
+.fork{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(1.8rem,4vw,3.6rem);
+  margin-top:clamp(2rem,4vw,3.4rem);
+  text-align:left;
+}
+.fork-c{position:relative}
+
+/* Волосок между колонками — вместо второй рамки. Тянется на
+   всю высоту той колонки, что выше. */
+.fork-c.pos::before{
+  content:'';position:absolute;
+  left:calc(-1 * clamp(.9rem,2vw,1.8rem));top:.2rem;bottom:.2rem;
+  width:1px;background:linear-gradient(180deg,
+    transparent,var(--rule-2) 12%,var(--rule) 50%,var(--rule-2) 88%,transparent);
+}
+@media (max-width:820px){
+  .fork{grid-template-columns:1fr}
+  .fork-c.pos::before{display:none}
+}
+
+.fork-c > h3{
+  font:700 clamp(1.02rem,.9rem + .5vw,1.28rem)/1.25 var(--sans);
+  letter-spacing:-.008em;
+  margin:0 0 clamp(1.1rem,2.2vw,1.6rem);
+  padding-bottom:.7rem;
+  border-bottom:1px solid var(--rule-2);
+}
+.fork-c.neg > h3{color:var(--carn-hi)}
+.fork-c.pos > h3{
+  color:transparent;
+  background:linear-gradient(180deg,#FDF3D8 0%,#EBD6A6 32%,#C8A45F 70%,#9B7534 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.fork-c ul{
+  list-style:none;margin:0;padding:0;
+  display:flex;flex-direction:column;
+  gap:clamp(1.1rem,2.2vw,1.65rem);
+}
+.fork-c li{display:flex;gap:clamp(.7rem,1.4vw,1rem);align-items:flex-start}
+
+.fork-c .mk{
+  flex:none;width:26px;height:26px;margin-top:.08rem;
+  display:grid;place-items:center;border-radius:50%;
+}
+.fork-c .mk .i{width:13px;height:13px;stroke-width:3.4}
+.fork-c.neg .mk{
+  background:var(--carn-wash);
+  border:1px solid rgba(210,96,75,.45);
+  color:var(--carn-hi);
+}
+.fork-c.pos .mk{
+  background:var(--au-wash);
+  border:1px solid var(--au-line);
+  color:var(--au-hi);
+}
+
+.fork-c .tx{min-width:0;flex:1}
+.fork-c .tx > b{
+  display:block;margin-bottom:.34rem;
+  font:700 clamp(.96rem,.9rem + .28vw,1.1rem)/1.32 var(--sans);
+  letter-spacing:-.006em;color:var(--t1);
+}
+.fork-c .tx p{
+  margin:0;font-size:var(--f-sm);line-height:1.58;color:var(--t2);
+}
+.fork-c .tx p b{color:var(--t1);font-weight:700}
