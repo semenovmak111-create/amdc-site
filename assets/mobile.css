@@ -1527,3 +1527,22 @@
   .fork-c .mk{width:28px;height:28px}
   .fork-c .mk .i{width:14px;height:14px}
 }
+
+
+/* ============================================================
+   ВЕСЫ НА ТЕЛЕФОНЕ
+
+   Три колонки в столбик: сначала весы — это и есть довод, —
+   потом доводы сайта, потом площадки. Сайт идёт раньше: на
+   узком экране до второго списка долистывает не каждый.
+   ============================================================ */
+@media (max-width:860px){
+  .vesy-row{grid-template-columns:1fr;gap:1.6rem}
+  .vesy{order:1;max-width:400px}
+  .vesy-side.r{order:2}
+  .vesy-side.l{order:3;text-align:left}
+  .vesy-side.l .vesy-k{align-items:flex-start}
+  .vesy-side.l li{padding-left:2rem;padding-right:0}
+  .vesy-side.l li::before{left:0;right:auto}
+  .vesy-side ul{gap:.8rem}
+}
