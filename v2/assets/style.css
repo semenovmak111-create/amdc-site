@@ -229,32 +229,63 @@ body.has-cursor .cursor-circle{opacity:.6}
 .stat b .hl{color:var(--primary)}
 .stat>span{display:block;margin-top:12px;font-family:var(--ff-inter);font-size:15px;line-height:22px;color:var(--gray-200);max-width:300px}
 .section--light .stat .hl{background:linear-gradient(transparent 84%,var(--primary) 84%);padding:0}
+.section--light .stat b .hl{color:inherit}
 .section--light .stats{border-color:var(--line-light)}
 .section--light .stat+.stat{border-color:var(--line-light)}
 .section--light .stat>span{color:#5b5454}
 
-/* ---------- 3. Потери (сетка услуг) ---------- */
-.loss-cols{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;margin-top:60px}
-.loss-colhead{display:flex;align-items:center;gap:12px;padding-bottom:20px;font-family:var(--ff-inter);font-size:15px;font-weight:600;color:#000}
-.loss-colhead i{width:10px;height:10px;border-radius:50%;background:#bdbab2}
-.loss-colhead.after i{background:var(--primary);box-shadow:0 0 0 4px rgba(243,254,0,.35)}
-.loss-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:40px}
-.service-card{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:36px 0;border-top:1px solid var(--line-light);border-bottom:1px solid var(--line-light);margin-top:-1px;backdrop-filter:blur(6px);transition:padding-left 1s,padding-right 1s,background-color .6s;overflow:hidden;z-index:0}
-.service-card::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 120% at 100% 50%,rgba(243,254,0,.16),transparent 70%);opacity:0;transition:opacity 1s}
-.service-card:hover{padding-left:32px;padding-right:32px;background-color:var(--card-hover)}
-.service-card:hover::before{opacity:1}
-.service-card .s-eyebrow{font-family:var(--ff-inter);font-size:14px;line-height:21px;text-transform:uppercase;color:var(--ink);letter-spacing:.02em;transition:color .6s}
-.service-card h3{font-family:var(--ff-tight);font-size:26px;line-height:1.2;font-weight:400;color:var(--ink-2);margin-top:6px;transition:color .6s}
-.service-card p{font-family:var(--ff-inter);font-size:15px;line-height:23px;color:#6f6868;margin-top:10px;max-width:470px;transition:color .6s}
-.service-card:hover .s-eyebrow,.service-card:hover h3{color:#fff}
-.service-card:hover p{color:#bdbdbd}
-.service-card.is-before h3{color:#6c6666}
-.service-card.is-before .s-eyebrow{color:#9d9790}
-.arrow-box{flex-shrink:0;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line-light);display:grid;place-items:center;color:#1b1818;transition:background-color 1s,border-color 1s}
-.arrow-box svg{width:16px;height:16px}
-.service-card:hover .arrow-box{background:#fff;border-color:#fff}
-.service-card.is-after .arrow-box{background:var(--primary);border-color:var(--primary)}
-.service-card .x-box{color:#9d9790}
+/* ---------- 3. Потери: «до / после» по образцу zig.ai ----------
+   Заголовок слева, под ним три колонки: итоги, «Без сайта», «С сайтом».
+   Пары строк стоят в одной строке сетки, поэтому линии совпадают. */
+.zg-head{display:flex;flex-direction:column;align-items:flex-start;gap:24px;max-width:792px;margin-bottom:60px}
+.zg-eyebrow{display:flex;align-items:center;gap:8px;font-family:var(--ff-tight);font-size:16px;line-height:1.3;font-weight:500;color:#5C6764}
+.zg-eyebrow svg{width:24px;height:24px}
+.zg-title{font-family:var(--ff-tight);font-size:58px;line-height:1.1;font-weight:500;letter-spacing:-.04em;color:#000}
+.zg-lead{max-width:576px;font-family:var(--ff-inter);font-size:16px;line-height:24px;color:var(--ink-muted)}
+.zg-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:56px;align-items:start}
+.zg-aside{grid-column:1;grid-row:1/span 10;position:sticky;top:120px}
+.zg-chip{justify-self:start;display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 16px;margin-bottom:40px;border-radius:80px;font-family:var(--ff-tight);font-size:18px;line-height:1.3;font-weight:500;letter-spacing:-.48px;white-space:nowrap}
+.zg-chip.is-before{grid-column:2;background:#2E3332;color:#fff}
+.zg-chip.is-after{grid-column:3;background:var(--primary);color:#0B0B0B}
+.zg-logo{width:22px;height:22px}
+.zg-item{display:flex;align-items:flex-start;gap:16px;align-self:stretch;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid var(--line-light)}
+.zg-item.is-before{grid-column:2}
+.zg-item.is-after{grid-column:3}
+.zg-item.is-last{padding-bottom:0;margin-bottom:0;border-bottom:0}
+.zg-marker{flex-shrink:0;display:grid;place-items:center;width:32px;height:32px;margin-top:-2.8px;border-radius:50%;border:1px solid #2E3332;color:#2E3332}
+.zg-marker svg{width:14px;height:14px}
+.zg-item.is-after .zg-marker{background:var(--primary);border-color:var(--primary);color:#0B0B0B}
+.zg-item h3{font-family:var(--ff-tight);font-size:22px;line-height:1.2;font-weight:500;letter-spacing:-.48px;color:#5b5454}
+.zg-item.is-after h3{color:#000}
+.zg-item p{margin-top:8px;font-family:var(--ff-inter);font-size:15px;line-height:23px;color:#6f6868}
+.stats--aside{grid-template-columns:1fr;margin-top:0}
+.stats--aside .stat{padding:24px 0 0}
+.stats--aside .stat+.stat{padding-left:0;border-left:0;border-top:1px solid var(--line-light);margin-top:24px}
+.zg-aside .note{margin-top:24px}
+/* Уже 1280 px, как у образца: итоги уходят вниз, две колонки остаются рядом */
+@media (max-width:1279px){
+  .zg-grid{grid-template-columns:1fr 1fr}
+  .zg-chip.is-before,.zg-item.is-before{grid-column:1}
+  .zg-chip.is-after,.zg-item.is-after{grid-column:2}
+  .zg-aside{order:1;grid-column:1/-1;grid-row:auto;position:static;margin-top:64px}
+  .stats--aside{grid-template-columns:repeat(3,1fr)}
+  .stats--aside .stat b{font-size:52px}
+  .stats--aside .stat{padding:32px 32px 0 0}
+  .stats--aside .stat+.stat{padding-left:32px;border-top:0;border-left:1px solid var(--line-light);margin-top:0}
+}
+/* Телефон: сначала весь список «Без сайта», потом весь «С сайтом» */
+@media (max-width:768px){
+  .zg-grid{display:flex;flex-direction:column}
+  .zg-chip{margin-bottom:24px}
+  .zg-chip.is-before{order:1}
+  .zg-item.is-before{order:2}
+  .zg-chip.is-after{order:3;margin-top:48px}
+  .zg-item.is-after{order:4}
+  .zg-aside{order:5;margin-top:56px}
+  .stats--aside{grid-template-columns:1fr}
+  .stats--aside .stat{padding:28px 0 0}
+  .stats--aside .stat+.stat{padding-left:0;border-left:0;border-top:1px solid var(--line-light);margin-top:28px}
+}
 
 /* ---------- 4. Площадка vs свой сайт ---------- */
 .scales{position:relative;margin:56px auto 0;width:min(560px,100%)}
@@ -784,10 +815,10 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .faq-side{position:relative;top:0}
 }
 @media (max-width:991px){
+  .zg-title{font-size:46px}
   :root{--pad:40px}
   .section{padding:64px 0}
   .hero-title{font-size:54px;line-height:70px}
-  .loss-cols,.loss-grid{column-gap:24px}
   .vs-wrap{grid-template-columns:1fr}
   .vs-badge{display:none}
   .price-pills{grid-template-columns:1fr}
@@ -811,11 +842,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
 }
 @media (max-width:768px){
   .head-row,.car-head{flex-direction:column;align-items:flex-start}
-  .loss-cols{display:none}
-  .loss-grid{grid-template-columns:1fr}
-  .service-card.is-before{border-bottom:0}
-  .service-card.is-after{margin-bottom:24px}
-  .service-card.is-before::after{content:"";position:absolute}
   .fork-panel{grid-template-columns:1fr 1fr}
   .stats{grid-template-columns:1fr}
   .stat{padding:28px 0 0}
@@ -826,6 +852,8 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .fork-chart{padding:24px 16px 20px}
 }
 @media (max-width:575px){
+  .zg-title{font-size:34px}
+  .zg-item h3{font-size:19px}
   .hero-bubble{display:none}
   :root{--pad:16px}
   .header{padding:20px 0}
@@ -848,9 +876,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .fork-switch{display:flex;width:100%}
   .fork-switch button{flex:1;padding:10px 8px;font-size:13px}
   .fork-panel{grid-template-columns:1fr}
-  .service-card{padding:24px 0}
-  .service-card:hover{padding-left:16px;padding-right:16px}
-  .service-card h3{font-size:21px}
   .vs-head,.vs-list li{padding-left:20px;padding-right:20px}
   .vs-head h3{font-size:22px}
   .slide{flex-basis:calc(100vw - 32px)}

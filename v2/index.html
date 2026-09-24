@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=7">
+<link rel="stylesheet" href="assets/style.css?v=8">
 </head>
 <body>
 
@@ -206,51 +206,42 @@
 <!-- ================= 3. ПОТЕРИ ================= -->
 <section class="section section--light behind-cursor" id="loss">
   <div class="container">
-    <div class="head-center reveal">
-      <p class="eyebrow">Потери</p>
-      <h2 class="h2">Каждый месяц без сайта от вас уходят <span class="hl">16 клиентов и 128 000 ₽</span></h2>
-      <p class="lead">Девять строк слева — где вы сейчас. Девять строк справа — где окажетесь, когда у клиники появится своя страница.</p>
+    <div class="zg-head reveal">
+      <p class="zg-eyebrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 10L21 3M21 9V3H15M10 14L3 21M3 15L3 21H9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Потери</p>
+      <h2 class="zg-title">Каждый месяц без сайта от вас уходят <span class="hl">16 клиентов и 128 000 ₽</span></h2>
+      <p class="zg-lead">Девять строк слева — где вы сейчас. Девять строк справа — где окажетесь, когда у клиники появится своя страница.</p>
     </div>
 
-    <div class="loss-cols">
-      <div class="loss-colhead"><i></i>Без своей страницы вы остаётесь тут</div>
-      <div class="loss-colhead after"><i></i>Мы закроем все девять строк</div>
+    <div class="zg-grid reveal">
+      <aside class="zg-aside">
+        <div class="stats stats--aside">
+          <div class="stat"><b data-count="16">16</b><span>клиентов в месяц проходят мимо</span></div>
+          <div class="stat"><b><span class="hl" data-count="128000" data-suffix=" ₽">128 000 ₽</span></b><span>оборота за тот же месяц</span></div>
+          <div class="stat"><b data-count="1.5" data-dec="1" data-suffix=" млн ₽">1,5 млн ₽</b><span>накопится за год ожидания</span></div>
+        </div>
+        <p class="note">Цифры собраны по вашим карточкам вручную и взяты по нижней границе. Ниже их можно пересчитать по своим — там оценка получается заметно крупнее.</p>
+      </aside>
+      <div class="zg-chip is-before">Без сайта <svg class="zg-logo" viewBox="0 0 32 32" aria-hidden="true"><path d="M15 3H29V29H3V3" fill="none" stroke="currentColor" stroke-width="3.2"/><rect x="11" y="11" width="10" height="10" fill="currentColor"/></svg></div>
+      <div class="zg-chip is-after">С сайтом <svg class="zg-logo" viewBox="0 0 32 32" aria-hidden="true"><path d="M15 3H29V29H3V3" fill="none" stroke="currentColor" stroke-width="3.2"/><rect x="11" y="11" width="10" height="10" fill="currentColor"/></svg></div>
+      <div class="zg-item is-before"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Вас не находят по услуге</h3><p>По запросу «уролог площадь мужества» открываются чужие каталоги, где вы стоите рядом с девятью конкурентами.</p></div></div>
+      <div class="zg-item is-after"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Вас находят по всем 14 направлениям</h3><p>У каждой услуги своя страница с теми словами, которые люди набирают. В выдаче вы сами, без соседей рядом.</p></div></div>
+      <div class="zg-item is-before"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Записаться можно только звонком</h3><p>Карточку открывают 420 человек в месяц, а звонить готовы двое из десяти. Остальные не находят кнопку «Записаться».</p></div></div>
+      <div class="zg-item is-after"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Запись в два касания, круглосуточно</h3><p>Форма на каждой странице: врач и время выбираются без звонка, заявка приходит в WhatsApp регистратуры.</p></div></div>
+      <div class="zg-item is-before"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Цену узнать негде</h3><p>Сколько стоит приём и кто принимает — только по телефону. Выбирают того, у кого цена написана.</p></div></div>
+      <div class="zg-item is-after"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Цена и врач видны до звонка</h3><p>Прайс открыт, у каждого врача карточка с опытом. Разговоров «просто узнать» становится меньше.</p></div></div>
+      <div class="zg-item is-before"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Рекламу вести некуда</h3><p>Яндекс Директ требует страницу с услугой и ценой. Без неё канал закрыт целиком.</p></div></div>
+      <div class="zg-item is-after"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Появляется куда вести рекламу</h3><p>У каждой услуги посадочная страница: поток включается в нужный день и гасится, когда расписание заполнено.</p></div></div>
+      <div class="zg-item is-before"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Вы всегда в одной строке с соседями</h3><p>На площадке выбирают по звёздам и цене — не глядя, кто из вас работает двадцать четыре года.</p></div></div>
+      <div class="zg-item is-after"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Внимание человека — только ваше</h3><p>На своей странице рядом нет ни одного конкурента. Сравнивают не с соседом, а с тем, за чем пришли.</p></div></div>
+      <div class="zg-item is-before"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Отзывы рассыпаны по четырём площадкам</h3><p>У соседки 196 оценок, у вас 28 — не потому, что лечите хуже: отзыв оставляет тот, кто смог записаться.</p></div></div>
+      <div class="zg-item is-after"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>24 года собраны в одном месте</h3><p>Отзывы, врачи, лицензии и случаи — на одной странице. Их никто не перемешивает с соседскими.</p></div></div>
+      <div class="zg-item is-before"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Вы ограничены режимом работы</h3><p>После 20:00 и в выходные никто не отвечает. Человек открывает следующую клинику, и вы об этом не узнаете.</p></div></div>
+      <div class="zg-item is-after"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Заявки собираются, пока вы спите</h3><p>Ночью, в выходные и праздники страница отвечает и записывает. Утром — список заявок, а не догадки.</p></div></div>
+      <div class="zg-item is-before"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Лицензию негде показать</h3><p>Часть людей смотрит документы до записи. В карточке справочника номера лицензии нет — и они уходят.</p></div></div>
+      <div class="zg-item is-after"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Лицензия и оборудование на виду</h3><p>Отдельная страница с лицензией, допусками врачей и оборудованием. Проверяют у вас — и остаются.</p></div></div>
+      <div class="zg-item is-before is-last"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Регистратура работает справочной</h3><p>«Сколько стоит», «кто в субботу», «как доехать» — весь день одно и то же, а кто-то в это время не дозванивается.</p></div></div>
+      <div class="zg-item is-after is-last"><span class="zg-marker"><svg viewBox="0 0 14 14"><path d="M11.67 3.5L5.25 9.92L2.33 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Регистратура занимается записью</h3><p>Прайс, подготовка к анализам, часы и проезд отвечают сами. Разговоры короче и по делу.</p></div></div>
     </div>
-    <div class="loss-grid">
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 01</p><h3>Вас не находят по услуге</h3><p>По запросу «уролог площадь мужества» открываются чужие каталоги, где вы стоите рядом с девятью конкурентами.</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 01</p><h3>Вас находят по всем 14 направлениям</h3><p>У каждой услуги своя страница с теми словами, которые люди набирают. В выдаче вы сами, без соседей рядом.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 02</p><h3>Записаться можно только звонком</h3><p>Карточку открывают 420 человек в месяц, а звонить готовы двое из десяти. Остальные не находят кнопку «Записаться».</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 02</p><h3>Запись в два касания, круглосуточно</h3><p>Форма на каждой странице: врач и время выбираются без звонка, заявка приходит в WhatsApp регистратуры.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 03</p><h3>Цену узнать негде</h3><p>Сколько стоит приём и кто принимает — только по телефону. Выбирают того, у кого цена написана.</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 03</p><h3>Цена и врач видны до звонка</h3><p>Прайс открыт, у каждого врача карточка с опытом. Разговоров «просто узнать» становится меньше.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 04</p><h3>Рекламу вести некуда</h3><p>Яндекс Директ требует страницу с услугой и ценой. Без неё канал закрыт целиком.</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 04</p><h3>Появляется куда вести рекламу</h3><p>У каждой услуги посадочная страница: поток включается в нужный день и гасится, когда расписание заполнено.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 05</p><h3>Вы всегда в одной строке с соседями</h3><p>На площадке выбирают по звёздам и цене — не глядя, кто из вас работает двадцать четыре года.</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 05</p><h3>Внимание человека — только ваше</h3><p>На своей странице рядом нет ни одного конкурента. Сравнивают не с соседом, а с тем, за чем пришли.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 06</p><h3>Отзывы рассыпаны по четырём площадкам</h3><p>У соседки 196 оценок, у вас 28 — не потому, что лечите хуже: отзыв оставляет тот, кто смог записаться.</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 06</p><h3>24 года собраны в одном месте</h3><p>Отзывы, врачи, лицензии и случаи — на одной странице. Их никто не перемешивает с соседскими.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 07</p><h3>Вы ограничены режимом работы</h3><p>После 20:00 и в выходные никто не отвечает. Человек открывает следующую клинику, и вы об этом не узнаете.</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 07</p><h3>Заявки собираются, пока вы спите</h3><p>Ночью, в выходные и праздники страница отвечает и записывает. Утром — список заявок, а не догадки.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 08</p><h3>Лицензию негде показать</h3><p>Часть людей смотрит документы до записи. В карточке справочника номера лицензии нет — и они уходят.</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 08</p><h3>Лицензия и оборудование на виду</h3><p>Отдельная страница с лицензией, допусками врачей и оборудованием. Проверяют у вас — и остаются.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-
-      <a class="service-card is-before" href="#fit"><div><p class="s-eyebrow">Сейчас · 09</p><h3>Регистратура работает справочной</h3><p>«Сколько стоит», «кто в субботу», «как доехать» — весь день одно и то же, а кто-то в это время не дозванивается.</p></div><span class="arrow-box x-box"><svg><use href="#i-x"/></svg></span></a>
-      <a class="service-card is-after" href="#how"><div><p class="s-eyebrow">После запуска · 09</p><h3>Регистратура занимается записью</h3><p>Прайс, подготовка к анализам, часы и проезд отвечают сами. Разговоры короче и по делу.</p></div><span class="arrow-box"><svg><use href="#i-arrow"/></svg></span></a>
-    </div>
-
-    <div class="stats reveal">
-      <div class="stat"><b data-count="16">16</b><span>клиентов в месяц проходят мимо</span></div>
-      <div class="stat"><b><span class="hl" data-count="128000" data-suffix=" ₽">128 000 ₽</span></b><span>оборота за тот же месяц</span></div>
-      <div class="stat"><b data-count="1.5" data-dec="1" data-suffix=" млн ₽">1,5 млн ₽</b><span>накопится за год ожидания</span></div>
-    </div>
-    <p class="note" style="margin-top:24px">Цифры собраны по вашим карточкам вручную и взяты по нижней границе. Ниже их можно пересчитать по своим — там оценка получается заметно крупнее.</p>
   </div>
 </section>
 
