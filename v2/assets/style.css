@@ -628,19 +628,26 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
 
 /* ---------- 12. Жёлтая полоса ---------- */
 .yellow-band{position:relative;overflow:hidden;padding:60px 0;background:
-  radial-gradient(60% 120% at 12% 30%,#F3FE00 0%,rgba(243,254,0,.0) 70%),
-  radial-gradient(50% 120% at 70% 70%,#e7ff3a 0%,rgba(231,255,58,0) 70%),
-  linear-gradient(100deg,#F3FE00 0%,#EAFE3A 40%,#D6F531 70%,#1a1a1a 100%);color:#0b0b0b}
+  radial-gradient(28% 70% at 50% 8%,rgba(160,226,0,.85) 0%,rgba(160,226,0,0) 70%),
+  radial-gradient(22% 60% at 2% 88%,rgba(170,232,0,.7) 0%,rgba(170,232,0,0) 70%),
+  radial-gradient(30% 80% at 88% 40%,#F3FE00 0%,rgba(243,254,0,0) 70%),
+  linear-gradient(100deg,#F3FE00 0%,#EEFE0A 45%,#F0FE05 70%,#F3FE00 100%);color:#0b0b0b}
 .yellow-band .container{display:flex;align-items:center;justify-content:space-between;gap:40px}
 .yb-text{max-width:646px}
 .yb-text h2{font-family:var(--ff-tight);font-size:36px;line-height:48px;font-weight:500;letter-spacing:-.8px;color:#000}
 .yb-text p{font-family:var(--ff-inter);font-size:16px;line-height:24px;color:#18181B;margin-top:12px}
 .yb-text .btn{margin-top:24px}
-.big-star{width:300px;height:250px;flex-shrink:0;position:relative}
-.big-star svg{position:absolute}
-.big-star .s1{width:190px;height:190px;left:20px;top:40px;animation:spin 18s linear infinite}
-.big-star .s2{width:70px;height:70px;right:30px;top:0;animation:spin 12s linear infinite reverse}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* Объёмная звезда: слои одной формы по глубине, покачивается вокруг вертикали */
+.big-star{width:300px;height:260px;flex-shrink:0;position:relative;perspective:900px;
+  --star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 2C53 31 69 47 98 50C69 53 53 69 50 98C47 69 31 53 2 50C31 47 47 31 50 2Z'/%3E%3C/svg%3E")}
+.star3d{position:absolute;transform-style:preserve-3d;animation:starSwing 5s ease-in-out infinite}
+.star3d.s1{width:220px;height:220px;left:10px;top:36px}
+.star3d.s2{width:80px;height:80px;right:18px;top:0;animation-duration:4.2s;animation-delay:-1.4s}
+.star3d i{position:absolute;inset:0;transform:translateZ(calc(var(--z) * 1px));-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat;
+  background:linear-gradient(135deg,#d9ccff 0%,#8b6cff 22%,#eef0f6 45%,#7fb2ff 65%,#b7a2ff 82%,#f4f4f8 100%);background-size:260% 260%;animation:starSheen 5s ease-in-out infinite;animation-delay:inherit;animation-duration:inherit}
+.star3d i.face{background:radial-gradient(90% 70% at 32% 22%,#44444c 0%,#101012 42%,#000 70%,#23232a 100%)}
+@keyframes starSwing{0%,100%{transform:rotateY(-52deg) rotateX(10deg)}50%{transform:rotateY(52deg) rotateX(-6deg)}}
+@keyframes starSheen{0%,100%{background-position:0 0}50%{background-position:100% 100%}}
 
 /* ---------- 13. Сдвиг ---------- */
 .shift{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:stretch;margin-top:60px}
@@ -812,7 +819,7 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .portfolio-item:nth-child(2){margin-top:0}
   .why-grid{grid-template-columns:1fr}
   .yellow-band .container{flex-direction:column;align-items:flex-start}
-  .big-star{display:none}
+  .big-star{align-self:center;margin-top:-8px}
   .shift{grid-template-columns:1fr}
   .shift-mid{flex-direction:row}
   .shift-mid .line{height:1px;width:auto;flex:1;background:linear-gradient(90deg,transparent,#3c3c3c,transparent)}

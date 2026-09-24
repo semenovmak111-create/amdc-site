@@ -30,6 +30,17 @@
     inView(live, function () { frame.src = frame.dataset.src; }, { rootMargin: '600px 0px' });
   }
 
+  /* ---------- Объёмная звезда: собираем слои по глубине ---------- */
+  $$('.star3d').forEach(function (s) {
+    var depth = +s.dataset.depth, n = Math.max(2, Math.round(depth / 1.2));
+    for (var i = 0; i <= n; i++) {
+      var l = document.createElement('i');
+      if (i === 0 || i === n) l.className = 'face';
+      l.style.setProperty('--z', (depth / 2 - i * depth / n).toFixed(2));
+      s.appendChild(l);
+    }
+  });
+
   /* ---------- Курсор-свечение ---------- */
   var cursor = $('.cursor-circle');
   if (cursor && window.matchMedia('(hover: hover)').matches) {
