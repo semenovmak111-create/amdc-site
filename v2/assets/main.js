@@ -16,6 +16,20 @@
     io.observe(el);
   };
 
+  /* ---------- Первый экран сайта в мониторе витрины ---------- */
+  // Внутри рамки страница открывается сама в себе: там свою рамку не грузим
+  var framed = window.self !== window.top;
+  if (framed) document.documentElement.classList.add('in-frame');
+  var live = $('.mock-live');
+  if (live && !framed) {
+    var frame = $('iframe', live);
+    var fit = function () { live.style.setProperty('--s', live.clientWidth / 1440); };
+    fit();
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(live);
+    else window.addEventListener('resize', fit);
+    inView(live, function () { frame.src = frame.dataset.src; }, { rootMargin: '600px 0px' });
+  }
+
   /* ---------- Курсор-свечение ---------- */
   var cursor = $('.cursor-circle');
   if (cursor && window.matchMedia('(hover: hover)').matches) {
