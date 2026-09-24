@@ -43,17 +43,29 @@
 
   /* ---------- Курсор-свечение ---------- */
   var cursor = $('.cursor-circle');
-  if (cursor && window.matchMedia('(hover: hover)').matches) {
-    var cx = 0, cy = 0, tx = 0, ty = 0, raf = null;
-    var loop = function () {
-      cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22;
-      cursor.style.transform = 'translate(' + (cx - 40) + 'px,' + (cy - 40) + 'px)';
-      raf = Math.abs(tx - cx) + Math.abs(ty - cy) > 0.5 ? requestAnimationFrame(loop) : null;
-    };
+  if (cursor && window.matchMedia('(pointer: fine)').matches) {
+    // Как на референсе: свечение идёт за курсором, а при рывке дальше 80 px
+    // (не чаще раза в 100 мс) на месте курсора остаётся гаснущее жёлтое пятно
+    var tx = 0, ty = 0, lastX = 0, lastY = 0, lastT = 0, raf = false;
     document.addEventListener('mousemove', function (e) {
       tx = e.clientX; ty = e.clientY;
       document.body.classList.add('has-cursor');
-      if (!raf) raf = requestAnimationFrame(loop);
+      var dx = tx - lastX, dy = ty - lastY, now = performance.now();
+      if (Math.sqrt(dx * dx + dy * dy) > 80 && now - lastT > 100) {
+        var spot = document.createElement('div');
+        spot.className = 'cursor-spot';
+        spot.style.cssText = 'left:' + tx + 'px;top:' + ty + 'px';
+        document.body.appendChild(spot);
+        setTimeout(function () { spot.remove(); }, 900);
+        lastX = tx; lastY = ty; lastT = now;
+      }
+      if (!raf) {
+        raf = true;
+        requestAnimationFrame(function () {
+          cursor.style.transform = 'translate(' + (tx - 40) + 'px,' + (ty - 40) + 'px)';
+          raf = false;
+        });
+      }
     }, { passive: true });
     document.addEventListener('mouseleave', function () { document.body.classList.remove('has-cursor'); });
     cursor.style.left = '0'; cursor.style.top = '0';
