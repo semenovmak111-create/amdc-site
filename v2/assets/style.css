@@ -247,10 +247,11 @@ ul,ol{list-style:none}
 .zg-lead{max-width:576px;font-family:var(--ff-inter);font-size:16px;line-height:24px;color:var(--ink-muted)}
 .zg-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:56px;align-items:start}
 .zg-aside{grid-column:1;grid-row:1/span 10;position:sticky;top:120px}
-.zg-chip{justify-self:start;display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 16px;margin-bottom:40px;border-radius:80px;font-family:var(--ff-tight);font-size:18px;line-height:1.3;font-weight:500;letter-spacing:-.48px;white-space:nowrap}
+/* Подписи длиннее, чем у образца, поэтому капсула переносит строку и растёт по высоте */
+.zg-chip{justify-self:start;display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 20px;margin-bottom:40px;border-radius:80px;font-family:var(--ff-tight);font-size:18px;line-height:1.3;font-weight:500;letter-spacing:-.48px}
 .zg-chip.is-before{grid-column:2;background:#2E3332;color:#fff}
 .zg-chip.is-after{grid-column:3;background:var(--primary);color:#0B0B0B}
-.zg-logo{width:22px;height:22px}
+.zg-logo{flex-shrink:0;width:22px;height:22px}
 .zg-item{display:flex;align-items:flex-start;gap:16px;align-self:stretch;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid var(--line-light)}
 .zg-item.is-before{grid-column:2}
 .zg-item.is-after{grid-column:3}
