@@ -176,46 +176,12 @@ body.has-cursor .cursor-circle{opacity:.6}
 .m-item b{color:var(--primary);font-weight:800}
 .m-item small{font-family:var(--ff-inter);font-weight:500;font-size:11px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-200);max-width:120px;white-space:normal}
 
-/* ---------- 1б. Витрина: ноутбук в 3D, камера облетает сцену ---------- */
-.showcase-stage{position:relative;height:806px;overflow:hidden;background:
-  radial-gradient(55% 45% at 50% 78%,rgba(112,64,255,.42) 0%,rgba(112,64,255,0) 70%),
-  radial-gradient(35% 30% at 50% 18%,rgba(160,120,255,.12) 0%,transparent 70%),
-  linear-gradient(#06050a,#0b0816 60%,#08060f)}
-.scene{position:absolute;inset:0;perspective:1600px;perspective-origin:50% 38%;transform:scale(var(--k,1));transform-origin:50% 45%}
-.cam{position:absolute;left:50%;top:100px;width:720px;height:460px;margin-left:-360px;transform-style:preserve-3d;transform-origin:50% 100%;
-  transform:translateZ(-250px) rotateX(-18deg) rotateY(-38deg);animation:camFly 18s cubic-bezier(.65,0,.35,1) infinite}
-/* Ракурсы камеры: общий план слева → наезд на экран → облёт справа → взгляд сверху */
-@keyframes camFly{
-  0%,6%{transform:translateZ(-250px) rotateX(-18deg) rotateY(-38deg)}
-  18%{transform:translateZ(-140px) rotateX(-12deg) rotateY(-20deg)}
-  32%,44%{transform:translateZ(260px) rotateX(-3deg) rotateY(0deg)}
-  60%{transform:translateZ(-110px) rotateX(-22deg) rotateY(32deg)}
-  78%,84%{transform:translateZ(-340px) rotateX(-50deg) rotateY(-6deg)}
-  100%{transform:translateZ(-250px) rotateX(-18deg) rotateY(-38deg)}}
-.laptop,.lid{position:absolute;inset:0;transform-style:preserve-3d}
-.lid{transform-origin:50% 100%;transform:rotateX(10deg)}
-.lid-front,.lid-back{position:absolute;inset:0;border-radius:20px 20px 6px 6px;backface-visibility:hidden}
-.lid-front{background:#0a0a0b;border:1px solid rgba(255,255,255,.1);padding:14px;box-shadow:0 0 120px rgba(243,254,0,.06)}
-.bezel{position:relative;border-radius:8px;overflow:hidden;background:#000}
-.bezel::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.02) 38%,transparent 55%)}
-.lid-back{transform:translateZ(-6px) rotateY(180deg);background:linear-gradient(160deg,#2c2c33,#16161a 70%);border:1px solid rgba(255,255,255,.06)}
-.deck{position:absolute;left:0;top:100%;width:720px;height:470px;transform-origin:50% 0;transform:rotateX(90deg);transform-style:preserve-3d;border-radius:4px 4px 22px 22px;
-  background:linear-gradient(#303036,#1c1c21 60%,#141418);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-.keys{position:absolute;left:58px;right:58px;top:40px;height:250px;border-radius:8px;background-color:#0b0b0d;
-  background-image:linear-gradient(90deg,#26262c 3px,transparent 3px),linear-gradient(#26262c 3px,transparent 3px);background-size:43.5px 50px}
-.pad{position:absolute;left:50%;top:318px;width:250px;height:128px;margin-left:-125px;border-radius:12px;background:#222228;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
-.deck-edge{position:absolute;left:0;right:0;bottom:0;height:12px;transform-origin:50% 100%;transform:rotateX(90deg);border-radius:0 0 12px 12px;background:linear-gradient(#3a3a42,#17171b)}
-.floor{position:absolute;left:50%;top:calc(100% - 1500px);width:3000px;height:3000px;margin-left:-1500px;transform:translateY(12px) rotateX(90deg);
-  background:
-    radial-gradient(closest-side,rgba(120,70,255,.38),rgba(120,70,255,.08) 60%,transparent),
-    repeating-linear-gradient(90deg,rgba(170,140,255,.14) 0 1px,transparent 1px 120px),
-    repeating-linear-gradient(0deg,rgba(170,140,255,.14) 0 1px,transparent 1px 120px);
-  -webkit-mask-image:radial-gradient(closest-side,#000 35%,transparent);mask-image:radial-gradient(closest-side,#000 35%,transparent)}
-.floor-shadow{position:absolute;left:1500px;top:1735px;width:980px;height:640px;margin:-320px 0 0 -490px;background:radial-gradient(closest-side,rgba(0,0,0,.75),transparent)}
-.mock-live{position:relative;aspect-ratio:1440/900;overflow:hidden;background:#0B0B0B;--s:.5}
-.mock-live iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform:scale(var(--s));transform-origin:0 0;pointer-events:none}
-.in-frame body{overflow:hidden}
-.in-frame .float-wa,.in-frame .cursor-circle{display:none}
+/* ---------- 1б. Ролик (как на референсе) ---------- */
+.videos-section{position:relative;overflow:hidden;background:#000}
+.videos-section video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;max-height:calc(100dvh - 88px)}
+.floating-btn{position:absolute;top:0;left:0;z-index:10;opacity:0;transform:translate(-50%,-50%);transition:opacity .25s;pointer-events:auto}
+.videos-section:hover .floating-btn{opacity:1}
+@media (pointer:coarse){.floating-btn{display:none}}
 
 /* ---------- 2. Развилка ---------- */
 .fork-chart{margin-top:60px;border-radius:var(--radius-lg);border:1px solid var(--black-400);background:var(--white-04);padding:40px 40px 28px;position:relative;overflow:hidden}
@@ -815,7 +781,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .contact-side{flex-basis:auto}
   .faq{grid-template-columns:1fr}
   .faq-side{position:relative;top:0}
-  .scene{--k:.85}
 }
 @media (max-width:991px){
   :root{--pad:40px}
@@ -857,8 +822,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .section--light .stat+.stat{border-top-color:var(--line-light)}
   .stat b{font-size:52px}
   .minus-list{grid-template-columns:1fr 1fr}
-  .showcase-stage{height:600px}
-  .scene{--k:.62;transform-origin:50% 40%}
   .fork-chart{padding:24px 16px 20px}
 }
 @media (max-width:575px){
@@ -880,8 +843,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .btn-slide{min-width:0}
   .trusted{padding-top:48px}
   .m-item{font-size:22px}
-  .showcase-stage{height:420px}
-  .scene{--k:.42;transform-origin:50% 36%}
   .fork-chart text{font-size:18px}
   .fork-switch{display:flex;width:100%}
   .fork-switch button{flex:1;padding:10px 8px;font-size:13px}

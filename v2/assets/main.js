@@ -16,18 +16,32 @@
     io.observe(el);
   };
 
-  /* ---------- Первый экран сайта в мониторе витрины ---------- */
-  // Внутри рамки страница открывается сама в себе: там свою рамку не грузим
-  var framed = window.self !== window.top;
-  if (framed) document.documentElement.classList.add('in-frame');
-  var live = $('.mock-live');
-  if (live && !framed) {
-    var frame = $('iframe', live);
-    var fit = function () { live.style.setProperty('--s', live.clientWidth / 1440); };
-    fit();
-    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(live);
-    else window.addEventListener('resize', fit);
-    inView(live, function () { frame.src = frame.dataset.src; }, { rootMargin: '600px 0px' });
+  /* ---------- Ролик во втором блоке (как на референсе) ---------- */
+  // Видео грузится, только когда блок подходит к экрану; на телефоне — лёгкая версия
+  var reel = $('#mainVideo');
+  if (reel) {
+    inView(reel, function () {
+      var src = window.innerWidth <= 768 && reel.dataset.srcMobile ? reel.dataset.srcMobile : reel.dataset.src;
+      var source = document.createElement('source');
+      source.src = src; source.type = 'video/mp4';
+      reel.appendChild(source); reel.load();
+      if (!reduce) reel.play().catch(function () {});
+    }, { rootMargin: '400px 0px' });
+  }
+  // Кнопка плывёт за курсором внутри блока
+  var vSec = $('.videos-section'), vBtn = $('.floating-btn');
+  if (vSec && vBtn && window.matchMedia('(pointer: fine)').matches) {
+    var fx = 0, fy = 0, cx2 = 0, cy2 = 0, fRaf = null;
+    var fLoop = function () {
+      cx2 += (fx - cx2) * 0.15; cy2 += (fy - cy2) * 0.15;
+      vBtn.style.transform = 'translate(' + (cx2 - vBtn.offsetWidth / 2) + 'px,' + (cy2 - vBtn.offsetHeight / 2 + 10) + 'px)';
+      fRaf = Math.abs(fx - cx2) + Math.abs(fy - cy2) > 0.5 ? requestAnimationFrame(fLoop) : null;
+    };
+    vSec.addEventListener('mousemove', function (e) {
+      var r = vSec.getBoundingClientRect();
+      fx = e.clientX - r.left; fy = e.clientY - r.top;
+      if (!fRaf) fRaf = requestAnimationFrame(fLoop);
+    });
   }
 
   /* ---------- Объёмная звезда: собираем слои по глубине ---------- */
