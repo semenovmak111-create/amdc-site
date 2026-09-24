@@ -176,6 +176,8 @@ body.has-cursor .cursor-circle{opacity:.6}
 .m-item b{color:var(--primary);font-weight:800}
 .m-item small{font-family:var(--ff-inter);font-weight:500;font-size:11px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-200);max-width:120px;white-space:normal}
 
+.credits{margin-top:20px;font-family:var(--ff-inter);font-size:12px;line-height:18px;color:#6f6f6f}
+.credits a{color:#9a9a9a;text-decoration:underline;text-underline-offset:2px}
 /* ---------- 1б. Ролик (как на референсе) ---------- */
 .videos-section{position:relative;overflow:hidden;background:#000}
 .videos-section video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;max-height:calc(100dvh - 88px)}
