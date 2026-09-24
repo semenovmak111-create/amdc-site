@@ -140,15 +140,14 @@ body.has-cursor .cursor-circle{opacity:.6}
 .mobile-menu .btn{margin-top:24px;font-size:16px;border-bottom:1px solid var(--primary)}
 
 /* ---------- 1. Герой ---------- */
-.hero{position:relative;padding:48px 0 80px;overflow:hidden;background:
-  radial-gradient(33% 52% at 8% 35%,rgb(31,31,4) 0%,rgba(31,31,4,.45) 50%,rgba(31,31,4,0) 100%),
-  radial-gradient(37% 52% at 97% 45%,rgb(22,23,4) 0%,rgba(22,23,4,.45) 50%,rgba(22,23,4,0) 100%),
-  #030303}
+.hero{position:relative;padding:48px 0 80px;overflow:hidden;contain:layout paint}
+/* Фон с жёлтыми пятнами и стеклянная фигура — картинки референса, с его же размерами и позициями */
+.hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;pointer-events:none}
 .hero .container{position:relative;z-index:1}
 .hero-content{max-width:978px;margin:0 auto;min-height:calc(100dvh - 370px);display:flex;flex-direction:column;align-items:center;justify-content:center}
 /* Стеклянная капля и жёлтая звёздочка — как на референсе: от краёв блока с контентом */
 .hero-inner{position:relative;z-index:0;width:100%;display:flex;flex-direction:column;align-items:center}
-.hero-bubble{position:absolute;left:0;top:-48px;z-index:-1;width:435px;height:429px;pointer-events:none;overflow:visible}
+.hero-bubble{position:absolute;left:0;top:-48px;z-index:-1;width:435px;height:429px;pointer-events:none}
 .hero-star{position:absolute;left:0;bottom:0;width:73px;height:84px;pointer-events:none}
 .hero-star svg{display:block;width:73px;height:80px}
 .trusted-craft{display:inline-flex;align-items:center;gap:12px;padding:8px;border-radius:8px;border:1px solid rgba(60,60,60,.4);background:var(--black-300);font-size:16px}
@@ -827,7 +826,7 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .fork-chart{padding:24px 16px 20px}
 }
 @media (max-width:575px){
-  .hero-bubble{width:176px;height:174px}
+  .hero-bubble{display:none}
   :root{--pad:16px}
   .header{padding:20px 0}
   .header .btn{display:none}
