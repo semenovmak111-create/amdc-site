@@ -63,7 +63,6 @@
     var tx = 0, ty = 0, lastX = 0, lastY = 0, lastT = 0, raf = false;
     document.addEventListener('mousemove', function (e) {
       tx = e.clientX; ty = e.clientY;
-      document.body.classList.add('has-cursor');
       var dx = tx - lastX, dy = ty - lastY, now = performance.now();
       if (Math.sqrt(dx * dx + dy * dy) > 80 && now - lastT > 100) {
         var spot = document.createElement('div');
@@ -81,8 +80,6 @@
         });
       }
     }, { passive: true });
-    document.addEventListener('mouseleave', function () { document.body.classList.remove('has-cursor'); });
-    cursor.style.left = '0'; cursor.style.top = '0';
   }
 
   /* ---------- Шапка, меню, активный пункт ---------- */

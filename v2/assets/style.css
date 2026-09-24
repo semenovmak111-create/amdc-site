@@ -104,13 +104,15 @@ ul,ol{list-style:none}
 .btn-outlined-primary{background:#242323 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E");color:#fff;border:1px solid transparent;background-image:linear-gradient(#141414,#141414),linear-gradient(90deg,var(--primary),#6f7400 50%,var(--primary));background-origin:border-box;background-clip:padding-box,border-box;transition:filter .4s,box-shadow .4s}
 .btn-outlined-primary:hover{box-shadow:0 0 0 4px rgba(243,254,0,.12),0 8px 30px rgba(243,254,0,.15)}
 
-/* ---------- Курсор-свечение ---------- */
-.cursor-circle{position:fixed;top:0;left:0;width:80px;height:80px;border-radius:50%;pointer-events:none;filter:blur(25px);transform:translate(-50%,-50%);z-index:1;background:radial-gradient(circle at center,var(--primary) 0,color-mix(in srgb,var(--primary) 60%,transparent) 40%,color-mix(in srgb,var(--primary) 30%,transparent) 70%,transparent 100%);mix-blend-mode:lighten;opacity:0;transition:transform .1s linear,opacity .3s;will-change:transform}
-body.has-cursor .cursor-circle{opacity:.6}
-/* Жёлтые пятна, остающиеся за курсором (как на референсе) */
-.cursor-spot{position:fixed;width:80px;height:80px;border-radius:50%;filter:blur(25px);pointer-events:none;z-index:1;background:radial-gradient(circle at center,var(--primary) 0,color-mix(in srgb,var(--primary) 50%,transparent) 50%,transparent 100%);opacity:.5;transform:translate(-50%,-50%) scale(1);animation:spotFade .8s ease-out forwards}
-@keyframes spotFade{0%{opacity:.5;transform:translate(-50%,-50%) scale(.6)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
-@media (hover:none){.cursor-circle{display:none}}
+/* ---------- Курсор-свечение ----------
+   Один в один с zeeframes.com: свечение видно всегда (до первого движения —
+   в левом верхнем углу), за курсором при рывке остаются пятна. Светлые блоки
+   с .behind-cursor лежат выше и закрывают его, тёмные — нет. */
+.cursor-circle,.cursor-spot{position:fixed;width:80px;height:80px;border-radius:50%;filter:blur(25px);pointer-events:none}
+.cursor-circle{top:0;left:0;transform:translate(-50%,-50%);z-index:1;background:radial-gradient(circle at center,var(--primary) 0,color-mix(in srgb,var(--primary) 60%,transparent) 40%,color-mix(in srgb,var(--primary) 30%,transparent) 70%,transparent 100%);transition:transform .1s linear;will-change:transform;mix-blend-mode:lighten;opacity:.6}
+/* У образца пятно не гаснет, а растёт с 0,6 до 1 при прозрачности 0,5 и через 900 мс пропадает */
+.cursor-spot{background:radial-gradient(circle at center,var(--primary) 0,color-mix(in srgb,var(--primary) 50%,transparent) 50%,transparent 100%);opacity:.5;transform:translate(-50%,-50%) scale(1);z-index:1;animation:spotFade .8s ease-out forwards}
+@keyframes spotFade{0%{opacity:.5;transform:translate(-50%,-50%) scale(.6)}100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}}
 
 /* ---------- Шапка ---------- */
 .header{position:sticky;top:0;z-index:999;background:var(--header);padding:22px 0;transition:box-shadow .3s}
