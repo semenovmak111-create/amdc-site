@@ -355,11 +355,13 @@
     var root = $('#calc'); if (!root) return;
     var ids = ['cViews', 'cFound', 'cCheck', 'cShow'];
     var inputs = {}, ranges = {};
-    ids.forEach(function (id) { inputs[id] = $('#' + id); ranges[id] = $('.range[data-for="' + id + '"]'); });
+    ids.forEach(function (id) { inputs[id] = $('#' + id); ranges[id] = $('.est-range[data-for="' + id + '"]'); });
     var months = 1, shown = 0, anim = null;
     var CARD = 0.726, CONV = 0.06;
 
     var fill = function (r) { r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'); };
+    // Поле шириной ровно по числу — единица измерения стоит сразу за ним
+    var fit = function (inp) { var n = Math.max(1, String(inp.value).length); inp.style.width = 'calc(' + n + 'ch - ' + n + ' * var(--est-ls) + 2px)'; };
     var val = function (id) {
       var el = inputs[id], v = parseFloat(String(el.value).replace(',', '.'));
       if (isNaN(v) || v < 0) v = 0;
@@ -379,48 +381,64 @@
     var calc = function () {
       var views = val('cViews'), found = val('cFound'), check = val('cCheck'), show = Math.max(0, Math.min(100, val('cShow')));
       var fromCard = views * CARD, visits = fromCard + found, leads = visits * CONV, clients = leads * show / 100;
-      var month = clients * check;
+      var month = clients * check, total = month * months;
       $('#fViews').textContent = fmt(views);
-      $('#fVisits').textContent = fmt(Math.round(fromCard)) + '+' + fmt(found);
+      $('#fVisits').textContent = fmt(Math.round(fromCard)) + ' + ' + fmt(found);
       $('#fLeads').textContent = fmt(Math.round(leads));
-      $('#fClients').textContent = fmt(Math.round(clients));
-      $('#fShowCap').textContent = fmt(show) + '% записавшихся дойдут до приёма';
-      var base = Math.max(views, visits, 1);
-      var w = function (x) { return Math.max(x > 0 ? 3 : 0, Math.sqrt(x / base) * 100) + '%'; };
-      $('#bViews').style.width = w(views);
-      $('#bVisits').style.width = w(visits);
-      $('#bLeads').style.width = w(leads);
-      $('#bClients').style.width = w(clients);
-      var caps = { 1: 'Сайт принесёт в первый месяц', 3: 'Сайт принесёт за первый квартал', 12: 'Сайт принесёт за первый год' };
+      $('#fCame').textContent = fmt(Math.round(clients));
+      $('#fShowCap').textContent = fmt(show) + '% записавшихся';
+      $('#fClients').textContent = fmt(Math.round(clients * months));
+      $('#fClientsCap').textContent = { 1: 'в месяц', 3: 'за квартал', 12: 'за год' }[months];
+      var caps = { 1: 'Сайт принесёт в первый месяц', 3: 'Сайт принесёт за квартал', 12: 'Сайт принесёт за год' };
       $('#resCap').textContent = caps[months];
       $('#resSub').textContent = months === 1
         ? 'и столько же каждый следующий — ' + fmt(Math.round(month * 12)) + ' ₽ за год'
-        : '≈ ' + fmt(Math.round(clients * months)) + ' новых пациентов с сайта за ' + (months === 3 ? 'три месяца' : 'двенадцать месяцев');
-      tween(month * months);
-      $$('.presets button', root).forEach(function (b) { b.classList.toggle('on', +b.dataset.v === check); });
+        : 'по ' + fmt(Math.round(month)) + ' ₽ каждый месяц';
+      $('#resSum').classList.toggle('is-long', total >= 10000000);
+      $('#estMbarLabel').textContent = caps[months];
+      $('#estMbarValue').textContent = '+' + fmt(Math.round(total)) + ' ₽';
+      tween(total);
+      $$('.est-seg button', root).forEach(function (b) { b.classList.toggle('on', +b.dataset.v === check); });
     };
     ids.forEach(function (id) {
       var inp = inputs[id], r = ranges[id];
       inp.addEventListener('input', function () {
-        var v = val(id);
-        r.value = Math.min(v, +r.max); fill(r); calc();
+        r.value = Math.min(val(id), +r.max); fill(r); fit(inp); calc();
       });
-      inp.addEventListener('blur', function () { inp.value = val(id); });
-      r.addEventListener('input', function () { inp.value = r.value; fill(r); calc(); });
-      fill(r);
+      inp.addEventListener('blur', function () { inp.value = val(id); fit(inp); });
+      r.addEventListener('input', function () { inp.value = r.value; fill(r); fit(inp); calc(); });
+      fill(r); fit(inp);
     });
-    $$('.presets button', root).forEach(function (b) {
+    // Кнопки «−» и «+»: шаг задан у каждого вопроса в data-step
+    $$('.est-step', root).forEach(function (s) {
+      var inp = $('input[type="number"]', s), r = $('.est-range', s), d = +s.dataset.step;
+      $$('.est-stepper button', s).forEach(function (b) {
+        b.addEventListener('click', function () {
+          var v = Math.round((val(inp.id) + d * b.dataset.d) / d) * d;
+          v = Math.max(+inp.min, Math.min(+inp.max, v));
+          inp.value = v; r.value = Math.min(v, +r.max); fill(r); fit(inp); calc();
+        });
+      });
+    });
+    $$('.est-seg button', root).forEach(function (b) {
       b.addEventListener('click', function () {
-        inputs.cCheck.value = b.dataset.v; ranges.cCheck.value = b.dataset.v; fill(ranges.cCheck); calc();
+        inputs.cCheck.value = b.dataset.v; ranges.cCheck.value = b.dataset.v; fill(ranges.cCheck); fit(inputs.cCheck); calc();
       });
     });
-    $$('.periods button', root).forEach(function (b) {
+    $$('.est-periods button', root).forEach(function (b) {
       b.addEventListener('click', function () {
         months = +b.dataset.m;
-        $$('.periods button', root).forEach(function (x) { x.classList.toggle('on', x === b); });
+        $$('.est-periods button', root).forEach(function (x) { x.classList.toggle('on', x === b); });
         calc();
       });
     });
+    // На телефоне итог едет плашкой внизу, пока сама карточка результата не на экране
+    var mbar = $('#estMbar');
+    if (mbar && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        mbar.classList.toggle('is-hidden', entries[0].isIntersecting);
+      }, { threshold: 0.25 }).observe($('#estResult'));
+    }
     shown = 0;
     inView(root, function () { calc(); }, { threshold: 0.3 });
     // Бары и числа должны быть корректны и без прокрутки (например, при переходе по якорю)

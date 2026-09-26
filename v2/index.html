@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=13">
+<link rel="stylesheet" href="assets/style.css?v=14">
 </head>
 <body>
 
@@ -666,60 +666,120 @@
 </section>
 
 <!-- ================= 10. ВАШИ ЦИФРЫ — КАЛЬКУЛЯТОР ================= -->
-<section class="section section--light behind-cursor" id="money">
+<section class="section section--light behind-cursor est" id="money" aria-labelledby="estTitle">
   <div class="container">
-    <div class="head-center reveal">
-      <h2 class="h2">Посчитайте, сколько принесёт сайт уже в первый месяц</h2>
-      <p class="lead">Поставьте свои значения — результат справа пересчитается сразу.</p>
+    <div class="est-head reveal">
+      <h2 class="est-title" id="estTitle">Посчитайте, сколько принесёт сайт уже в первый месяц</h2>
+      <p class="est-desc">Поставьте свои значения — итог пересчитается сразу. Точные цифры лежат в вашем кабинете Яндекс Бизнеса: на встрече откроем их и пересчитаем при вас.</p>
     </div>
-    <div class="calc reveal" id="calc">
-      <div class="calc-in">
-        <p class="cap">Исходные данные</p>
-        <div class="field">
-          <div class="field-top"><label for="cViews">Сколько человек в месяц открывают вашу карточку<small>Яндекс Бизнес → Статистика</small></label><div class="num-box"><input id="cViews" type="number" inputmode="numeric" min="0" max="99999" value="420"><span>чел.</span></div></div>
-          <input class="range" type="range" min="0" max="2000" step="10" value="420" data-for="cViews" aria-label="Открывают карточку">
+
+    <div class="est-layout reveal" id="calc">
+      <div class="est-panel">
+
+        <div class="est-step" data-step="10">
+          <div class="est-step-head">
+            <div class="est-step-name"><span class="est-step-num">01</span><h3 class="est-step-title" id="tViews">Сколько человек открывают вашу карточку?</h3></div>
+            <p class="est-step-hint">Яндекс Бизнес → Статистика</p>
+          </div>
+          <div class="est-scope">
+            <label class="est-value"><input id="cViews" type="number" inputmode="numeric" min="0" max="99999" value="420" aria-labelledby="tViews"><small>чел. в месяц</small></label>
+            <div class="est-stepper"><button type="button" data-d="-1" aria-label="Меньше"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><button type="button" data-d="1" aria-label="Больше"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div>
+          </div>
+          <input class="est-range" type="range" min="0" max="2000" step="10" value="420" data-for="cViews" aria-labelledby="tViews">
+          <div class="est-ticks" aria-hidden="true"><span>0</span><span>500</span><span>1 000</span><span>1 500</span><span>2 000</span></div>
         </div>
-        <div class="field">
-          <div class="field-top"><label for="cFound">Сколько найдут вас сами в открытом поиске<small>по умолчанию заведомо мало — 9 в месяц</small></label><div class="num-box"><input id="cFound" type="number" inputmode="numeric" min="0" max="9999" value="9"><span>чел.</span></div></div>
-          <input class="range" type="range" min="0" max="200" step="1" value="9" data-for="cFound" aria-label="Найдут в поиске">
+
+        <div class="est-step" data-step="1">
+          <div class="est-step-head">
+            <div class="est-step-name"><span class="est-step-num">02</span><h3 class="est-step-title" id="tFound">Сколько найдут вас сами в поиске?</h3></div>
+            <p class="est-step-hint">По умолчанию заведомо мало</p>
+          </div>
+          <div class="est-scope">
+            <label class="est-value"><input id="cFound" type="number" inputmode="numeric" min="0" max="9999" value="9" aria-labelledby="tFound"><small>чел. в месяц</small></label>
+            <div class="est-stepper"><button type="button" data-d="-1" aria-label="Меньше"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><button type="button" data-d="1" aria-label="Больше"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div>
+          </div>
+          <input class="est-range" type="range" min="0" max="200" step="1" value="9" data-for="cFound" aria-labelledby="tFound">
+          <div class="est-ticks" aria-hidden="true"><span>0</span><span>50</span><span>100</span><span>150</span><span>200</span></div>
         </div>
-        <div class="field">
-          <div class="field-top"><label for="cCheck">Ваш средний чек за первый приём<small>в вашей нише — около 11 000 ₽</small></label><div class="num-box"><input id="cCheck" type="number" inputmode="numeric" min="0" max="999999" step="100" value="8000"><span>₽</span></div></div>
-          <input class="range" type="range" min="0" max="20000" step="100" value="8000" data-for="cCheck" aria-label="Средний чек">
-          <div class="presets" data-for="cCheck"><button type="button" data-v="3000">3 000</button><button type="button" data-v="8000" class="on">8 000</button><button type="button" data-v="11000">11 000</button><button type="button" data-v="15000">15 000</button></div>
+
+        <div class="est-step" data-step="500">
+          <div class="est-step-head">
+            <div class="est-step-name"><span class="est-step-num">03</span><h3 class="est-step-title" id="tCheck">Ваш средний чек за первый приём</h3></div>
+            <p class="est-step-hint">В нише — около 11 000 ₽</p>
+          </div>
+          <div class="est-scope">
+            <label class="est-value"><input id="cCheck" type="number" inputmode="numeric" min="0" max="999999" step="100" value="8000" aria-labelledby="tCheck"><small>₽</small></label>
+            <div class="est-stepper"><button type="button" data-d="-1" aria-label="Меньше"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><button type="button" data-d="1" aria-label="Больше"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div>
+          </div>
+          <input class="est-range" type="range" min="0" max="20000" step="100" value="8000" data-for="cCheck" aria-labelledby="tCheck">
+          <div class="est-seg" role="group" aria-label="Быстрый выбор чека">
+            <button type="button" data-v="3000">3 000 ₽</button><button type="button" data-v="8000" class="on">8 000 ₽</button><button type="button" data-v="11000">11 000 ₽</button><button type="button" data-v="15000">15 000 ₽</button>
+          </div>
         </div>
-        <div class="field">
-          <div class="field-top"><label for="cShow">Доходимость до приёма<small>сколько записавшихся реально приходят</small></label><div class="num-box"><input id="cShow" type="number" inputmode="numeric" min="10" max="100" value="70"><span>%</span></div></div>
-          <input class="range" type="range" min="10" max="100" step="5" value="70" data-for="cShow" aria-label="Доходимость">
+
+        <div class="est-step" data-step="5">
+          <div class="est-step-head">
+            <div class="est-step-name"><span class="est-step-num">04</span><h3 class="est-step-title" id="tShow">Сколько записавшихся доходят до приёма?</h3></div>
+            <p class="est-step-hint">Остальные отменяют запись</p>
+          </div>
+          <div class="est-scope">
+            <label class="est-value"><input id="cShow" type="number" inputmode="numeric" min="10" max="100" value="70" aria-labelledby="tShow"><small>%</small></label>
+            <div class="est-stepper"><button type="button" data-d="-1" aria-label="Меньше"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><button type="button" data-d="1" aria-label="Больше"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div>
+          </div>
+          <input class="est-range" type="range" min="10" max="100" step="5" value="70" data-for="cShow" aria-labelledby="tShow">
+          <div class="est-ticks" aria-hidden="true"><span>10%</span><span>40%</span><span>70%</span><span>100%</span></div>
         </div>
-        <p class="calc-hint"><i></i>6% посетителей записываются со страницы с ценой и кнопкой</p>
+
       </div>
-      <div class="calc-out">
-        <div class="funnel">
-          <div class="f-row"><span class="t">Откроют вашу карточку</span><b id="fViews">420</b><span class="f-bar"><i id="bViews"></i></span></div>
-          <div class="f-row"><span class="t">Зайдут на сайт<small>72,6% с карточки + найдут сами</small></span><b id="fVisits">305+9</b><span class="f-bar"><i id="bVisits"></i></span></div>
-          <div class="f-row"><span class="t">Запишутся<small>6% со страницы с ценой и кнопкой</small></span><b id="fLeads">19</b><span class="f-bar"><i id="bLeads"></i></span></div>
-          <div class="f-row last"><span class="t">Придут к вам с сайта<small id="fShowCap">7 из 10 записавшихся</small></span><b id="fClients">13</b><span class="f-bar"><i id="bClients"></i></span></div>
-        </div>
-        <div class="result">
-          <div class="periods" role="tablist" aria-label="Период">
+
+      <aside class="est-aside" aria-label="Результат расчёта">
+        <div class="est-result" id="estResult">
+          <div class="est-periods" role="tablist" aria-label="Период">
             <button type="button" class="on" data-m="1">Месяц</button><button type="button" data-m="3">Квартал</button><button type="button" data-m="12">Год</button>
           </div>
-          <p class="result-cap" id="resCap">Сайт принесёт в первый месяц</p>
-          <p class="result-sum" id="resSum">+105 477 ₽</p>
-          <p class="result-sub" id="resSub">и столько же каждый следующий — 1 265 725 ₽ за год</p>
-          <p class="result-cmp"><s>0 ₽</s> приносит своя страница сегодня</p>
+          <div class="est-res-top">
+            <span class="est-res-label" id="resCap">Сайт принесёт в первый месяц</span>
+            <span class="est-pill"><i></i>Без рекламы</span>
+          </div>
+          <p class="est-price" id="resSum" aria-live="polite">+105 477 ₽</p>
+          <p class="est-price-sub" id="resSub">и столько же каждый следующий — 1 265 725 ₽ за год</p>
+
+          <div class="est-stats">
+            <div class="est-stat">
+              <p class="est-stat-label">Пациентов с сайта</p>
+              <p class="est-stat-value" id="fClients">13</p>
+              <p class="est-stat-sub" id="fClientsCap">в месяц</p>
+            </div>
+            <div class="est-stat">
+              <p class="est-stat-label">Сегодня</p>
+              <p class="est-stat-value est-stat-value--off">0 ₽</p>
+              <p class="est-stat-sub">приносит своя страница</p>
+            </div>
+          </div>
+
+          <ul class="est-lines">
+            <li><span>Откроют вашу карточку</span><span id="fViews">420</span></li>
+            <li><span>Зайдут на сайт<small>72,6% с карточки + найдут сами</small></span><span id="fVisits">305 + 9</span></li>
+            <li><span>Запишутся<small>6% со страницы с ценой и кнопкой</small></span><span id="fLeads">19</span></li>
+            <li><span>Дойдут до приёма<small id="fShowCap">70% записавшихся</small></span><span id="fCame">13</span></li>
+          </ul>
+
+          <a class="est-cta" href="#start">
+            Пересчитать вместе на встрече
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M14.58 5.42 5 15M6.67 5H15v8.33" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <p class="est-cta-note">30 минут, без обязательств</p>
         </div>
-        <div class="gap"></div>
-        <a class="btn btn--primary btn-swap" href="#start">
-          <span class="swap-a">Пересчитать вместе на встрече <svg><use href="#i-arrow"/></svg></span>
-          <span class="swap-b">30 минут, без обязательств <svg><use href="#i-arrow"/></svg></span>
-        </a>
-      </div>
+        <p class="est-disclaimer">Тех, кто найдёт вас сам, поставлено девять в месяц — заведомо мало: сегодня они уходят к тем, у кого есть страница с ценой. Доля 72,6% переходов с карточки — данные Яндекса по Петербургу.</p>
+      </aside>
     </div>
-    <div class="calc-notes">
-      <p class="note">В расчёте обе дороги: те, кто уже открыл вашу карточку, и те, кто ищет услугу в поиске и находит вас сам. Вторых поставлено девять в месяц — это заведомо мало: сегодня они уходят к тем, у кого есть страница с ценой.</p>
-      <p class="note">Точные цифры лежат в вашем кабинете Яндекс Бизнеса — откроем на встрече и пересчитаем при вас. Доля 72,6% переходов с карточки — данные Яндекса по Петербургу.</p>
+
+    <div class="est-mbar" id="estMbar">
+      <div>
+        <p class="est-mbar-label" id="estMbarLabel">Сайт принесёт в месяц</p>
+        <p class="est-mbar-value" id="estMbarValue">+105 477 ₽</p>
+      </div>
+      <a href="#estResult">Подробнее</a>
     </div>
   </div>
 </section>
@@ -897,7 +957,7 @@
 
 <a class="float-wa" href="https://wa.me/79111112122" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg><use href="#i-wa"/></svg></a>
 
-<script src="assets/main.js?v=7"></script>
+<script src="assets/main.js?v=8"></script>
 <script type="module" src="assets/star3d.js?v=4"></script>
 </body>
 </html>
