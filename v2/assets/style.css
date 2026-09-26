@@ -75,7 +75,7 @@ ul,ol{list-style:none}
 .btn--primary{background:var(--primary);border-color:var(--primary);color:#0D0D0D}
 .btn--black{background:#000;border-color:#000;color:#fff}
 .section--light .btn--black{border-color:#000}
-.btn--soft{background:var(--primary-soft);border-color:var(--primary-dark);color:#3F3F46;height:42px;padding:10px 16px}
+.btn--soft{background:var(--primary-soft);border-color:var(--primary-dark);color:#000;font-weight:600;height:42px;padding:10px 16px}
 .btn--soft:hover{background:#000;border-color:#000;color:#fff}
 .btn--wide{width:100%}
 /* swap: основной текст гаснет, из центра проявляется второй */
