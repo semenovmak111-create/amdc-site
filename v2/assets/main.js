@@ -353,11 +353,12 @@
   /* ---------- 10. Калькулятор ---------- */
   (function () {
     var root = $('#calc'); if (!root) return;
-    var ids = ['cViews', 'cFound', 'cCheck', 'cShow'];
+    var ids = ['cViews', 'cFound', 'cCheck'];
     var inputs = {}, ranges = {};
     ids.forEach(function (id) { inputs[id] = $('#' + id); ranges[id] = $('.est-range[data-for="' + id + '"]'); });
-    var months = 1, shown = 0, anim = null;
-    var CARD = 0.726, CONV = 0.06;
+    var shown = 0, anim = null;
+    // 72,6% с карточки, 6% запишутся, 7 из 10 записавшихся дойдут
+    var CARD = 0.726, CONV = 0.06, SHOW = 0.7;
 
     var fill = function (r) { r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'); };
     // Поле шириной ровно по числу — единица измерения стоит сразу за ним
@@ -367,38 +368,30 @@
       if (isNaN(v) || v < 0) v = 0;
       return Math.min(v, parseFloat(el.max));
     };
+    var rub = function (n) { return '+' + fmt(Math.round(n)) + ' ₽'; };
     var tween = function (to) {
       var el = $('#resSum'), from = shown, t0 = performance.now(), dur = reduce ? 0 : 550;
       cancelAnimationFrame(anim);
       var step = function (now) {
         var p = dur ? Math.min(1, (now - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3);
         shown = from + (to - from) * e;
-        el.textContent = '+' + fmt(Math.round(shown)) + ' ₽';
+        el.textContent = rub(shown);
         if (p < 1) anim = requestAnimationFrame(step);
       };
       anim = requestAnimationFrame(step);
     };
     var calc = function () {
-      var views = val('cViews'), found = val('cFound'), check = val('cCheck'), show = Math.max(0, Math.min(100, val('cShow')));
-      var fromCard = views * CARD, visits = fromCard + found, leads = visits * CONV, clients = leads * show / 100;
-      var month = clients * check, total = month * months;
+      var views = val('cViews'), found = val('cFound'), check = val('cCheck');
+      var fromCard = views * CARD, clients = (fromCard + found) * CONV * SHOW, month = clients * check;
       $('#fViews').textContent = fmt(views);
       $('#fVisits').textContent = fmt(Math.round(fromCard)) + ' + ' + fmt(found);
-      $('#fLeads').textContent = fmt(Math.round(leads));
       $('#fCame').textContent = fmt(Math.round(clients));
-      $('#fShowCap').textContent = fmt(show) + '% записавшихся';
-      $('#fClients').textContent = fmt(Math.round(clients * months));
-      $('#fClientsCap').textContent = { 1: 'в месяц', 3: 'за квартал', 12: 'за год' }[months];
-      var caps = { 1: 'Сайт принесёт в первый месяц', 3: 'Сайт принесёт за квартал', 12: 'Сайт принесёт за год' };
-      $('#resCap').textContent = caps[months];
-      $('#resSub').textContent = months === 1
-        ? 'и столько же каждый следующий — ' + fmt(Math.round(month * 12)) + ' ₽ за год'
-        : 'по ' + fmt(Math.round(month)) + ' ₽ каждый месяц';
-      $('#resSum').classList.toggle('is-long', total >= 10000000);
-      $('#estMbarLabel').textContent = caps[months];
-      $('#estMbarValue').textContent = '+' + fmt(Math.round(total)) + ' ₽';
-      tween(total);
-      $$('.est-seg button', root).forEach(function (b) { b.classList.toggle('on', +b.dataset.v === check); });
+      $('#resYear').textContent = fmt(Math.round(month * 12)) + ' ₽';
+      $('#tMonth').textContent = rub(month);
+      $('#tQuarter').textContent = rub(month * 3);
+      $('#tYear').textContent = rub(month * 12);
+      $('#resSum').classList.toggle('is-long', month >= 1000000);
+      tween(month);
     };
     ids.forEach(function (id) {
       var inp = inputs[id], r = ranges[id];
@@ -409,40 +402,9 @@
       r.addEventListener('input', function () { inp.value = r.value; fill(r); fit(inp); calc(); });
       fill(r); fit(inp);
     });
-    // Кнопки «−» и «+»: шаг задан у каждого вопроса в data-step
-    $$('.est-step', root).forEach(function (s) {
-      var inp = $('input[type="number"]', s), r = $('.est-range', s), d = +s.dataset.step;
-      $$('.est-stepper button', s).forEach(function (b) {
-        b.addEventListener('click', function () {
-          var v = Math.round((val(inp.id) + d * b.dataset.d) / d) * d;
-          v = Math.max(+inp.min, Math.min(+inp.max, v));
-          inp.value = v; r.value = Math.min(v, +r.max); fill(r); fit(inp); calc();
-        });
-      });
-    });
-    $$('.est-seg button', root).forEach(function (b) {
-      b.addEventListener('click', function () {
-        inputs.cCheck.value = b.dataset.v; ranges.cCheck.value = b.dataset.v; fill(ranges.cCheck); fit(inputs.cCheck); calc();
-      });
-    });
-    $$('.est-periods button', root).forEach(function (b) {
-      b.addEventListener('click', function () {
-        months = +b.dataset.m;
-        $$('.est-periods button', root).forEach(function (x) { x.classList.toggle('on', x === b); });
-        calc();
-      });
-    });
-    // На телефоне итог едет плашкой внизу, пока сама карточка результата не на экране
-    var mbar = $('#estMbar');
-    if (mbar && 'IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        mbar.classList.toggle('is-hidden', entries[0].isIntersecting);
-      }, { threshold: 0.25 }).observe($('#estResult'));
-    }
-    shown = 0;
+    // Сумма набегает от нуля, когда блок появляется на экране
+    $('#resSum').textContent = rub(0);
     inView(root, function () { calc(); }, { threshold: 0.3 });
-    // Бары и числа должны быть корректны и без прокрутки (например, при переходе по якорю)
-    $('#resSum').textContent = '+0 ₽';
   })();
 
   /* ---------- 13. Сдвиг: строки по очереди ---------- */
