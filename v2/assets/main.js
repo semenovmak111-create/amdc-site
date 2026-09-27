@@ -402,6 +402,18 @@
       r.addEventListener('input', function () { inp.value = r.value; fill(r); fit(inp); calc(); });
       fill(r); fit(inp);
     });
+    // Кнопки −/+ у каждого поля: шаг свой — 10 человек, 1 человек, 500 ₽
+    $$('.est-step', root).forEach(function (box) {
+      var id = box.getAttribute('data-for'), st = +box.getAttribute('data-step') || 1;
+      $$('button', box).forEach(function (b) {
+        b.addEventListener('click', function () {
+          var inp = inputs[id], r = ranges[id];
+          var v = Math.round((val(id) + (+b.getAttribute('data-dir')) * st) / st) * st;
+          inp.value = Math.max(0, Math.min(v, +inp.max));
+          r.value = Math.min(+inp.value, +r.max); fill(r); fit(inp); calc();
+        });
+      });
+    });
     // Сумма набегает от нуля, когда блок появляется на экране
     $('#resSum').textContent = '0 ₽';
     inView(root, function () { calc(); }, { threshold: 0.3 });
