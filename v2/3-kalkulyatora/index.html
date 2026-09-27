@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3 калькулятора — АМДЦ</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#EDECE6;color:#1B1818;font-family:Inter,system-ui,sans-serif}
+  .variant{border-top:1px solid #D7D8D4}
+  .variant:first-of-type{border-top:0}
+  .variant-head{display:flex;align-items:baseline;gap:12px;max-width:1400px;margin:0 auto;padding:28px 80px 0}
+  .variant-head span{font:500 14px/20px Inter,sans-serif;color:#6B6B6B;font-variant-numeric:tabular-nums}
+  .variant-head h2{font:500 24px/32px "Inter Tight",Inter,sans-serif;letter-spacing:-.02em}
+  iframe{display:block;width:100%;height:1100px;border:0}
+  @media (max-width:768px){.variant-head{padding:24px 16px 0}.variant-head h2{font-size:20px;line-height:28px}}
+</style>
+</head>
+<body>
+<section class="variant">
+  <div class="variant-head"><span>1</span><h2>Белый (предыдущий)</h2></div>
+  <iframe src="belyy.html" title="Калькулятор — белый (предыдущий)" loading="eager"></iframe>
+</section>
+<section class="variant">
+  <div class="variant-head"><span>2</span><h2>Тёмный</h2></div>
+  <iframe src="temnyy.html" title="Калькулятор — тёмный" loading="eager"></iframe>
+</section>
+<section class="variant">
+  <div class="variant-head"><span>3</span><h2>Текущий</h2></div>
+  <iframe src="tekushchiy.html" title="Калькулятор — текущий" loading="eager"></iframe>
+</section>
+<script>
+  // Высота каждого фрейма — по его содержимому, без внутренней прокрутки
+  document.querySelectorAll('iframe').forEach(function (f) {
+    var fit = function () {
+      try { var d = f.contentDocument; if (d && d.body) f.style.height = Math.ceil(d.body.getBoundingClientRect().height) + 'px'; } catch (e) {}
+    };
+    f.addEventListener('load', function () {
+      fit();
+      try { new ResizeObserver(fit).observe(f.contentDocument.body); } catch (e) {}
+      setTimeout(fit, 800);
+    });
+  });
+</script>
+</body>
+</html>

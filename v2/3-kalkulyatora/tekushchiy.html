@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор — Текущий</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="tekushchiy.css">
+<style>html{scroll-padding-top:0}body{background:var(--light)}</style>
+</head>
+<body>
+<!-- ================= 10. ВАШИ ЦИФРЫ — КАЛЬКУЛЯТОР ================= -->
+<!-- Язык zeeframes: шапка слева (eyebrow + H2, пояснение справа), один бенто-контейнер с внутренними линиями,
+     плашки иконок 44×44 (акцент 10% + рамка), одна тёмная ячейка итога, лимонный — только «+» и ползунок -->
+<section class="section section--light behind-cursor est" id="money" aria-labelledby="estTitle">
+  <div class="container">
+    <div class="est-head">
+      <div>
+        <p class="est-eyebrow">Ваши цифры</p>
+        <h2 class="est-title" id="estTitle">Посчитайте, сколько принесёт сайт уже в первый месяц!</h2>
+      </div>
+      <p class="est-desc">Поставьте свои значения — цифра справа пересчитается сразу</p>
+    </div>
+
+    <div class="est-bento" id="calc">
+      <div class="est-inputs">
+        <div class="est-cell est-field">
+          <span class="est-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/></svg></span>
+          <label class="est-label" id="tViews" for="cViews">Сколько человек в месяц открывают вашу карточку</label>
+          <span class="est-value"><input id="cViews" type="number" inputmode="numeric" min="0" max="99999" value="420" aria-labelledby="tViews"><small>чел.</small></span>
+          <input class="est-range" type="range" min="0" max="2000" step="10" value="420" data-for="cViews" aria-labelledby="tViews">
+        </div>
+        <div class="est-cell est-field">
+          <span class="est-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <label class="est-label" id="tFound" for="cFound">Находят вас в открытом поиске</label>
+          <span class="est-value"><input id="cFound" type="number" inputmode="numeric" min="0" max="9999" value="9" aria-labelledby="tFound"><small>чел.</small></span>
+          <input class="est-range" type="range" min="0" max="200" step="1" value="9" data-for="cFound" aria-labelledby="tFound">
+        </div>
+        <div class="est-cell est-field">
+          <span class="est-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 10h18M7 15h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <label class="est-label" id="tCheck" for="cCheck">Ваш средний чек за первый приём <em>(средний чек в вашей нише — 11&nbsp;000 рублей)</em></label>
+          <span class="est-value"><input id="cCheck" type="number" inputmode="numeric" min="0" max="999999" step="100" value="8000" aria-labelledby="tCheck"><small>₽</small></span>
+          <input class="est-range" type="range" min="0" max="20000" step="100" value="8000" data-for="cCheck" aria-labelledby="tCheck">
+        </div>
+      </div>
+
+      <div class="est-out">
+        <ul class="est-cell est-lines">
+          <li><span>Откроют вашу карточку</span><b id="fViews">420</b></li>
+          <li><span>Зайдут на сайт с карточки + найдут в интернете сами<small>72,6% с карточки — данные Яндекса по Петербургу</small></span><b id="fVisits">305 + 9</b></li>
+          <li><span>Придут к вам с сайта<small>6% запишутся со страницы с ценой и кнопкой, 7 из 10 записавшихся дойдут</small></span><b id="fCame">13</b></li>
+        </ul>
+
+        <div class="est-cell est-total">
+          <p class="est-total-cap">Сайт принесёт в первый месяц</p>
+          <p class="est-total-now"><s>0 ₽</s> приносит своя страница сегодня</p>
+          <p class="est-total-sum"><span class="est-plus">+</span><span id="resSum">105 477 ₽</span></p>
+          <p class="est-total-sub">и столько же каждый следующий — <b id="resYear">1 265 725 ₽</b> за год</p>
+        </div>
+
+        <div class="est-tiles">
+          <div class="est-cell est-tile">
+            <span class="est-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8.5" cy="14.5" r="1.2" fill="currentColor"/></svg></span>
+            <div><b id="tMonth">+105 477 ₽</b><span>Первый месяц</span></div>
+          </div>
+          <div class="est-cell est-tile">
+            <span class="est-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8.5" cy="14.5" r="1.2" fill="currentColor"/><circle cx="12" cy="14.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="14.5" r="1.2" fill="currentColor"/></svg></span>
+            <div><b id="tQuarter">+316 431 ₽</b><span>За квартал</span></div>
+          </div>
+          <div class="est-cell est-tile">
+            <span class="est-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 18l5-5 4 3 7-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 8h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><b id="tYear">+1 265 725 ₽</b><span>За год</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fmt = function (n, dec) {
+    return Number(n).toLocaleString('ru-RU', { minimumFractionDigits: dec || 0, maximumFractionDigits: dec || 0 }).replace(/ /g, ' ');
+  };
+  var inView = function (el, cb) { cb(el); };
+  /* ---------- 10. Калькулятор ---------- */
+  (function () {
+    var root = $('#calc'); if (!root) return;
+    var ids = ['cViews', 'cFound', 'cCheck'];
+    var inputs = {}, ranges = {};
+    ids.forEach(function (id) { inputs[id] = $('#' + id); ranges[id] = $('.est-range[data-for="' + id + '"]'); });
+    var shown = 0, anim = null;
+    // 72,6% с карточки, 6% запишутся, 7 из 10 записавшихся дойдут
+    var CARD = 0.726, CONV = 0.06, SHOW = 0.7;
+
+    var fill = function (r) { r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'); };
+    // Поле шириной ровно по числу — единица измерения стоит сразу за ним
+    var fit = function (inp) { var n = Math.max(1, String(inp.value).length); inp.style.width = 'calc(' + n + 'ch - ' + n + ' * var(--est-ls) + 2px)'; };
+    var val = function (id) {
+      var el = inputs[id], v = parseFloat(String(el.value).replace(',', '.'));
+      if (isNaN(v) || v < 0) v = 0;
+      return Math.min(v, parseFloat(el.max));
+    };
+    var rub = function (n) { return '+' + fmt(Math.round(n)) + ' ₽'; };
+    var tween = function (to) {
+      var el = $('#resSum'), from = shown, t0 = performance.now(), dur = reduce ? 0 : 550;
+      cancelAnimationFrame(anim);
+      var step = function (now) {
+        var p = dur ? Math.min(1, (now - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3);
+        shown = from + (to - from) * e;
+        el.textContent = fmt(Math.round(shown)) + ' ₽';
+        if (p < 1) anim = requestAnimationFrame(step);
+      };
+      anim = requestAnimationFrame(step);
+    };
+    var calc = function () {
+      var views = val('cViews'), found = val('cFound'), check = val('cCheck');
+      var fromCard = views * CARD, clients = (fromCard + found) * CONV * SHOW, month = clients * check;
+      $('#fViews').textContent = fmt(views);
+      $('#fVisits').textContent = fmt(Math.round(fromCard)) + ' + ' + fmt(found);
+      $('#fCame').textContent = fmt(Math.round(clients));
+      $('#resYear').textContent = fmt(Math.round(month * 12)) + ' ₽';
+      $('#tMonth').textContent = rub(month);
+      $('#tQuarter').textContent = rub(month * 3);
+      $('#tYear').textContent = rub(month * 12);
+      $('#resSum').parentNode.classList.toggle('is-long', month >= 1000000);
+      tween(month);
+    };
+    ids.forEach(function (id) {
+      var inp = inputs[id], r = ranges[id];
+      inp.addEventListener('input', function () {
+        r.value = Math.min(val(id), +r.max); fill(r); fit(inp); calc();
+      });
+      inp.addEventListener('blur', function () { inp.value = val(id); fit(inp); });
+      r.addEventListener('input', function () { inp.value = r.value; fill(r); fit(inp); calc(); });
+      fill(r); fit(inp);
+    });
+    // Сумма набегает от нуля, когда блок появляется на экране
+    $('#resSum').textContent = '0 ₽';
+    inView(root, function () { calc(); }, { threshold: 0.3 });
+  })();
+
+
+})();
+</script>
+</body>
+</html>
