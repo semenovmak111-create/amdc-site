@@ -419,12 +419,6 @@
     inView(root, function () { calc(); }, { threshold: 0.3 });
   })();
 
-  /* ---------- 13. Сдвиг: строки по очереди ---------- */
-  var shift = $('#shiftGrid');
-  if (shift) {
-    inView(shift, function () { shift.classList.add('in'); }, { threshold: 0.15 });
-  }
-
   /* ---------- 14. Заявка → готовое сообщение в WhatsApp ---------- */
   var form = $('#leadForm');
   if (form) {
