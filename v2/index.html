@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=18">
+<link rel="stylesheet" href="assets/style.css?v=19">
 </head>
 <body>
 
@@ -790,28 +790,47 @@
 <section class="section section--dark behind-cursor" id="shift">
   <div class="container">
     <div class="head-center reveal">
-      <h2 class="h2">Между этими двумя столбцами — десять дней работы</h2>
+      <h2 class="h2">Между этими двумя карточками — десять дней работы</h2>
     </div>
-    <div class="shift" id="shiftGrid">
-      <div class="shift-col before">
-        <h3>Сегодня</h3>
-        <div class="shift-row"><i>✕</i>Строчка в чужом каталоге</div>
-        <div class="shift-row"><i>✕</i>Записаться можно только голосом</div>
-        <div class="shift-row"><i>✕</i>Цену знает только регистратура</div>
-        <div class="shift-row"><i>✕</i>Отзывы на четырёх площадках</div>
-        <div class="shift-row"><i>✕</i>Рекламу вести некуда</div>
-        <div class="shift-row"><i>✕</i>После 20:00 — тишина</div>
+    <div class="sh" id="shiftGrid">
+    <article class="sh-card is-before">
+      <header class="sh-head"><span class="sh-badge"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><b>0/6</b></span><h3>Сегодня</h3></header>
+      <div class="sh-body">
+        <div class="sh-mock sh-mock--list" aria-hidden="true">
+          <div class="sh-search"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>уролог площадь мужества</div>
+          <div class="sh-row"><span class="sh-av"></span><div><b>Соседняя клиника</b><small>★ 196 оценок</small></div><em>Записаться</em></div>
+          <div class="sh-row is-you"><span class="sh-av"></span><div><b>АМДЦ</b><small>★ 28 оценок · цена по телефону</small></div><em class="off">Только звонок</em></div>
+          <div class="sh-row"><span class="sh-av"></span><div><b>Ещё 8 клиник рядом</b><small>в той же выдаче</small></div><em>Записаться</em></div>
+          <div class="sh-progress"><span></span></div>
+        </div>
+        <div class="sh-panel">
+          <div class="sh-panel-top"><svg class="sh-logo" viewBox="0 0 32 32" aria-hidden="true"><path d="M15 3H29V29H3V3" fill="none" stroke="currentColor" stroke-width="3.2"/><rect x="11" y="11" width="10" height="10" fill="currentColor"/></svg><span>Видно ли клинику</span></div>
+          <ul class="sh-score"><li class="is-total"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><b>0/6</b></span><small>Итог</small></li><li style="--i:1"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-x"/></svg></span><small>Адрес</small></li><li style="--i:2"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-x"/></svg></span><small>Запись</small></li><li style="--i:3"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-x"/></svg></span><small>Цена</small></li><li style="--i:4"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-x"/></svg></span><small>Отзывы</small></li><li style="--i:5"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-x"/></svg></span><small>Реклама</small></li><li style="--i:6"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-x"/></svg></span><small>После 20:00</small></li></ul>
+          <p class="sh-verdict">Строчка в чужом каталоге. Записаться можно только голосом. Цену знает только регистратура. Отзывы на четырёх площадках. Рекламу вести некуда. После 20:00 — тишина.</p>
+          <ul class="sr-only"><li>Строчка в чужом каталоге</li><li>Записаться можно только голосом</li><li>Цену знает только регистратура</li><li>Отзывы на четырёх площадках</li><li>Рекламу вести некуда</li><li>После 20:00 — тишина</li></ul>
+        </div>
       </div>
-      <div class="shift-mid"><span class="line"></span><b>10 ДНЕЙ</b><span class="line"></span></div>
-      <div class="shift-col after">
-        <h3>Через десять дней</h3>
-        <div class="shift-row"><i>✓</i>Свой адрес в интернете</div>
-        <div class="shift-row"><i>✓</i>Запись в два касания, круглосуточно</div>
-        <div class="shift-row"><i>✓</i>Прайс открыт на странице услуги</div>
-        <div class="shift-row"><i>✓</i>Отзывы, врачи и лицензии в одном месте</div>
-        <div class="shift-row"><i>✓</i>Директ включается в тот же день</div>
-        <div class="shift-row"><i>✓</i>Ночные заявки ждут вас утром</div>
+    </article>
+    <div class="sh-gap" aria-hidden="true"><span class="line"></span><b>10 дней</b><span class="line"></span></div>
+    <article class="sh-card is-after">
+      <header class="sh-head"><span class="sh-badge"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><b>6/6</b></span><h3>Через десять дней</h3></header>
+      <div class="sh-body">
+        <div class="sh-mock sh-mock--site" aria-hidden="true">
+          <div class="sh-bar"><i></i><i></i><i></i><span>Сайт АМДЦ · урология</span></div>
+          <div class="sh-site">
+            <div class="sh-site-hero"><b>Уролог на Площади Мужества</b><span>Приём уролога — от 300 ₽</span><em>Записаться онлайн <svg><use href="#i-arrow"/></svg></em></div>
+            <div class="sh-site-cards"><div><small>Врачи</small><b>карточки с опытом</b></div><div><small>Отзывы</small><b>все в одном месте</b></div><div><small>Лицензия</small><b>на отдельной странице</b></div></div>
+          </div>
+          <div class="sh-progress"><span></span></div>
+        </div>
+        <div class="sh-panel">
+          <div class="sh-panel-top"><svg class="sh-logo" viewBox="0 0 32 32" aria-hidden="true"><path d="M15 3H29V29H3V3" fill="none" stroke="currentColor" stroke-width="3.2"/><rect x="11" y="11" width="10" height="10" fill="currentColor"/></svg><span>Видно ли клинику</span></div>
+          <ul class="sh-score"><li class="is-total"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><b>6/6</b></span><small>Итог</small></li><li style="--i:1"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-check"/></svg></span><small>Адрес</small></li><li style="--i:2"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-check"/></svg></span><small>Запись</small></li><li style="--i:3"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-check"/></svg></span><small>Цена</small></li><li style="--i:4"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-check"/></svg></span><small>Отзывы</small></li><li style="--i:5"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-check"/></svg></span><small>Реклама</small></li><li style="--i:6"><span class="sh-dot"><svg class="sh-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="arc" cx="22" cy="22" r="19" pathLength="100"/></svg><svg class="ic"><use href="#i-check"/></svg></span><small>После 20:00</small></li></ul>
+          <p class="sh-verdict">Свой адрес в интернете. Запись в два касания, круглосуточно. Прайс открыт на странице услуги. Отзывы, врачи и лицензии в одном месте. Директ включается в тот же день. Ночные заявки ждут вас утром.</p>
+          <ul class="sr-only"><li>Свой адрес в интернете</li><li>Запись в два касания, круглосуточно</li><li>Прайс открыт на странице услуги</li><li>Отзывы, врачи и лицензии в одном месте</li><li>Директ включается в тот же день</li><li>Ночные заявки ждут вас утром</li></ul>
+        </div>
       </div>
+    </article>
     </div>
     <p class="shift-note reveal">Ни одна строка справа не про новых врачей, новое оборудование или новые деньги в рекламу. Это та же клиника — просто её стало видно.</p>
   </div>
@@ -927,7 +946,7 @@
 
 <a class="float-wa" href="https://wa.me/79111112122" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg><use href="#i-wa"/></svg></a>
 
-<script src="assets/main.js?v=11"></script>
+<script src="assets/main.js?v=12"></script>
 <script type="module" src="assets/star3d.js?v=4"></script>
 </body>
 </html>

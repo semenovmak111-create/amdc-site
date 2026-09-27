@@ -422,8 +422,7 @@
   /* ---------- 13. Сдвиг: строки по очереди ---------- */
   var shift = $('#shiftGrid');
   if (shift) {
-    $$('.shift-row', shift).forEach(function (r, i) { r.style.transitionDelay = (i % 6) * 90 + (i >= 6 ? 300 : 0) + 'ms'; });
-    inView(shift, function () { shift.classList.add('in'); }, { threshold: 0.3 });
+    inView(shift, function () { shift.classList.add('in'); }, { threshold: 0.15 });
   }
 
   /* ---------- 14. Заявка → готовое сообщение в WhatsApp ---------- */
