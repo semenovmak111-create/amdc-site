@@ -375,7 +375,7 @@
       var step = function (now) {
         var p = dur ? Math.min(1, (now - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3);
         shown = from + (to - from) * e;
-        el.textContent = rub(shown);
+        el.textContent = fmt(Math.round(shown)) + ' ₽';
         if (p < 1) anim = requestAnimationFrame(step);
       };
       anim = requestAnimationFrame(step);
@@ -390,7 +390,7 @@
       $('#tMonth').textContent = rub(month);
       $('#tQuarter').textContent = rub(month * 3);
       $('#tYear').textContent = rub(month * 12);
-      $('#resSum').classList.toggle('is-long', month >= 1000000);
+      $('#resSum').parentNode.classList.toggle('is-long', month >= 1000000);
       tween(month);
     };
     ids.forEach(function (id) {
@@ -403,7 +403,7 @@
       fill(r); fit(inp);
     });
     // Сумма набегает от нуля, когда блок появляется на экране
-    $('#resSum').textContent = rub(0);
+    $('#resSum').textContent = '0 ₽';
     inView(root, function () { calc(); }, { threshold: 0.3 });
   })();
 

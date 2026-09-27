@@ -579,85 +579,90 @@ ul,ol{list-style:none}
 .pv-out b{color:#fff}
 
 /* ---------- 10. Калькулятор ---------- */
-/* По образцу RocketMVP (светлый вариант): белая карточка с тонкой рамкой, бейдж-пилюля сверху,
-   поля — карточки с иконкой в плашке, итог — карточка с рамкой и три карточки с иконками */
-.est{--est-bg:#fff;--est-ink:#1B1818;--est-line:#E4E4E7;--est-line-2:#CDCDCD;--est-plate:#F4F2E8;--est-t2:#5B5454;--est-t3:#797A71}
-.est-title{max-width:900px;margin:0 auto 48px;text-align:center;font-family:var(--ff-tight);font-size:48px;line-height:1.12;font-weight:500;letter-spacing:-.03em;color:#000;text-wrap:balance}
-.est-card{position:relative;padding:56px 48px 48px;border-radius:24px;border:1px solid var(--est-line);background:var(--est-bg);color:var(--est-ink)}
-.est-badge{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid var(--primary-dark);background:var(--primary);font-family:var(--ff-inter);font-size:13px;line-height:18px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#0D0D0D;white-space:nowrap}
-.est-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:32px;align-items:start}
+/* Язык zeeframes: H2 36/44 слева, eyebrow 14 px, один бенто-контейнер (радиус 14, рамка #E4E4E7, внутренние линии 1 px),
+   плашки иконок 44×44 радиус 14 (акцент 10% + рамка 20–30%), цинковая шкала серых, одна тёмная ячейка итога */
+.est{--est-line:#E4E4E7;--est-t1:#27272A;--est-t2:#52525B;--est-t3:#71717A;--est-dark:#0B0B0B}
+.est-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding-bottom:48px}
+.est-eyebrow{font-family:var(--ff-inter);font-size:14px;line-height:20px;color:var(--est-t1)}
+.est-title{max-width:620px;margin-top:12px;font-family:var(--ff-tight);font-size:36px;line-height:44px;font-weight:500;letter-spacing:-.72px;color:var(--est-t1);text-wrap:balance}
+.est-desc{max-width:420px;font-family:var(--ff-inter);font-size:16px;line-height:24px;color:var(--est-t2)}
 
-/* Поля ввода — карточки-опции */
-.est-inputs{display:flex;flex-direction:column;gap:12px}
-.est-field{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:16px;row-gap:12px;align-items:center;padding:20px;border-radius:16px;border:1px solid var(--est-line);transition:border-color .3s,background-color .3s}
-.est-field:hover{border-color:var(--est-line-2)}
-.est-field:focus-within{border-color:var(--est-ink);background:var(--primary-soft)}
-.est-ico{grid-row:span 2;align-self:start;width:48px;height:48px;border-radius:12px;background:var(--est-plate);color:var(--est-t3);display:grid;place-items:center;transition:background-color .3s,color .3s}
-.est-field:focus-within .est-ico{background:var(--primary);color:#0D0D0D}
-.est-label{font-family:var(--ff-inter);font-size:15px;line-height:22px;font-weight:500;color:var(--est-ink);cursor:pointer}
-.est-label em{font-style:normal;font-weight:400;color:var(--est-t3)}
-.est-value{display:flex;align-items:baseline;gap:8px;min-width:0}
-.est-value input{--est-ls:.8px;width:5ch;min-width:1ch;padding:0 0 2px;border-bottom:1.5px dashed transparent;font-family:var(--ff-tight);font-size:40px;line-height:48px;font-weight:500;letter-spacing:calc(var(--est-ls) * -1);color:var(--est-ink);font-variant-numeric:tabular-nums;-moz-appearance:textfield;transition:border-color .3s}
+.est-bento{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);border:1px solid var(--est-line);border-radius:14px;background:#fff;overflow:hidden}
+.est-inputs{display:flex;flex-direction:column;border-right:1px solid var(--est-line)}
+.est-out{display:flex;flex-direction:column;min-width:0}
+.est-cell{padding:24px}
+.est-inputs .est-cell+.est-cell,.est-out>.est-cell+*,.est-out>*+.est-cell{border-top:1px solid var(--est-line)}
+
+/* Плашка иконки — как у бенто-карточек zeeframes */
+.est-ico{flex-shrink:0;width:44px;height:44px;border-radius:14px;border:1px solid rgba(193,195,0,.3);background:rgba(243,254,0,.14);color:#5E6000;display:grid;place-items:center}
+
+/* Поля: иконка сверху, подпись и значение прижаты к низу, линия снизу — как форма zeeframes */
+.est-field{flex:1 1 0;display:flex;flex-direction:column;transition:background-color .3s}
+.est-field:focus-within{background:#FCFCFA}
+.est-label{margin-top:28px;font-family:var(--ff-inter);font-size:16px;line-height:24px;font-weight:500;color:var(--est-t1);cursor:pointer}
+.est-label em{font-style:normal;font-weight:400;color:var(--est-t2)}
+.est-value{display:flex;align-items:baseline;gap:8px;margin-top:12px;padding-bottom:8px;border-bottom:1px solid #D4D4D8;cursor:text;transition:border-color .3s}
+.est-value:focus-within{border-bottom-color:var(--est-t1)}
+.est-value input{--est-ls:.56px;width:5ch;min-width:1ch;font-family:var(--ff-tight);font-size:28px;line-height:36px;font-weight:500;letter-spacing:calc(var(--est-ls) * -1);color:var(--est-t1);font-variant-numeric:tabular-nums;-moz-appearance:textfield}
 .est-value input::-webkit-outer-spin-button,.est-value input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.est-value:hover input{border-bottom-color:var(--est-line-2)}
-.est-value input:focus{border-bottom-color:var(--est-ink)}
 .est-value input:focus-visible{outline:none}
-.est-value small{font-family:var(--ff-inter);font-size:16px;line-height:24px;color:var(--est-t3);white-space:nowrap}
-.est-range{grid-column:1 / -1;--p:20%;-webkit-appearance:none;appearance:none;display:block;width:100%;height:24px;background:transparent;cursor:pointer}
-.est-range::-webkit-slider-runnable-track{height:4px;border-radius:999px;background:linear-gradient(to right,var(--est-ink) var(--p),var(--est-line-2) var(--p))}
-.est-range::-moz-range-track{height:4px;border-radius:999px;background:var(--est-line-2)}
-.est-range::-moz-range-progress{height:4px;border-radius:999px;background:var(--est-ink)}
-.est-range::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-9px;border-radius:50%;background:var(--primary);border:5px solid var(--est-bg);box-shadow:0 0 0 1px var(--est-ink);transition:transform .2s}
-.est-range::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--primary);border:5px solid var(--est-bg);box-shadow:0 0 0 1px var(--est-ink)}
-.est-range:hover::-webkit-slider-thumb{transform:scale(1.12)}
+.est-value small{margin-left:auto;font-family:var(--ff-inter);font-size:14px;line-height:20px;color:var(--est-t3);white-space:nowrap}
+.est-range{--p:20%;-webkit-appearance:none;appearance:none;display:block;width:100%;height:20px;margin-top:12px;background:transparent;cursor:pointer}
+.est-range::-webkit-slider-runnable-track{height:2px;border-radius:999px;background:linear-gradient(to right,var(--est-t1) var(--p),var(--est-line) var(--p))}
+.est-range::-moz-range-track{height:2px;border-radius:999px;background:var(--est-line)}
+.est-range::-moz-range-progress{height:2px;border-radius:999px;background:var(--est-t1)}
+.est-range::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:var(--primary);border:1px solid var(--est-t1);transition:transform .2s}
+.est-range::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--primary);border:1px solid var(--est-t1)}
+.est-range:hover::-webkit-slider-thumb{transform:scale(1.15)}
 .est-range:focus-visible{outline:none}
-.est-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--est-ink),0 0 0 6px rgba(27,24,24,.14)}
-.est-hint{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:20px;border-top:1px solid var(--est-line);font-family:var(--ff-inter);font-size:14px;line-height:20px;color:var(--est-t2)}
-.est-hint svg{flex-shrink:0;width:24px;height:24px;padding:4px;border-radius:50%;background:var(--primary);color:#0D0D0D}
+.est-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 5px rgba(39,39,42,.12)}
 
-/* Результат */
-.est-out{min-width:0}
-.est-lines li{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid var(--est-line);font-family:var(--ff-inter);font-size:15px;line-height:22px;font-weight:500;color:var(--est-ink)}
-.est-lines li:first-child{padding-top:0}
-.est-lines small{display:block;margin-top:2px;font-size:12px;line-height:18px;font-weight:400;color:var(--est-t3)}
+/* Строки расчёта — как строки FAQ */
+.est-lines{padding-top:8px;padding-bottom:8px}
+.est-lines li{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:16px 0;font-family:var(--ff-inter);font-size:16px;line-height:24px;font-weight:500;color:var(--est-t1)}
+.est-lines li+li{border-top:1px solid var(--est-line)}
+.est-lines small{display:block;margin-top:2px;font-size:14px;line-height:21px;font-weight:400;color:var(--est-t2)}
 .est-lines b{flex-shrink:0;font-family:var(--ff-tight);font-size:20px;line-height:28px;font-weight:500;font-variant-numeric:tabular-nums}
-.est-total{margin-top:24px;padding:32px 24px;border-radius:16px;border:1px solid var(--primary-dark);background:var(--primary-soft);text-align:center}
-.est-total-cap{font-family:var(--ff-inter);font-size:13px;line-height:18px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--est-ink)}
-.est-total-now{margin-top:6px;font-family:var(--ff-inter);font-size:14px;line-height:20px;color:var(--est-t2)}
-.est-total-now s{margin-right:4px;color:var(--est-t3);text-decoration-thickness:1.5px}
-.est-total-sum{margin-top:10px;font-family:var(--ff-tight);font-size:72px;line-height:1;font-weight:600;letter-spacing:-.03em;color:#000;font-variant-numeric:tabular-nums;white-space:nowrap}
-.est-total-sum.is-long{font-size:56px}
-.est-total-sub{margin-top:14px;font-family:var(--ff-inter);font-size:15px;line-height:22px;color:var(--est-t2)}
-.est-total-sub b{font-weight:600;color:var(--est-ink);white-space:nowrap}
-.est-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
-.est-tile{display:flex;flex-direction:column;align-items:center;gap:4px;padding:20px 12px;border-radius:16px;border:1px solid var(--est-line);text-align:center}
-.est-tile-ico{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--primary);color:#0D0D0D;margin-bottom:8px}
-.est-tile b{font-family:var(--ff-tight);font-size:22px;line-height:28px;font-weight:600;letter-spacing:-.01em;color:#000;font-variant-numeric:tabular-nums;white-space:nowrap}
-.est-tile span:last-child{font-family:var(--ff-inter);font-size:12px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--est-t3)}
+
+/* Итог — одна тёмная ячейка внутри светлой сетки, лимонный только на «+» */
+.est-total{background:var(--est-dark);color:#fff;padding:32px 24px}
+.est-total-cap{font-family:var(--ff-inter);font-size:14px;line-height:20px;color:var(--primary)}
+.est-total-now{margin-top:4px;font-family:var(--ff-inter);font-size:14px;line-height:21px;color:#A1A1AA}
+.est-total-now s{margin-right:4px;text-decoration-thickness:1px}
+.est-total-sum{margin-top:20px;font-family:var(--ff-tight);font-size:64px;line-height:1;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.est-total-sum.is-long{font-size:52px}
+.est-plus{color:var(--primary)}
+.est-total-sub{margin-top:16px;font-family:var(--ff-inter);font-size:14px;line-height:21px;color:#D4D4D8}
+.est-total-sub b{font-weight:600;color:#fff;white-space:nowrap}
+
+/* Периоды — ряд ячеек бенто: иконка сверху слева, цифра и подпись снизу */
+.est-tiles{flex:1 1 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.est-tile{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-width:0}
+.est-tile+.est-tile{border-left:1px solid var(--est-line)}
+.est-tile b{display:block;font-family:var(--ff-tight);font-size:20px;line-height:28px;font-weight:500;color:var(--est-t1);font-variant-numeric:tabular-nums;white-space:nowrap}
+.est-tile span:last-child{display:block;margin-top:2px;font-family:var(--ff-inter);font-size:14px;line-height:21px;color:var(--est-t2)}
 
 @media (max-width:1204px){
-  .est-card{padding:52px 32px 32px}
-  .est-total-sum{font-size:60px}
-  .est-total-sum.is-long{font-size:46px}
-  .est-tile b{font-size:18px;line-height:24px}
+  .est-total-sum{font-size:54px}
+  .est-total-sum.is-long{font-size:44px}
+  .est-tile b{font-size:18px;line-height:26px}
 }
 @media (max-width:991px){
-  .est-title{font-size:40px}
-  .est-grid{grid-template-columns:1fr}
+  .est-head{flex-direction:column;align-items:flex-start;gap:16px;padding-bottom:32px}
+  .est-desc{max-width:100%}
+  .est-bento{grid-template-columns:1fr}
+  .est-inputs{border-right:0;border-bottom:1px solid var(--est-line)}
 }
 @media (max-width:768px){
-  .est-title{font-size:30px;line-height:38px;margin-bottom:40px}
-  .est-card{padding:44px 16px 16px;border-radius:20px}
-  .est-field{padding:16px;grid-template-columns:40px minmax(0,1fr);column-gap:12px}
-  .est-ico{width:40px;height:40px;border-radius:10px}
-  .est-value input{font-size:34px;line-height:42px}
+  .est-title{font-size:28px;line-height:36px;letter-spacing:-.56px}
+  .est-cell{padding:20px 16px}
   .est-total{padding:24px 16px}
   .est-total-sum,.est-total-sum.is-long{font-size:44px}
   .est-tiles{grid-template-columns:1fr}
-  .est-tile{flex-direction:row;justify-content:space-between;padding:14px 16px;text-align:left}
-  .est-tile-ico{margin:0}
-  .est-tile b{order:3;font-size:18px}
-  .est-tile span:last-child{flex:1;padding-left:12px}
+  .est-tile{flex-direction:row;align-items:center;gap:16px}
+  .est-tile+.est-tile{border-left:0;border-top:1px solid var(--est-line)}
+  .est-tile div{display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:baseline;gap:12px;flex:1;min-width:0}
+  .est-tile span:last-child{margin-top:0}
 }
 @media (max-width:400px){
   .est-total-sum,.est-total-sum.is-long{font-size:38px}
