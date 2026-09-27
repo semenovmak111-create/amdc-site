@@ -520,27 +520,21 @@ ul,ol{list-style:none}
 .fit-note svg{flex-shrink:0;width:28px;height:28px;color:#000}
 
 /* ---------- 8. Соседи (кейсы) ---------- */
-.portfolio{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;margin-top:60px}
-.portfolio-item:nth-child(2){margin-top:110px}
-.portfolio-thumb{position:relative;border-radius:var(--radius-lg);overflow:hidden;background:#141414;aspect-ratio:1120/875}
-.portfolio-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
-.portfolio-item:hover .portfolio-thumb img{transform:scale(1.04)}
-.portfolio-thumb .rate{position:absolute;left:16px;top:16px;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:99px;background:rgba(13,13,13,.8);backdrop-filter:blur(8px);font-family:var(--ff-inter);font-size:13px}
-.portfolio-thumb .rate b{color:var(--primary)}
-.portfolio-meta{margin-top:24px}
-.portfolio-meta .where{font-size:14px;color:#fff}
-.portfolio-meta .where span{color:var(--gray-200)}
-.portfolio-meta h3{font-family:var(--ff-tight);font-size:24px;line-height:30px;font-weight:500;margin-top:8px}
-.plus-list{margin-top:16px;display:grid;gap:10px}
-.plus-list li{display:flex;gap:12px;font-family:var(--ff-inter);font-size:15px;line-height:22px;color:var(--gray-100)}
-.plus-list li::before{content:"+";flex-shrink:0;width:20px;height:20px;border-radius:6px;background:var(--black-550);border:1px solid var(--black-500);color:var(--primary);display:grid;place-items:center;font-size:13px;margin-top:1px}
-.book-box{margin-top:60px;padding:40px 32px;border-radius:var(--radius-lg);border:1px dashed var(--dark-gray);text-align:center}
-.book-box .bad{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;background:#2a1414;color:#ff8a8a;font-family:var(--ff-inter);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
-.book-box h3{font-family:var(--ff-tight);font-size:24px;font-weight:600;margin-top:16px}
-.book-box .sub{font-family:var(--ff-inter);font-size:14px;color:var(--gray-200);margin-top:6px}
-.minus-list{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:28px 0 32px;text-align:left}
-.minus-list li{padding:16px;border-radius:12px;background:var(--white-04);border:1px solid var(--black-400);font-family:var(--ff-inter);font-size:14px;line-height:20px;color:var(--gray-100)}
-.minus-list li::before{content:"—";display:block;color:#ff8a8a;margin-bottom:6px}
+/* ---------- 8. Соседи: копия Our Creative Showcase с zeeframes ---------- */
+.sc-head{max-width:596px;margin:0 auto;text-align:center}
+.sc-lead{font-family:var(--ff-tight);font-size:16px;line-height:21px;color:var(--gray-100);margin-top:12px}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;row-gap:48px;margin-top:64px}
+.sc-card:nth-child(2n){margin-top:100px}
+.sc-thumb{height:450px;border-radius:24px;overflow:hidden;background:#141414}
+.sc-thumb img{width:100%;height:100%;object-fit:cover}
+.sc-content{margin-top:24px;font-family:var(--ff-tight)}
+.sc-content p{font-size:14px;line-height:normal;color:#fff;margin-bottom:8px}
+.sc-content h3{font-size:24px;line-height:normal;font-weight:500;color:#fff}
+.sc-box{margin-top:60px;padding:40px 32px;border-radius:24px;border:1px dashed var(--dark-gray)}
+.sc-box-in{max-width:494px;margin:0 auto;text-align:center}
+.sc-box h2{font-family:var(--ff-tight);font-size:24px;line-height:normal;font-weight:600;color:#fff}
+.sc-box p{font-family:var(--ff-inter);font-size:15px;line-height:normal;color:var(--gray-100);margin:16px 0 24px}
+.sc-box p a{color:var(--primary);font-weight:700;text-decoration:underline}
 
 /* ---------- 9. Процесс ---------- */
 .process{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:80px}
@@ -871,6 +865,22 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+@media (max-width:991px){
+  .sc-grid{grid-template-columns:1fr;row-gap:32px}
+  .sc-card:nth-child(2n){margin-top:0}
+  .sc-thumb{height:414px}
+}
+@media (max-width:767px){
+  #vs{padding:32px 0}
+  .sc-head .h2{font-size:28px;line-height:34px}
+  .sc-grid{margin-top:32px}
+  .sc-thumb{height:auto;aspect-ratio:4/3}
+  .sc-content p{font-size:16px;line-height:25px}
+  .sc-content h3{font-weight:600}
+  .sc-box{padding:24px 20px;margin-top:32px}
+  .sc-box p{font-size:14px}
+}
+
 /* ==========================================================
    Адаптив
    ========================================================== */
@@ -878,7 +888,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   :root{--pad:60px}
   .no-code{display:none}
   .fork-panel{grid-template-columns:repeat(3,1fr)}
-  .minus-list{grid-template-columns:repeat(3,1fr)}
 }
 @media (max-width:1100px){
   .nav{display:none}
@@ -903,8 +912,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .slide{grid-template-columns:1fr;min-height:0}
   .slide-visual{min-height:420px}
   .insights{grid-template-columns:1fr}
-  .portfolio{grid-template-columns:1fr;row-gap:48px}
-  .portfolio-item:nth-child(2){margin-top:0}
   .why-grid{grid-template-columns:1fr}
   .yellow-band .container{flex-direction:column;align-items:flex-start}
   .big-star{align-self:center;margin-top:-8px}
@@ -921,7 +928,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .stat+.stat{padding-left:0;border-left:0;border-top:1px solid var(--black-400);margin-top:28px}
   .section--light .stat+.stat{border-top-color:var(--line-light)}
   .stat b{font-size:52px}
-  .minus-list{grid-template-columns:1fr 1fr}
   .fork-chart{padding:24px 16px 20px}
 }
 @media (max-width:575px){
@@ -964,8 +970,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
   .insight-thumb{height:160px}
   .insight-thumb .tiles{gap:48px}
   .th-tile{width:72px;height:72px;font-size:24px}
-  .minus-list{grid-template-columns:1fr}
-  .book-box{padding:24px 16px}
   .step h3{font-size:24px}
   .process-list{padding-left:24px}
   .step .idx{display:none}
