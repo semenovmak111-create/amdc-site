@@ -72,7 +72,6 @@ function init(wrap) {
   scene.add(star);
 
   const fixed = new URLSearchParams(location.search).get('star');   // для проверки: ?star=0..1 — фаза
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const draw = (u) => {
     star.rotation.y = Math.PI * u - 0.19 * Math.sin(2 * Math.PI * u);   // у фронта медленнее, ребром — быстрее
     renderer.render(scene, camera);
@@ -84,7 +83,8 @@ function init(wrap) {
   wrap.classList.add('is-gl');
 
   if (fixed !== null) { draw(+fixed); return; }
-  if (reduce) { draw(0.08); return; }
+  // Звезда крутится всегда, даже при «меньше движения» в системе: с выключенными
+  // анимациями Windows она застывала, а владелец хочет её вращение как на референсе
 
   let running = false, raf = 0;
   const loop = (ms) => {

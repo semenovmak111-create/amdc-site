@@ -861,6 +861,8 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
+  .star3d.s1{animation:starSwing 5s ease-in-out infinite!important}
+  .star3d.s2{animation:starSwing 4.2s ease-in-out -1.4s infinite!important}
 }
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
