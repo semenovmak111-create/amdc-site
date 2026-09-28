@@ -386,7 +386,6 @@
       $('#fViews').textContent = fmt(views);
       $('#fVisits').textContent = fmt(Math.round(fromCard)) + ' + ' + fmt(found);
       $('#fCame').textContent = fmt(Math.round(clients));
-      $('#resYear').textContent = fmt(Math.round(month * 12)) + ' ₽';
       $('#tMonth').textContent = rub(month);
       $('#tQuarter').textContent = rub(month * 3);
       $('#tYear').textContent = rub(month * 12);
