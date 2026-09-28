@@ -688,6 +688,8 @@ ul,ol{list-style:none}
 
 /* ---------- 11. Почему я ---------- */
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:60px}
+.why-grid .why-card:last-child:nth-child(odd){grid-column:1/-1}
+.why-grid .why-card:last-child:nth-child(odd) p{max-width:80%}
 .why-card{position:relative;padding:36px;border-radius:var(--radius-lg);border:1px solid var(--black-400);background:var(--white-04);transition:border-color .3s ease-in-out;display:flex;flex-direction:column;overflow:hidden}
 .why-card:hover{border-color:var(--primary)}
 .why-card .big{position:absolute;right:24px;top:6px;font-family:var(--ff-geo);font-weight:800;font-size:120px;line-height:1;color:transparent;-webkit-text-stroke:1px #2c2c2c;transition:-webkit-text-stroke-color .4s}
