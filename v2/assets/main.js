@@ -176,7 +176,8 @@
 
   /* ---------- 5. Карусель ---------- */
   (function () {
-    var root = $('#gain'); if (!root) return;
+    // #gain is now the zcr carousel (assets/carousel.js); this old one only runs on its own markup
+    var root = $('#gain'); if (!root || !$('.car-track', root)) return;
     var vp = $('.car-viewport', root), track = $('.car-track', root);
     var slides = $$('.slide', root), tabs = $$('.car-tab', root);
     var dotsWrap = $('.dots', root), count = $('.car-count', root);

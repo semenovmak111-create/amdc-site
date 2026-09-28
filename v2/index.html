@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=22">
+<link rel="stylesheet" href="assets/style.css?v=23">
+<link rel="stylesheet" href="assets/carousel.css?v=1">
 </head>
 <body>
 
@@ -301,178 +302,392 @@
   </div>
 </section>
 
-<!-- ================= 5. ЧТО ДАЁТ — КАРУСЕЛЬ ================= -->
-<section class="section section--light gain behind-cursor" id="gain" aria-roledescription="карусель" aria-label="Что даёт сайт">
-  <div class="container">
-    <div class="car-head reveal">
-      <div>
-        <h2 class="h2">Заберите свой боевой конверсионный сайт уже через 10 дней</h2>
-      </div>
-      <div class="car-ctrl">
-        <span class="car-count" aria-live="polite"><b>01</b> / 07</span>
-        <button class="nav-btn" type="button" data-car="prev" aria-label="Предыдущий слайд"><svg><use href="#i-left"/></svg></button>
-        <button class="nav-btn dark" type="button" data-car="next" aria-label="Следующий слайд"><svg><use href="#i-right"/></svg></button>
-      </div>
+<!-- ================= 5. ЧТО ДАЁТ — карусель в дизайне zeeframes (zcr-) =================
+     Исходник блока: websites/projects/zeeframes-carousel; стили assets/carousel.css,
+     скрипт assets/carousel.js. Тексты слайдов — утверждённые тексты v2. -->
+<section class="zcr behind-cursor" id="gain" data-zcr aria-roledescription="карусель" aria-label="Что даёт сайт">
+    <div class="zcr-container">
+
+        <header class="zcr-head">
+            <h2 class="zcr-title">Заберите свой боевой конверсионный сайт уже через 10 дней</h2>
+        </header>
+
+        <div class="zcr-tabs" role="tablist" aria-label="Что даёт сайт">
+            <button type="button" class="zcr-tab" role="tab" id="zcr-tab-1" aria-controls="zcr-slide-1" aria-selected="true">Только целевые звонки</button>
+            <button type="button" class="zcr-tab" role="tab" id="zcr-tab-2" aria-controls="zcr-slide-2" aria-selected="false" tabindex="-1">Всё в одном месте</button>
+            <button type="button" class="zcr-tab" role="tab" id="zcr-tab-3" aria-controls="zcr-slide-3" aria-selected="false" tabindex="-1">Заявки круглосуточно</button>
+            <button type="button" class="zcr-tab" role="tab" id="zcr-tab-4" aria-controls="zcr-slide-4" aria-selected="false" tabindex="-1">Своя площадка</button>
+            <button type="button" class="zcr-tab" role="tab" id="zcr-tab-5" aria-controls="zcr-slide-5" aria-selected="false" tabindex="-1">Маркетинговая система</button>
+            <button type="button" class="zcr-tab" role="tab" id="zcr-tab-6" aria-controls="zcr-slide-6" aria-selected="false" tabindex="-1">Врач выбран заранее</button>
+            <button type="button" class="zcr-tab" role="tab" id="zcr-tab-7" aria-controls="zcr-slide-7" aria-selected="false" tabindex="-1">Управляемый поток</button>
+        </div>
+
+        <div class="zcr-deck">
+        <!-- arrows in the page margins, drawn as the site's .cf-nav-btn -->
+        <button type="button" class="zcr-nav zcr-edge prev" data-zcr-prev aria-label="Предыдущий слайд">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button type="button" class="zcr-nav zcr-edge next" data-zcr-next aria-label="Следующий слайд">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <div class="zcr-card">
+            <div class="zcr-frame" aria-hidden="true"></div>
+
+            <div class="zcr-stage">
+
+                <!-- 1 ─────────────────────────────────────────────── -->
+                <article class="zcr-slide is-active" id="zcr-slide-1" role="tabpanel" aria-labelledby="zcr-tab-1" aria-roledescription="слайд">
+                    <div class="zcr-text">
+                        <div class="zcr-copy">
+                            <span class="zcr-pill">Цена на странице отсеивает сама</span>
+                            <h3 class="zcr-h3">Звонят только те, кто уже готов платить</h3>
+                            <p class="zcr-lead">Разгрузите регистратуру: звонят горячие клиенты, которые уже видели цену и выбрали врача. Разговоров с теми, кто «просто поинтересоваться», больше не будет — а освободившееся время уйдёт на запись.</p>
+                            <p class="zcr-kick"><span><b>Итог:</b> меньше звонков «сколько стоит» — больше звонков «запишите меня».</span></p>
+                        </div>
+                    </div>
+
+                    <!-- iPhone 16 со входящим вызовом — пересажен из amdc-site v1
+                         (#gain, первый разворот) целиком: корпус, фаска, кнопки,
+                         дрожь раз в две секунды и волны по бокам. Три слоя
+                         transform: наклон, дрожь, всплытие — у каждого своё. -->
+                    <div class="zcr-visual zcr-ph-stage">
+                        <span class="zcr-ph-buzz l" aria-hidden="true">
+                            <svg viewBox="0 0 84 210"><path d="M8 66q24 39 0 78"/><path d="M28 42q36 63 0 126"/><path d="M48 18q50 87 0 174"/></svg>
+                        </span>
+                        <span class="zcr-ph-buzz r" aria-hidden="true">
+                            <svg viewBox="0 0 84 210"><path d="M8 66q24 39 0 78"/><path d="M28 42q36 63 0 126"/><path d="M48 18q50 87 0 174"/></svg>
+                        </span>
+                        <div class="zcr-ph-tilt">
+                            <div class="zcr-ph-shake">
+                                <div class="zcr-phone" role="img" aria-label="Экран телефона: входящий звонок от нового клиента, +7 921 •••-24-19.">
+                                    <i class="zcr-ph-btn act" aria-hidden="true"></i>
+                                    <i class="zcr-ph-btn vup" aria-hidden="true"></i>
+                                    <i class="zcr-ph-btn vdn" aria-hidden="true"></i>
+                                    <i class="zcr-ph-btn pwr" aria-hidden="true"></i>
+                                    <i class="zcr-ph-btn cam" aria-hidden="true"></i>
+                                    <div class="zcr-ph-glass">
+                                        <div class="zcr-ph-scr" aria-hidden="true">
+                                            <div class="zcr-ph-wall"></div>
+                                            <div class="zcr-ph-veil"></div>
+                                            <div class="zcr-ph-island"></div>
+                                            <div class="zcr-ph-status">
+                                                <svg class="sig" viewBox="0 0 18 12"><rect x="0" y="7.6" width="3" height="4.4" rx="1"/><rect x="5" y="5.2" width="3" height="6.8" rx="1"/><rect x="10" y="2.8" width="3" height="9.2" rx="1"/><rect x="15" y="0.4" width="3" height="11.6" rx="1"/></svg>
+                                                <svg class="wf" viewBox="0 0 16 12"><path d="M1.2 4.1a10 10 0 0 1 13.6 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M4 7a6.1 6.1 0 0 1 8 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="10.2" r="1.3"/></svg>
+                                                <svg class="bat" viewBox="0 0 26 13"><rect x=".5" y=".5" width="22.6" height="12" rx="3.4" fill="none" stroke="#fff" stroke-opacity=".38"/><rect x="2.1" y="2.1" width="12.6" height="8.8" rx="2.1" fill="#fff"/><path d="M24.4 4.5c1 .3 1.6 1 1.6 2s-.6 1.7-1.6 2z" fill="#fff" fill-opacity=".38"/></svg>
+                                            </div>
+                                            <div class="zcr-ph-who">Новый Клиент</div>
+                                            <div class="zcr-ph-num">+7 921 •••-24-19</div>
+                                            <div class="zcr-ph-ava">НК</div>
+                                            <div class="zcr-ph-acts">
+                                                <span class="zcr-ph-act">
+                                                    <span class="zcr-ph-key"><svg viewBox="0 0 24 24"><path d="M12 4.6a7.9 7.9 0 1 0 0 15.8 7.9 7.9 0 0 0 0-15.8zm.95 3.7v4.2l3.1 1.85-.85 1.4-3.95-2.35V8.3z"/><path d="M4.5 2.7 7.9 5.3 6.3 7.35 2.9 4.75zM19.5 2.7l3.4 2.05-1.6 2.05L17.9 5.3z"/></svg></span>
+                                                    <span>Напомнить</span>
+                                                </span>
+                                                <span class="zcr-ph-act">
+                                                    <span class="zcr-ph-key"><svg viewBox="0 0 24 24"><path d="M12 3.6c-5 0-9 3.4-9 7.6 0 2.4 1.3 4.5 3.35 5.95-.25 1.6-.95 3-2.05 4 2.3-.3 4.3-1.2 5.8-2.5.6.1 1.25.15 1.9.15 5 0 9-3.4 9-7.6s-4-7.6-9-7.6z"/></svg></span>
+                                                    <span>Сообщение</span>
+                                                </span>
+                                                <span class="zcr-ph-act">
+                                                    <span class="zcr-ph-key big no"><svg viewBox="0 0 24 24"><path d="M7.6 3.2c.8-.8 2.1-.7 2.8.2l2.1 2.7c.6.8.5 1.9-.2 2.6l-1.3 1.3c-.3.3-.4.8-.2 1.2.8 1.5 2 2.7 3.5 3.5.4.2.9.1 1.2-.2l1.3-1.3c.7-.7 1.8-.8 2.6-.2l2.7 2.1c.9.7 1 2 .2 2.8l-1.5 1.5c-1 1-2.5 1.4-3.9 1C11.1 19 5 12.9 3.3 6.6c-.4-1.4 0-2.9 1-3.9z"/></svg></span>
+                                                    <span>Отклонить</span>
+                                                </span>
+                                                <span class="zcr-ph-act">
+                                                    <span class="zcr-ph-key big yes"><svg viewBox="0 0 24 24"><path d="M7.6 3.2c.8-.8 2.1-.7 2.8.2l2.1 2.7c.6.8.5 1.9-.2 2.6l-1.3 1.3c-.3.3-.4.8-.2 1.2.8 1.5 2 2.7 3.5 3.5.4.2.9.1 1.2-.2l1.3-1.3c.7-.7 1.8-.8 2.6-.2l2.7 2.1c.9.7 1 2 .2 2.8l-1.5 1.5c-1 1-2.5 1.4-3.9 1C11.1 19 5 12.9 3.3 6.6c-.4-1.4 0-2.9 1-3.9z"/></svg></span>
+                                                    <span>Принять</span>
+                                                </span>
+                                            </div>
+                                            <span class="zcr-ph-bar"></span>
+                                            <span class="zcr-ph-sheen"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2 ─────────────────────────────────────────────── -->
+                <article class="zcr-slide" id="zcr-slide-2" role="tabpanel" aria-labelledby="zcr-tab-2" aria-roledescription="слайд">
+                    <div class="zcr-text">
+                        <div class="zcr-copy">
+                            <span class="zcr-pill">Опыт, лицензия и отзывы рядом</span>
+                            <h3 class="zcr-h3">Все ваши преимущества собраны в одном месте</h3>
+                            <p class="zcr-lead">Лицензия, 14 направлений, свои врачи, оборудование и отзывы — в том порядке, в каком нужно вам. В карточке справочника этого не разложить: там одна форма на всех, три строки и реклама конкурента сбоку.</p>
+                            <p class="zcr-kick"><span>У конкурента в вашем доме 196 оценок, у вас 28 — и это не про качество лечения. <b>Опыт наконец видно целиком, а не по кусочкам.</b></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Ноутбук и четыре площадки вокруг — из amdc-site v1
+                         (#gain, второй разворот). Ноутбук — готовый 3D-макет
+                         MacBook Air M1 с вписанным снимком первого экрана:
+                         фон элемента, а не <img>. Места плиток заданы долями
+                         от самого аппарата. -->
+                    <div class="zcr-visual zcr-cmp-stage">
+                        <div class="zcr-cmp">
+                            <div class="zcr-mbp-stage">
+                                <div class="zcr-mbp" role="img" aria-label="Первый экран сайта клиники на экране ноутбука, вокруг — плитки 2ГИС, Яндекс Карт, Google Карт и Zoon."></div>
+                                <span class="zcr-cmp-app a1" aria-hidden="true">
+                                    <span class="zcr-cmp-tile gis">2ГИС</span>
+                                    <b>2ГИС</b>
+                                </span>
+                                <span class="zcr-cmp-app a2" aria-hidden="true">
+                                    <span class="zcr-cmp-tile ya">Я</span>
+                                    <b>Яндекс Карты</b>
+                                </span>
+                                <span class="zcr-cmp-app a3" aria-hidden="true">
+                                    <span class="zcr-cmp-tile">
+                                        <svg viewBox="0 0 104 104"><path class="ln thin" d="M8 74 38 50"/><path class="ln thin" d="M66 50 96 74"/><path class="sh" d="M52 18c-11.6 0-21 9.1-21 20.3 0 15.1 21 34.7 21 34.7s21-19.6 21-34.7C73 27.1 63.6 18 52 18z"/><circle class="sh" cx="52" cy="37.8" r="7.4"/></svg>
+                                    </span>
+                                    <b>Google Карты</b>
+                                </span>
+                                <span class="zcr-cmp-app a4" aria-hidden="true">
+                                    <span class="zcr-cmp-tile zoon">Zoon</span>
+                                    <b>Zoon</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3 ─────────────────────────────────────────────── -->
+                <article class="zcr-slide" id="zcr-slide-3" role="tabpanel" aria-labelledby="zcr-tab-3" aria-roledescription="слайд">
+                    <div class="zcr-text">
+                        <div class="zcr-copy">
+                            <span class="zcr-pill">Двенадцать часов, которых у вас нет</span>
+                            <h3 class="zcr-h3">Сайт приносит деньги, пока вы спите</h3>
+                            <p class="zcr-lead">Тем, кто решил записаться рано утром, ночью или поздно вечером, сегодня никто не отвечает. Сайт работает 24 часа в сутки и собирает каждую такую заявку сам.</p>
+                            <p class="zcr-kick"><span><b>Регистратура закрывается в 20:00. Сайт — нет.</b></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Экран блокировки iPhone 16 в 23:40 — из amdc-site v1
+                         (#gain, третий разворот): пять уведомлений из разных
+                         чатов, режим «Сон», фонарик и камера. -->
+                    <div class="zcr-visual zcr-ph-stage">
+                        <div class="zcr-phone" role="img" aria-label="Экран блокировки телефона в 23:40: пять заявок, пришедших после закрытия регистратуры, — с сайта, в Telegram, SMS и WhatsApp.">
+                            <i class="zcr-ph-btn act" aria-hidden="true"></i>
+                            <i class="zcr-ph-btn vup" aria-hidden="true"></i>
+                            <i class="zcr-ph-btn vdn" aria-hidden="true"></i>
+                            <i class="zcr-ph-btn pwr" aria-hidden="true"></i>
+                            <i class="zcr-ph-btn cam" aria-hidden="true"></i>
+                            <div class="zcr-ph-glass">
+                                <div class="zcr-ph-scr" aria-hidden="true">
+                                    <div class="zcr-ph-wall"></div>
+                                    <div class="zcr-ph-island"></div>
+                                    <div class="zcr-ph-status">
+                                        <svg class="sig" viewBox="0 0 18 12"><rect x="0" y="7.6" width="3" height="4.4" rx="1"/><rect x="5" y="5.2" width="3" height="6.8" rx="1"/><rect x="10" y="2.8" width="3" height="9.2" rx="1"/><rect x="15" y="0.4" width="3" height="11.6" rx="1"/></svg>
+                                        <svg class="wf" viewBox="0 0 16 12"><path d="M1.2 4.1a10 10 0 0 1 13.6 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M4 7a6.1 6.1 0 0 1 8 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="10.2" r="1.3"/></svg>
+                                        <svg class="bat" viewBox="0 0 26 13"><rect x=".5" y=".5" width="22.6" height="12" rx="3.4" fill="none" stroke="#fff" stroke-opacity=".38"/><rect x="2.1" y="2.1" width="12.6" height="8.8" rx="2.1" fill="#fff"/><path d="M24.4 4.5c1 .3 1.6 1 1.6 2s-.6 1.7-1.6 2z" fill="#fff" fill-opacity=".38"/></svg>
+                                    </div>
+                                    <div class="zcr-ph-lock">
+                                        <svg viewBox="0 0 14 18"><path d="M3.5 7.2V5.1a3.5 3.5 0 0 1 7 0v2.1" fill="none" stroke="#fff" stroke-width="1.7"/><rect x="0" y="6.6" width="14" height="11.4" rx="3.2" fill="#fff"/></svg>
+                                    </div>
+                                    <div class="zcr-ph-date">суббота, 12 сентября</div>
+                                    <div class="zcr-ph-clock">23:40</div>
+                                    <div class="zcr-ph-list">
+                                        <div class="zcr-ph-note">
+                                            <span class="zcr-ph-ico"><svg viewBox="0 0 38 38"><defs><linearGradient id="zcr-ph-ml" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26B7FF"/><stop offset="1" stop-color="#0A6CF5"/></linearGradient></defs><rect width="38" height="38" fill="url(#zcr-ph-ml)"/><rect x="7.6" y="12.4" width="22.8" height="13.6" rx="2.6" fill="#fff"/><path d="M8.8 14 19 21.2l9.4-7.2" fill="none" stroke="#1C8DF7" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                                            <span class="zcr-ph-tx"><span class="zcr-ph-hd"><b>Заявка с сайта am-dc.ru</b><i>20:41</i></span><span class="zcr-ph-bd">Наталья, +7 905 •••-41-06 · УЗИ</span></span>
+                                        </div>
+                                        <div class="zcr-ph-note">
+                                            <span class="zcr-ph-ico"><svg viewBox="0 0 38 38"><defs><linearGradient id="zcr-ph-tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3CBDF5"/><stop offset="1" stop-color="#1287C8"/></linearGradient></defs><rect width="38" height="38" fill="url(#zcr-ph-tg)"/><path d="M8.6 18.4 27.1 11.2c1-.4 1.9.2 1.6 1.6l-3.2 15c-.2 1-.9 1.2-1.7.7l-4.5-3.3-2.2 2.1c-.3.3-.5.5-1 .5l.4-4.6 9.1-8.2c.3-.3 0-.5-.4-.3l-11.2 7-4-1.2c-1-.3-1-.9.1-1.3z" fill="#fff"/></svg></span>
+                                            <span class="zcr-ph-tx"><span class="zcr-ph-hd"><b>АМДЦ · заявки с сайта</b><i>21:14</i></span><span class="zcr-ph-bd">Олег, +7 931 •••-77-52<br>Проктолог — консультация</span></span>
+                                        </div>
+                                        <div class="zcr-ph-note">
+                                            <span class="zcr-ph-ico"><svg viewBox="0 0 38 38"><defs><linearGradient id="zcr-ph-sms" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5BF675"/><stop offset="1" stop-color="#1FC94B"/></linearGradient></defs><rect width="38" height="38" fill="url(#zcr-ph-sms)"/><path d="M19 8.6c-6.2 0-11.2 4-11.2 9 0 2.8 1.6 5.3 4.1 7-.5 1.7-1.5 3.2-2.9 4.3 2.5-.2 4.8-1.1 6.7-2.5 1 .2 2.1.3 3.3.3 6.2 0 11.2-4 11.2-9s-5-9-11.2-9z" fill="#fff"/></svg></span>
+                                            <span class="zcr-ph-tx"><span class="zcr-ph-hd"><b>+7 911 •••-08-77</b><i>22:07</i></span><span class="zcr-ph-bd">Здравствуйте, можно к урологу?</span></span>
+                                        </div>
+                                        <div class="zcr-ph-note">
+                                            <span class="zcr-ph-ico"><svg viewBox="0 0 38 38"><rect width="38" height="38" fill="#25D366"/><path d="M19 7.4c-6.4 0-11.6 5.2-11.6 11.6 0 2.1.6 4 1.6 5.7l-1.6 5.9 6.1-1.6c1.6.9 3.5 1.4 5.5 1.4 6.4 0 11.6-5.2 11.6-11.6S25.4 7.4 19 7.4z" fill="#fff"/><path d="M15.4 13.6c-.3-.7-.6-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.3 1.3-1.3 3s1.3 3.5 1.5 3.7c.2.3 2.5 4 6.1 5.4 3 1.2 3.6 1 4.3.9.7-.1 2.1-.9 2.4-1.7.3-.9.3-1.6.2-1.7-.1-.2-.4-.3-.8-.5l-2.5-1.2c-.3-.2-.6-.1-.9.2l-1 1.2c-.2.3-.5.3-.8.2-.4-.2-1.6-.6-2.9-1.8-1.1-1-1.8-2.1-2-2.4-.2-.3 0-.5.1-.7l.6-.8c.2-.2.2-.4.1-.6z" fill="#25D366"/></svg></span>
+                                            <span class="zcr-ph-tx"><span class="zcr-ph-hd"><b>Сергей</b><i>23:02</i></span><span class="zcr-ph-bd">Можно записаться на четверг<br>вечером? Или в субботу утром</span></span>
+                                        </div>
+                                        <div class="zcr-ph-note">
+                                            <span class="zcr-ph-ico"><svg viewBox="0 0 38 38"><rect width="38" height="38" fill="#25D366"/><path d="M19 7.4c-6.4 0-11.6 5.2-11.6 11.6 0 2.1.6 4 1.6 5.7l-1.6 5.9 6.1-1.6c1.6.9 3.5 1.4 5.5 1.4 6.4 0 11.6-5.2 11.6-11.6S25.4 7.4 19 7.4z" fill="#fff"/><path d="M15.4 13.6c-.3-.7-.6-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.3 1.3-1.3 3s1.3 3.5 1.5 3.7c.2.3 2.5 4 6.1 5.4 3 1.2 3.6 1 4.3.9.7-.1 2.1-.9 2.4-1.7.3-.9.3-1.6.2-1.7-.1-.2-.4-.3-.8-.5l-2.5-1.2c-.3-.2-.6-.1-.9.2l-1 1.2c-.2.3-.5.3-.8.2-.4-.2-1.6-.6-2.9-1.8-1.1-1-1.8-2.1-2-2.4-.2-.3 0-.5.1-.7l.6-.8c.2-.2.2-.4.1-.6z" fill="#25D366"/></svg></span>
+                                            <span class="zcr-ph-tx"><span class="zcr-ph-hd"><b>Марина</b><i>сейчас</i></span><span class="zcr-ph-bd">Здравствуйте! Хочу записаться к вам в стоматологию! Когда есть свободное мес...</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="zcr-ph-focus">
+                                        <svg viewBox="0 0 24 24"><path d="M3.4 5.4a1.1 1.1 0 0 1 2.2 0v4.9h13.2a2.4 2.4 0 0 1 2.4 2.4v5.9a1.1 1.1 0 0 1-2.2 0v-1.3H5.6v1.3a1.1 1.1 0 0 1-2.2 0z"/><rect x="7" y="6.6" width="5.6" height="2.9" rx="1.45"/><rect x="13.6" y="6.6" width="5.6" height="2.9" rx="1.45"/></svg>
+                                        Сон
+                                    </div>
+                                    <div class="zcr-ph-dock">
+                                        <span class="zcr-ph-round"><svg viewBox="0 0 24 24"><path d="M8.4 2.6h7.2a1.1 1.1 0 0 1 1.1 1.1v2.05a2.2 2.2 0 0 1-.42 1.3l-1.12 1.53a2.2 2.2 0 0 0-.42 1.3v9.42a2.1 2.1 0 0 1-2.1 2.1h-1.3a2.1 2.1 0 0 1-2.1-2.1V9.88a2.2 2.2 0 0 0-.42-1.3L7.7 7.05a2.2 2.2 0 0 1-.42-1.3V3.7A1.1 1.1 0 0 1 8.4 2.6z"/></svg></span>
+                                        <span class="zcr-ph-round"><svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9.3 3.6h5.4l1.05 1.7h2.45A2.8 2.8 0 0 1 21 8.1v7.9a2.8 2.8 0 0 1-2.8 2.8H5.8A2.8 2.8 0 0 1 3 16V8.1a2.8 2.8 0 0 1 2.8-2.8h2.45zM12 8.6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg></span>
+                                    </div>
+                                    <span class="zcr-ph-bar"></span>
+                                    <span class="zcr-ph-sheen"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4 ─────────────────────────────────────────────── -->
+                <article class="zcr-slide" id="zcr-slide-4" role="tabpanel" aria-labelledby="zcr-tab-4" aria-roledescription="слайд">
+                    <div class="zcr-text">
+                        <div class="zcr-copy">
+                            <span class="zcr-pill">Адрес, который нельзя отобрать</span>
+                            <h3 class="zcr-h3">Всё внимание клиента — ваше. Никаких конкурентов рядом</h3>
+                            <p class="zcr-lead">На чужой площадке сегодня вы третьи, завтра девятые — потому что конкурент купил продвижение. Свой адрес нельзя опустить в списке, задвинуть за платного конкурента или закрыть по чужому решению.</p>
+                            <p class="zcr-kick"><span>Карточку можно потерять за нарушение правил, которые писали не вы. <b>Домен на вашу компанию потерять нельзя.</b></span></p>
+                        </div>
+                    </div>
+                    <div class="zcr-visual">
+                        <div class="zcr-art" data-w="440">
+                            <div class="zcr-panel">
+                                <div class="zcr-panel-top">
+                                    <span class="zcr-chip zcr-chip--url">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>
+                                        am-dc.ru
+                                    </span>
+                                    <span class="zcr-note">ваш домен</span>
+                                </div>
+                                <ul class="zcr-rank">
+                                    <li>
+                                        <span class="zcr-rank-l">Каталог, сегодня<small>порядок решает площадка</small></span>
+                                        <span class="zcr-rank-v">3<small>-е место</small></span>
+                                    </li>
+                                    <li class="is-dim">
+                                        <span class="zcr-rank-l">Каталог, завтра<small>конкурент купил продвижение</small></span>
+                                        <span class="zcr-rank-v">9<small>-е место</small></span>
+                                    </li>
+                                    <li class="is-own">
+                                        <span class="zcr-rank-l">Свой сайт, всегда<small>правила ставите вы</small></span>
+                                        <span class="zcr-rank-v">1<small>из 1 на странице</small></span>
+                                    </li>
+                                </ul>
+                                <p class="zcr-panel-foot"><i aria-hidden="true">✦</i>Владелец домена — ваше юрлицо, с первого дня работ</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 5 ─────────────────────────────────────────────── -->
+                <article class="zcr-slide" id="zcr-slide-5" role="tabpanel" aria-labelledby="zcr-tab-5" aria-roledescription="слайд">
+                    <div class="zcr-text">
+                        <div class="zcr-copy">
+                            <span class="zcr-pill">Порядок разговора выбираете вы</span>
+                            <h3 class="zcr-h3">Всё, что нужно для решения, — на одной странице</h3>
+                            <p class="zcr-lead">Справочник даёт три строки, реклама — заголовок и телефон. Только на своей странице вы решаете, с чего человек начнёт и чем закончит: цену оправдывает врач, врача подтверждает лицензия, лицензию закрывают отзывы.</p>
+                            <p class="zcr-kick"><span><b>Девять шагов</b> — и каждое возражение снято раньше, чем его произнесли.</span></p>
+                        </div>
+                    </div>
+                    <div class="zcr-visual">
+                        <div class="zcr-art" data-w="480">
+                            <ol class="zcr-steps">
+                                <li><span>01</span>Вызвать доверие</li>
+                                <li><span>02</span>Мягкая первая кнопка</li>
+                                <li><span>03</span>Снять вопрос цены</li>
+                                <li><span>04</span>Дать выбрать врача</li>
+                                <li><span>05</span>Ответить на «дойду ли»</li>
+                                <li><span>06</span>Отзывы рядом с услугой</li>
+                                <li><span>07</span>Что будет после заявки</li>
+                                <li><span>08</span>Запасной путь: мессенджеры</li>
+                                <li><span>09</span>Цель в Метрике</li>
+                            </ol>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6 ─────────────────────────────────────────────── -->
+                <article class="zcr-slide" id="zcr-slide-6" role="tabpanel" aria-labelledby="zcr-tab-6" aria-roledescription="слайд">
+                    <div class="zcr-text">
+                        <div class="zcr-copy">
+                            <span class="zcr-pill">Лицо, стаж и часы приёма</span>
+                            <h3 class="zcr-h3">Дайте выбрать врача до звонка — и человек дойдёт до кресла</h3>
+                            <p class="zcr-lead">Человек записывается не «в клинику», а к конкретному врачу, которого сам рассмотрел: фото, стаж, специализация, часы. Решение принято дома, спокойно, без давления в трубке.</p>
+                            <p class="zcr-kick"><span>Срываются записи вслепую. <b>Записываются к человеку, а не в кабинет.</b></span></p>
+                        </div>
+                    </div>
+                    <div class="zcr-visual">
+                        <div class="zcr-art" data-w="420">
+                            <div class="zcr-panel">
+                                <p class="zcr-note">am-dc.ru/vrachi · пример карточки</p>
+                                <div class="zcr-doc">
+                                    <span class="zcr-ava" aria-hidden="true">ИП</span>
+                                    <div>
+                                        <p class="zcr-doc-name">Иванов Иван Петрович</p>
+                                        <p class="zcr-doc-role">Уролог-андролог · к.м.н.</p>
+                                    </div>
+                                </div>
+                                <div class="zcr-chips">
+                                    <span class="zcr-chip">Стаж 18 лет</span>
+                                    <span class="zcr-chip">Высшая категория</span>
+                                    <span class="zcr-chip">412 приёмов за год</span>
+                                </div>
+                                <ul class="zcr-hours">
+                                    <li><span>Понедельник</span><span>9:00–14:00</span></li>
+                                    <li><span>Четверг</span><span>15:00–20:00</span></li>
+                                </ul>
+                                <p class="zcr-free">Чт, 18:30 — свободно</p>
+                                <div class="zcr-doc-foot">
+                                    <p class="zcr-price"><span>Первичный приём</span>1 200 ₽</p>
+                                    <span class="zcr-btn">Записаться
+                                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M14.58 5.42 5 15"/><path d="M6.67 5H15v8.33"/></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7 ─────────────────────────────────────────────── -->
+                <article class="zcr-slide" id="zcr-slide-7" role="tabpanel" aria-labelledby="zcr-tab-7" aria-roledescription="слайд">
+                    <div class="zcr-text">
+                        <div class="zcr-copy">
+                            <span class="zcr-pill">Кран, который видно в цифрах</span>
+                            <h3 class="zcr-h3">Включайте поток заявок, когда он нужен, и выключайте, когда расписание заполнено</h3>
+                            <p class="zcr-lead">С сайтом реклама, карты, визитки и вывеска ведут на страницу с кнопкой, а не на телефон регистратуры. Метрика показывает, сколько человек дошло до услуги и сколько нажало «Записаться».</p>
+                            <p class="zcr-kick"><span>В январе расписание пустует, в сентябре трещит. <b>Без сайта крана нет вовсе.</b></span></p>
+                        </div>
+                    </div>
+                    <div class="zcr-visual">
+                        <div class="zcr-art" data-w="440">
+                            <div class="zcr-panel">
+                                <p class="zcr-note">metrika.yandex.ru · пример отчёта</p>
+                                <div class="zcr-kpis">
+                                    <p><b>38</b><span>заявок за месяц</span></p>
+                                    <p><b>1 740 ₽</b><span>цена заявки</span></p>
+                                    <p><b><em>+</em>24<em>%</em></b><span>к прошлому месяцу</span></p>
+                                </div>
+                                <div class="zcr-bars" aria-hidden="true">
+                                    <p><i style="height:46px"></i><span>июнь</span></p>
+                                    <p><i style="height:62px"></i><span>июль</span></p>
+                                    <p><i style="height:84px"></i><span>август</span></p>
+                                    <p class="is-now"><i style="height:110px"></i><span>сентябрь</span></p>
+                                </div>
+                                <div class="zcr-toggles">
+                                    <button type="button" class="zcr-toggle" aria-pressed="true"><span>Кампания «Стоматология»</span><i aria-hidden="true"></i></button>
+                                    <button type="button" class="zcr-toggle" aria-pressed="false"><span>Кампания «Косметология»</span><i aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="zcr-controls">
+                <div class="zcr-arrows">
+                    <button type="button" class="zcr-nav" data-zcr-prev aria-label="Предыдущий слайд">
+                        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button type="button" class="zcr-nav" data-zcr-next aria-label="Следующий слайд">
+                        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+                <div class="zcr-meta">
+                    <span class="zcr-count" aria-live="polite" aria-atomic="true"><b>01</b> / 07</span>
+                    <div class="zcr-dots" aria-hidden="true">
+                        <span class="zcr-dot is-active"></span><span class="zcr-dot"></span><span class="zcr-dot"></span><span class="zcr-dot"></span><span class="zcr-dot"></span><span class="zcr-dot"></span><span class="zcr-dot"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
     </div>
-
-    <div class="car-tabs" role="tablist">
-      <button class="car-tab active" role="tab"><i>01</i>Только целевые звонки</button>
-      <button class="car-tab" role="tab"><i>02</i>Всё в одном месте</button>
-      <button class="car-tab" role="tab"><i>03</i>Заявки круглосуточно</button>
-      <button class="car-tab" role="tab"><i>04</i>Своя площадка</button>
-      <button class="car-tab" role="tab"><i>05</i>Маркетинговая система</button>
-      <button class="car-tab" role="tab"><i>06</i>Врач выбран заранее</button>
-      <button class="car-tab" role="tab"><i>07</i>Управляемый поток</button>
-    </div>
-
-    <div class="car-viewport">
-      <div class="car-track">
-
-        <article class="slide active" aria-label="1 из 7">
-          <div class="slide-text">
-            <span class="slide-tag">01 · Цена на странице отсеивает сама</span>
-            <h3>Звонят только те, кто уже готов платить</h3>
-            <p class="s-lead">Разгрузите регистратуру: звонят горячие клиенты, которые уже видели цену и выбрали врача. Разговоров с теми, кто «просто поинтересоваться», больше не будет — а освободившееся время уйдёт на запись.</p>
-            <p class="slide-quote"><b>Итог:</b> меньше звонков «сколько стоит» — больше звонков «запишите меня».</p>
-          </div>
-          <div class="slide-visual">
-            <div class="v-phone">
-              <div class="who">НК</div>
-              <h5>Новый клиент</h5>
-              <small>+7 921 •••-24-19 · входящий</small>
-              <div class="seen">Смотрел на сайте: <b>Приём уролога — от 300 ₽</b>, 3 минуты назад</div>
-              <div class="acts">
-                <span class="no"><i><svg><use href="#i-x"/></svg></i>Отклонить</span>
-                <span class="yes"><i><svg><use href="#i-phone"/></svg></i>Принять</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="slide" aria-label="2 из 7">
-          <div class="slide-text">
-            <span class="slide-tag">02 · Опыт, лицензия и отзывы рядом</span>
-            <h3>Все ваши преимущества собраны в одном месте</h3>
-            <p class="s-lead">Лицензия, 14 направлений, свои врачи, оборудование и отзывы — в том порядке, в каком нужно вам. В карточке справочника этого не разложить: там одна форма на всех, три строки и реклама конкурента сбоку.</p>
-            <p class="slide-quote">У конкурента в вашем доме 196 оценок, у вас 28 — и это не про качество лечения. <b>Опыт наконец видно целиком, а не по кусочкам.</b></p>
-          </div>
-          <div class="slide-visual">
-            <div class="v-reviews">
-              <div class="v-sources"><span>2ГИС</span><span>Яндекс Карты</span><span>Google Карты</span><span>Zoon</span></div>
-              <div class="v-arrow"></div>
-              <div class="v-site">
-                <span class="url">am-dc.ru/o-klinike</span>
-                <h5>АМДЦ — с 2002 года</h5>
-                <ul><li>Лицензия</li><li>14 направлений</li><li>Свои врачи</li><li>Лаборатория</li><li>Отзывы</li><li>Оборудование</li></ul>
-              </div>
-              <div class="v-compare"><div><b>196</b><span>оценок у конкурента</span></div><div class="me"><b>28 → ∞</b><span>отзывы копятся у вас</span></div></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="slide" aria-label="3 из 7">
-          <div class="slide-text">
-            <span class="slide-tag">03 · Двенадцать часов, которых у вас нет</span>
-            <h3>Сайт приносит деньги, пока вы спите</h3>
-            <p class="s-lead">Тем, кто решил записаться рано утром, ночью или поздно вечером, сегодня никто не отвечает. Сайт работает 24 часа в сутки и собирает каждую такую заявку сам.</p>
-            <p class="slide-quote"><b>Регистратура закрывается в 20:00. Сайт — нет.</b></p>
-          </div>
-          <div class="slide-visual">
-            <div class="v-lock">
-              <p class="date">суббота, 12 сентября</p>
-              <p class="time">23:40</p>
-              <div style="height:6px"></div>
-              <div class="push"><header><b>Заявка с сайта am-dc.ru</b><span>20:41</span></header><p>Наталья, +7 905 •••-41-06 · УЗИ</p></div>
-              <div class="push"><header><b>АМДЦ · заявки</b><span>21:14</span></header><p>Олег, +7 931 •••-77-52 · Проктолог, консультация</p></div>
-              <div class="push"><header><b>WhatsApp · Сергей</b><span>22:07</span></header><p>Здравствуйте, можно к урологу на четверг вечером?</p></div>
-              <div class="push"><header><b>WhatsApp · Марина</b><span>сейчас</span></header><p>Хочу записаться в стоматологию! Когда есть свободное место?</p></div>
-              <p class="sleep">Регистратура спит</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="slide" aria-label="4 из 7">
-          <div class="slide-text">
-            <span class="slide-tag">04 · Адрес, который нельзя отобрать</span>
-            <h3>Всё внимание клиента — ваше. Никаких конкурентов рядом</h3>
-            <p class="s-lead">На чужой площадке сегодня вы третьи, завтра девятые — потому что конкурент купил продвижение. Свой адрес нельзя опустить в списке, задвинуть за платного конкурента или закрыть по чужому решению.</p>
-            <p class="slide-quote">Карточку можно потерять за нарушение правил, которые писали не вы. <b>Домен на вашу компанию потерять нельзя.</b></p>
-          </div>
-          <div class="slide-visual">
-            <div class="v-browser">
-              <div class="bar"><span class="lock"><svg><use href="#i-lock"/></svg></span><span>am-dc.ru</span><em>ваш домен</em></div>
-              <div class="body">
-                <div class="v-rank"><span>Каталог: сегодня</span><s>3-е место</s></div>
-                <div class="v-rank"><span>Каталог: завтра</span><s>9-е место</s></div>
-                <div class="v-rank me"><span>Свой сайт: всегда</span><b>единственный на странице</b></div>
-                <div class="v-own"><i>✓</i>Владелец домена — ваше юрлицо, с первого дня работ</div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="slide" aria-label="5 из 7">
-          <div class="slide-text">
-            <span class="slide-tag">05 · Порядок разговора выбираете вы</span>
-            <h3>Всё, что нужно для решения, — на одной странице</h3>
-            <p class="s-lead">Справочник даёт три строки, реклама — заголовок и телефон. Только на своей странице вы решаете, с чего человек начнёт и чем закончит: цену оправдывает врач, врача подтверждает лицензия, лицензию закрывают отзывы.</p>
-            <p class="slide-quote"><b>Девять шагов</b> — и каждое возражение снято раньше, чем его произнесли.</p>
-          </div>
-          <div class="slide-visual">
-            <ol class="v-steps">
-              <li>Вызвать доверие</li><li>Мягкая первая кнопка</li><li>Снять вопрос цены</li>
-              <li>Дать выбрать врача</li><li>Ответить на «дойду ли»</li><li>Отзывы рядом с услугой</li>
-              <li>Что будет после заявки</li><li>Запасной путь: мессенджеры</li><li>Цель в Метрике</li>
-            </ol>
-          </div>
-        </article>
-
-        <article class="slide" aria-label="6 из 7">
-          <div class="slide-text">
-            <span class="slide-tag">06 · Лицо, стаж и часы приёма</span>
-            <h3>Дайте выбрать врача до звонка — и человек дойдёт до кресла</h3>
-            <p class="s-lead">Человек записывается не «в клинику», а к конкретному врачу, которого сам рассмотрел: фото, стаж, специализация, часы. Решение принято дома, спокойно, без давления в трубке.</p>
-            <p class="slide-quote">Срываются записи вслепую. <b>Записываются к человеку, а не в кабинет.</b></p>
-          </div>
-          <div class="slide-visual">
-            <div class="v-doc">
-              <div class="url">am-dc.ru/vrachi · пример карточки</div>
-              <div class="top"><div class="ph">ИП</div><div><h5>Иванов Иван Петрович</h5><small>Уролог-андролог · стаж 18 лет · к.м.н.</small><small>Высшая категория · 412 приёмов за год</small></div></div>
-              <div class="free">Чт, 18:30 — свободно</div>
-              <div class="hours"><span>Пн 9:00–14:00</span><span>Чт 15:00–20:00</span></div>
-              <div class="foot"><span>Первичный приём<b>1 200 ₽</b></span><em>Записаться к врачу</em></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="slide" aria-label="7 из 7">
-          <div class="slide-text">
-            <span class="slide-tag">07 · Кран, который видно в цифрах</span>
-            <h3>Включайте поток заявок, когда он нужен, и выключайте, когда расписание заполнено</h3>
-            <p class="s-lead">С сайтом реклама, карты, визитки и вывеска ведут на страницу с кнопкой, а не на телефон регистратуры. Метрика показывает, сколько человек дошло до услуги и сколько нажало «Записаться».</p>
-            <p class="slide-quote">В январе расписание пустует, в сентябре трещит. <b>Без сайта крана нет вовсе.</b></p>
-          </div>
-          <div class="slide-visual">
-            <div class="v-metrika">
-              <span class="url">metrika.yandex.ru · пример отчёта</span>
-              <div class="kpis"><div><b>38</b><span>заявок за месяц</span></div><div><b>1 740 ₽</b><span>цена заявки</span></div><div class="up"><b>+24%</b><span>к прошлому</span></div></div>
-              <div class="v-bars"><div><i data-h="38%"></i><span>июнь</span></div><div><i data-h="52%"></i><span>июль</span></div><div><i data-h="70%"></i><span>август</span></div><div><i data-h="92%"></i><span>сентябрь</span></div></div>
-              <div class="v-toggles">
-                <button type="button" class="v-toggle on"><span>Кампания «Стоматология»</span><span class="sw"></span></button>
-                <button type="button" class="v-toggle"><span>Кампания «Косметология»</span><span class="sw"></span></button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-
-    <div class="car-foot">
-      <div class="dots" role="tablist"></div>
-      <span class="car-hint">Листайте свайпом, стрелками или клавишами ← →</span>
-    </div>
-  </div>
 </section>
 
 <!-- ================= 6. ПРОВЕРКА ================= -->
@@ -893,7 +1108,8 @@
 
 <a class="float-wa" href="https://wa.me/79111112122" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg><use href="#i-wa"/></svg></a>
 
-<script src="assets/main.js?v=14"></script>
+<script src="assets/main.js?v=15"></script>
+<script src="assets/carousel.js?v=1"></script>
 <script type="module" src="assets/star3d.js?v=5"></script>
 </body>
 </html>

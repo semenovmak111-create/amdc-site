@@ -1016,3 +1016,6 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
 /* Звёздочка первого экрана на узких экранах — как на референсе */
 @media (max-width:495px){.hero-star{top:66%;bottom:auto}}
 @media (max-width:471px){.hero-star{top:56%;left:-16px}.hero-star svg{width:40px;height:auto}}
+
+/* ---------- карусель «Что даёт» (assets/carousel.css): поля как у всей страницы ---------- */
+#gain.zcr{--zcr-gutter:var(--pad)}
