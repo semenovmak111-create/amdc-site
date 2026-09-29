@@ -1021,3 +1021,7 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
 
 /* ---------- карусель «Что даёт» (assets/carousel.css): поля как у всей страницы ---------- */
 #gain.zcr{--zcr-gutter:var(--pad)}
+
+/* ---------- «Чем сайт отличается от площадок?» (assets/sravnenie.css): поля и отступы как у всей страницы ---------- */
+#rent.zsb{--zsb-gutter:var(--pad);padding:80px 0}
+@media (max-width:991px){#rent.zsb{padding:64px 0}}

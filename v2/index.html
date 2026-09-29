@@ -12,8 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=25">
+<link rel="stylesheet" href="assets/style.css?v=26">
 <link rel="stylesheet" href="assets/carousel.css?v=1">
+<link rel="stylesheet" href="assets/sravnenie.css?v=1">
 </head>
 <body>
 
@@ -242,64 +243,59 @@
   </div>
 </section>
 
-<!-- ================= 4. САЙТ И ПЛОЩАДКИ ================= -->
-<section class="section section--dark behind-cursor" id="rent">
-  <div class="container">
-    <div class="head-center reveal">
-      <h2 class="h2">Чем сайт отличается от площадок?</h2>
-    </div>
+<!-- ================= 4. САЙТ И ПЛОЩАДКИ — бенто в дизайне zeeframes (zsb-) =================
+     Исходник блока: websites/projects/zeeframes-sravnenie-blok (вариант 1); стили assets/sravnenie.css. -->
+<section class="zsb behind-cursor" id="rent" aria-labelledby="zsb-title">
+    <div class="zsb-container">
+        <header class="zsb-head">
+            <h2 class="zsb-title" id="zsb-title">Чем сайт отличается <span>от&nbsp;площадок?</span></h2>
+        </header>
 
-    <div class="scales" id="scales" aria-hidden="true">
-      <svg viewBox="0 0 560 250">
-        <rect x="276" y="60" width="8" height="160" rx="4" fill="#2c2c2c"/>
-        <ellipse cx="280" cy="230" rx="90" ry="10" fill="#1c1c1c"/>
-        <rect x="220" y="216" width="120" height="14" rx="7" fill="#2c2c2c"/>
-        <g class="beam"><rect x="60" y="57" width="440" height="6" rx="3" fill="#8f8f8f"/></g>
-        <circle cx="280" cy="60" r="11" fill="#F3FE00"/>
-        <g class="pan-l">
-          <path d="M60,60 L22,150 M60,60 L98,150" stroke="#555" stroke-width="1.5"/>
-          <path d="M12,150 Q60,188 108,150 Z" fill="#2a2a2a" stroke="#444"/>
-          <text x="60" y="206" text-anchor="middle" style="font:500 13px Inter,sans-serif;fill:#8f8f8f">Площадка</text>
-        </g>
-        <g class="pan-r">
-          <path d="M500,60 L462,150 M500,60 L538,150" stroke="#b9c200" stroke-width="1.5"/>
-          <path d="M452,150 Q500,188 548,150 Z" fill="#F3FE00"/>
-          <text x="500" y="206" text-anchor="middle" style="font:600 13px Inter,sans-serif;fill:#F3FE00">Свой сайт</text>
-        </g>
-      </svg>
+        <div class="zsb-stage">
+            <div class="zsb-bento" role="list">
+                <div class="zsb-cell zsb-them zsb-col" aria-hidden="true">
+                    <span class="zsb-icon"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5"/></svg></span>
+                    <div><p class="zsb-col-title">Площадка</p><p class="zsb-col-sub">Вы снимаете место</p></div>
+                </div>
+                <div class="zsb-cell zsb-own zsb-col" aria-hidden="true">
+                    <span class="zsb-icon"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92L2.33 7"/></svg></span>
+                    <div><p class="zsb-col-title">Свой сайт <span class="zsb-chip">0&nbsp;₽ за&nbsp;запись</span></p><p class="zsb-col-sub">Вы владеете адресом</p></div>
+                </div>
+                <div class="zsb-cell zsb-them" role="listitem">
+                    <div class="zsb-point"><span class="zsb-mark"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5"/></svg></span><div><span class="zsb-tag">Площадка</span><h3 class="zsb-point-title">Место в&nbsp;списке — пока платите</h3><p class="zsb-point-text"><span class="zsb-nw">3&nbsp;000–30&nbsp;000&nbsp;₽</span> в&nbsp;месяц за&nbsp;приоритет. Перестали — карточка уходит вниз.</p></div></div>
+                </div>
+                <div class="zsb-cell zsb-own" role="listitem">
+                    <div class="zsb-point"><span class="zsb-mark"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92L2.33 7"/></svg></span><div><span class="zsb-tag">Свой сайт</span><h3 class="zsb-point-title">Адрес ваш, пока работает клиника</h3><p class="zsb-point-text">Домен и хостинг — несколько тысяч ₽ в&nbsp;год. Снять с&nbsp;показа не может никто.</p></div></div>
+                </div>
+                <div class="zsb-cell zsb-them" role="listitem">
+                    <div class="zsb-point"><span class="zsb-mark"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5"/></svg></span><div><span class="zsb-tag">Площадка</span><h3 class="zsb-point-title">Процент с&nbsp;каждой записи</h3><p class="zsb-point-text">Портал берёт 3,7% — даже когда клиент пришёл второй раз.</p></div></div>
+                </div>
+                <div class="zsb-cell zsb-own" role="listitem">
+                    <div class="zsb-point"><span class="zsb-mark"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92L2.33 7"/></svg></span><div><span class="zsb-tag">Свой сайт</span><h3 class="zsb-point-title">Запись без комиссии</h3><p class="zsb-point-text">0&nbsp;₽ с&nbsp;первой, сотой и&nbsp;повторной заявки.</p></div></div>
+                </div>
+                <div class="zsb-cell zsb-them" role="listitem">
+                    <div class="zsb-point"><span class="zsb-mark"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5"/></svg></span><div><span class="zsb-tag">Площадка</span><h3 class="zsb-point-title">Контакты клиента — у&nbsp;площадки</h3><p class="zsb-point-text">Позвать его на&nbsp;осмотр через полгода вы не&nbsp;сможете.</p></div></div>
+                </div>
+                <div class="zsb-cell zsb-own" role="listitem">
+                    <div class="zsb-point"><span class="zsb-mark"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92L2.33 7"/></svg></span><div><span class="zsb-tag">Свой сайт</span><h3 class="zsb-point-title">Привлекаете клиента один раз, а&nbsp;зарабатываете на&nbsp;нём снова и&nbsp;снова</h3><p class="zsb-point-text">Его номер остаётся у&nbsp;вас. Через время напомните об&nbsp;осмотре или расскажите об&nbsp;акции, и&nbsp;у&nbsp;клиента будет повод вернуться именно к&nbsp;вам.</p></div></div>
+                </div>
+                <div class="zsb-cell zsb-them" role="listitem">
+                    <div class="zsb-point"><span class="zsb-mark"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5"/></svg></span><div><span class="zsb-tag">Площадка</span><h3 class="zsb-point-title">Рядом — другие клиники</h3><p class="zsb-point-text">Площадка показывает их прямо в&nbsp;вашей карточке.</p></div></div>
+                </div>
+                <div class="zsb-cell zsb-own" role="listitem">
+                    <div class="zsb-point"><span class="zsb-mark"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92L2.33 7"/></svg></span><div><span class="zsb-tag">Свой сайт</span><h3 class="zsb-point-title">На странице — только вы</h3><p class="zsb-point-text">Ни чужих клиник, ни чужой рекламы. Выбирают между вашими врачами.</p></div></div>
+                </div>
+                <div class="zsb-cell zsb-cell--hero" role="listitem">
+                    <span class="zsb-hero-label">Свой сайт</span>
+                    <h3 class="zsb-hero-title">Правила пишете вы</h3>
+                    <p class="zsb-hero-text">Врачи, цены, отзывы, акции — решаете сами. Сменится подрядчик — сайт останется.</p>
+                    <a class="zsb-btn" href="#start">Посмотреть свой сайт<span aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
+                </div>
+            </div>
+            <div class="zsb-bubble" aria-hidden="true"></div>
+        </div>
+        <p class="zsb-note">Тарифы — из открытых прайсов площадок, сентябрь 2026. Бросать справочники не нужно: пусть приводят людей и&nbsp;дальше. Сайт нужен, чтобы клиент, которого они привели, остался вашим.</p>
     </div>
-
-    <div class="vs-wrap reveal">
-      <div class="vs-card">
-        <div class="vs-head"><h3>Площадка</h3><span>Вы снимаете место</span></div>
-        <ul class="vs-list">
-          <li><span class="vs-ico"><svg><use href="#i-x"/></svg></span><div><b>Место в списке — пока платите</b><p>3 000–30 000 ₽ в месяц за приоритет. Перестали — карточка уходит вниз.</p></div></li>
-          <li><span class="vs-ico"><svg><use href="#i-x"/></svg></span><div><b>Процент с каждой записи</b><p>Портал берёт 3,7% — даже когда клиент пришёл второй раз.</p></div></li>
-          <li><span class="vs-ico"><svg><use href="#i-x"/></svg></span><div><b>Контакты клиента — у площадки</b><p>Позвать его на осмотр через полгода вы не сможете.</p></div></li>
-          <li><span class="vs-ico"><svg><use href="#i-x"/></svg></span><div><b>Рядом — другие клиники</b><p>Площадка показывает их прямо в вашей карточке.</p></div></li>
-          <li><span class="vs-ico"><svg><use href="#i-x"/></svg></span><div><b>Правила пишет площадка</b><p>Какие отзывы показать и кого поднять выше, решает её алгоритм.</p></div></li>
-        </ul>
-      </div>
-      <span class="vs-badge">VS</span>
-      <div class="vs-card own">
-        <div class="vs-head"><h3>Свой сайт</h3><span>Вы владеете адресом</span></div>
-        <ul class="vs-list">
-          <li><span class="vs-ico"><svg><use href="#i-check"/></svg></span><div><b>Адрес ваш, пока работает клиника</b><p>Домен и хостинг — несколько тысяч ₽ в год. Снять с показа не может никто.</p></div></li>
-          <li><span class="vs-ico"><svg><use href="#i-check"/></svg></span><div><b>Запись без комиссии</b><p>0 ₽ с первой, сотой и повторной заявки.</p></div></li>
-          <li><span class="vs-ico"><svg><use href="#i-check"/></svg></span><div><b>Привлекаете клиента один раз, а зарабатываете на нём снова и снова</b><p>Его номер остаётся у вас. Через время напомните об осмотре или расскажите об акции, и у клиента будет повод вернуться именно к вам.</p></div></li>
-          <li><span class="vs-ico"><svg><use href="#i-check"/></svg></span><div><b>На странице — только вы</b><p>Ни чужих клиник, ни чужой рекламы. Выбирают между вашими врачами.</p></div></li>
-          <li><span class="vs-ico"><svg><use href="#i-check"/></svg></span><div><b>Правила пишете вы</b><p>Врачи, цены, отзывы, акции — решаете сами. Сменится подрядчик — сайт останется.</p></div></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="price-pills reveal">
-      <div class="price-pill"><b>3–30 тыс. ₽</b><span>в месяц — цена места повыше в картах</span></div>
-      <div class="price-pill"><b>3,7%</b><span>забирает портал с каждой записи</span></div>
-      <div class="price-pill win"><b>0 ₽</b><span>стоит запись с вашего сайта</span></div>
-    </div>
-    <p class="note text-center" style="margin-top:24px">Тарифы — из открытых прайсов площадок, сентябрь 2026. Бросать справочники не нужно: пусть приводят людей и дальше. Сайт нужен, чтобы клиент, которого они привели, остался вашим.</p>
-  </div>
 </section>
 
 <!-- ================= 5. ЧТО ДАЁТ — карусель в дизайне zeeframes (zcr-) =================

@@ -1,0 +1,297 @@
+/* ZeeFrames — "Чем сайт отличается от площадок?"
+   Composition after Formio's "From chaos to clarity": a dark bento with one tall
+   contrast cell on the right and a glass bubble sitting on the seam.
+   v2 (29.09.2026): the bento is split into two columns — the platform on the left,
+   in the shade, your own site on the right, lit from the lime cell next to it; each
+   minus stands level with its plus. The contrast cell is lime all the time.
+   Built from zeeframes.com parts:
+   - section header of the service pages (.tool-section-header);
+   - the "What's included" bento (.services-offer-grid): joined dark cells with
+     1 px inner lines, the CTA cell (here in its lime hover colour), 44 px icon boxes
+     (.card-icon.primary-icon), the lime glow from the corner of the dark cells;
+   - the uppercase card label (.work-type-card__label), the dark chip of the /about
+     hero cards, the glossy bubble of the home hero.
+   Classes are prefixed .zsb-. No JavaScript. */
+
+.zsb {
+    --zsb-primary: var(--color-primary, #F3FE00);
+    --zsb-bg: var(--color-black-300, #0B0B0B);
+    --zsb-line: var(--color-gray-muted, #373737);
+    --zsb-ink: var(--color-white, #FFFFFF);
+    --zsb-ink-2: var(--color-gray-165, #D4D4D8);
+    --zsb-dim: var(--color-gray-170, #A1A1AA);
+    --zsb-muted: var(--color-base-muted, #797A71);
+    --zsb-box-line: var(--color-base-border, #2A2A27);
+    --zsb-them: var(--color-black-111, #111111);
+    --zsb-own: var(--color-black-210, #1F1F1F);
+    --zsb-hero-ink: var(--color-gray-800, #27272A);
+    --zsb-hero-text: var(--color-gray-700, #3F3F46);
+    --zsb-chip-ink: var(--color-base-primary-fg, #282601);
+
+    position: relative;
+    padding: 60px 0 72px;
+    background: var(--zsb-bg);
+    color: var(--zsb-ink);
+    font-family: "Inter Tight", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.zsb *, .zsb *::before, .zsb *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.zsb :focus-visible { outline: 2px solid var(--zsb-primary); outline-offset: 2px; }
+
+.zsb-container { max-width: 1400px; margin: 0 auto; padding: 0 var(--zsb-gutter, 60px); }
+
+/* ── header: .tool-section-header ── */
+.zsb-head { padding-bottom: 48px; }
+.zsb-title {
+    max-width: 760px;
+    font-size: 36px;
+    line-height: 44px;
+    font-weight: 500;
+    letter-spacing: -0.72px;
+    color: var(--zsb-ink);
+}
+.zsb-title span { color: var(--zsb-muted); }
+
+/* ── bento: platform | own site | lime cell ── */
+.zsb-stage { position: relative; }
+
+.zsb-bento {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 0.92fr);
+    gap: 1px;
+    background: var(--zsb-line);           /* the 1 px inner lines */
+    border: 1px solid var(--zsb-line);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.zsb-cell {
+    position: relative;
+    padding: 28px;
+    overflow: hidden;
+    isolation: isolate;
+}
+.zsb-them { grid-column: 1; background: var(--zsb-them); }
+.zsb-own { grid-column: 2; background: var(--zsb-own); }
+
+/* the own-site column is lit from the lime cell on its right */
+.zsb-own::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -300px;
+    width: 520px;
+    height: 520px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(243, 254, 0, .55) 0%, rgba(243, 254, 0, .25) 22%,
+        rgba(243, 254, 0, .08) 50%, transparent 72%);
+    filter: blur(40px);
+    opacity: .28;
+    transition: opacity .3s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+.zsb-own:hover::before { opacity: .6; }
+
+/* column heads */
+.zsb-col { display: flex; align-items: center; gap: 16px; padding-top: 24px; padding-bottom: 24px; }
+.zsb-col-title { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 24px; line-height: 30px; font-weight: 500; letter-spacing: -0.36px; }
+.zsb-col-sub { margin-top: 2px; font-family: Inter, sans-serif; font-size: 14px; line-height: 20px; color: var(--zsb-dim); }
+.zsb-them.zsb-col .zsb-col-title, .zsb-them.zsb-col .zsb-col-sub { color: var(--zsb-muted); }
+/* a lime hairline on top of the own-site column */
+.zsb-own.zsb-col::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(243, 254, 0, 0), var(--zsb-primary));
+}
+
+.zsb-chip {
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--zsb-primary);
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--zsb-chip-ink);
+    white-space: nowrap;
+}
+
+/* 44 px icon boxes of the bento (.card-icon) and 28 px markers of the points */
+.zsb-icon, .zsb-mark {
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+}
+.zsb-icon { width: 44px; height: 44px; }
+.zsb-mark { width: 28px; height: 28px; }
+.zsb-icon svg { width: 20px; height: 20px; }
+.zsb-mark svg { width: 14px; height: 14px; }
+.zsb-icon svg, .zsb-mark svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.zsb-them .zsb-icon, .zsb-them .zsb-mark { background: rgba(255, 255, 255, .03); border: 1px solid var(--zsb-box-line); color: var(--zsb-muted); }
+.zsb-own .zsb-icon, .zsb-own .zsb-mark { background: rgba(243, 254, 0, .10); border: 1px solid rgba(243, 254, 0, .20); color: var(--zsb-primary); }
+.zsb-own .zsb-icon { background: var(--zsb-primary); border-color: var(--zsb-primary); color: #000; }
+.zsb-own:hover .zsb-mark { background: var(--zsb-primary); border-color: var(--zsb-primary); color: #000; }
+
+/* the points */
+.zsb-point { display: flex; align-items: flex-start; gap: 16px; }
+.zsb-tag {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.zsb-point-title { font-size: 20px; line-height: 28px; font-weight: 500; letter-spacing: -0.2px; color: var(--zsb-ink); }
+.zsb-point-text { max-width: 400px; margin-top: 8px; font-family: Inter, sans-serif; font-size: 14px; line-height: 21px; color: var(--zsb-ink-2); }
+.zsb-them .zsb-point-title { color: var(--zsb-dim); }
+.zsb-them .zsb-point-text { color: var(--zsb-muted); }
+.zsb-nw { white-space: nowrap; }
+
+/* ── the lime cell: .service-offer-cta in its hover colour, kept lime ── */
+.zsb-cell--hero {
+    grid-column: 3;
+    grid-row: 1 / span 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+    background: var(--zsb-primary);
+    color: var(--zsb-hero-ink);
+}
+
+.zsb-hero-label {
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--zsb-hero-ink);
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.48px;
+    text-transform: uppercase;
+    color: var(--zsb-primary);
+}
+.zsb-hero-title {
+    margin-top: 18px;
+    font-size: 36px;
+    line-height: 42px;
+    font-weight: 500;
+    letter-spacing: -0.72px;
+    color: var(--zsb-hero-ink);
+}
+.zsb-hero-text {
+    margin-top: 14px;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--zsb-hero-text);
+}
+
+.zsb-btn {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 12px 14px 12px 22px;
+    border-radius: 999px;
+    background: #000;
+    color: #fff;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.zsb-btn span {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--zsb-primary);
+    color: #000;
+    transition: transform .3s ease;
+}
+.zsb-btn:hover span { transform: rotate(45deg); }
+.zsb-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── glass bubble on the seam between the columns and the lime cell ── */
+.zsb-bubble {
+    position: absolute;
+    top: 28px;
+    left: calc((100% - 2px) * 2 / 2.92 - 26px);
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 30% 24%, rgba(255, 255, 255, .95) 0 4%, rgba(255, 255, 255, .5) 9%, transparent 20%),
+        radial-gradient(circle at 72% 80%, rgba(243, 254, 0, .9) 0%, rgba(243, 254, 0, .35) 18%, transparent 42%),
+        radial-gradient(circle at 50% 50%, transparent 60%, rgba(255, 255, 255, .35) 69%, rgba(255, 255, 255, .85) 71.5%, rgba(255, 255, 255, .15) 73%, transparent 74%),
+        radial-gradient(circle at 40% 36%, rgba(255, 255, 255, .10), rgba(120, 120, 110, .22) 62%, rgba(20, 20, 18, .35) 72%);
+    box-shadow: inset -18px -22px 40px rgba(243, 254, 0, .28), inset 14px 16px 34px rgba(255, 255, 255, .35), 0 24px 48px rgba(0, 0, 0, .28);
+    backdrop-filter: blur(6px) saturate(1.3);
+    -webkit-backdrop-filter: blur(6px) saturate(1.3);
+}
+
+.zsb-note { max-width: 860px; margin-top: 16px; font-family: Inter, sans-serif; font-size: 12px; line-height: 18px; color: var(--zsb-muted); }
+
+/* ── tablet: the two columns stay, the lime cell becomes a band below ── */
+@media (max-width: 1100px) {
+    .zsb { --zsb-gutter: 40px; }
+    .zsb-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .zsb-cell { padding: 24px; }
+    .zsb-col { padding-top: 20px; padding-bottom: 20px; }
+    .zsb-point { flex-direction: column; gap: 12px; }
+    .zsb-cell--hero { grid-column: 1 / -1; grid-row: auto; min-height: 300px; padding: 32px; }
+    .zsb-bubble { top: auto; bottom: 170px; left: auto; right: 24px; width: 132px; height: 132px; }
+}
+
+/* ── phone: one column, each minus followed by its plus ── */
+@media (max-width: 680px) {
+    .zsb { --zsb-gutter: 16px; padding: 48px 0 56px; }
+    .zsb-head { padding-bottom: 32px; }
+    .zsb-title { font-size: 28px; line-height: 34px; letter-spacing: -0.5px; }
+    .zsb-bento { grid-template-columns: 1fr; }
+    .zsb-col { display: none; }
+    .zsb-them, .zsb-own { grid-column: 1; }
+    .zsb-cell { padding: 20px; }
+    .zsb-point { flex-direction: row; gap: 14px; }
+    .zsb-tag {
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        clip: auto;
+        display: block;
+        margin-bottom: 6px;
+        font-family: Inter, sans-serif;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 0.48px;
+        text-transform: uppercase;
+        color: var(--zsb-muted);
+    }
+    .zsb-own .zsb-tag { color: var(--zsb-primary); }
+    .zsb-point-title { font-size: 18px; line-height: 26px; }
+    .zsb-cell--hero { grid-column: 1; min-height: 0; padding: 28px 20px; }
+    .zsb-hero-title { font-size: 28px; line-height: 34px; }
+    .zsb-bubble { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .zsb-own::before, .zsb-icon, .zsb-mark, .zsb-btn span { transition: none; }
+}
