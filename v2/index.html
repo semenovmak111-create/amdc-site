@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="assets/style.css?v=28">
 <link rel="stylesheet" href="assets/carousel.css?v=1">
 <link rel="stylesheet" href="assets/sravnenie.css?v=2">
+<link rel="stylesheet" href="assets/kviz.css?v=1">
 </head>
 <body>
 
@@ -680,26 +681,27 @@
     </div>
 </section>
 
-<!-- ================= 6. ПРОВЕРКА ================= -->
+<!-- ================= 6. КВИЗ (стили assets/kviz.css, скрипт assets/kviz.js) ================= -->
 <section class="section section--dark behind-cursor" id="check">
   <div class="container faq">
     <div class="faq-side reveal">
-      <h2 class="h2">Шесть вопросов, на которые стоит ответить себе</h2>
+      <h2 class="h2">Получите прототип сайта и анализ рынка за шесть ответов</h2>
+      <p class="qz-lead">Это займёт одну минуту. 0 ₽ и ни к чему не обязывает.</p>
       <div class="faq-score">
-        <div class="score-ring"><svg viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg><b id="scoreNum">0</b></div>
-        <p class="score-text" id="scoreText">Откройте вопрос и отметьте честно: есть ответ или нет.</p>
+        <div class="score-ring"><svg viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg><b id="qzNum">1/6</b></div>
+        <p class="score-text" id="qzText">Вопрос 1 из 6</p>
       </div>
     </div>
-    <div>
-      <div class="accordions">
-        <div class="accordion active"><button class="acc-btn" type="button" aria-expanded="true"><span class="num">01</span><span class="q">Сколько человек в этом месяце искали ваши услуги и до вас не дошли?</span><span class="state y">Есть</span><span class="state n">Нет ответа</span><span class="acc-icon"></span></button><div class="acc-body"><p>Без своей страницы этот поток не виден нигде: Метрики нет, считать нечего. Сайт превращает его из догадки в цифру.</p><div class="acc-answer"><button type="button" data-a="yes">Ответ есть</button><button type="button" data-a="no">Ответа нет</button></div></div></div>
-        <div class="accordion"><button class="acc-btn" type="button" aria-expanded="false"><span class="num">02</span><span class="q">Где человек видит цену приёма, если звонить он не готов?</span><span class="state y">Есть</span><span class="state n">Нет ответа</span><span class="acc-icon"></span></button><div class="acc-body"><p>Сегодня — нигде. А выбирают того, у кого цена написана, а не того, кто лечит лучше.</p><div class="acc-answer"><button type="button" data-a="yes">Ответ есть</button><button type="button" data-a="no">Ответа нет</button></div></div></div>
-        <div class="accordion"><button class="acc-btn" type="button" aria-expanded="false"><span class="num">03</span><span class="q">Кто решает, на каком месте в списке вы стоите — вы или площадка?</span><span class="state y">Есть</span><span class="state n">Нет ответа</span><span class="acc-icon"></span></button><div class="acc-body"><p>На площадке — её алгоритм и тот, кто заплатил за приоритет. На своём адресе — только вы.</p><div class="acc-answer"><button type="button" data-a="yes">Ответ есть</button><button type="button" data-a="no">Ответа нет</button></div></div></div>
-        <div class="accordion"><button class="acc-btn" type="button" aria-expanded="false"><span class="num">04</span><span class="q">Куда вести рекламу, если завтра расписание опустеет?</span><span class="state y">Есть</span><span class="state n">Нет ответа</span><span class="acc-icon"></span></button><div class="acc-body"><p>Директу нужна страница с услугой и ценой. Без неё канал закрыт, сколько бы вы ни были готовы вложить.</p><div class="acc-answer"><button type="button" data-a="yes">Ответ есть</button><button type="button" data-a="no">Ответа нет</button></div></div></div>
-        <div class="accordion"><button class="acc-btn" type="button" aria-expanded="false"><span class="num">05</span><span class="q">Что происходит с тем, кто решил записаться в половине одиннадцатого вечера?</span><span class="state y">Есть</span><span class="state n">Нет ответа</span><span class="acc-icon"></span></button><div class="acc-body"><p>Регистратура закрыта с 20:00. Человек открывает следующую клинику в списке — и вы об этом не узнаете.</p><div class="acc-answer"><button type="button" data-a="yes">Ответ есть</button><button type="button" data-a="no">Ответа нет</button></div></div></div>
-        <div class="accordion"><button class="acc-btn" type="button" aria-expanded="false"><span class="num">06</span><span class="q">Где собраны двадцать четыре года отзывов, врачей и случаев?</span><span class="state y">Есть</span><span class="state n">Нет ответа</span><span class="acc-icon"></span></button><div class="acc-body"><p>Сейчас — на четырёх чужих площадках вперемешку с конкурентами. Целиком их не видно нигде.</p><div class="acc-answer"><button type="button" data-a="yes">Ответ есть</button><button type="button" data-a="no">Ответа нет</button></div></div></div>
-      </div>
-      <p class="check-note">Ни один из шести вопросов не про качество лечения. Все шесть — про то, что человек может узнать о клинике до того, как впервые вам позвонил.</p>
+    <div class="qz reveal" id="quiz">
+      <div class="qz-bar"><i id="qzBar"></i></div>
+        <div class="qz-step"><span class="qz-count">Вопрос 1 из 6</span><h3 class="qz-q">Вам нужны новые клиенты?</h3><div class="qz-opts"><button type="button" class="qz-opt">Да, клиентов не хватает</button><button type="button" class="qz-opt">Хватает, но от новых не откажусь</button><button type="button" class="qz-opt">Нужны клиенты на отдельные услуги</button></div></div>
+        <div class="qz-step"><span class="qz-count">Вопрос 2 из 6</span><h3 class="qz-q">Какая главная задача у клиники на ближайшие полгода?</h3><div class="qz-opts"><button type="button" class="qz-opt">Поднять прибыль</button><button type="button" class="qz-opt">Поднять цены и не растерять клиентов</button><button type="button" class="qz-opt">Загрузить свободные часы</button><button type="button" class="qz-opt">Открыть направление или взять врача</button><button type="button" class="qz-opt">Меньше платить площадкам</button></div></div>
+        <div class="qz-step"><span class="qz-count">Вопрос 3 из 6</span><h3 class="qz-q">Сколько новых клиентов приходит к вам в месяц?</h3><div class="qz-opts qz-opts--row"><button type="button" class="qz-opt">До 20</button><button type="button" class="qz-opt">21–50</button><button type="button" class="qz-opt">51–100</button><button type="button" class="qz-opt">Больше 100</button><button type="button" class="qz-opt">Не считали</button></div></div>
+        <div class="qz-step"><span class="qz-count">Вопрос 4 из 6</span><h3 class="qz-q">Откуда сейчас приходят клиенты?</h3><p class="qz-hint">Можно выбрать несколько</p><div class="qz-opts" data-multi><button type="button" class="qz-opt">Яндекс Карты и 2ГИС</button><button type="button" class="qz-opt">ПроДокторов, НаПоправку и другие порталы</button><button type="button" class="qz-opt">Постоянные и по рекомендации</button><button type="button" class="qz-opt">Реклама в Директе и соцсетях</button><button type="button" class="qz-opt">Не знаю точно</button></div></div>
+        <div class="qz-step"><span class="qz-count">Вопрос 5 из 6</span><h3 class="qz-q">Сколько ещё клиентов вы примете без новых сотрудников?</h3><div class="qz-opts"><button type="button" class="qz-opt">До 10 в месяц</button><button type="button" class="qz-opt">11–30 в месяц</button><button type="button" class="qz-opt">Больше 30 в месяц</button><button type="button" class="qz-opt">Не считали</button></div></div>
+        <div class="qz-step"><span class="qz-count">Вопрос 6 из 6</span><h3 class="qz-q">Что для вас будет хорошим результатом от сайта?</h3><div class="qz-opts"><button type="button" class="qz-opt">+10–20 клиентов в месяц</button><button type="button" class="qz-opt">В полтора раза больше клиентов</button><button type="button" class="qz-opt">Вдвое больше клиентов</button><button type="button" class="qz-opt">Пока не знаю</button></div></div>
+        <div class="qz-final"><h3 class="qz-q">Готово! Осталось забрать прототип сайта и анализ рынка</h3><p>Через 4–5 дней пришлю прототип сайта и анализ рынка под задачу <span data-goal></span>. 0 ₽ — стоит увидеть результат.</p><ol class="qz-sum"></ol><div class="qz-done-btns"><a class="btn btn--primary" href="#start">Получить прототип сайта и анализ рынка</a><button type="button" class="qz-back qz-again">Пройти заново</button></div></div>
+      <div class="qz-nav"><button type="button" class="qz-back">Назад</button><button type="button" class="btn btn--primary qz-next" disabled>Дальше</button></div>
     </div>
   </div>
 </section>
@@ -1098,7 +1100,8 @@
 
 <a class="float-wa" href="https://wa.me/79111112122" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg><use href="#i-wa"/></svg></a>
 
-<script src="assets/main.js?v=15"></script>
+<script src="assets/main.js?v=16"></script>
+<script src="assets/kviz.js?v=1"></script>
 <script src="assets/carousel.js?v=1"></script>
 <script type="module" src="assets/star3d.js?v=5"></script>
 </body>

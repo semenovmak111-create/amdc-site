@@ -1,0 +1,42 @@
+/* ---------- 6. Квиз (на месте «Шести вопросов») ---------- */
+.qz-lead{margin-top:16px;font-family:var(--ff-inter);font-size:16px;line-height:24px;color:var(--gray-100)}
+.qz{padding:32px;border-radius:var(--radius-lg);border:1px solid var(--black-400);background:var(--white-04);backdrop-filter:blur(20px)}
+.qz-bar{height:4px;border-radius:4px;background:#2a2a2a;overflow:hidden;margin-bottom:28px}
+.qz-bar i{display:block;height:100%;width:0;background:var(--primary);border-radius:4px;transition:width .5s ease}
+.qz-step{display:none}
+.qz-step.is-active{display:block;animation:qzIn .35s ease}
+@keyframes qzIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.qz-count{font-family:var(--ff-inter);font-size:13px;color:var(--gray-200)}
+.qz-q{margin-top:8px;font-family:var(--ff-geo);font-size:26px;line-height:1.25;font-weight:500;color:#fff}
+.qz-sub{margin-top:28px;font-family:var(--ff-geo);font-size:18px;line-height:1.3;font-weight:500;color:#fff}
+.qz-hint{margin-top:8px;font-family:var(--ff-inter);font-size:14px;color:var(--gray-200)}
+.qz-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px}
+.qz-opts--row{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.qz-opt{display:flex;align-items:center;gap:12px;min-height:56px;padding:14px 18px;border-radius:12px;border:1px solid var(--black-500);background:rgba(255,255,255,.02);text-align:left;font-family:var(--ff-inter);font-size:15px;line-height:21px;color:#ddd;transition:border-color .25s,background-color .25s,color .25s}
+.qz-opt:hover{border-color:#fff;color:#fff}
+.qz-opt::before{content:"";flex-shrink:0;width:18px;height:18px;border-radius:50%;border:1.5px solid #555;transition:border-color .25s,background-color .25s,box-shadow .25s}
+.qz-opts[data-multi] .qz-opt::before{border-radius:5px}
+.qz-opt.is-on{border-color:var(--primary);background:rgba(243,254,0,.07);color:#fff}
+.qz-opt.is-on::before{border-color:var(--primary);background:var(--primary);box-shadow:inset 0 0 0 3px #111}
+.qz-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px}
+.qz-back{font-family:var(--ff-inter);font-size:14px;color:var(--gray-200);padding:10px 0;transition:color .25s}
+.qz-back:hover{color:#fff}
+.qz-back[hidden]{display:inline-block;visibility:hidden}
+.qz-next[disabled]{opacity:.35;pointer-events:none}
+.qz-done .qz-q{font-size:30px}
+.qz-done p{margin-top:12px;font-family:var(--ff-inter);font-size:16px;line-height:24px;color:var(--gray-100);max-width:560px}
+.qz-sum{margin-top:24px;display:grid;gap:8px}
+.qz-sum li{display:flex;gap:12px;font-family:var(--ff-inter);font-size:14px;line-height:20px;color:#bbb}
+.qz-sum li b{flex-shrink:0;width:22px;color:var(--gray-200);font-weight:400}
+.qz-done-btns{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:28px}
+.qz-done .qz-nav{display:none}
+@media (max-width:767px){
+  .qz{padding:20px}
+  .qz-q{font-size:21px}
+  .qz-done .qz-q{font-size:24px}
+  .qz-opts{grid-template-columns:1fr}
+  .qz-opts--row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qz-done-btns .btn{width:100%}
+}
+.qz-final{display:none}
+.qz-final.is-active{display:block;animation:qzIn .35s ease}

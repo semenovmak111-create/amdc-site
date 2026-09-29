@@ -431,7 +431,8 @@
       if (!form.consent.checked) { form.consent.focus(); return; }
       var name = form.name.value.trim();
       var text = 'Здравствуйте! Это АМДЦ (ул. Орбели, 19). Хочу макет главной и разбор запросов.'
-        + (name ? ' Меня зовут ' + name + '.' : '') + ' Мой номер: ' + phone.value.trim() + '.';
+        + (name ? ' Меня зовут ' + name + '.' : '') + ' Мой номер: ' + phone.value.trim() + '.'
+        + (window.amdcQuiz ? '\n\nОтветы на вопросы:\n' + window.amdcQuiz.map(function (a, i) { return (i + 1) + ') ' + a; }).join('\n') : '');
       var btn = $('button[type=submit]', form);
       btn.textContent = 'Открываю WhatsApp…';
       window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
