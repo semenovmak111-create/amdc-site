@@ -127,7 +127,15 @@
   }
 
   /* ---------- Бегущая строка: дублируем для бесшовности ---------- */
-  $$('.marquee-track').forEach(function (t) { t.innerHTML += t.innerHTML; });
+  /* Скорость как у zeeframes: 1150px за 15s ≈ 76.7px/s, длительность считаем от ширины ленты. */
+  var tracks = $$('.marquee-track');
+  tracks.forEach(function (t) { t.innerHTML += t.innerHTML; });
+  var tune = function () {
+    tracks.forEach(function (t) { t.style.animationDuration = (t.scrollWidth / 2 / (1150 / 15)) + 's'; });
+  };
+  tune();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(tune);
+  window.addEventListener('resize', tune);
 
   /* ---------- Счётчики ---------- */
   $$('[data-count]').forEach(function (el) {
