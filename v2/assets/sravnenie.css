@@ -24,8 +24,8 @@
     --zsb-box-line: var(--color-base-border, #2A2A27);
     --zsb-them: var(--color-black-111, #111111);
     --zsb-own: var(--color-black-210, #1F1F1F);
-    --zsb-hero-ink: var(--color-gray-800, #27272A);
-    --zsb-hero-text: var(--color-gray-700, #3F3F46);
+    --zsb-hero-ink: var(--color-black-300, #0B0B0B);
+    --zsb-hero-text: var(--color-gray-600, #171717);
     --zsb-chip-ink: var(--color-base-primary-fg, #282601);
 
     position: relative;
@@ -101,17 +101,6 @@
 .zsb-col-title { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 24px; line-height: 30px; font-weight: 500; letter-spacing: -0.36px; }
 .zsb-col-sub { margin-top: 2px; font-family: Inter, sans-serif; font-size: 14px; line-height: 20px; color: var(--zsb-dim); }
 .zsb-them.zsb-col .zsb-col-title, .zsb-them.zsb-col .zsb-col-sub { color: var(--zsb-muted); }
-/* a lime hairline on top of the own-site column */
-.zsb-own.zsb-col::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(243, 254, 0, 0), var(--zsb-primary));
-}
-
 .zsb-chip {
     padding: 3px 10px;
     border-radius: 999px;
@@ -185,17 +174,18 @@
 }
 .zsb-hero-title {
     margin-top: 18px;
-    font-size: 36px;
-    line-height: 42px;
-    font-weight: 500;
-    letter-spacing: -0.72px;
+    font-size: 40px;
+    line-height: 46px;
+    font-weight: 600;
+    letter-spacing: -0.9px;
     color: var(--zsb-hero-ink);
 }
 .zsb-hero-text {
     margin-top: 14px;
     font-family: Inter, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 17px;
+    line-height: 26px;
+    font-weight: 500;
     color: var(--zsb-hero-text);
 }
 
