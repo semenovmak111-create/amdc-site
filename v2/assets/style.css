@@ -1026,6 +1026,5 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
 #rent.zsb{--zsb-gutter:var(--pad);padding:80px 0}
 @media (max-width:991px){#rent.zsb{padding:64px 0}}
 
-/* ---------- «Почему я?»: все карточки подсвечены постоянно (как при наведении) ---------- */
-.why-card{border-color:var(--primary)}
-.why-card .big{-webkit-text-stroke-color:rgba(243,254,0,.5)}
+/* ---------- «Почему я?»: подсветка при наведении, цифры в покое заметнее ---------- */
+.why-card .big{-webkit-text-stroke-color:#474747}
