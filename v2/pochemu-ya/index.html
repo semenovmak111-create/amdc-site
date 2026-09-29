@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>«Почему я?» — два варианта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css?v=27">
+<style>
+  /* подписи вариантов */
+  .var-label{display:flex;align-items:center;gap:12px;max-width:var(--container);margin:0 auto;padding:40px var(--pad) 0;font-family:var(--ff-inter);font-size:14px;line-height:20px;color:var(--gray-200)}
+  .var-label b{display:inline-block;padding:4px 12px;border-radius:4px;background:var(--primary);color:#0B0B0B;font-weight:600}
+  .var + .var-label{border-top:1px solid #1f1f1f}
+  /* вариант 2 — как было до 29.09: подсветка только у карточки под курсором */
+  .var--hover .why-card{border-color:var(--black-400)}
+  .var--hover .why-card .big{-webkit-text-stroke-color:#252525}
+  .var--hover .why-card:hover{border-color:var(--primary)}
+  .var--hover .why-card:hover .big{-webkit-text-stroke-color:rgba(243,254,0,.5)}
+</style>
+</head>
+<body>
+<p class="var-label"><b>Вариант 1</b>Как сейчас на сайте: все пять карточек подсвечены всегда</p>
+<section class="section section--dark var var--lit">
+  <div class="container">
+    <div class="head-center"><h2 class="h2">Почему я?</h2></div>
+    <div class="why-grid">
+      <article class="why-card"><span class="big">01</span><h3>Я лично отвечаю за результат, поэтому делаю всю работу на совесть</h3><p>Вся ответственность лежит на мне: я работаю по договору, и спрятаться мне не за кого. Поэтому результат получается максимально качественным.</p></article>
+      <article class="why-card"><span class="big">02</span><h3>Веду только вас. Вы получаете максимум моего внимания</h3><p>Поэтому всё внимание достаётся вам: я тщательно прорабатываю каждую деталь, выверяю каждый инструмент и довожу сайт до совершенства.</p></article>
+      <article class="why-card"><span class="big">03</span><h3>Вы экономите, потому что работаете напрямую со мной</h3><p>В цену сайта агентство закладывает свою рекламу, зарплаты продажников и менеджеров-посредников и свою наценку. Со мной вы платите только за работу над сайтом.</p></article>
+      <article class="why-card"><span class="big">04</span><h3>Вы не платите, пока не увидите свой сайт</h3><p>Сначала я бесплатно делаю прототип вашего сайта. Предоплату 50% вы вносите, только когда он вам понравился, а вторую половину — после приёмки готового сайта.</p></article>
+      <article class="why-card"><span class="big">05</span><h3>Всё, что я обещаю, записано в договоре</h3><p>Сроки, состав работ и смету мы закрепляем в договоре до начала работ. Если что-то пойдёт не так, у вас на руках документ, а не устные обещания.</p></article>
+    </div>
+  </div>
+</section>
+<p class="var-label"><b>Вариант 2</b>Как было раньше: подсвечивается карточка под курсором</p>
+<section class="section section--dark var var--hover">
+  <div class="container">
+    <div class="head-center"><h2 class="h2">Почему я?</h2></div>
+    <div class="why-grid">
+      <article class="why-card"><span class="big">01</span><h3>Я лично отвечаю за результат, поэтому делаю всю работу на совесть</h3><p>Вся ответственность лежит на мне: я работаю по договору, и спрятаться мне не за кого. Поэтому результат получается максимально качественным.</p></article>
+      <article class="why-card"><span class="big">02</span><h3>Веду только вас. Вы получаете максимум моего внимания</h3><p>Поэтому всё внимание достаётся вам: я тщательно прорабатываю каждую деталь, выверяю каждый инструмент и довожу сайт до совершенства.</p></article>
+      <article class="why-card"><span class="big">03</span><h3>Вы экономите, потому что работаете напрямую со мной</h3><p>В цену сайта агентство закладывает свою рекламу, зарплаты продажников и менеджеров-посредников и свою наценку. Со мной вы платите только за работу над сайтом.</p></article>
+      <article class="why-card"><span class="big">04</span><h3>Вы не платите, пока не увидите свой сайт</h3><p>Сначала я бесплатно делаю прототип вашего сайта. Предоплату 50% вы вносите, только когда он вам понравился, а вторую половину — после приёмки готового сайта.</p></article>
+      <article class="why-card"><span class="big">05</span><h3>Всё, что я обещаю, записано в договоре</h3><p>Сроки, состав работ и смету мы закрепляем в договоре до начала работ. Если что-то пойдёт не так, у вас на руках документ, а не устные обещания.</p></article>
+    </div>
+  </div>
+</section>
+</body>
+</html>
