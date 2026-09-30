@@ -11,7 +11,9 @@
    [data-zqz-hint]       side slides, one per question plus one for the result
    [data-zqz-back|fwd]   previous / next question; [data-zqz-next] "Дальше" (inactive until answered,
                          hidden instead when it carries data-hide)
-   [data-zqz-goal]       gets the answer to question 2; [data-zqz-val] slots get every answer
+   [data-zqz-goal]       gets the answer to question 2; [data-zqz-val] slots get every answer on the result,
+   [data-zqz-ans] slots get them live (under the question tabs)
+   [data-zqz-toggle]     phone toggle of the question list; [data-zqz-toggle-label] shows the current one
    [data-zqz-again]      start over
    Answers are also left in window.amdcQuiz for the lead form, as on amdc-site/v2. */
 (function () {
@@ -45,13 +47,18 @@
             });
             hints.forEach(function (h, j) { h.classList.toggle('is-active', j === Math.min(cur, hints.length - 1)); });
             dots.forEach(function (d, j) {
-                var on = j === Math.min(cur, N - 1);
+                var on = j === cur;
                 d.classList.toggle('is-active', on);
                 d.classList.toggle('is-done', answered(j));
                 if (d.tagName === 'BUTTON') d.disabled = j > cur && !answered(j - 1);
                 if (on) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current');
             });
             if (count) count.textContent = done ? 'Готово' : 'Вопрос ' + (cur + 1) + ' из ' + N;
+            var a = answers();
+            all('[data-zqz-ans]', root).forEach(function (v) { v.textContent = a[+v.getAttribute('data-zqz-ans')]; });
+            all('[data-zqz-toggle-label]', root).forEach(function (l) {
+                l.textContent = done ? 'Готово · все ' + N + ' ответов' : (dots[cur] ? dots[cur].getAttribute('data-label') : '');
+            });
             all('[data-zqz-back]', root).forEach(function (b) { b.disabled = cur === 0; });
             all('[data-zqz-fwd]', root).forEach(function (b) { b.disabled = done || !answered(cur); });
             steps.forEach(function (st) {
@@ -111,8 +118,15 @@
 
         all('[data-zqz-back]', root).forEach(function (b) { b.addEventListener('click', function () { if (cur > 0) show(cur - 1, false); }); });
         all('[data-zqz-fwd]', root).forEach(function (b) { b.addEventListener('click', function () { if (answered(cur)) show(cur + 1, false); }); });
+        var toggle = root.querySelector('[data-zqz-toggle]');
+        var fold = function (open) {
+            if (!toggle) return;
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.parentElement.classList.toggle('is-open', open);
+        };
+        if (toggle) toggle.addEventListener('click', function () { fold(toggle.getAttribute('aria-expanded') !== 'true'); });
         dots.forEach(function (d, j) {
-            if (d.tagName === 'BUTTON') d.addEventListener('click', function () { show(j, false); });
+            if (d.tagName === 'BUTTON') d.addEventListener('click', function () { fold(false); show(j, false); });
         });
         all('[data-zqz-again]', root).forEach(function (b) {
             b.addEventListener('click', function () {
