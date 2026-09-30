@@ -13,6 +13,8 @@
                          hidden instead when it carries data-hide)
    [data-zqz-goal]       gets the answer to question 2; [data-zqz-val] slots get every answer on the result,
    [data-zqz-ans] slots get them live (under the question tabs)
+   [data-zqz-why]        on the result: the data-why sentences of the picked options, one per question
+                         (the first picked one of a multi-choice question), in question order, one per line
    [data-zqz-toggle]     phone toggle of the question list; [data-zqz-toggle-label] shows the current one
    [data-zqz-again]      start over
    Answers are also left in window.amdcQuiz for the lead form, as on amdc-site/v2. */
@@ -77,6 +79,11 @@
                 window.amdcQuiz = a;
                 all('[data-zqz-goal]', root).forEach(function (g) { g.textContent = '«' + a[1] + '»'; });
                 all('[data-zqz-val]', root).forEach(function (v) { v.textContent = a[+v.getAttribute('data-zqz-val')] || '—'; });
+                var why = steps.map(function (st) {
+                    var o = picked(st).filter(function (x) { return x.hasAttribute('data-why'); })[0];
+                    return o ? o.getAttribute('data-why') : '';
+                }).filter(Boolean).join('\n');
+                all('[data-zqz-why]', root).forEach(function (w) { w.textContent = why; });
             }
             paint();
             if (focus) {

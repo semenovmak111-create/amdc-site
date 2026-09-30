@@ -1,372 +1,228 @@
-/* ZeeFrames — quiz "Получите прототип сайта и анализ рынка за шесть ответов" (AMDC content).
-   v4 (30.09.2026): an interstitial band, not a full section — about half the height of one.
-   One dark card sits across the seam of the sections around it (the section background is
-   transparent; the host page may paint the two halves, see README). Inside, the zeeframes.com
-   vocabulary:
-   - the lime eyebrow and the heading of the service pages, smaller;
-   - a six-part progress track (answered parts turn lime and open their question again);
-   - the perspective fan with a lime vanishing point from the service pages' "Signs it's time"
-     illustration, and the lime glow of the service cards, as the card's background;
-   - compact answer cards with the round arrow button of the home page service rows (.arrow-box),
-     the lime glow following the pointer, and the lime fill of the /about "Six reasons" rows for
-     the picked answer; digit keys 1–9 pick an answer;
-   - the lime .btn-component.btn-primary pill.
-   Classes are prefixed .zqz-. Behaviour: quiz.js.
-   .zqz--wide (amdc-site/v2): the same content as a full-width black section, see below. */
+/* ZeeFrames — quiz "Узнайте, какой сайт подойдёт вашему бизнесу" (AMDC content).
+   v5 (01.10.2026): one more block of zeeframes.com. It is the home page FAQ section
+   ("Questions? We've Got Answers") with the quiz in it, same size and values:
+   - section: --color-black-300 #0B0B0B, 80px 0 (32px on phones), container 1400 / 80 → 60 → 40 → 16;
+   - left column: max 409px, the uppercase lime eyebrow 14px, h2 36/40 500 (margin 32 0 12),
+     text 16/21 #D5D5D5, then a row at margin-top 32 where the site has the pill and the Clutch widget:
+     here the six-step progress in the widget's manner and "Назад";
+   - right column: .accordion cards, gap 16: padding 20, radius 12, 1px #3C3C3C, white 4% fill,
+     backdrop blur 20, title 16px 500; .accordion-icon 24px, radius 6, #2B2A2A / #373636, the plus
+     stroked #6D6D6D; the open card and its icon in lime. The question is the open card, the answers
+     are the closed ones; a picked answer opens like an accordion (lime border, lime icon, check);
+   - result: the open card with the site type, .accordion-body text 16/24, and .btn-component
+     .btn-primary with the .btn-animate-swap hover (text swaps, fill goes, border and text turn lime).
+   At 1440 the section is 636px tall, as the FAQ. Classes are prefixed .zqz-. Behaviour: quiz.js. */
 
 .zqz {
     --zqz-primary: var(--color-primary, #F3FE00);
     --zqz-white: var(--color-white, #FFFFFF);
-    --zqz-text: var(--color-gray-165, #D4D4D8);
-    --zqz-dim: var(--color-gray-170, #A1A1AA);
-    --zqz-mute: #71717A;
-    --zqz-line: var(--color-base-border, #2A2A27);
-    --zqz-card: #161616;
-    --zqz-card-line: #292929;
-    --zqz-card-hover: var(--color-black-400, #3C3C3C);
-    --zqz-ink: var(--color-black-300, #0B0B0B);
-    --zqz-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --zqz-bg: var(--color-black-300, #0B0B0B);
+    --zqz-ink: var(--color-black-200, #0D0D0D);
+    --zqz-text: var(--color-gray-495, #D5D5D5);
+    --zqz-mute: #6D6D6D;
+    --zqz-line: var(--color-black-400, #3C3C3C);
+    --zqz-fill: var(--color-white-04, rgba(255, 255, 255, 0.04));
+    --zqz-icon: #2B2A2A;
+    --zqz-icon-line: #373636;
 
     position: relative;
-    padding: 32px 0;
+    padding: 80px 0;
+    background-color: var(--zqz-bg);
     color: var(--zqz-white);
     font-family: "Inter Tight", sans-serif;
-    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: normal;
 }
 
 .zqz *, .zqz *::before, .zqz *::after { box-sizing: border-box; margin: 0; padding: 0; }
 .zqz :where(button) { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; text-align: left; }
-.zqz :where(ul, ol) { list-style: none; }
+.zqz :where(ol, ul) { list-style: none; }
 .zqz [hidden] { display: none !important; }
-.zqz-nw { white-space: nowrap; }
-.zqz-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.zqz svg { display: block; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
 .zqz-container { max-width: 1400px; margin: 0 auto; padding: 0 var(--zqz-gutter, 80px); }
+.zqz-layout { display: flex; column-gap: 48px; row-gap: 32px; }
 
-/* ── the band ── */
-.zqz-band {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-    gap: 48px;
-    padding: 36px 40px;
-    border-radius: 24px;
-    border: 1px solid #1C1C1C;
-    background:
-        radial-gradient(60% 90% at 0% 0%, rgba(243, 254, 0, 0.12), transparent 70%),
-        linear-gradient(180deg, #121212 0%, #0B0B0B 100%);
-    overflow: hidden;
-    isolation: isolate;
-}
-.zqz-band::after {                              /* the lime glow of the service cards, lit on the result */
+/* ── left: the FAQ intro ── */
+.zqz-intro { width: 100%; max-width: 409px; flex-shrink: 0; }
+.zqz-eyebrow { font-size: 14px; text-transform: uppercase; color: var(--zqz-primary); }
+.zqz-title { margin: 32px 0 12px; font-size: 36px; line-height: 40px; font-weight: 500; text-wrap: balance; }
+.zqz-desc { font-size: 16px; line-height: 21px; color: var(--zqz-text); }
+
+.zqz-meta { display: flex; align-items: center; gap: 32px; margin-top: 32px; }
+.zqz-progress { display: flex; flex-direction: column; gap: 6px; }
+.zqz-dots { display: flex; gap: 2px; margin-left: -4px; }
+.zqz-dot { display: block; width: 22px; height: 22px; padding: 4px !important; }
+.zqz-dot::before {
     content: "";
-    position: absolute;
-    width: 560px;
-    height: 560px;
-    top: -360px;
-    right: -220px;
-    z-index: -1;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(243, 254, 0, 0.75) 0%, rgba(243, 254, 0, 0.35) 20%, rgba(243, 254, 0, 0.15) 45%, rgba(243, 254, 0, 0.05) 70%, transparent 100%);
-    filter: blur(50px);
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    border: 1px solid var(--zqz-icon-line);
+    background-color: var(--zqz-icon);
+    transition: background-color 0.25s, border-color 0.25s;
 }
-.zqz[data-step="final"] .zqz-band::after { opacity: 0.45; }
-
-/* the perspective fan of "Signs it's time" */
-.zqz-fan { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
-.zqz-fan-lines line { stroke: rgba(255, 255, 255, 0.05); stroke-width: 1; }
-.zqz-fan-tick { stroke: var(--zqz-primary); stroke-width: 2; opacity: 0.5; }
-.zqz-fan-dot { fill: var(--zqz-primary); filter: drop-shadow(0 0 10px rgba(243, 254, 0, 0.9)); transform-box: fill-box; transform-origin: center; animation: zqzPulse 2.4s ease-in-out infinite; }
-@keyframes zqzPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.8); opacity: 0.6; } }
-
-/* ── left: what it is and how far ── */
-.zqz-intro { display: flex; flex-direction: column; min-width: 0; }
-.zqz-eyebrow { font-size: 13px; line-height: 18px; color: var(--zqz-primary); }
-.zqz-title { margin-top: 10px; font-size: 26px; line-height: 32px; font-weight: 500; letter-spacing: -0.52px; }
-.zqz-desc { margin-top: 10px; font-size: 14px; line-height: 20px; color: var(--zqz-dim); }
-
-.zqz-track { display: flex; align-items: center; gap: 20px; margin-top: auto; padding-top: 28px; }
-.zqz-segs { flex-grow: 1; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
-.zqz-seg { display: block; width: 100%; padding: 8px 0 !important; }
-.zqz-seg:disabled { cursor: default; }
-.zqz-seg-bar { position: relative; display: block; height: 3px; border-radius: 3px; background: var(--zqz-line); overflow: hidden; }
-.zqz-seg-bar::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: var(--zqz-primary);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.6s var(--zqz-ease), background-color 0.3s;
-}
-.zqz-seg.is-done .zqz-seg-bar::after { transform: scaleX(1); }
-.zqz-seg.is-active:not(.is-done) .zqz-seg-bar::after { background: var(--zqz-white); transform: scaleX(0.3); }
-.zqz-seg:hover:not(:disabled) .zqz-seg-bar { background: #3F3F46; }
+.zqz-dot.is-done::before { background-color: var(--zqz-primary); border-color: var(--zqz-primary); }
+.zqz-dot.is-active::before { border-color: var(--zqz-primary); }
+.zqz-dot:hover:not(:disabled)::before { border-color: var(--zqz-primary); }
+.zqz-dot:disabled { cursor: default; }
+.zqz-count { font-size: 13px; line-height: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--zqz-mute); }
 
 .zqz-back {
-    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    line-height: 18px;
-    font-weight: 500;
-    color: var(--zqz-dim) !important;
-    transition: color 0.2s, opacity 0.2s;
+    gap: 6px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--zqz-text) !important;
+    transition: color 0.3s, opacity 0.3s;
 }
-.zqz-back svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.zqz-back svg { width: 16px; height: 16px; }
 .zqz-back:hover:not(:disabled) { color: var(--zqz-primary) !important; }
 .zqz-back:disabled { opacity: 0; pointer-events: none; }
 
-/* ── right: the question ── */
-.zqz-steps { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+/* ── right: the accordions ── */
+.zqz-steps { flex-grow: 1; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); }
 .zqz-step {
     grid-area: 1 / 1;
     display: flex;
     flex-direction: column;
+    gap: 16px;
     min-width: 0;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s;
 }
 .zqz-step.is-active { opacity: 1; visibility: visible; transition: opacity 0.3s ease-in-out, visibility 0s; }
-.zqz-final:not(.is-active), .zqz[data-step="final"] [data-zqz-step] { display: none; }
+.zqz-final:not(.is-active) { visibility: hidden; }
+.zqz-opts { display: flex; flex-direction: column; gap: 16px; }
 
-.zqz-step-num { font-size: 13px; line-height: 18px; color: var(--zqz-mute); }
-.zqz-step-num b { font-weight: 500; color: var(--zqz-primary); }
-.zqz-q { margin-top: 8px; font-size: 22px; line-height: 28px; font-weight: 500; letter-spacing: -0.4px; }
-.zqz-q:focus { outline: none; }
-.zqz-q-sub { font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0; color: var(--zqz-dim); white-space: nowrap; }
-.zqz-step.is-active .zqz-q { animation: zqzRise 0.5s var(--zqz-ease) both; }
-@keyframes zqzRise { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
-
-/* ── answer cards ── */
-.zqz-opts { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
-.zqz-opts > * { grid-column: span 3; }
-.zqz-opts[data-n="3"] > * { grid-column: span 2; }
-.zqz-opts[data-n="5"] > * { grid-column: span 2; }
-.zqz-opts[data-n="5"] > :nth-child(n + 4) { grid-column: span 3; }
-.zqz-opts--row { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.zqz-opts--row > *, .zqz-opts--row[data-n="5"] > *, .zqz-opts--row[data-n="5"] > :nth-child(n + 4) { grid-column: auto; }
-
-.zqz-opt {
+.zqz-card, .zqz-opt {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 12px;
-    min-height: 64px;
-    padding: 12px 52px 12px 14px !important;
-    border-radius: 14px;
-    border: 1px solid var(--zqz-card-line) !important;
-    background-color: var(--zqz-card) !important;
+    gap: 16px;
+    width: 100%;
+    padding: 20px !important;
+    border-radius: 12px;
+    border: 1px solid var(--zqz-line) !important;
+    background-color: var(--zqz-fill) !important;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     color: var(--zqz-white) !important;
-    overflow: hidden;
-    isolation: isolate;
-    transition: border-color 0.3s, background-color 0.35s, color 0.35s, transform 0.35s var(--zqz-ease);
+    transition: border-color 0.3s ease-in-out;
 }
-.zqz-opt::before {                              /* the service card glow, following the pointer */
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 0%), rgba(243, 254, 0, 0.18), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-.zqz-opt:hover { border-color: var(--zqz-card-hover) !important; transform: translateY(-2px); }
-.zqz-opt:hover::before { opacity: 1; }
-.zqz-step.is-active .zqz-opt { animation: zqzUp 0.5s var(--zqz-ease) both; animation-delay: calc(var(--i, 0) * 50ms + 60ms); }
-@keyframes zqzUp { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+.zqz-card--q, .zqz-card--result, .zqz-opt:hover, .zqz-opt[aria-pressed="true"] { border-color: var(--zqz-primary) !important; }
 
-.zqz-key {
+.zqz-q, .zqz-card-text { flex-grow: 1; min-width: 0; font-size: 16px; line-height: normal; font-weight: 500; }
+.zqz-q:focus, .zqz-result:focus { outline: none; }
+.zqz-q-sub { font-weight: 400; color: var(--zqz-text); }
+.zqz-num { flex-shrink: 0; font-size: 14px; line-height: 24px; color: var(--zqz-mute); }
+
+.zqz-icon {
+    position: relative;
     flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 6px;
-    border: 1px solid var(--zqz-card-hover);
-    font-size: 11px;
-    line-height: 1;
-    font-weight: 500;
-    color: var(--zqz-dim);
-    transition: border-color 0.35s, color 0.35s;
+    border: 1px solid var(--zqz-icon-line);
+    background-color: var(--zqz-icon);
+    transition: background-color 0.25s, border-color 0.25s;
 }
-.zqz-arrow {                                    /* .arrow-box of the home page service rows */
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    margin-top: -15px;
-    border-radius: 50%;
-    border: 1px solid var(--zqz-card-hover);
-    color: var(--zqz-text);
-    transition: transform 0.35s var(--zqz-ease), background-color 0.35s, border-color 0.35s, color 0.35s;
-}
-.zqz-arrow svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.zqz-opt:hover .zqz-arrow { transform: rotate(45deg); border-color: var(--zqz-primary); color: var(--zqz-primary); }
-.zqz-card-text { flex: 1; font-size: 15px; line-height: 20px; font-weight: 500; letter-spacing: -0.1px; }
-.zqz-opts--row .zqz-opt { padding-right: 14px !important; }
-.zqz-opts--row .zqz-arrow { display: none; }
+.zqz-icon svg { position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; transition: 0.25s; }
+.zqz-plus { color: var(--zqz-mute); transform: translate(-50%, -50%) rotate(0deg); }
+.zqz-check { color: var(--zqz-ink); opacity: 0; transform: translate(-50%, -50%) rotate(-90deg); }
+.zqz-opt[aria-pressed="true"] .zqz-icon, .zqz-icon--on { background-color: var(--zqz-primary); border-color: var(--zqz-primary); }
+.zqz-opt[aria-pressed="true"] .zqz-plus { opacity: 0; transform: translate(-50%, -50%) rotate(90deg); }
+.zqz-opt[aria-pressed="true"] .zqz-check, .zqz-icon--on .zqz-check { opacity: 1; transform: translate(-50%, -50%) rotate(0deg); }
 
-/* picked: the lime fill of the "Six reasons" rows */
-.zqz-opt[aria-pressed="true"] { background-color: var(--zqz-primary) !important; border-color: var(--zqz-primary) !important; color: var(--zqz-ink) !important; }
-.zqz-opt[aria-pressed="true"]::before { opacity: 0; }
-.zqz-opt[aria-pressed="true"] .zqz-key { border-color: rgba(11, 11, 11, 0.25); color: var(--zqz-ink); }
-.zqz-opt[aria-pressed="true"] .zqz-arrow { transform: rotate(45deg); background-color: var(--zqz-ink); border-color: var(--zqz-ink); color: var(--zqz-primary); }
-
-/* ── buttons: .btn-component.btn-primary ── */
-.zqz-btn {
-    align-self: flex-start;
+/* "Дальше" of the multi-choice question: .btn-primary, down to the 24px of the card row */
+.zqz-next {
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 11px 22px !important;
+    gap: 6px;
+    height: 24px;
+    padding: 0 12px !important;
     border-radius: 99999px;
     border: 1px solid var(--zqz-primary) !important;
     background-color: var(--zqz-primary) !important;
     color: var(--zqz-ink) !important;
     font-size: 14px;
     line-height: 20px;
-    font-weight: 500;
-    text-decoration: none;
     white-space: nowrap;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.6s, color 0.6s;
 }
-.zqz-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.35s var(--zqz-ease); }
-.zqz-btn:hover { background-color: transparent !important; color: var(--zqz-primary) !important; }
-.zqz-btn:hover svg { transform: rotate(45deg); }
-.zqz-step > .zqz-btn { margin-top: 14px; }
+.zqz-next svg { width: 14px; height: 14px; }
+.zqz-next:hover { background-color: transparent !important; color: var(--zqz-primary) !important; }
 
 /* ── result ── */
-.zqz-final-text { max-width: 620px; margin-top: 8px; font-size: 14px; line-height: 21px; color: var(--zqz-text); }
-.zqz-final-text [data-zqz-goal] { color: var(--zqz-white); }
-.zqz-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 22px; }
-.zqz-again { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--zqz-dim) !important; transition: color 0.2s; }
-.zqz-again:hover { color: var(--zqz-primary) !important; }
-.zqz-final.is-active .zqz-q, .zqz-final.is-active .zqz-final-text, .zqz-final.is-active .zqz-cta { animation: zqzUp 0.5s var(--zqz-ease) both; }
-.zqz-final.is-active .zqz-final-text { animation-delay: 60ms; }
-.zqz-final.is-active .zqz-cta { animation-delay: 120ms; }
+.zqz-card--result { flex-direction: column; align-items: stretch; gap: 0; }
+.zqz-result-head { display: flex; align-items: flex-start; gap: 16px; }
+.zqz-result { flex-grow: 1; font-size: 24px; line-height: 32px; font-weight: 500; }
+.zqz-result-head .zqz-icon { margin-top: 4px; }
+.zqz-text { padding-top: 10px; font-size: 16px; line-height: 24px; color: var(--zqz-text); }
+.zqz-text--you { color: var(--zqz-white); white-space: pre-line; }   /* one line per answer */
+.zqz-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; margin-top: 24px; }
 
-/* ── wide: a full-width black section instead of the card, a little taller than the page's
-   yellow "Понравился сайт?" band (414 px at 1440). The fan and the glow span the whole section. ── */
-.zqz--wide {
-    padding: 80px 0;
-    background:
-        radial-gradient(40% 90% at 0% 0%, rgba(243, 254, 0, 0.10), transparent 70%),
-        var(--zqz-ink);
+.zqz-btn {                                      /* .btn-component.btn-primary.btn-animate-swap */
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 24px;
+    border-radius: 99999px;
+    border: 1px solid var(--zqz-primary);
+    background-color: var(--zqz-primary);
+    color: var(--zqz-ink);
+    font-size: 14px;
+    line-height: 20px;
+    white-space: nowrap;
+    text-decoration: none;
     overflow: hidden;
-    isolation: isolate;
+    transition: background-color 0.6s, border-color 0.6s, color 0.6s;
 }
-.zqz--wide .zqz-band { position: static; gap: 72px; padding: 0; border: 0; border-radius: 0; background: none; overflow: visible; }
-.zqz--wide .zqz-eyebrow { font-size: 14px; line-height: 20px; }
-.zqz--wide .zqz-title { margin-top: 12px; font-size: 34px; line-height: 42px; letter-spacing: -0.7px; }
-.zqz--wide .zqz-desc { margin-top: 14px; font-size: 16px; line-height: 24px; }
-.zqz--wide .zqz-track { padding-top: 36px; }
-.zqz--wide .zqz-step-num { font-size: 14px; line-height: 20px; }
-.zqz--wide .zqz-q { margin-top: 10px; font-size: 28px; line-height: 36px; letter-spacing: -0.56px; }
-.zqz--wide .zqz-q-sub { font-size: 15px; }
-.zqz--wide .zqz-opts { gap: 12px; margin-top: 24px; }
-.zqz--wide .zqz-opt { min-height: 80px; padding: 14px 54px 14px 16px !important; border-radius: 16px; gap: 12px; }
-.zqz--wide .zqz-opts--row .zqz-opt { padding-right: 16px !important; }
-.zqz--wide .zqz-key { width: 26px; height: 26px; border-radius: 7px; font-size: 12px; }
-.zqz--wide .zqz-arrow { right: 14px; width: 32px; height: 32px; margin-top: -16px; }
-.zqz--wide .zqz-card-text { font-size: 16px; line-height: 21px; }
-.zqz--wide .zqz-btn { padding: 14px 26px !important; font-size: 16px; line-height: 22px; }
-.zqz--wide .zqz-final-text { margin-top: 12px; font-size: 16px; line-height: 24px; }
-.zqz--wide .zqz-again { font-size: 15px; }
-.zqz--wide .zqz-title { text-wrap: balance; }
-/* a multi-choice card does not move on, "Дальше" does: no arrow, and the room goes to the text */
-.zqz--wide .zqz-opts[data-multi] .zqz-arrow { display: none; }
-.zqz--wide .zqz-opts[data-multi] .zqz-opt { padding-right: 16px !important; }
-@media (min-width: 1101px) {
-    /* the steps share one grid cell, so every step is as tall as the tallest: keep the result
-       as tall as the questions, and put the multi-choice "Дальше" into the free sixth slot of the
-       answers instead of under them */
-    .zqz--wide .zqz-band { min-height: 308px; }
-    .zqz--wide:not([data-step="final"]) .zqz-step:has(> .zqz-opts[data-multi]) {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        column-gap: 12px;
-        align-content: start;
-    }
-    .zqz--wide .zqz-step:has(> .zqz-opts[data-multi]) > * { grid-column: 1 / -1; }
-    .zqz--wide .zqz-opts[data-multi] { grid-row: 3; }
-    .zqz--wide .zqz-opts[data-multi] > * { grid-column: span 2; }
-    .zqz--wide .zqz-step > .zqz-btn[data-zqz-next] {
-        grid-area: 3 / 3;
-        align-self: end;
-        min-height: 80px;
-        margin: 0;
-        border-radius: 16px;
-        font-size: 16px;
-    }
-}
+.zqz-btn svg { width: 20px; height: 20px; }
+.zqz-btn-label, .zqz-btn svg, .zqz-btn-swap { transition: opacity 0.3s ease-in-out; }
+.zqz-btn-swap { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); opacity: 0; }
+.zqz-btn:hover { background-color: transparent; color: var(--zqz-primary); }
+.zqz-btn:hover .zqz-btn-label, .zqz-btn:hover svg { opacity: 0; }
+.zqz-btn:hover .zqz-btn-swap { opacity: 1; }
+
+.zqz-again { font-size: 14px; line-height: 20px; color: var(--zqz-text) !important; transition: color 0.3s; }
+.zqz-again:hover { color: var(--zqz-primary) !important; }
 
 /* focus in the site's lime */
 .zqz :focus-visible { outline: 2px solid var(--zqz-primary); outline-offset: 3px; }
-.zqz-opt[aria-pressed="true"]:focus-visible { outline-color: var(--zqz-white); }
-.zqz-q:focus-visible { outline: none; }
+.zqz-opt:focus-visible { outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
     .zqz *, .zqz *::before, .zqz *::after { transition: none !important; animation: none !important; }
 }
 
-/* ── the site's container steps ── */
-@media (max-width: 1204px) {
-    .zqz { --zqz-gutter: 60px; }
-    .zqz-band { gap: 36px; padding: 32px; }
+/* ── the site's steps ── */
+@media (max-width: 1204px) { .zqz { --zqz-gutter: 60px; } }
+@media (max-width: 991px) {
+    .zqz { --zqz-gutter: 40px; }
+    .zqz-intro { max-width: 320px; }
+    .zqz-title { font-size: 30px; line-height: 36px; }
 }
-@media (max-width: 991px) { .zqz { --zqz-gutter: 40px; } }
-@media (max-width: 1100px) {
-    .zqz-band { grid-template-columns: 1fr; gap: 24px; }
-    .zqz-title { font-size: 24px; line-height: 30px; }
-    .zqz-track { padding-top: 18px; }
+@media (max-width: 768px) {                     /* .md-flex-wrap */
+    .zqz-layout { flex-wrap: wrap; }
+    .zqz-intro { max-width: none; }
     .zqz-step:not(.is-active) { display: none; }
 }
-@media (max-width: 575px) {
-    .zqz { --zqz-gutter: 16px; padding: 24px 0; }
-    .zqz-band { padding: 24px 16px 20px; border-radius: 20px; gap: 20px; }
-    .zqz-title { font-size: 22px; line-height: 28px; letter-spacing: -0.4px; }
-    .zqz-desc { display: none; }
-    .zqz-q { font-size: 19px; line-height: 25px; }
-    .zqz-q-sub { display: block; margin-top: 4px; }
-    .zqz-opts, .zqz-opts--row { grid-template-columns: 1fr; gap: 8px; margin-top: 14px; }
-    .zqz-opts > *, .zqz-opts[data-n] > *, .zqz-opts[data-n="5"] > :nth-child(n + 4) { grid-column: auto; }
-    .zqz-opts--row { grid-template-columns: 1fr 1fr; }
-    .zqz-opts--row[data-n="5"] > :last-child { grid-column: 1 / -1; }
-    .zqz-opt { min-height: 52px; }
-    .zqz-card-text { font-size: 15px; }
-    .zqz-btn { white-space: normal; text-align: center; }
+@media (max-width: 575px) {                     /* .sm_py_32, .sm_fs_28 */
+    .zqz { --zqz-gutter: 16px; padding: 32px 0; }
+    .zqz-title { margin-top: 24px; font-size: 28px; line-height: 34px; }
+    .zqz-meta { margin-top: 24px; }
+    .zqz-card, .zqz-opt { padding: 16px !important; }
+    .zqz-card--q { flex-wrap: wrap; row-gap: 12px; }
+    .zqz-card--q .zqz-q { flex-basis: 100%; order: -1; }
+    .zqz-result { font-size: 20px; line-height: 28px; }
+    .zqz-btn { padding: 10px 16px; white-space: normal; text-align: center; }
     .zqz-cta .zqz-btn { width: 100%; }
     .zqz-cta { justify-content: center; }
-}
-
-/* the wide section on the site's steps */
-@media (max-width: 1204px) { .zqz--wide .zqz-band { gap: 56px; } }
-@media (max-width: 1100px) {
-    .zqz--wide .zqz-band { gap: 32px; }
-    .zqz--wide .zqz-title { font-size: 30px; line-height: 38px; }
-    .zqz--wide .zqz-track { padding-top: 24px; }
-}
-@media (max-width: 991px) { .zqz--wide { padding: 64px 0; } }
-@media (max-width: 575px) {
-    .zqz--wide { padding: 48px 0; }
-    .zqz--wide .zqz-band { gap: 24px; }
-    .zqz--wide .zqz-title { font-size: 26px; line-height: 32px; letter-spacing: -0.5px; }
-    .zqz--wide .zqz-q { font-size: 21px; line-height: 27px; letter-spacing: -0.4px; }
-    .zqz--wide .zqz-q-sub { font-size: 14px; }
-    .zqz--wide .zqz-opts { gap: 8px; margin-top: 16px; }
-    .zqz--wide .zqz-opt { min-height: 58px; padding: 12px 52px 12px 14px !important; border-radius: 14px; }
-    .zqz--wide .zqz-opts--row .zqz-opt { padding-right: 14px !important; }
-    .zqz--wide .zqz-card-text { font-size: 16px; line-height: 21px; }
-    .zqz--wide .zqz-btn { font-size: 15px; }
 }
