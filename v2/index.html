@@ -12,10 +12,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=32">
+<link rel="stylesheet" href="assets/style.css?v=33">
 <link rel="stylesheet" href="assets/carousel.css?v=1">
 <link rel="stylesheet" href="assets/sravnenie.css?v=3">
-<link rel="stylesheet" href="assets/kviz.css?v=1">
+<link rel="stylesheet" href="assets/quiz.css?v=1">
 </head>
 <body>
 
@@ -683,29 +683,30 @@
     </div>
 </section>
 
-<!-- ================= 6. КВИЗ (стили assets/kviz.css, скрипт assets/kviz.js) ================= -->
-<section class="section section--dark behind-cursor" id="check">
-  <div class="container faq">
-    <div class="faq-side reveal">
-      <h2 class="h2">Получите прототип сайта и анализ рынка за шесть ответов</h2>
-      <p class="qz-lead">Это займёт одну минуту. 0 ₽ и ни к чему не обязывает.</p>
-      <div class="faq-score">
-        <div class="score-ring"><svg viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg><b id="qzNum">1/6</b></div>
-        <p class="score-text" id="qzText">Вопрос 1 из 6</p>
-      </div>
+<!-- ================= 6. КВИЗ: карточка контактов zeeframes (стили assets/quiz.css, скрипт assets/quiz.js) =================
+     Исходник блока: websites/projects/zeeframes-kviz, разметку собирает proverka/build.py (section_v2).
+     Вопросы — утверждённые тексты v2; ответы уходят в заявку через window.amdcQuiz. -->
+<section class="zqz behind-cursor" id="check" aria-labelledby="zqz-title" data-zqz>
+    <div class="zqz-container">
+        <div class="zqz-card">
+            <div class="zqz-side">
+                <h2 class="zqz-title" id="zqz-title">Получите прототип сайта и анализ рынка за шесть ответов</h2>
+                <div class="zqz-slides"><div class="zqz-slide" data-zqz-hint><p class="zqz-slide-text">С&nbsp;этого начну анализ: нужен общий поток или клиенты на&nbsp;отдельные услуги.</p></div><div class="zqz-slide" data-zqz-hint><p class="zqz-slide-text">Под эту задачу соберу прототип сайта: первый экран, услуги, цены.</p></div><div class="zqz-slide" data-zqz-hint><p class="zqz-slide-text">От&nbsp;нынешнего потока посчитаю, сколько клиентов сайт добавит сверху.</p></div><div class="zqz-slide" data-zqz-hint><p class="zqz-slide-text">Проверю эти каналы у&nbsp;вас и&nbsp;у&nbsp;конкурентов рядом.</p></div><div class="zqz-slide" data-zqz-hint><p class="zqz-slide-text">Чтобы не&nbsp;обещать больше клиентов, чем клиника сможет принять.</p></div><div class="zqz-slide" data-zqz-hint><p class="zqz-slide-text">С&nbsp;этой цифрой сверю прототип и&nbsp;анализ рынка.</p></div><div class="zqz-slide" data-zqz-hint><p class="zqz-slide-text">Ответы уже в&nbsp;заявке. Осталось оставить телефон&nbsp;— и&nbsp;через <span class='zqz-nw'>4–5&nbsp;дней</span> пришлю прототип.</p></div></div>
+                <div class="zqz-foot"><p class="zqz-name">Займёт одну минуту</p><p class="zqz-role">0&nbsp;₽ и&nbsp;ни к&nbsp;чему не&nbsp;обязывает</p></div>
+                <div class="zqz-controls">
+                    <div class="zqz-arrows">
+                        <button type="button" class="zqz-arrow" data-zqz-back aria-label="Предыдущий вопрос"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></button>
+                        <button type="button" class="zqz-arrow" data-zqz-fwd aria-label="Следующий вопрос"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+                    </div>
+                    <div class="zqz-dots" aria-hidden="true"><span class="zqz-dot" data-zqz-dot></span><span class="zqz-dot" data-zqz-dot></span><span class="zqz-dot" data-zqz-dot></span><span class="zqz-dot" data-zqz-dot></span><span class="zqz-dot" data-zqz-dot></span><span class="zqz-dot" data-zqz-dot></span></div>
+                </div>
+            </div>
+            <div class="zqz-form">
+                <p class="zqz-count" data-zqz-count aria-live="polite">Вопрос 1 из 6</p>
+                <div class="zqz-steps"><div class="zqz-step" data-zqz-step role="group" aria-labelledby="zqz-q0"><h3 class="zqz-q" id="zqz-q0" tabindex="-1" data-zqz-focus>Вам нужны новые клиенты?</h3><div class="zqz-opts" ><button type="button" class="zqz-opt" aria-pressed="false" data-short="Да, клиентов не хватает">Да, клиентов не&nbsp;хватает</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Хватает, но от новых не откажусь">Хватает, но&nbsp;от&nbsp;новых не&nbsp;откажусь</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Нужны клиенты на отдельные услуги">Нужны клиенты на&nbsp;отдельные услуги</button></div><button type="button" class="zqz-submit" data-zqz-next>Дальше</button></div><div class="zqz-step" data-zqz-step role="group" aria-labelledby="zqz-q1"><h3 class="zqz-q" id="zqz-q1" tabindex="-1" data-zqz-focus>Какая главная задача у&nbsp;клиники на&nbsp;ближайшие полгода?</h3><div class="zqz-opts" ><button type="button" class="zqz-opt" aria-pressed="false" data-short="Поднять прибыль">Поднять прибыль</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Поднять цены и не растерять клиентов">Поднять цены и&nbsp;не&nbsp;растерять клиентов</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Загрузить свободные часы">Загрузить свободные часы</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Открыть направление или взять врача">Открыть направление или взять врача</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Меньше платить площадкам">Меньше платить площадкам</button></div><button type="button" class="zqz-submit" data-zqz-next>Дальше</button></div><div class="zqz-step" data-zqz-step role="group" aria-labelledby="zqz-q2"><h3 class="zqz-q" id="zqz-q2" tabindex="-1" data-zqz-focus>Сколько новых клиентов приходит к&nbsp;вам в&nbsp;месяц?</h3><div class="zqz-opts zqz-opts--row" ><button type="button" class="zqz-opt" aria-pressed="false" data-short="До 20">До&nbsp;20</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="21–50">21–50</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="51–100">51–100</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Больше 100">Больше 100</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Не считали">Не&nbsp;считали</button></div><button type="button" class="zqz-submit" data-zqz-next>Дальше</button></div><div class="zqz-step" data-zqz-step role="group" aria-labelledby="zqz-q3"><h3 class="zqz-q" id="zqz-q3" tabindex="-1" data-zqz-focus>Откуда сейчас приходят клиенты?</h3><p class="zqz-lead">Можно выбрать несколько.</p><div class="zqz-opts" data-multi><button type="button" class="zqz-opt" aria-pressed="false" data-short="Яндекс Карты и 2ГИС">Яндекс Карты и&nbsp;2ГИС</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="ПроДокторов, НаПоправку и другие порталы">ПроДокторов, НаПоправку и&nbsp;другие порталы</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Постоянные и по рекомендации">Постоянные и&nbsp;по&nbsp;рекомендации</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Реклама в Директе и соцсетях">Реклама в&nbsp;Директе и&nbsp;соцсетях</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Не знаю точно">Не&nbsp;знаю точно</button></div><button type="button" class="zqz-submit" data-zqz-next>Дальше</button></div><div class="zqz-step" data-zqz-step role="group" aria-labelledby="zqz-q4"><h3 class="zqz-q" id="zqz-q4" tabindex="-1" data-zqz-focus>Сколько ещё клиентов вы&nbsp;примете без новых сотрудников?</h3><div class="zqz-opts" ><button type="button" class="zqz-opt" aria-pressed="false" data-short="До 10 в месяц">До&nbsp;10 в&nbsp;месяц</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="11–30 в месяц">11–30 в&nbsp;месяц</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Больше 30 в месяц">Больше 30 в&nbsp;месяц</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Не считали">Не&nbsp;считали</button></div><button type="button" class="zqz-submit" data-zqz-next>Дальше</button></div><div class="zqz-step" data-zqz-step role="group" aria-labelledby="zqz-q5"><h3 class="zqz-q" id="zqz-q5" tabindex="-1" data-zqz-focus>Что для вас будет хорошим результатом от&nbsp;сайта?</h3><div class="zqz-opts" ><button type="button" class="zqz-opt" aria-pressed="false" data-short="+10–20 клиентов в месяц">+10–20 клиентов в&nbsp;месяц</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="В полтора раза больше клиентов">В&nbsp;полтора раза больше клиентов</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Вдвое больше клиентов">Вдвое больше клиентов</button><button type="button" class="zqz-opt" aria-pressed="false" data-short="Пока не знаю">Пока не&nbsp;знаю</button></div><button type="button" class="zqz-submit" data-zqz-next>Готово</button></div><div class="zqz-step zqz-final" data-zqz-final><h3 class="zqz-q" tabindex="-1" data-zqz-focus>Осталось забрать прототип сайта и&nbsp;анализ рынка</h3><p class="zqz-lead">Через <span class="zqz-nw">4–5&nbsp;дней</span> пришлю прототип сайта и&nbsp;анализ рынка под задачу <span data-zqz-goal>«Поднять прибыль»</span>. 0&nbsp;₽&nbsp;— стоит увидеть результат.</p><dl class="zqz-sum"><div class="zqz-field"><dt>Новые клиенты</dt><dd data-zqz-val="0">—</dd></div><div class="zqz-field"><dt>Задача</dt><dd data-zqz-val="1">—</dd></div><div class="zqz-field"><dt>Новых в месяц</dt><dd data-zqz-val="2">—</dd></div><div class="zqz-field"><dt>Откуда приходят</dt><dd data-zqz-val="3">—</dd></div><div class="zqz-field"><dt>Примете ещё</dt><dd data-zqz-val="4">—</dd></div><div class="zqz-field"><dt>Хороший результат</dt><dd data-zqz-val="5">—</dd></div></dl><a class="zqz-submit" href="#start">Получить прототип сайта и&nbsp;анализ рынка</a><button type="button" class="zqz-again" data-zqz-again>Пройти заново</button></div></div>
+            </div>
+        </div>
     </div>
-    <div class="qz reveal" id="quiz">
-      <div class="qz-bar"><i id="qzBar"></i></div>
-        <div class="qz-step"><span class="qz-count">Вопрос 1 из 6</span><h3 class="qz-q">Вам нужны новые клиенты?</h3><div class="qz-opts"><button type="button" class="qz-opt">Да, клиентов не хватает</button><button type="button" class="qz-opt">Хватает, но от новых не откажусь</button><button type="button" class="qz-opt">Нужны клиенты на отдельные услуги</button></div></div>
-        <div class="qz-step"><span class="qz-count">Вопрос 2 из 6</span><h3 class="qz-q">Какая главная задача у клиники на ближайшие полгода?</h3><div class="qz-opts"><button type="button" class="qz-opt">Поднять прибыль</button><button type="button" class="qz-opt">Поднять цены и не растерять клиентов</button><button type="button" class="qz-opt">Загрузить свободные часы</button><button type="button" class="qz-opt">Открыть направление или взять врача</button><button type="button" class="qz-opt">Меньше платить площадкам</button></div></div>
-        <div class="qz-step"><span class="qz-count">Вопрос 3 из 6</span><h3 class="qz-q">Сколько новых клиентов приходит к вам в месяц?</h3><div class="qz-opts qz-opts--row"><button type="button" class="qz-opt">До 20</button><button type="button" class="qz-opt">21–50</button><button type="button" class="qz-opt">51–100</button><button type="button" class="qz-opt">Больше 100</button><button type="button" class="qz-opt">Не считали</button></div></div>
-        <div class="qz-step"><span class="qz-count">Вопрос 4 из 6</span><h3 class="qz-q">Откуда сейчас приходят клиенты?</h3><p class="qz-hint">Можно выбрать несколько</p><div class="qz-opts" data-multi><button type="button" class="qz-opt">Яндекс Карты и 2ГИС</button><button type="button" class="qz-opt">ПроДокторов, НаПоправку и другие порталы</button><button type="button" class="qz-opt">Постоянные и по рекомендации</button><button type="button" class="qz-opt">Реклама в Директе и соцсетях</button><button type="button" class="qz-opt">Не знаю точно</button></div></div>
-        <div class="qz-step"><span class="qz-count">Вопрос 5 из 6</span><h3 class="qz-q">Сколько ещё клиентов вы примете без новых сотрудников?</h3><div class="qz-opts"><button type="button" class="qz-opt">До 10 в месяц</button><button type="button" class="qz-opt">11–30 в месяц</button><button type="button" class="qz-opt">Больше 30 в месяц</button><button type="button" class="qz-opt">Не считали</button></div></div>
-        <div class="qz-step"><span class="qz-count">Вопрос 6 из 6</span><h3 class="qz-q">Что для вас будет хорошим результатом от сайта?</h3><div class="qz-opts"><button type="button" class="qz-opt">+10–20 клиентов в месяц</button><button type="button" class="qz-opt">В полтора раза больше клиентов</button><button type="button" class="qz-opt">Вдвое больше клиентов</button><button type="button" class="qz-opt">Пока не знаю</button></div></div>
-        <div class="qz-final"><h3 class="qz-q">Готово! Осталось забрать прототип сайта и анализ рынка</h3><p>Через 4–5 дней пришлю прототип сайта и анализ рынка под задачу <span data-goal></span>. 0 ₽ — стоит увидеть результат.</p><ol class="qz-sum"></ol><div class="qz-done-btns"><a class="btn btn--primary" href="#start">Получить прототип сайта и анализ рынка</a><button type="button" class="qz-back qz-again">Пройти заново</button></div></div>
-      <div class="qz-nav"><button type="button" class="qz-back">Назад</button><button type="button" class="btn btn--primary qz-next" disabled>Дальше</button></div>
-    </div>
-  </div>
 </section>
 
 <!-- ================= 7. КОМУ ПОДОЙДЁТ ================= -->
@@ -1103,7 +1104,7 @@
 <a class="float-wa" href="https://wa.me/79111112122" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg><use href="#i-wa"/></svg></a>
 
 <script src="assets/main.js?v=17"></script>
-<script src="assets/kviz.js?v=1"></script>
+<script src="assets/quiz.js?v=1"></script>
 <script src="assets/carousel.js?v=1"></script>
 <script type="module" src="assets/star3d.js?v=5"></script>
 </body>
