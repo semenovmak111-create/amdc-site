@@ -136,6 +136,32 @@
             });
         });
 
+        /* digits 1–9 pick an answer while the quiz is on screen (not while typing in a field) */
+        var seen = false;
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (e) { seen = e[0].intersectionRatio > 0.35; }, { threshold: [0, 0.35, 0.6] }).observe(root);
+        }
+        document.addEventListener('keydown', function (e) {
+            if (!/^[1-9]$/.test(e.key) || e.ctrlKey || e.metaKey || e.altKey || cur >= N) return;
+            var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+            if (typing || !(seen || root.contains(t))) return;
+            var o = opts(steps[cur])[+e.key - 1];
+            if (!o) return;
+            e.preventDefault();
+            root.classList.add('zqz-kb');
+            o.focus({ preventScroll: true });
+            o.click();
+        });
+
+        /* the lime glow of a card follows the pointer */
+        all('.zqz-opt', root).forEach(function (o) {
+            o.addEventListener('pointermove', function (e) {
+                var r = o.getBoundingClientRect();
+                o.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                o.style.setProperty('--my', (e.clientY - r.top) + 'px');
+            });
+        });
+
         /* keyboard users get focus moved to the next question; mouse users keep their place */
         root.addEventListener('keydown', function () { root.classList.add('zqz-kb'); });
         root.addEventListener('pointerdown', function () { root.classList.remove('zqz-kb'); });
