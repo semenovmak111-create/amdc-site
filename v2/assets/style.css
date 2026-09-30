@@ -1027,8 +1027,8 @@ kbd{font-family:var(--ff-inter);font-size:13px;padding:2px 7px;border-radius:6px
 #rent.zsb{--zsb-gutter:var(--pad);padding:80px 0}
 @media (max-width:991px){#rent.zsb{padding:64px 0}}
 
-/* ---------- квиз «Получите прототип…» (assets/quiz.css): промежуточная полоса на стыке белой #gain и кремовой #fit ---------- */
-#check.zqz{--zqz-gutter:var(--pad);padding:0;background:linear-gradient(#FFFFFF 50%,var(--light) 50%)}
+/* ---------- квиз «Получите прототип…» (assets/quiz.css, .zqz--wide): чёрная секция во всю ширину между белой #gain и кремовой #fit ---------- */
+#check.zqz{--zqz-gutter:var(--pad)}
 
 /* ---------- «Почему я?»: подсветка при наведении, цифры в покое заметнее ---------- */
 .why-card .big{-webkit-text-stroke-color:#474747}
