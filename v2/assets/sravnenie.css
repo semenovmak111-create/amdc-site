@@ -99,13 +99,13 @@
 /* column heads */
 .zsb-col { display: flex; align-items: center; gap: 16px; padding-top: 24px; padding-bottom: 24px; }
 .zsb-col-title { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 24px; line-height: 30px; font-weight: 500; letter-spacing: -0.36px; }
-.zsb-col-sub { margin-top: 2px; font-family: Inter, sans-serif; font-size: 14px; line-height: 20px; color: var(--zsb-dim); }
+.zsb-col-sub { margin-top: 2px; font-family: "Inter Tight", sans-serif; font-size: 14px; line-height: 20px; color: var(--zsb-dim); }
 .zsb-them.zsb-col .zsb-col-title, .zsb-them.zsb-col .zsb-col-sub { color: var(--zsb-muted); }
 .zsb-chip {
     padding: 3px 10px;
     border-radius: 999px;
     background: var(--zsb-primary);
-    font-family: Inter, sans-serif;
+    font-family: "Inter Tight", sans-serif;
     font-size: 12px;
     line-height: 18px;
     font-weight: 500;
@@ -143,7 +143,7 @@
     white-space: nowrap;
 }
 .zsb-point-title { font-size: 20px; line-height: 28px; font-weight: 500; letter-spacing: -0.2px; color: var(--zsb-ink); }
-.zsb-point-text { max-width: 400px; margin-top: 8px; font-family: Inter, sans-serif; font-size: 14px; line-height: 21px; color: var(--zsb-ink-2); }
+.zsb-point-text { max-width: 400px; margin-top: 8px; font-family: "Inter Tight", sans-serif; font-size: 14px; line-height: 21px; color: var(--zsb-ink-2); }
 .zsb-them .zsb-point-title { color: var(--zsb-dim); }
 .zsb-them .zsb-point-text { color: var(--zsb-muted); }
 .zsb-nw { white-space: nowrap; }
@@ -165,7 +165,7 @@
     padding: 4px 12px;
     border-radius: 4px;
     background: var(--zsb-hero-ink);
-    font-family: Inter, sans-serif;
+    font-family: "Inter Tight", sans-serif;
     font-size: 12px;
     line-height: 18px;
     letter-spacing: 0.48px;
@@ -182,7 +182,7 @@
 }
 .zsb-hero-text {
     margin-top: 14px;
-    font-family: Inter, sans-serif;
+    font-family: "Inter Tight", sans-serif;
     font-size: 17px;
     line-height: 26px;
     font-weight: 500;
@@ -199,7 +199,7 @@
     border-radius: 999px;
     background: #000;
     color: #fff;
-    font-family: Inter, sans-serif;
+    font-family: "Inter Tight", sans-serif;
     font-size: 15px;
     line-height: 20px;
     font-weight: 500;
@@ -237,7 +237,7 @@
     -webkit-backdrop-filter: blur(6px) saturate(1.3);
 }
 
-.zsb-note { max-width: 860px; margin-top: 16px; font-family: Inter, sans-serif; font-size: 12px; line-height: 18px; color: var(--zsb-muted); }
+.zsb-note { max-width: 860px; margin-top: 16px; font-family: "Inter Tight", sans-serif; font-size: 12px; line-height: 18px; color: var(--zsb-muted); }
 
 /* ── tablet: the two columns stay, the lime cell becomes a band below ── */
 @media (max-width: 1100px) {
@@ -268,7 +268,7 @@
         clip: auto;
         display: block;
         margin-bottom: 6px;
-        font-family: Inter, sans-serif;
+        font-family: "Inter Tight", sans-serif;
         font-size: 12px;
         line-height: 18px;
         letter-spacing: 0.48px;

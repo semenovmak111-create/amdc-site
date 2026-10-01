@@ -74,7 +74,7 @@
     border-radius: 99px;
     background: var(--zqz-ink);
     color: #fff;
-    font-family: var(--ff-inter, Inter, sans-serif);
+    font-family: var(--ff-inter, "Inter Tight", sans-serif);
     font-size: 13px;
     line-height: 18px;
     letter-spacing: .04em;
@@ -91,7 +91,7 @@
     color: #000;
     text-wrap: balance;
 }
-.zqz-desc { font-family: var(--ff-inter, Inter, sans-serif); font-size: 16px; line-height: 24px; color: var(--zqz-ink-2); }
+.zqz-desc { font-family: var(--ff-inter, "Inter Tight", sans-serif); font-size: 16px; line-height: 24px; color: var(--zqz-ink-2); }
 
 .zqz-dots { margin-top: 40px; display: flex; flex-direction: column; gap: 6px; max-width: 480px; }
 .zqz-dot {
@@ -111,14 +111,14 @@
     font-weight: 500;
     transition: background-color .35s, color .35s, border-color .35s, transform .35s;
 }
-.zqz-dot-n { font-family: var(--ff-inter, Inter, sans-serif); font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; opacity: .8; }
+.zqz-dot-n { font-family: var(--ff-inter, "Inter Tight", sans-serif); font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; opacity: .8; }
 .zqz-dot-l { white-space: nowrap; }
 .zqz-dot-a {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: right;
-    font-family: var(--ff-inter, Inter, sans-serif);
+    font-family: var(--ff-inter, "Inter Tight", sans-serif);
     font-size: 13px;
     font-weight: 400;
     color: rgba(0, 0, 0, .55);
@@ -153,7 +153,7 @@
     box-shadow: 0 1px 0 rgba(0, 0, 0, .04), 0 40px 80px -32px rgba(60, 70, 0, .45);
 }
 .zqz-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
-.zqz-count { font-family: var(--ff-inter, Inter, sans-serif); font-size: 13px; line-height: 16px; letter-spacing: .12em; text-transform: uppercase; color: var(--zqz-mute); }
+.zqz-count { font-family: var(--ff-inter, "Inter Tight", sans-serif); font-size: 13px; line-height: 16px; letter-spacing: .12em; text-transform: uppercase; color: var(--zqz-mute); }
 .zqz-back {
     display: inline-flex;
     align-items: center;
@@ -162,7 +162,7 @@
     padding: 0 14px 0 10px;
     border-radius: 99px;
     border: 1px solid var(--zqz-line) !important;
-    font-family: var(--ff-inter, Inter, sans-serif);
+    font-family: var(--ff-inter, "Inter Tight", sans-serif);
     font-size: 14px;
     color: #3F3F46 !important;
     transition: background-color .3s, color .3s, border-color .3s, opacity .3s;
@@ -189,7 +189,7 @@
 @keyframes zqzIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
 .zqz-q { font-size: 28px; line-height: 1.2; font-weight: 500; letter-spacing: -.02em; color: #000; outline: none; text-wrap: balance; }
-.zqz-q-sub { display: block; margin-top: 8px; font-family: var(--ff-inter, Inter, sans-serif); font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0; color: var(--zqz-mute); }
+.zqz-q-sub { display: block; margin-top: 8px; font-family: var(--ff-inter, "Inter Tight", sans-serif); font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0; color: var(--zqz-mute); }
 
 .zqz-opts { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; }
 .zqz-opt {
@@ -223,7 +223,7 @@
     border-radius: 8px;
     border: 1px solid var(--zqz-line);
     background: #fff;
-    font-family: var(--ff-inter, Inter, sans-serif);
+    font-family: var(--ff-inter, "Inter Tight", sans-serif);
     font-size: 13px;
     font-weight: 500;
     color: #3F3F46;
@@ -260,7 +260,7 @@
     border-radius: 99px;
     background: var(--zqz-ink) !important;
     color: #fff !important;
-    font-family: var(--ff-inter, Inter, sans-serif);
+    font-family: var(--ff-inter, "Inter Tight", sans-serif);
     font-size: 15px;
     animation: zqzIn .4s cubic-bezier(.2, .7, .2, 1) both;
     transition: background-color .3s, color .3s;
@@ -273,7 +273,7 @@
 .zqz-badge { flex-shrink: 0; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--zqz-lime); color: #000; margin-top: 2px; }
 .zqz-badge svg { width: 18px; height: 18px; stroke-width: 2.4; }
 .zqz-result { font-size: 30px; line-height: 1.15; font-weight: 500; letter-spacing: -.02em; color: #000; outline: none; text-wrap: balance; }
-.zqz-text { margin-top: 14px; font-family: var(--ff-inter, Inter, sans-serif); font-size: 15px; line-height: 23px; color: #3F3F46; }
+.zqz-text { margin-top: 14px; font-family: var(--ff-inter, "Inter Tight", sans-serif); font-size: 15px; line-height: 23px; color: #3F3F46; }
 .zqz-result-head + .zqz-text { margin-top: 20px; }
 .zqz-text--you {
     margin-top: 20px;
@@ -298,7 +298,7 @@
     background: var(--zqz-ink);
     border: 1px solid var(--zqz-ink);
     color: #fff;
-    font-family: var(--ff-inter, Inter, sans-serif);
+    font-family: var(--ff-inter, "Inter Tight", sans-serif);
     font-size: 15px;
     line-height: 20px;
     overflow: hidden;
@@ -318,7 +318,7 @@
 .zqz-btn:hover { background: var(--zqz-lime); color: #000; }
 .zqz-btn:hover .zqz-btn-label, .zqz-btn:hover > svg { transform: translateY(-160%); opacity: 0; }
 .zqz-btn:hover .zqz-btn-swap { transform: none; opacity: 1; }
-.zqz-again { font-family: var(--ff-inter, Inter, sans-serif); font-size: 14px; color: #3F3F46 !important; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #CFCFC8; transition: color .3s, text-decoration-color .3s; }
+.zqz-again { font-family: var(--ff-inter, "Inter Tight", sans-serif); font-size: 14px; color: #3F3F46 !important; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #CFCFC8; transition: color .3s, text-decoration-color .3s; }
 .zqz-again:hover { color: #000 !important; text-decoration-color: #000; }
 
 /* ── sizes ── */
