@@ -1,0 +1,232 @@
+/* ==========================================================
+   Набор деталей (kit) — 01.10.2026
+   Один набор деталей на весь сайт, чтобы блоки собирались из одного
+   «конструктора». Композиция каждого блока остаётся своей,
+   меняются только детали.
+
+   Детали:
+   1. Вход в блок   — отступ секции 80 / 64 / 48, шапка у края контейнера,
+                      от шапки до содержимого 48 / 32 / 24.
+   2. Метка         — круг 32 px: ✕ контурный, ✓ лаймовый.
+   3. Шапка колонки — метка + заголовок 20/26 + подпись 14/20.
+   4. Строка        — метка + заголовок 20/26 + текст 14/21, разделитель 1 px.
+   5. Тег           — пилюля 12 px с тонкой рамкой.
+   6. Карточка      — радиус 12, рамка 1 px: светлая #fff / #ECEBE6,
+                      тёмная #141414 / #262626.
+   7. Кнопка        — 46 px, пилюля (system.css); круглая кнопка-стрелка 46 px.
+
+   На наборе собраны все блоки страницы, кроме первого экрана и подвала.
+   ========================================================== */
+
+:root{
+  --k-card-r:12px;
+  --k-line-l:#E4E2DA;          /* разделитель на светлом */
+  --k-line-d:#2A2A2A;          /* разделитель на тёмном */
+  --k-ink-l:#0B0B0B;
+  --k-ink-l-2:#5B5454;
+  --k-mute-l:#6F6868;
+  --k-ink-d:#FFFFFF;
+  --k-ink-d-2:#D4D4D8;
+  --k-mute-d:#8F8F8F;
+  --k-head-gap:48px;
+}
+@media (max-width:991px){:root{--k-head-gap:32px}}
+@media (max-width:575px){:root{--k-head-gap:24px}}
+
+/* ---------- 1. Вход в блок ---------- */
+#loss .zg-head{margin-bottom:var(--k-head-gap)}
+#rent .zsb-head{padding-bottom:var(--k-head-gap)}
+#gain.zcr{padding:80px 0}
+#gain .zcr-head{padding:0 0 var(--k-head-gap)}
+#gain .zcr-title{color:var(--k-ink-l)}
+@media (max-width:991px){#gain.zcr{padding:64px 0}}
+@media (max-width:575px){#gain.zcr{padding:48px 0}}
+
+/* ---------- 2. Метка: круг 32 px ---------- */
+.zg-marker,.zsb-mark,.zsb-icon{
+  flex:none;display:grid;place-items:center;width:32px;height:32px;margin-top:-3px;
+  border-radius:50%;border:1px solid;transition:background-color .3s,border-color .3s,color .3s
+}
+.zg-marker svg,.zsb-mark svg,.zsb-icon svg{width:14px;height:14px}
+.zsb-icon{margin-top:0}
+/* ✕ на светлом */
+.zg-marker{background:transparent;border-color:#C9C6BC;color:var(--k-ink-l-2)}
+/* ✕ на тёмном */
+.zsb-them .zsb-mark,.zsb-them .zsb-icon{background:transparent;border-color:#3A3A3A;color:var(--k-mute-d)}
+/* ✓ — всегда лаймовый */
+.zg-item.is-after .zg-marker,
+.zg-chip.is-after .zg-marker,
+.zsb-own .zsb-mark,.zsb-own .zsb-icon,
+.zsb-own:hover .zsb-mark{background:var(--primary);border-color:var(--primary);color:#0B0B0B}
+
+/* ---------- 3–4. Сравнение: одна деталь для #loss (светлая) и #rent (тёмная) ----------
+   Карточка радиус 12 с внутренними линиями 1 px; слева колонка «без сайта»
+   (приглушённая), справа «со своим сайтом»; первая строка — шапки колонок. */
+#loss .zg-grid{grid-template-columns:repeat(3,1fr);column-gap:56px;row-gap:0;align-items:start}
+#loss .zg-aside{grid-row:1}
+#loss .zg-compare{
+  grid-column:2/4;display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--k-line-l);border:1px solid var(--k-line-l);border-radius:var(--k-card-r);overflow:hidden
+}
+#loss .zg-chip,#loss .zg-item{
+  justify-self:stretch;align-self:stretch;margin:0;padding:28px;border:0;border-radius:0;min-height:0
+}
+#loss .zg-chip.is-before,#loss .zg-item.is-before{grid-column:1;background:#F3F2EC}
+#loss .zg-chip.is-after,#loss .zg-item.is-after{grid-column:2;background:#FFFFFF}
+#loss .zg-chip{display:flex;align-items:center;gap:16px;padding-top:24px;padding-bottom:24px;color:var(--k-ink-l);font-size:inherit;letter-spacing:0}
+#loss .zg-chip .zg-marker{margin-top:0}
+#loss .zg-item{gap:16px}
+.k-colhead-t,.zsb-col-title{font-family:var(--ff-tight);font-size:20px;line-height:26px;font-weight:500;letter-spacing:-.01em}
+.k-colhead-s,.zsb-col-sub{margin-top:2px;font-family:var(--ff-tight);font-size:14px;line-height:20px;font-weight:400}
+.k-colhead-s{color:var(--k-mute-l)}
+#loss .zg-chip.is-before .k-colhead-t{color:var(--k-ink-l-2)}
+
+@media (max-width:1279px){
+  #loss .zg-grid{display:flex;flex-direction:column}
+  #loss .zg-compare{order:0;width:100%}
+  #loss .zg-aside{order:1;margin-top:48px;position:static}
+}
+@media (max-width:768px){
+  #loss .zg-compare{display:flex;flex-direction:column}
+  #loss .zg-chip.is-before{order:1}
+  #loss .zg-item.is-before{order:2}
+  #loss .zg-chip.is-after{order:3;margin-top:0}
+  #loss .zg-item.is-after{order:4}
+  #loss .zg-chip,#loss .zg-item{padding:20px}
+}
+
+/* ---------- 4. Строка (общая типографика) ---------- */
+.zg-item h3,.zsb-point-title{font-family:var(--ff-tight);font-size:20px;line-height:26px;font-weight:500;letter-spacing:-.01em}
+.zg-item p,.zsb-point-text{margin-top:8px;font-family:var(--ff-tight);font-size:14px;line-height:21px}
+.zg-item p{color:var(--k-mute-l)}
+.zsb-point{gap:16px}
+
+/* ---------- 5. Тег ---------- */
+.zcr-pill,.zsb-hero-label{
+  display:inline-block;max-width:fit-content;padding:5px 12px;border-radius:99999px;
+  font-family:var(--ff-tight);font-size:12px;line-height:16px;font-weight:400;letter-spacing:0;text-transform:none
+}
+.zcr-pill{border:1px solid var(--k-line-l);background:transparent;color:#3F3F46}
+.zsb-hero-label{border:1px solid #0B0B0B;background:#0B0B0B;color:var(--primary)}
+
+/* ---------- 6. Карточка ---------- */
+#gain .zcr-card{border:1px solid #ECEBE6;border-radius:var(--k-card-r);background:#fff}
+#rent .zsb-bento{border-radius:var(--k-card-r)}
+#rent .zsb-cell{padding:28px}
+#rent .zsb-col{padding-top:24px;padding-bottom:24px}
+
+/* ---------- 7. Кнопки ---------- */
+#rent .zsb-btn{background:#0B0B0B;color:#fff}
+#rent .zsb-btn:hover{background:#000}
+.zcr .zcr-nav{width:46px;height:46px;border-color:#D6D4CC;color:#3F3F46}
+.zcr .zcr-edge{margin-top:-23px}
+
+/* ✓ в итоге слайда — та же лаймовая метка, только меньше */
+.zcr-kick{align-items:flex-start;gap:12px;font-family:var(--ff-tight);font-size:14px;line-height:20px}
+.zcr-kick::before{
+  content:"";flex:none;width:20px;height:20px;margin-top:0;border-radius:50%;
+  background:var(--primary) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M11.67 3.5L5.25 9.92L2.33 7' fill='none' stroke='%230B0B0B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat
+}
+
+/* текст слайда: те же пропорции, что у строки, только крупнее — это главная карточка блока */
+.zcr-h3{font-size:28px;line-height:34px;font-weight:500;letter-spacing:-.01em;margin:20px 0 16px}
+.zcr-lead{font-size:16px;line-height:24px}
+
+/* ---------- Декор: не больше двух-трёх объектов на страницу ---------- */
+#rent .zsb-bubble{display:none}
+
+
+/* ==========================================================
+   Остальные блоки на тех же деталях
+   ========================================================== */
+
+/* ---------- Шапка по центру: одна ширина у всех ---------- */
+.head-center,.sc-head,.sf-head{max-width:760px;margin-left:auto;margin-right:auto;text-align:center}
+.head-center .lead,.k-head .lead{max-width:600px;margin-left:auto;margin-right:auto;font-size:16px;line-height:24px;margin-top:16px}
+.k-head .lead{margin-left:0}
+.k-head{max-width:760px;margin-bottom:var(--k-head-gap)}
+.section--light .lead{color:var(--ink-muted)}
+
+/* ---------- От шапки до содержимого — одинаково ---------- */
+#fork .fork-chart,#vs .sc-grid,#how .process,#why .why-grid,#shift .sf{margin-top:var(--k-head-gap)}
+#money .est-head{margin-bottom:var(--k-head-gap)}
+
+/* ---------- Карточка: тёмная ---------- */
+.pit-card,.fork-chart,.why-card,.pv-card,.sc-box,.last-stats div,.mini-mock{
+  border-radius:var(--k-card-r);border:1px solid var(--surface-line);background:var(--surface);backdrop-filter:none
+}
+.pit-card{padding:24px}
+.why-card{padding:32px}
+.pv-card{background:var(--surface)}
+.sc-box{border-style:solid}
+.fork-panel[data-panel="up"] .pit-card{border-color:rgba(243,254,0,.35)}
+.pit-card:hover,.why-card:hover{border-color:var(--primary)}
+
+/* ---------- Карточка: светлая ---------- */
+.insight-card,.gets li{border-radius:var(--k-card-r);border:1px solid #ECEBE6;background:#fff}
+.contact-card{border-radius:var(--k-card-r);border:1px solid #ECEBE6}
+.contact-side{background:#fff}
+.form-side{background:var(--surface)}
+
+/* ---------- Большие панели и кадры — тот же радиус 12 ---------- */
+.zqz-panel,.zqz-card,.est-card,.sc-thumb,.sf-shot,.est-inputs,.est-total,.est-tiles{border-radius:var(--k-card-r)}
+.est-card{border:1px solid var(--surface-line);background:var(--surface)}
+
+/* ---------- Квиз: шапка над панелью, как у всех ---------- */
+#check .zqz-head{max-width:760px;margin-bottom:var(--k-head-gap)}
+#check .zqz-head .eyebrow{margin-bottom:12px}
+#check .zqz-title{margin:0;max-width:760px;color:#fff}
+#check .zqz-desc{margin-top:16px;color:var(--gray-100);font-size:16px;line-height:24px}
+#check .zqz-dots{margin-top:0}
+#check .zqz-intro{padding-top:0}
+#check .zqz-panel{align-items:center}
+
+/* ---------- Форма заявки: шапка над карточкой, заголовок формы — заголовок карточки ---------- */
+#start .form-side h2{font-size:28px;line-height:34px;font-weight:500;letter-spacing:-.01em;margin-top:0}
+#start .contact-side{padding:44px}
+#start .form-side{padding:44px 48px}
+#start .gets{margin-top:0}
+.gets li b{width:32px;height:32px;font-size:14px}
+
+/* ---------- Финальный блок: без рамки, шапка на фоне секции ---------- */
+.last-box{padding:0;border:0;border-radius:0;background:none;overflow:visible}
+.last-box::before{display:none}
+.last-stats{margin-top:var(--k-head-gap)}
+
+/* ---------- Теги ---------- */
+.tag,.step li,.est-badge,.step h4 em{
+  display:inline-block;padding:5px 12px;border-radius:99999px;font-family:var(--ff-tight);font-size:12px;line-height:16px;letter-spacing:0
+}
+.tag{border:1px solid #ECEBE6;color:#3F3F46}
+.step li{border:1px solid var(--k-line-d);color:#8F8F8F}
+.step.active li{border-color:#3A3A3A;color:#D4D4D8}
+.step h4 em{background:var(--primary);color:#0B0B0B;margin-left:8px;text-transform:uppercase;letter-spacing:.04em}
+.est-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 5px;font-size:14px;line-height:20px;border:1px solid var(--surface-line);background:var(--surface)}
+.est-badge i{width:24px;height:24px;border-radius:50%}
+
+/* ---------- Метки ---------- */
+.insight-body .take{gap:12px;align-items:flex-start}
+.insight-body .take::before{
+  width:20px;height:20px;margin-top:0;box-shadow:none;border-radius:50%;
+  background:var(--primary) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M11.67 3.5L5.25 9.92L2.33 7' fill='none' stroke='%230B0B0B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat
+}
+
+/* ---------- Декор: остаются звезда и пузырь первого экрана и звезда баннера ---------- */
+.pv-card::before{display:none}
+
+/* ---------- Адаптив ---------- */
+@media (max-width:1100px){
+  #start .contact-side,#start .form-side{padding:32px}
+}
+@media (max-width:991px){
+  #check.zqz{padding:64px 0}
+  #check .zqz-intro{display:none}
+  #check .zqz-panel{padding:32px}
+}
+@media (max-width:575px){
+  #start .contact-side,#start .form-side{padding:24px 20px}
+  #check.zqz{padding:48px 0}
+  #check .zqz-panel{padding:12px}
+  .why-card{padding:24px}
+  .pit-card{padding:20px}
+}

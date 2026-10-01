@@ -1,0 +1,138 @@
+/* ==========================================================
+   Единая система, v2 (01.10.2026)
+   Принцип: одинаковые ПРАВИЛА, а не одинаковые размеры.
+   Общее между блоками — шрифт, цвета, кнопки, радиусы, стиль заголовков.
+   Пропорции внутри блока — свои у каждого (как было задумано в блоке).
+
+   1. Один шрифт: Inter Tight (Geologica и Inter убраны).
+   2. Заголовки блоков — два уровня одного стиля (500, трекинг −0,02em):
+        крупный 56/60 — для плотных блоков: #loss, #check, #money;
+        обычный 36/40 — для остальных.
+   3. Крупные цифры — два уровня: 64 (главные цифры блока), 48 (второстепенные).
+      Соседние уровни текста внутри блока отличаются минимум в 1,4 раза.
+   4. Декоративное (контурные номера, подложки) — фон, а не текст, шкала их не касается.
+   5. Фоны: не больше двух тёмных подряд, все светлые — один кремовый #FAF9F4.
+   6. Жёлтый: одна точка фокуса на блок. Большая заливка — только
+      колонка «Свой сайт» (#rent) и баннер «Понравился сайт?» (#same).
+   7. Одна кнопка: 46 px, пилюля, 14 px. Радиусы: 8 · 12 · 24 · пилюля.
+   ========================================================== */
+
+:root{
+  --ff-geo:var(--ff-tight);
+  --ff-inter:var(--ff-tight);
+  --r-s:8px;
+  --r-m:12px;
+  --r-l:24px;
+  --r-pill:99999px;
+  --surface:#141414;
+  --surface-line:#262626;
+  --glow:rgba(243,254,0,.14);
+}
+
+/* ---------- 1. Шрифт ---------- */
+.zcr,.zsb,.zqz{font-family:var(--ff-tight)}
+.hero-title{font-family:var(--ff-tight);font-weight:800;letter-spacing:-.01em}
+.no-code{right:-52px;top:4px}
+
+/* ---------- 2. Заголовки блоков: два уровня одного стиля ---------- */
+.h2,.zcr-title,.zsb-title,.yb-text h2,.form-side h2{
+  font-family:var(--ff-tight);font-size:36px;line-height:40px;font-weight:500;letter-spacing:-.02em
+}
+.zg-title,.zqz-title,.est-title{
+  font-family:var(--ff-tight);font-size:56px;line-height:60px;font-weight:500;letter-spacing:-.02em
+}
+.zcr-title{max-width:760px}
+.zqz-title{text-wrap:balance}
+
+/* ---------- 3. Крупные цифры: 64 и 48 ----------
+   64 — главные цифры блока (.stat b, .pv-title, .est-total-sum) — уже так в style.css;
+   48 — второстепенные: значения в полях калькулятора */
+.est-value input{font-size:48px}
+@media (max-width:1204px){.est-value input{font-size:40px}}
+@media (max-width:768px){.est-value input{font-size:34px}}
+
+/* подзаголовки карточек: заметный шаг над текстом (≥ 1,4×) */
+.pit-card h3{font-size:20px;line-height:26px}
+.insight-body h3{font-size:22px;line-height:28px;font-weight:500}
+
+/* ---------- 4. Декоративные номера «Почему я?» — фон ---------- */
+.why-card .big{font-family:var(--ff-tight);font-weight:800}
+
+/* ---------- 7. Кнопки: один компонент ---------- */
+.btn{font-family:var(--ff-tight);height:46px;padding:12px 24px;font-size:14px;font-weight:400}
+.btn--soft{height:46px;padding:12px 24px}
+.zsb-btn{
+  height:46px;gap:8px;padding:12px 24px;border-radius:var(--r-pill);
+  font-family:var(--ff-tight);font-size:14px;line-height:20px;font-weight:400
+}
+.zsb-btn span{width:auto;height:auto;background:none;color:inherit}
+.zsb-btn svg{width:14px;height:14px}
+.zcr .zcr-tab{height:46px;padding:12px 20px;font-size:14px;font-weight:400}
+.zqz-dot{min-height:46px}
+
+/* ---------- 7. Радиусы ---------- */
+.zg-chip{border-radius:var(--r-pill)}
+.zsb-hero-label,.est-badge,.logo small,.step h4 em,.trusted-craft .shield{border-radius:var(--r-s)}
+.zqz-opt,.est-inputs,.est-total,.est-tiles,.est-ico{border-radius:var(--r-m)}
+.zsb-bento,.zqz-panel,.est-card,.contact-card{border-radius:var(--r-l)}
+.zcr-dots{border-radius:var(--r-pill)}
+
+/* ==========================================================
+   5–6. Фоны и жёлтый по блокам
+   Порядок: тёмный (первый экран, видео, #fork) → светлый #loss → тёмный #rent →
+   светлый #gain → тёмный #check → светлый #fit → тёмные #vs, #how →
+   светлый #money → тёмный #why → жёлтый #same → тёмный #shift →
+   светлый #start → тёмный #last
+   ========================================================== */
+
+/* «Что даёт сайт» (#gain): белый → кремовый, карточка слайда белая */
+#gain.zcr{--zcr-bg:var(--light);--zcr-pane:#fff}
+
+/* Квиз (#check): лаймовая панель → тёмная; яркая точка — активный шаг */
+#check .zqz-panel{
+  background:radial-gradient(40% 60% at 0% 0%,var(--glow) 0%,transparent 70%),var(--surface);
+  border:1px solid var(--surface-line)
+}
+#check .zqz-glow{background:radial-gradient(circle,rgba(243,254,0,.06) 0%,transparent 65%)}
+#check .zqz-eyebrow{background:rgba(255,255,255,.06);border:1px solid var(--surface-line);color:#fff}
+#check .zqz-title{color:#fff}
+#check .zqz-desc{color:var(--gray-100)}
+#check .zqz-dot{background:rgba(255,255,255,.03);border-color:var(--surface-line);color:var(--gray-200)}
+#check .zqz-dot-a{color:var(--gray-300)}
+#check .zqz-dot-i{border-color:#3C3C3C}
+#check .zqz-dot.is-done{background:rgba(255,255,255,.06);color:#fff}
+#check .zqz-dot.is-done .zqz-dot-a{color:var(--gray-200)}
+#check .zqz-dot.is-done .zqz-dot-i{background:var(--primary);border-color:var(--primary);color:#000}
+#check .zqz-dot:not(:disabled):hover{border-color:#fff}
+#check .zqz-dot.is-active{background:var(--primary);border-color:var(--primary);color:#000}
+#check .zqz-dot.is-active .zqz-dot-a{color:rgba(0,0,0,.6)}
+#check .zqz-dot.is-active .zqz-dot-i{border-color:#000}
+#check .zqz-dot.is-active.is-done .zqz-dot-i{background:#000;border-color:#000;color:var(--primary)}
+#check .zqz-card{box-shadow:0 40px 80px -32px rgba(0,0,0,.6)}
+
+/* «Какому бизнесу подойдёт» (#fit): превью одного нейтрального тона, без фиолетового и жёлтых заливок */
+#fit .insight-thumb{background:radial-gradient(90% 120% at 30% 0%,#FFFFFF 0%,#F1F0EA 60%,#E9E7DF 100%)}
+
+/* «До и после» (#shift): жёлтая подложка → тёмная с лаймовым отсветом и рамкой */
+.sf-col.is-after .sf-shot{
+  background:radial-gradient(70% 70% at 50% 100%,rgba(243,254,0,.22) 0%,transparent 70%),var(--surface);
+  box-shadow:inset 0 0 0 1px rgba(243,254,0,.45)
+}
+.sf-col.is-before .sf-shot{background:var(--surface);box-shadow:inset 0 0 0 1px var(--surface-line)}
+
+/* Голосовое: фон страницы, отделено линией */
+.voice{background:var(--bg);border-top:1px solid var(--surface-line)}
+
+/* ==========================================================
+   Адаптив: те же два уровня, на шаг меньше
+   ========================================================== */
+@media (max-width:1279px){
+  .zg-title,.zqz-title,.est-title{font-size:48px;line-height:52px}
+}
+@media (max-width:991px){
+  .zg-title,.zqz-title,.est-title{font-size:44px;line-height:48px}
+}
+@media (max-width:575px){
+  .h2,.zcr-title,.zsb-title,.yb-text h2,.form-side h2{font-size:28px;line-height:34px}
+  .zg-title,.zqz-title,.est-title{font-size:34px;line-height:38px}
+}
