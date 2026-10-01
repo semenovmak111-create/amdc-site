@@ -1,16 +1,20 @@
 /* ==========================================================
-   Единая система (01.10.2026)
-   Подключается последним и приводит все блоки к одним правилам,
-   как у референса zeeframes.com:
+   Единая система, v2 (01.10.2026)
+   Принцип: одинаковые ПРАВИЛА, а не одинаковые размеры.
+   Общее между блоками — шрифт, цвета, кнопки, радиусы, стиль заголовков.
+   Пропорции внутри блока — свои у каждого (как было задумано в блоке).
+
    1. Один шрифт: Inter Tight (Geologica и Inter убраны).
-   2. Шкала кеглей: 12 · 14 · 16 · 18 · 20 · 24 · 28 · 36 · 48 · 72.
-      Заголовок блока — всегда 36/40, 500. Цифры-акценты — 48, 600.
-      72 — только первый экран. Исключение — «Под ключ.» в подвале.
-   3. Фоны: основа тёмная, светлые «главы» — #loss, #money, #start.
-   4. Жёлтый — только акцент: кнопки, выделение, галочки,
-      баннер «Понравился сайт?». Больших жёлтых заливок нет.
-   5. Одна кнопка: 46 px, пилюля, 14 px. Варианты — только цвет.
-   6. Радиусы: 8 · 12 · 24 · пилюля.
+   2. Заголовки блоков — два уровня одного стиля (500, трекинг −0,02em):
+        крупный 56/60 — для плотных блоков: #loss, #check, #money;
+        обычный 36/40 — для остальных.
+   3. Крупные цифры — два уровня: 64 (главные цифры блока), 48 (второстепенные).
+      Соседние уровни текста внутри блока отличаются минимум в 1,4 раза.
+   4. Декоративное (контурные номера, подложки) — фон, а не текст, шкала их не касается.
+   5. Фоны: не больше двух тёмных подряд, все светлые — один кремовый #FAF9F4.
+   6. Жёлтый: одна точка фокуса на блок. Большая заливка — только
+      колонка «Свой сайт» (#rent) и баннер «Понравился сайт?» (#same).
+   7. Одна кнопка: 46 px, пилюля, 14 px. Радиусы: 8 · 12 · 24 · пилюля.
    ========================================================== */
 
 :root{
@@ -20,125 +24,71 @@
   --r-m:12px;
   --r-l:24px;
   --r-pill:99999px;
-  --surface:#141414;          /* тёмная карточка на тёмном фоне */
+  --surface:#141414;
   --surface-line:#262626;
-  --glow:rgba(243,254,0,.14); /* лаймовый отсвет вместо заливки */
+  --glow:rgba(243,254,0,.14);
 }
 
 /* ---------- 1. Шрифт ---------- */
 .zcr,.zsb,.zqz{font-family:var(--ff-tight)}
-
-/* ---------- 2. Заголовки блоков: один размер ---------- */
-.h2,.zg-title,.zqz-title,.est-title,.zcr-title,.zsb-title,.yb-text h2,.form-side h2{
-  font-family:var(--ff-tight);font-size:36px;line-height:40px;font-weight:500;letter-spacing:-.01em
-}
-.zg-title{max-width:760px}
-.zqz-title{margin:24px 0 16px;text-wrap:balance}
-.contact-side h2{font-size:28px;line-height:34px;font-weight:500;letter-spacing:-.01em}
-
-/* первый экран: тот же шрифт, что и вся страница */
 .hero-title{font-family:var(--ff-tight);font-weight:800;letter-spacing:-.01em}
+.no-code{right:-52px;top:4px}
 
-/* ---------- Подзаголовки карточек: 20 и 24 ---------- */
-.pit-card h3,.zg-item h3,.insight-body h3,.zsb-point-title{font-size:20px;line-height:26px;font-weight:500;letter-spacing:-.01em}
-.zcr-h3,.why-card h3,.sf-title h3,.zsb-hero-title,.sc-card h3{font-size:24px;line-height:30px;font-weight:500;letter-spacing:-.01em}
-.zsb-hero-title{font-size:36px;line-height:40px}
-
-/* ---------- Цифры-акценты: один стиль, 48 ---------- */
-.stat b,.stats--aside .stat b,.pv-title,.est-total-sum,.est-total-sum.is-long{
-  font-family:var(--ff-tight);font-size:48px;line-height:1;font-weight:600;letter-spacing:-.02em
+/* ---------- 2. Заголовки блоков: два уровня одного стиля ---------- */
+.h2,.zcr-title,.zsb-title,.yb-text h2,.form-side h2{
+  font-family:var(--ff-tight);font-size:36px;line-height:40px;font-weight:500;letter-spacing:-.02em
 }
-.est-value input{font-size:36px}
-.why-card .big{font-family:var(--ff-tight);font-size:48px;font-weight:600;top:28px;right:32px;letter-spacing:-.02em}
-.why-card h3{max-width:80%}
+.zg-title,.zqz-title,.est-title{
+  font-family:var(--ff-tight);font-size:56px;line-height:60px;font-weight:500;letter-spacing:-.02em
+}
+.zcr-title{max-width:760px}
+.zqz-title{text-wrap:balance}
 
-/* ---------- Основной текст: 16, подписи: 14 ---------- */
-.pit-card p,.zg-item p,.insight-body p,.why-card p,.why-card .take,.stat>span,
-.zsb-point-text,.zsb-hero-text,.zqz-dot,.zqz-opt,.zcr-lead,.sc-box p,.step p,.est-desc{font-size:16px;line-height:24px}
-.zsb-hero-text{font-weight:400}
-.pit-card .n,.tag,.zcr-pill,.zqz-dot-n{font-size:12px}
-.zqz-eyebrow,.zqz-count,.zqz-dot-a,.zqz-key,.est-badge,.player time{font-size:14px}
-.zg-chip{font-size:16px}
-.voice-who p{font-size:20px;line-height:30px}
+/* ---------- 3. Крупные цифры: 64 и 48 ----------
+   64 — главные цифры блока (.stat b, .pv-title, .est-total-sum) — уже так в style.css;
+   48 — второстепенные: значения в полях калькулятора */
+.est-value input{font-size:48px}
+@media (max-width:1204px){.est-value input{font-size:40px}}
+@media (max-width:768px){.est-value input{font-size:34px}}
 
-/* ---------- Мелкие подписи — тоже по шкале ---------- */
-.logo{font-size:20px}
-.logo small,.m-item small,.trusted-craft small{font-size:12px}
-.header-phone{font-size:14px}
-.fork-legend span,.step h4,.step ul li,.pv-day,.consent span,.form-foot span,
-.last-stats span,.footer-bottom span,.footer-bottom a{font-size:14px}
-.pv-days div{font-size:12px}
-.pv-meta b,.est-tile b,.last-stats b{font-size:20px}
-.est-label,.est-lines li span,.contact-side .lead,.form-side .lead,.gets li strong{font-size:16px}
-.mini-mock small,.contact-side small{font-size:12px}
-.logo small,.step h4 em,.trusted-craft .shield{border-radius:var(--r-s)}
-.est-inputs,.est-total,.est-tiles,.est-ico{border-radius:var(--r-m)}
+/* подзаголовки карточек: заметный шаг над текстом (≥ 1,4×) */
+.pit-card h3{font-size:20px;line-height:26px}
+.insight-body h3{font-size:22px;line-height:28px;font-weight:500}
 
-/* ---------- 5. Кнопки: один компонент ---------- */
+/* ---------- 4. Декоративные номера «Почему я?» — фон ---------- */
+.why-card .big{font-family:var(--ff-tight);font-weight:800}
+
+/* ---------- 7. Кнопки: один компонент ---------- */
 .btn{font-family:var(--ff-tight);height:46px;padding:12px 24px;font-size:14px;font-weight:400}
 .btn--soft{height:46px;padding:12px 24px}
 .zsb-btn{
   height:46px;gap:8px;padding:12px 24px;border-radius:var(--r-pill);
-  background:var(--primary);color:#0D0D0D;font-family:var(--ff-tight);font-size:14px;line-height:20px;font-weight:400
+  font-family:var(--ff-tight);font-size:14px;line-height:20px;font-weight:400
 }
 .zsb-btn span{width:auto;height:auto;background:none;color:inherit}
 .zsb-btn svg{width:14px;height:14px}
 .zcr .zcr-tab{height:46px;padding:12px 20px;font-size:14px;font-weight:400}
 .zqz-dot{min-height:46px}
 
-/* ---------- 6. Радиусы ---------- */
+/* ---------- 7. Радиусы ---------- */
 .zg-chip{border-radius:var(--r-pill)}
-.zsb-hero-label,.est-badge{border-radius:var(--r-s)}
-.zsb-bento{border-radius:var(--r-l)}
-.zqz-panel,.est-card,.contact-card{border-radius:var(--r-l)}
-.zqz-opt{border-radius:var(--r-m)}
+.zsb-hero-label,.est-badge,.logo small,.step h4 em,.trusted-craft .shield{border-radius:var(--r-s)}
+.zqz-opt,.est-inputs,.est-total,.est-tiles,.est-ico{border-radius:var(--r-m)}
+.zsb-bento,.zqz-panel,.est-card,.contact-card{border-radius:var(--r-l)}
 .zcr-dots{border-radius:var(--r-pill)}
 
 /* ==========================================================
-   3–4. Фоны и жёлтый по блокам
+   5–6. Фоны и жёлтый по блокам
+   Порядок: тёмный (первый экран, видео, #fork) → светлый #loss → тёмный #rent →
+   светлый #gain → тёмный #check → светлый #fit → тёмные #vs, #how →
+   светлый #money → тёмный #why → жёлтый #same → тёмный #shift →
+   светлый #start → тёмный #last
    ========================================================== */
 
-/* «Что даёт сайт» (#gain): был белым — теперь тёмный, как соседние блоки */
-#gain.zcr{
-  --zcr-bg:var(--bg);
-  --zcr-pane:var(--surface);
-  --zcr-line:var(--surface-line);
-  --zcr-ink:#fff;
-  --zcr-ink-title:#fff;
-  --zcr-ink-2:var(--gray-100);
-  --zcr-ink-3:var(--gray-200);
-  --zcr-ink-4:var(--gray-300);
-  --zcr-focus:var(--primary);
-  padding-bottom:80px
-}
-#gain .zcr-head{padding:80px 0 48px}
-#gain .zcr-tab{background:transparent;border-color:var(--surface-line);color:var(--gray-100)}
-#gain .zcr-tab:hover{color:#fff;border-color:#fff}
-#gain .zcr-tab[aria-selected="true"]{background:#fff;border-color:#fff;color:#000}
-#gain .zcr-pill{background:transparent;border-color:var(--surface-line);color:var(--gray-100)}
-#gain .zcr-kick{color:#fff}
-#gain .zcr-frame{background:radial-gradient(90% 75% at 50% 30%,#232323 0%,#191919 55%,#121212 100%)}
-#gain .zcr-nav{border-color:#3C3C3C;color:var(--gray-100)}
-#gain .zcr-nav:hover{border-color:#fff;color:#fff}
-#gain .zcr-dots{background:#232323}
-#gain .zcr-dot{background:#484848}
-#gain .zcr-dot-fill{background:var(--primary)}
-/* иллюстрации-интерфейсы внутри карусели остаются светлыми карточками */
-#gain .zcr-art{
-  --zcr-pane:#FAF9F4;--zcr-line:#E4E4E7;--zcr-ink:#18181B;--zcr-ink-title:#27272A;
-  --zcr-ink-2:#3F3F46;--zcr-ink-3:#52525B;--zcr-ink-4:#71717A;color:var(--zcr-ink)
-}
+/* «Что даёт сайт» (#gain): белый → кремовый, карточка слайда белая */
+#gain.zcr{--zcr-bg:var(--light);--zcr-pane:#fff}
 
-/* «Чем сайт отличается» (#rent): лаймовая колонка → тёмная с лаймовым отсветом */
-#rent .zsb-cell--hero{
-  background:radial-gradient(120% 55% at 100% 100%,var(--glow) 0%,transparent 70%),var(--surface);
-  color:#fff;border-left:1px solid var(--surface-line)
-}
-#rent .zsb-hero-label{background:var(--primary);color:#0B0B0B}
-#rent .zsb-hero-title{color:#fff}
-#rent .zsb-hero-text{color:var(--gray-100)}
-
-/* Квиз (#check): лаймовая панель → тёмная панель, белая карточка вопроса */
+/* Квиз (#check): лаймовая панель → тёмная; яркая точка — активный шаг */
 #check .zqz-panel{
   background:radial-gradient(40% 60% at 0% 0%,var(--glow) 0%,transparent 70%),var(--surface);
   border:1px solid var(--surface-line)
@@ -154,23 +104,14 @@
 #check .zqz-dot.is-done .zqz-dot-a{color:var(--gray-200)}
 #check .zqz-dot.is-done .zqz-dot-i{background:var(--primary);border-color:var(--primary);color:#000}
 #check .zqz-dot:not(:disabled):hover{border-color:#fff}
-#check .zqz-dot.is-active{background:#fff;border-color:#fff;color:#000}
-#check .zqz-dot.is-active .zqz-dot-a{color:rgba(0,0,0,.55)}
+#check .zqz-dot.is-active{background:var(--primary);border-color:var(--primary);color:#000}
+#check .zqz-dot.is-active .zqz-dot-a{color:rgba(0,0,0,.6)}
 #check .zqz-dot.is-active .zqz-dot-i{border-color:#000}
 #check .zqz-dot.is-active.is-done .zqz-dot-i{background:#000;border-color:#000;color:var(--primary)}
 #check .zqz-card{box-shadow:0 40px 80px -32px rgba(0,0,0,.6)}
 
-/* «Какому бизнесу подойдёт» (#fit): был кремовым — теперь тёмный, карточки как у «Почему я?» */
-#fit .insight-card{background:var(--surface);border-color:var(--surface-line)}
-#fit .insight-card:hover{box-shadow:none;border-color:#3C3C3C}
-#fit .insight-thumb{background:radial-gradient(80% 120% at 30% 0%,#262626,#0E0E0E)}
-#fit .insight-body h3{color:#fff}
-#fit .insight-body p{color:var(--gray-200)}
-#fit .insight-body .take{color:#fff}
-#fit .insight-body .take::before{box-shadow:0 0 0 3px #3C3C3C}
-#fit .tag{border-color:var(--surface-line);color:var(--gray-100)}
-#fit .fit-note{border-color:#3C3C3C;color:var(--gray-100)}
-#fit .fit-note svg{color:#fff}
+/* «Какому бизнесу подойдёт» (#fit): превью одного нейтрального тона, без фиолетового и жёлтых заливок */
+#fit .insight-thumb{background:radial-gradient(90% 120% at 30% 0%,#FFFFFF 0%,#F1F0EA 60%,#E9E7DF 100%)}
 
 /* «До и после» (#shift): жёлтая подложка → тёмная с лаймовым отсветом и рамкой */
 .sf-col.is-after .sf-shot{
@@ -179,34 +120,19 @@
 }
 .sf-col.is-before .sf-shot{background:var(--surface);box-shadow:inset 0 0 0 1px var(--surface-line)}
 
-/* Голосовое: тот же фон, что у страницы, отделено линией */
+/* Голосовое: фон страницы, отделено линией */
 .voice{background:var(--bg);border-top:1px solid var(--surface-line)}
 
 /* ==========================================================
-   Адаптив: та же шкала, на шаг меньше
+   Адаптив: те же два уровня, на шаг меньше
    ========================================================== */
-@media (max-width:991px){
-  .h2,.zg-title,.zqz-title,.est-title,.zcr-title,.zsb-title,.yb-text h2,.form-side h2{font-size:32px;line-height:38px}
-  .zsb-hero-title{font-size:32px;line-height:38px}
-  .stat b,.stats--aside .stat b,.pv-title,.est-total-sum,.est-total-sum.is-long{font-size:44px}
+@media (max-width:1279px){
+  .zg-title,.zqz-title,.est-title{font-size:48px;line-height:52px}
 }
-@media (max-width:768px){
-  .stat b,.stats--aside .stat b,.est-total-sum,.est-total-sum.is-long{font-size:40px}
-  .pv-title{font-size:28px}
+@media (max-width:991px){
+  .zg-title,.zqz-title,.est-title{font-size:44px;line-height:48px}
 }
 @media (max-width:575px){
-  .h2,.zg-title,.zqz-title,.est-title,.zcr-title,.zsb-title,.yb-text h2,.form-side h2,.contact-side h2,.faq-side .h2{font-size:28px;line-height:34px}
-  .zsb-hero-title{font-size:28px;line-height:34px}
-  .zcr-h3,.why-card h3,.sf-title h3,.sc-card h3{font-size:20px;line-height:26px}
-  .pit-card h3,.zg-item h3,.insight-body h3,.zsb-point-title{font-size:18px;line-height:24px}
-  .why-card .big{font-size:36px;top:20px;right:20px}
-  .est-value input{font-size:28px}
-  .trusted-craft,.fork-switch button{font-size:14px}
-  .hero-sub,.zqz-desc{font-size:16px}
-  .zqz-q{font-size:24px}
-  .zqz-card,.pv-card{border-radius:var(--r-l)}
+  .h2,.zcr-title,.zsb-title,.yb-text h2,.form-side h2{font-size:28px;line-height:34px}
+  .zg-title,.zqz-title,.est-title{font-size:34px;line-height:38px}
 }
-
-/* правки после перехода на один шрифт */
-.no-code{right:-52px;top:4px}
-.zcr-title{max-width:760px}
