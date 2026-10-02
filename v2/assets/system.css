@@ -68,13 +68,12 @@
 .zsb-btn span{width:auto;height:auto;background:none;color:inherit}
 .zsb-btn svg{width:14px;height:14px}
 .zcr .zcr-tab{height:46px;padding:12px 20px;font-size:14px;font-weight:400}
-.zqz-dot{min-height:46px}
 
 /* ---------- 7. Радиусы ---------- */
 .zg-chip{border-radius:var(--r-pill)}
 .zsb-hero-label,.est-badge,.logo small,.step h4 em,.trusted-craft .shield{border-radius:var(--r-s)}
 .zqz-opt,.est-inputs,.est-total,.est-tiles,.est-ico{border-radius:var(--r-m)}
-.zsb-bento,.zqz-panel,.est-card,.contact-card{border-radius:var(--r-l)}
+.zsb-bento,.est-card,.contact-card{border-radius:var(--r-l)}
 .zcr-dots{border-radius:var(--r-pill)}
 
 /* ==========================================================
@@ -88,27 +87,7 @@
 /* «Что даёт сайт» (#gain): белый → кремовый, карточка слайда белая */
 #gain.zcr{--zcr-bg:var(--light);--zcr-pane:#fff}
 
-/* Квиз (#check): лаймовая панель → тёмная; яркая точка — активный шаг */
-#check .zqz-panel{
-  background:radial-gradient(40% 60% at 0% 0%,var(--glow) 0%,transparent 70%),var(--surface);
-  border:1px solid var(--surface-line)
-}
-#check .zqz-glow{background:radial-gradient(circle,rgba(243,254,0,.06) 0%,transparent 65%)}
-#check .zqz-eyebrow{background:rgba(255,255,255,.06);border:1px solid var(--surface-line);color:#fff}
-#check .zqz-title{color:#fff}
-#check .zqz-desc{color:var(--gray-100)}
-#check .zqz-dot{background:rgba(255,255,255,.03);border-color:var(--surface-line);color:var(--gray-200)}
-#check .zqz-dot-a{color:var(--gray-300)}
-#check .zqz-dot-i{border-color:#3C3C3C}
-#check .zqz-dot.is-done{background:rgba(255,255,255,.06);color:#fff}
-#check .zqz-dot.is-done .zqz-dot-a{color:var(--gray-200)}
-#check .zqz-dot.is-done .zqz-dot-i{background:var(--primary);border-color:var(--primary);color:#000}
-#check .zqz-dot:not(:disabled):hover{border-color:#fff}
-#check .zqz-dot.is-active{background:var(--primary);border-color:var(--primary);color:#000}
-#check .zqz-dot.is-active .zqz-dot-a{color:rgba(0,0,0,.6)}
-#check .zqz-dot.is-active .zqz-dot-i{border-color:#000}
-#check .zqz-dot.is-active.is-done .zqz-dot-i{background:#000;border-color:#000;color:var(--primary)}
-#check .zqz-card{box-shadow:0 40px 80px -32px rgba(0,0,0,.6)}
+/* Квиз (#check): тёмный блок, вся раскраска — в quiz.css (v7); жёлтый только у выбранного ответа, прогресса и кнопки итога */
 
 /* «Какому бизнесу подойдёт» (#fit): превью одного нейтрального тона, без фиолетового и жёлтых заливок */
 #fit .insight-thumb{background:radial-gradient(90% 120% at 30% 0%,#FFFFFF 0%,#F1F0EA 60%,#E9E7DF 100%)}
